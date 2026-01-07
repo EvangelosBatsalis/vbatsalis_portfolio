@@ -178,7 +178,7 @@ export default function Portfolio(): React.JSX.Element {
           }}
         >
           <p className="text-zinc-500 text-sm uppercase tracking-widest mb-4">
-            Coming Soon...
+            Coming Soon....
           </p>
           <div className="flex gap-6 justify-center">
             {contactLinks.map((link, idx) => (
