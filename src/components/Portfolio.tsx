@@ -39,7 +39,12 @@ export default function Portfolio(): React.JSX.Element {
     { icon: '🔧', label: 'Development', delay: '0.2s' },
   ];
 
-  const contactLinks: string[] = ['GitHub', 'LinkedIn', 'Email'];
+  // const contactLinks: string[] = ['GitHub', 'LinkedIn', 'Email'];
+  const contactLinks = [
+    { name: 'GitHub', url: 'https://github.com/' },
+    { name: 'LinkedIn', url: 'https://linkedin.com/' },
+    { name: 'Email', url: 'v.batsalis@gmail.com' },  
+  ];
 
   return (
     <div className="relative min-h-screen bg-zinc-950 overflow-hidden font-sans">
@@ -173,16 +178,18 @@ export default function Portfolio(): React.JSX.Element {
           }}
         >
           <p className="text-zinc-500 text-sm uppercase tracking-widest mb-4">
-            Coming Soon
+            Coming Soon...
           </p>
           <div className="flex gap-6 justify-center">
             {contactLinks.map((link, idx) => (
               <a
                 key={idx}
-                href="#"
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-zinc-600 hover:text-amber-500 transition-colors duration-300 text-sm font-medium tracking-wide uppercase"
               >
-                {link}
+                {link.name}
               </a>
             ))}
           </div>
