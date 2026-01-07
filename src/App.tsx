@@ -1,5 +1,9 @@
 import Portfolio from './components/Portfolio';
 
 export default function App() {
-  return <Portfolio />;
+  return 
+    <>
+    <title>vbatsalis_portfolio - DEPLOY c4b638a</title>
+    <Portfolio />;
+    </>
 }
