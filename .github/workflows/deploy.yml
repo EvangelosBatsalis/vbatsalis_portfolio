@@ -1,11 +1,35 @@
-name: Deploy vbatsalis.gr
+name: CI/CD Pipeline
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
+  # --- CI JOB: ΕΛΕΓΧΟΣ ΚΑΙ BUILD ---
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Ή την έκδοση που χρησιμοποιείς
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci # Το npm ci είναι πιο γρήγορο και αυστηρό από το npm install για CI
+
+      - name: Check TypeScript
+        run: npx tsc --noEmit # Ελέγχει για type errors χωρίς να παράγει αρχεία
+
+      - name: Next.js Build
+        run: npm run build # Εδώ το Next.js κάνει το βαρύ build. Αν αποτύχει εδώ, σταματάμε.
+
+  # --- CD JOB: DEPLOY ΣΤΟΝ SERVER ---
   deploy:
+    needs: build-and-test # ΠΡΟΣΟΧΗ: Τρέχει ΜΟΝΟ αν το build-and-test πετύχει
     runs-on: ubuntu-latest
     steps:
       - name: Deploy over SSH
