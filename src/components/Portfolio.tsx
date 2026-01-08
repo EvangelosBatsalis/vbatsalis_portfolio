@@ -80,7 +80,7 @@ export default function Portfolio(): React.JSX.Element {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900 border border-amber-500/30 backdrop-blur-sm">
             <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
             <span className="text-amber-500 text-sm font-medium tracking-wider uppercase">
-              Under Development
+              Under Development.
             </span>
           </div>
         </div>
