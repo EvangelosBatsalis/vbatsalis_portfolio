@@ -1,0 +1,12 @@
+
+A	.github/workflows/deploy.yml
+D	.github/workflows/azure-static-web-apps-mango-meadow-01757bd03.yml
+D	.github/workflows/deploy.yml
+D	.github/workflows/deploy.yml.bak.noCI
+M	.github/workflows/azure-static-web-apps-mango-meadow-01757bd03.yml
+A	.github/workflows/azure-static-web-apps-mango-meadow-01757bd03.yml
+M	.github/workflows/deploy.yml
+A	.github/workflows/deploy.yml.bak.noCI
+M	.github/workflows/deploy.yml
+A	.github/workflows/deploy.yml
+
