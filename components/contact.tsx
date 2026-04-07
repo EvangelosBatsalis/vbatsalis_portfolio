@@ -25,11 +25,11 @@ export function Contact() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12">
           <a
-            href="mailto:hello@vbatsalis.gr"
+            href="mailto:v.batsalis@gmail.com"
             className="flex items-center gap-3 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-colors text-gray-200"
           >
             <Mail className="w-5 h-5 text-yellow-500" />
-            <span>hello@vbatsalis.gr</span>
+            <span>v.batsalis@gmail.com</span>
           </a>
           <div className="flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-200">
             <MapPin className="w-5 h-5 text-yellow-500" />
@@ -39,13 +39,17 @@ export function Contact() {
 
         <div className="flex items-center justify-center gap-4">
           <a
-            href="#"
+            href="https://github.com/EvangelosBatsalis"
+            target="_blank"
+            rel="noopener noreferrer"
             className="p-3 bg-white/5 hover:bg-yellow-500 hover:text-black border border-white/10 rounded-full transition-all text-gray-400"
           >
             <Github className="w-5 h-5" />
           </a>
           <a
-            href="#"
+            href="https://www.linkedin.com/in/evangelos-batsalis/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="p-3 bg-white/5 hover:bg-yellow-500 hover:text-black border border-white/10 rounded-full transition-all text-gray-400"
           >
             <Linkedin className="w-5 h-5" />

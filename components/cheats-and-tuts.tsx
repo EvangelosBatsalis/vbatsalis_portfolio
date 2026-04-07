@@ -45,6 +45,13 @@ const cheatsheets = [
 
 export function CheatsAndTuts() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const categories = ["All", ...Array.from(new Set(cheatsheets.map(sheet => sheet.category)))];
+
+  const filteredSheets = activeCategory === "All" 
+    ? cheatsheets 
+    : cheatsheets.filter(sheet => sheet.category === activeCategory);
 
   return (
     <section id="cheats-and-tuts" className="scroll-mt-24">
@@ -88,41 +95,70 @@ export function CheatsAndTuts() {
             className="overflow-hidden"
           >
             <div className="pt-8 pb-4">
-              <div className="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory hide-scrollbar relative">
-                {cheatsheets.map((sheet, idx) => (
-                  <Link href={sheet.link} key={idx} target="_blank" rel="noopener noreferrer" className="snap-center shrink-0 w-[300px] sm:w-[350px]">
-                    <motion.div
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.1 }}
-                      className="h-full flex flex-col justify-between p-6 bg-[#0a0a0a] border border-white/5 rounded-2xl hover:border-yellow-500/50 hover:bg-white/[0.02] transition-all relative overflow-hidden group"
-                    >
-                      <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-[-10px] group-hover:translate-y-0 text-yellow-500/50">
-                        <ExternalLink className="w-5 h-5" />
-                      </div>
-                      
-                      <div className="relative z-10">
-                        <span className="text-[10px] font-mono text-yellow-500/80 uppercase tracking-wider bg-yellow-500/10 px-2 py-0.5 rounded-full mb-4 inline-block border border-yellow-500/20">
-                          {sheet.category}
-                        </span>
-                        
-                        <h3 className="text-xl font-medium text-gray-200 group-hover:text-yellow-400 transition-colors mb-2 leading-tight">
-                          {sheet.title}
-                        </h3>
-                        
-                        <p className="text-sm text-gray-400 leading-relaxed mt-3">
-                          {sheet.description}
-                        </p>
-                      </div>
-
-                      <div className="mt-8 pt-4 border-t border-white/5 group-hover:border-yellow-500/20 transition-colors">
-                        <span className="text-[11px] text-gray-500 font-mono tracking-widest uppercase">
-                          ADDED: {sheet.date}
-                        </span>
-                      </div>
-                    </motion.div>
-                  </Link>
+              {/* Category Filter Pills */}
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="flex flex-wrap items-center gap-3 mb-8"
+              >
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setActiveCategory(category)}
+                    className={`px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all duration-300 ${
+                      activeCategory === category
+                        ? "bg-yellow-500 text-black shadow-[0_0_15px_rgba(234,179,8,0.3)] font-bold"
+                        : "bg-[#111] text-gray-400 hover:bg-[#1a1a1a] hover:text-yellow-500 border border-white/5"
+                    }`}
+                  >
+                    {category}
+                  </button>
                 ))}
+              </motion.div>
+
+              <div className="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory hide-scrollbar relative">
+                <AnimatePresence mode="popLayout">
+                  {filteredSheets.map((sheet, idx) => (
+                    <motion.div
+                      key={sheet.title}
+                      layout
+                      initial={{ opacity: 0, scale: 0.9, filter: "blur(4px)" }}
+                      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, scale: 0.9, filter: "blur(4px)" }}
+                      transition={{ duration: 0.3, delay: idx * 0.05 }}
+                      className="snap-center shrink-0 w-[300px] sm:w-[350px]"
+                    >
+                      <Link href={sheet.link} target="_blank" rel="noopener noreferrer" className="block h-full cursor-pointer">
+                        <div className="h-full flex flex-col justify-between p-6 bg-[#0a0a0a] border border-white/5 rounded-2xl hover:border-yellow-500/50 hover:bg-white/[0.02] transition-colors relative overflow-hidden group">
+                          <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-[-10px] group-hover:translate-y-0 text-yellow-500/50">
+                            <ExternalLink className="w-5 h-5" />
+                          </div>
+                          
+                          <div className="relative z-10">
+                            <span className="text-[10px] font-mono text-yellow-500/80 uppercase tracking-wider bg-yellow-500/10 px-2 py-0.5 rounded-full mb-4 inline-block border border-yellow-500/20">
+                              {sheet.category}
+                            </span>
+                            
+                            <h3 className="text-xl font-medium text-gray-200 group-hover:text-yellow-400 transition-colors mb-2 leading-tight">
+                              {sheet.title}
+                            </h3>
+                            
+                            <p className="text-sm text-gray-400 leading-relaxed mt-3">
+                              {sheet.description}
+                            </p>
+                          </div>
+
+                          <div className="mt-8 pt-4 border-t border-white/5 group-hover:border-yellow-500/20 transition-colors">
+                            <span className="text-[11px] text-gray-500 font-mono tracking-widest uppercase">
+                              ADDED: {sheet.date}
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               </div>
             </div>
             
