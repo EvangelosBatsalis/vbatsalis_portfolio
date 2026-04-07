@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete React Native Visual Guide - Expanded</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 30px;
+            font-size: 1.3em;
+        }
+
+        .toc {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .toc h2 {
+            color: #667eea;
+            margin-bottom: 25px;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .toc-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s;
+        }
+
+        .toc-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .toc-item a {
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            margin: 35px 0 20px 0;
+            font-size: 1.6em;
+        }
+
+        .section h4 {
+            color: #555;
+            margin: 25px 0 15px 0;
+            font-size: 1.2em;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .demo-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .demo-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+
+        .demo-title {
+            font-weight: 700;
+            color: #495057;
+            margin-bottom: 12px;
+            font-size: 1.05em;
+        }
+
+        .code-label {
+            background: #2d3748;
+            color: #a0aec0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .visual-container {
+            background: white;
+            border: 3px dashed #cbd5e0;
+            border-radius: 12px;
+            padding: 15px;
+            min-height: 180px;
+            display: flex;
+        }
+
+        .box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            margin: 5px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1em;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .box-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .box-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .box-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .box-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .box-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .code-block .keyword { color: #c792ea; font-weight: 600; }
+        .code-block .string { color: #c3e88d; }
+        .code-block .function { color: #82aaff; }
+        .code-block .comment { color: #546e7a; font-style: italic; }
+        .code-block .prop { color: #f07178; }
+        .code-block .number { color: #f78c6c; }
+
+        .tip {
+            background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%);
+            border-left: 5px solid #1890ff;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(24, 144, 255, 0.2);
+        }
+
+        .tip::before {
+            content: "💡 ";
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #fff7e6 0%, #ffe7ba 100%);
+            border-left: 5px solid #fa8c16;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(250, 140, 22, 0.2);
+        }
+
+        .warning::before {
+            content: "⚠️ ";
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .best-practice {
+            background: linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%);
+            border-left: 5px solid #52c41a;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(82, 196, 26, 0.2);
+        }
+
+        .best-practice::before {
+            content: "✅ ";
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .interactive-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .control-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .control-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #2d3748;
+            font-size: 1em;
+        }
+
+        .control-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #cbd5e0;
+            border-radius: 10px;
+            background: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .control-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .playground {
+            background: white;
+            border: 4px solid #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            min-height: 350px;
+            display: flex;
+        }
+
+        .phone-mockup {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            border-radius: 40px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 30px auto;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 25px;
+            background: #1a202c;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .phone-screen {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 30px;
+            padding: 30px 20px;
+            min-height: 700px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .list-item {
+            background: white;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .list-item:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transform: translateX(5px);
+            transition: all 0.3s;
+        }
+
+        .loading-state {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .form-example {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .api-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .api-step {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            min-width: 150px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .api-arrow {
+            font-size: 2em;
+            color: #667eea;
+            font-weight: 900;
+        }
+
+        .inline-code {
+            background: #f1f3f5;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            color: #c7254e;
+            font-size: 0.92em;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 1.05em;
+        }
+
+        td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            margin-top: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .demo-grid { grid-template-columns: 1fr; }
+            .toc-grid { grid-template-columns: 1fr; }
+            .api-flow { flex-direction: column; gap: 20px; }
+            .api-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Complete React Native Visual Guide</h1>
+        <p class="subtitle">Comprehensive Visual Examples - Layouts, API, Lists, Forms & More!</p>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h2>📋 Περιεχόμενα</h2>
+            <div class="toc-grid">
+                <div class="toc-item"><a href="#flexbox">1. Flexbox Visual Guide</a></div>
+                <div class="toc-item"><a href="#components">2. Core Components</a></div>
+                <div class="toc-item"><a href="#typography">3. Text Styling & Typography</a></div>
+                <div class="toc-item"><a href="#layouts">4. Common Layouts</a></div>
+                <div class="toc-item"><a href="#lists">5. FlatList & Lists</a></div>
+                <div class="toc-item"><a href="#forms">6. Forms & Inputs</a></div>
+                <div class="toc-item"><a href="#api">7. API & Networking</a></div>
+                <div class="toc-item"><a href="#safearea">8. SafeAreaProvider</a></div>
+                <div class="toc-item"><a href="#complete">9. Complete App Example</a></div>
+            </div>
+        </div>
+
+        <!-- Section 1: Flexbox (Compact Version) -->
+        <div class="section" id="flexbox">
+            <h2>1. 📐 Flexbox Visual Guide</h2>
+            
+            <h3>flexDirection Examples</h3>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-title">Row →</div>
+                    <div class="code-label">flexDirection: 'row'</div>
+                    <div class="visual-container" style="flex-direction: row;">
+                        <div class="box box-1">1</div>
+                        <div class="box box-2">2</div>
+                        <div class="box box-3">3</div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Column ↓</div>
+                    <div class="code-label">flexDirection: 'column'</div>
+                    <div class="visual-container" style="flex-direction: column;">
+                        <div class="box box-1">1</div>
+                        <div class="box box-2">2</div>
+                        <div class="box box-3">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>justifyContent Examples</h3>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-title">Space Between</div>
+                    <div class="code-label">justifyContent: 'space-between'</div>
+                    <div class="visual-container" style="flex-direction: row; justify-content: space-between;">
+                        <div class="box box-1">1</div>
+                        <div class="box box-2">2</div>
+                        <div class="box box-3">3</div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Center</div>
+                    <div class="code-label">justifyContent: 'center'</div>
+                    <div class="visual-container" style="flex-direction: row; justify-content: center;">
+                        <div class="box box-1">1</div>
+                        <div class="box box-2">2</div>
+                        <div class="box box-3">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-section">
+                <h3 style="color: #667eea; margin-bottom: 20px;">🎮 Interactive Playground</h3>
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="flexDirection">flexDirection:</label>
+                        <select id="flexDirection" onchange="updatePlayground()">
+                            <option value="row">row</option>
+                            <option value="column">column</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="justifyContent">justifyContent:</label>
+                        <select id="justifyContent" onchange="updatePlayground()">
+                            <option value="flex-start">flex-start</option>
+                            <option value="center">center</option>
+                            <option value="space-between">space-between</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="playground" class="playground">
+                    <div class="box box-1">Box 1</div>
+                    <div class="box box-2">Box 2</div>
+                    <div class="box box-3">Box 3</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Core Components -->
+        <div class="section" id="components">
+            <h2>2. 🧱 Core Components Visual Examples</h2>
+
+            <h3>View Component - The Container</h3>
+            <p style="color: #666; margin-bottom: 20px;">Το View είναι το βασικό building block. Σαν το <span class="inline-code">&lt;div&gt;</span> στο HTML.</p>
+            
+            <div class="visual-container" style="flex-direction: column; padding: 20px; gap: 10px;">
+                <div class="box box-1" style="width: 100%; margin: 0;">View με backgroundColor</div>
+                <div class="box box-2" style="width: 80%; margin: 0;">View με width: 80%</div>
+                <div class="box box-3" style="width: 60%; margin: 0;">View με width: 60%</div>
+                <div class="box box-4" style="width: 40%; margin: 0;">View με width: 40%</div>
+            </div>
+
+            <div class="code-block">
+<span class="keyword">import</span> { <span class="function">View</span>, <span class="function">Text</span> } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+&lt;<span class="function">View</span> <span class="prop">style</span>={{
+  flex: <span class="number">1</span>,
+  backgroundColor: <span class="string">'#667eea'</span>,
+  padding: <span class="number">20</span>,
+  borderRadius: <span class="number">10</span>,
+}}&gt;
+  &lt;<span class="function">Text</span>&gt;Περιεχόμενο&lt;/<span class="function">Text</span>&gt;
+&lt;/<span class="function">View</span>&gt;
+            </div>
+
+            <h3>Text Component - Typography Sizes</h3>
+            <div class="visual-container" style="flex-direction: column; padding: 30px; gap: 15px; background: white;">
+                <div style="font-size: 32px; font-weight: 900; color: #667eea;">
+                    Heading 1 - 32px Bold
+                </div>
+                <div style="font-size: 24px; font-weight: 700; color: #764ba2;">
+                    Heading 2 - 24px Bold
+                </div>
+                <div style="font-size: 20px; font-weight: 600; color: #f093fb;">
+                    Heading 3 - 20px Semi-Bold
+                </div>
+                <div style="font-size: 16px; color: #333; line-height: 1.6;">
+                    Body Text - 16px Regular. This is the standard text size for readable paragraphs and content.
+                </div>
+                <div style="font-size: 14px; color: #666;">
+                    Small Text - 14px for secondary info
+                </div>
+                <div style="font-size: 12px; color: #999;">
+                    Caption - 12px for labels
+                </div>
+            </div>
+
+            <div class="code-block">
+<span class="keyword">import</span> { <span class="function">Text</span>, <span class="function">StyleSheet</span> } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+&lt;<span class="function">Text</span> <span class="prop">style</span>={styles.heading1}&gt;Heading 1&lt;/<span class="function">Text</span>&gt;
+&lt;<span class="function">Text</span> <span class="prop">style</span>={styles.body}&gt;Body text&lt;/<span class="function">Text</span>&gt;
+&lt;<span class="function">Text</span> <span class="prop">style</span>={styles.caption}&gt;Caption&lt;/<span class="function">Text</span>&gt;
+
+<span class="keyword">const</span> styles = <span class="function">StyleSheet</span>.<span class="function">create</span>({
+  heading1: {
+    fontSize: <span class="number">32</span>,
+    fontWeight: <span class="string">'900'</span>,
+    color: <span class="string">'#667eea'</span>,
+  },
+  body: {
+    fontSize: <span class="number">16</span>,
+    color: <span class="string">'#333'</span>,
+    lineHeight: <span class="number">24</span>,
+  },
+  caption: {
+    fontSize: <span class="number">12</span>,
+    color: <span class="string">'#999'</span>,
+  },
+});
+            </div>
+
+            <h3>TouchableOpacity - Buttons</h3>
+            <p style="color: #666; margin-bottom: 20px;">Το πιο συχνό component για buttons. Χρησιμοποίησε <span class="inline-code">activeOpacity={0.7}</span> για feedback.</p>
+            
+            <div class="visual-container" style="flex-direction: column; gap: 15px; padding: 25px;">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 15px 25px; border-radius: 12px; text-align: center; color: white; font-weight: 700; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); cursor: pointer;">
+                    Primary Button
+                </div>
+                <div style="background: white; border: 2px solid #667eea; padding: 15px 25px; border-radius: 12px; text-align: center; color: #667eea; font-weight: 700; cursor: pointer;">
+                    Secondary Button
+                </div>
+                <div style="background: #f8f9fa; padding: 15px 25px; border-radius: 12px; text-align: center; color: #999; font-weight: 700;">
+                    Disabled Button
+                </div>
+                <div style="background: linear-gradient(135deg, #ff4d4f 0%, #cf1322 100%); padding: 15px 25px; border-radius: 12px; text-align: center; color: white; font-weight: 700; box-shadow: 0 4px 15px rgba(255, 77, 79, 0.4); cursor: pointer;">
+                    Danger Button
+                </div>
+                <div style="background: transparent; padding: 15px 25px; border-radius: 12px; text-align: center; color: #667eea; font-weight: 700; cursor: pointer;">
+                    Text Button
+                </div>
+            </div>
+
+            <div class="code-block">
+<span class="keyword">import</span> { <span class="function">TouchableOpacity</span>, <span class="function">Text</span>, <span class="function">StyleSheet</span> } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="comment">// Primary Button</span>
+&lt;<span class="function">TouchableOpacity</span>
+  <span class="prop">style</span>={styles.primaryButton}
+  <span class="prop">onPress</span>={() =&gt; <span class="function">console</span>.<span class="function">log</span>(<span class="string">'Pressed!'</span>)}
+  <span class="prop">activeOpacity</span>={<span class="number">0.7</span>}
+&gt;
+  &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.primaryButtonText}&gt;Primary Button&lt;/<span class="function">Text</span>&gt;
+&lt;/<span class="function">TouchableOpacity</span>&gt;
+
+<span class="comment">// Secondary Button</span>
+&lt;<span class="function">TouchableOpacity</span>
+  <span class="prop">style</span>={styles.secondaryButton}
+  <span class="prop">onPress</span>={() =&gt; <span class="function">console</span>.<span class="function">log</span>(<span class="string">'Secondary'</span>)}
+&gt;
+  &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.secondaryButtonText}&gt;Secondary&lt;/<span class="function">Text</span>&gt;
+&lt;/<span class="function">TouchableOpacity</span>&gt;
+
+<span class="comment">// Disabled Button</span>
+&lt;<span class="function">TouchableOpacity</span>
+  <span class="prop">style</span>={styles.disabledButton}
+  <span class="prop">disabled</span>={<span class="string">true</span>}
+&gt;
+  &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.disabledButtonText}&gt;Disabled&lt;/<span class="function">Text</span>&gt;
+&lt;/<span class="function">TouchableOpacity</span>&gt;
+
+<span class="keyword">const</span> styles = <span class="function">StyleSheet</span>.<span class="function">create</span>({
+  primaryButton: {
+    backgroundColor: <span class="string">'#667eea'</span>,
+    padding: <span class="number">15</span>,
+    borderRadius: <span class="number">12</span>,
+    alignItems: <span class="string">'center'</span>,
+    shadowColor: <span class="string">'#667eea'</span>,
+    shadowOffset: { width: <span class="number">0</span>, height: <span class="number">4</span> },
+    shadowOpacity: <span class="number">0.4</span>,
+    shadowRadius: <span class="number">8</span>,
+    elevation: <span class="number">5</span>,
+  },
+  primaryButtonText: {
+    color: <span class="string">'white'</span>,
+    fontSize: <span class="number">16</span>,
+    fontWeight: <span class="string">'700'</span>,
+  },
+  secondaryButton: {
+    backgroundColor: <span class="string">'white'</span>,
+    borderWidth: <span class="number">2</span>,
+    borderColor: <span class="string">'#667eea'</span>,
+    padding: <span class="number">15</span>,
+    borderRadius: <span class="number">12</span>,
+    alignItems: <span class="string">'center'</span>,
+  },
+  secondaryButtonText: {
+    color: <span class="string">'#667eea'</span>,
+    fontSize: <span class="number">16</span>,
+    fontWeight: <span class="string">'700'</span>,
+  },
+  disabledButton: {
+    backgroundColor: <span class="string">'#f8f9fa'</span>,
+    padding: <span class="number">15</span>,
+    borderRadius: <span class="number">12</span>,
+    alignItems: <span class="string">'center'</span>,
+  },
+  disabledButtonText: {
+    color: <span class="string">'#999'</span>,
+    fontSize: <span class="number">16</span>,
+    fontWeight: <span class="string">'700'</span>,
+  },
+});
+            </div>
+
+            <h3>Image Component</h3>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-title">Cover (default)</div>
+                    <div class="code-label">resizeMode: 'cover'</div>
+                    <div style="width: 100%; height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 700;">
+                        Image Cover<br/>Γεμίζει το χώρο
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Contain</div>
+                    <div class="code-label">resizeMode: 'contain'</div>
+                    <div style="width: 100%; height: 200px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 700;">
+                        Image Contain<br/>Χωρά όλη η εικόνα
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Stretch</div>
+                    <div class="code-label">resizeMode: 'stretch'</div>
+                    <div style="width: 100%; height: 200px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 700;">
+                        Image Stretch<br/>Τεντώνει την εικόνα
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Center</div>
+                    <div class="code-label">resizeMode: 'center'</div>
+                    <div style="width: 100%; height: 200px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 700;">
+                        Image Center<br/>Κέντρο, χωρίς scale
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block">
+<span class="keyword">import</span> { <span class="function">Image</span> } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="comment">// Local Image</span>
+&lt;<span class="function">Image</span>
+  <span class="prop">source</span>={<span class="function">require</span>(<span class="string">'./assets/image.png'</span>)}
+  <span class="prop">style</span>={{ width: <span class="number">200</span>, height: <span class="number">200</span> }}
+  <span class="prop">resizeMode</span>=<span class="string">"cover"</span>
+/&gt;
+
+<span class="comment">// Remote Image</span>
+&lt;<span class="function">Image</span>
+  <span class="prop">source</span>={{ uri: <span class="string">'https://example.com/image.jpg'</span> }}
+  <span class="prop">style</span>={{ width: <span class="number">200</span>, height: <span class="number">200</span> }}
+  <span class="prop">resizeMode</span>=<span class="string">"contain"</span>
+/&gt;
+
+<span class="comment">// With Border Radius</span>
+&lt;<span class="function">Image</span>
+  <span class="prop">source</span>={<span class="function">require</span>(<span class="string">'./avatar.png'</span>)}
+  <span class="prop">style</span>={{
+    width: <span class="number">100</span>,
+    height: <span class="number">100</span>,
+    borderRadius: <span class="number">50</span>, <span class="comment">// Circle</span>
+  }}
+/&gt;
+            </div>
+
+            <h3>ScrollView vs FlatList</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>ScrollView</th>
+                        <th>FlatList</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Use Case</strong></td>
+                        <td>Μικρές λίστες (&lt;50 items)</td>
+                        <td>Μεγάλες λίστες (50+ items)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rendering</strong></td>
+                        <td>Όλα τα items μαζί</td>
+                        <td>Lazy loading (virtualized)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Performance</strong></td>
+                        <td>❌ Αργό για πολλά items</td>
+                        <td>✅ Γρήγορο για χιλιάδες items</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pull to Refresh</strong></td>
+                        <td>Manual setup</td>
+                        <td>✅ Built-in</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memory</strong></td>
+                        <td>❌ Όλα στη μνήμη</td>
+                        <td>✅ Μόνο τα visible items</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="code-block">
+<span class="keyword">import</span> { <span class="function">ScrollView</span> } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="comment">// ScrollView - Για static content</span>
+&lt;<span class="function">ScrollView</span>&gt;
+  &lt;<span class="function">View</span>&gt;&lt;<span class="function">Text</span>&gt;Item 1&lt;/<span class="function">Text</span>&gt;&lt;/<span class="function">View</span>&gt;
+  &lt;<span class="function">View</span>&gt;&lt;<span class="function">Text</span>&gt;Item 2&lt;/<span class="function">Text</span>&gt;&lt;/<span class="function">View</span>&gt;
+  &lt;<span class="function">View</span>&gt;&lt;<span class="function">Text</span>&gt;Item 3&lt;/<span class="function">Text</span>&gt;&lt;/<span class="function">View</span>&gt;
+&lt;/<span class="function">ScrollView</span>&gt;
+            </div>
+
+            <h3>Pressable vs TouchableOpacity</h3>
+            <div class="visual-container" style="flex-direction: column; gap: 15px; padding: 25px;">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 18px 25px; border-radius: 12px; text-align: center; color: white; font-weight: 700; cursor: pointer;">
+                    TouchableOpacity (Recommended ✓)
+                </div>
+                <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 18px 25px; border-radius: 12px; text-align: center; color: white; font-weight: 700; cursor: pointer;">
+                    Pressable (Modern Alternative)
+                </div>
+            </div>
+
+            <div class="code-block">
+<span class="keyword">import</span> { <span class="function">TouchableOpacity</span>, <span class="function">Pressable</span> } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="comment">// TouchableOpacity - Simple & Popular</span>
+&lt;<span class="function">TouchableOpacity</span>
+  <span class="prop">onPress</span>={() =&gt; {}}
+  <span class="prop">activeOpacity</span>={<span class="number">0.7</span>}
+&gt;
+  &lt;<span class="function">Text</span>&gt;Press Me&lt;/<span class="function">Text</span>&gt;
+&lt;/<span class="function">TouchableOpacity</span>&gt;
+
+<span class="comment">// Pressable - More Control</span>
+&lt;<span class="function">Pressable</span>
+  <span class="prop">onPress</span>={() =&gt; {}}
+  <span class="prop">style</span>={({ pressed }) =&gt; [
+    styles.button,
+    pressed &amp;&amp; styles.pressed
+  ]}
+&gt;
+  {({ pressed }) =&gt; (
+    &lt;<span class="function">Text</span>&gt;{pressed ? <span class="string">'Pressed!'</span> : <span class="string">'Press Me'</span>}&lt;/<span class="function">Text</span>&gt;
+  )}
+&lt;/<span class="function">Pressable</span>&gt;
+            </div>
+
+            <div class="tip">
+                <strong>Recommendations:</strong>
+                <ul style="margin-top: 10px; line-height: 1.8;">
+                    <li>✅ Χρησιμοποίησε <span class="inline-code">TouchableOpacity</span> για buttons (πιο απλό)</li>
+                    <li>✅ Χρησιμοποίησε <span class="inline-code">FlatList</span> αντί για ScrollView για μεγάλες λίστες</li>
+                    <li>✅ Πάντα βάλε <span class="inline-code">width</span> και <span class="inline-code">height</span> στα Images</li>
+                    <li>✅ Χρησιμοποίησε <span class="inline-code">activeOpacity={0.7}</span> για feedback</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 3: Text Styling & Typography -->
+        <div class="section" id="typography">
+            <h2>3. ✍️ Text Styling & Typography</h2>
+
+            <h3>Text Decoration Examples</h3>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-title">Underline</div>
+                    <div class="code-label">textDecorationLine: 'underline'</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px;">
+                        <div style="font-size: 24px; text-decoration: underline; color: #333;">
+                            Underlined Text
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Line Through</div>
+                    <div class="code-label">textDecorationLine: 'line-through'</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px;">
+                        <div style="font-size: 24px; text-decoration: line-through; color: #999;">
+                            Strikethrough Text
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Underline + Line Through</div>
+                    <div class="code-label">textDecorationLine: 'underline line-through'</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px;">
+                        <div style="font-size: 24px; text-decoration: underline line-through; color: #667eea;">
+                            Both Decorations
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">None (Default)</div>
+                    <div class="code-label">textDecorationLine: 'none'</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px;">
+                        <div style="font-size: 24px; color: #333;">
+                            Normal Text
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block">
+<span class="keyword">const</span> styles = <span class="function">StyleSheet</span>.<span class="function">create</span>({
+  underline: {
+    textDecorationLine: <span class="string">'underline'</span>,
+  },
+  strikethrough: {
+    textDecorationLine: <span class="string">'line-through'</span>,
+  },
+  both: {
+    textDecorationLine: <span class="string">'underline line-through'</span>,
+  },
+  decorationColor: {
+    textDecorationLine: <span class="string">'underline'</span>,
+    textDecorationColor: <span class="string">'red'</span>,
+    textDecorationStyle: <span class="string">'solid'</span>, <span class="comment">// 'solid' | 'double' | 'dotted' | 'dashed'</span>
+  },
+});
+            </div>
+
+            <h3>Text Transform Examples</h3>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-title">Uppercase</div>
+                    <div class="code-label">textTransform: 'uppercase'</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px;">
+                        <div style="font-size: 20px; text-transform: uppercase; color: #667eea; font-weight: 700;">
+                            uppercase text
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Lowercase</div>
+                    <div class="code-label">textTransform: 'lowercase'</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px;">
+                        <div style="font-size: 20px; text-transform: lowercase; color: #f093fb;">
+                            LOWERCASE TEXT
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Capitalize</div>
+                    <div class="code-label">textTransform: 'capitalize'</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px;">
+                        <div style="font-size: 20px; text-transform: capitalize; color: #4facfe;">
+                            capitalize each word
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">None</div>
+                    <div class="code-label">textTransform: 'none'</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px;">
+                        <div style="font-size: 20px; color: #333;">
+                            Normal Text Here
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Font Weight Examples</h3>
+            <div class="visual-container" style="flex-direction: column; padding: 25px; gap: 15px;">
+                <div style="font-size: 20px; font-weight: 100; color: #333;">
+                    <span style="color: #667eea; font-weight: 600;">100 -</span> Thin / Hairline
+                </div>
+                <div style="font-size: 20px; font-weight: 300; color: #333;">
+                    <span style="color: #667eea; font-weight: 600;">300 -</span> Light
+                </div>
+                <div style="font-size: 20px; font-weight: 400; color: #333;">
+                    <span style="color: #667eea; font-weight: 600;">400 -</span> Regular / Normal
+                </div>
+                <div style="font-size: 20px; font-weight: 500; color: #333;">
+                    <span style="color: #667eea; font-weight: 600;">500 -</span> Medium
+                </div>
+                <div style="font-size: 20px; font-weight: 600; color: #333;">
+                    <span style="color: #667eea; font-weight: 600;">600 -</span> Semi-Bold
+                </div>
+                <div style="font-size: 20px; font-weight: 700; color: #333;">
+                    <span style="color: #667eea; font-weight: 600;">700 -</span> Bold
+                </div>
+                <div style="font-size: 20px; font-weight: 900; color: #333;">
+                    <span style="color: #667eea; font-weight: 600;">900 -</span> Black / Heavy
+                </div>
+            </div>
+
+            <h3>Font Style & Variant</h3>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-title">Normal</div>
+                    <div class="code-label">fontStyle: 'normal'</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px;">
+                        <div style="font-size: 20px; font-style: normal;">
+                            Normal Text Style
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Italic</div>
+                    <div class="code-label">fontStyle: 'italic'</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px;">
+                        <div style="font-size: 20px; font-style: italic; color: #667eea;">
+                            Italic Text Style
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Letter Spacing & Line Height</h3>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-title">Tight Letter Spacing</div>
+                    <div class="code-label">letterSpacing: -1</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px; padding: 20px;">
+                        <div style="font-size: 18px; letter-spacing: -1px;">
+                            Tight letter spacing
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Normal Letter Spacing</div>
+                    <div class="code-label">letterSpacing: 0</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px; padding: 20px;">
+                        <div style="font-size: 18px; letter-spacing: 0;">
+                            Normal letter spacing
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Wide Letter Spacing</div>
+                    <div class="code-label">letterSpacing: 3</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px; padding: 20px;">
+                        <div style="font-size: 18px; letter-spacing: 3px;">
+                            Wide letter spacing
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Extra Wide</div>
+                    <div class="code-label">letterSpacing: 8</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; min-height: 100px; padding: 20px;">
+                        <div style="font-size: 18px; letter-spacing: 8px; font-weight: 700;">
+                            E X T R A  W I D E
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Line Height Examples</h3>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-title">Tight Line Height</div>
+                    <div class="code-label">lineHeight: 20</div>
+                    <div class="visual-container" style="padding: 20px;">
+                        <div style="font-size: 16px; line-height: 20px; color: #333;">
+                            This is a paragraph with tight line height.
+                            Notice how the lines are very close together.
+                            This can be hard to read for long text.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Normal Line Height</div>
+                    <div class="code-label">lineHeight: 24</div>
+                    <div class="visual-container" style="padding: 20px;">
+                        <div style="font-size: 16px; line-height: 24px; color: #333;">
+                            This is a paragraph with normal line height.
+                            The spacing is comfortable and readable.
+                            This is the recommended default.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Loose Line Height</div>
+                    <div class="code-label">lineHeight: 32</div>
+                    <div class="visual-container" style="padding: 20px;">
+                        <div style="font-size: 16px; line-height: 32px; color: #333;">
+                            This is a paragraph with loose line height.
+                            The lines have more space between them.
+                            This can improve readability.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Text Alignment</h3>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-title">Left Aligned</div>
+                    <div class="code-label">textAlign: 'left'</div>
+                    <div class="visual-container" style="padding: 20px;">
+                        <div style="text-align: left; font-size: 16px;">
+                            This text is aligned to the left.
+                            This is the default alignment.
+                            Most text uses this.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Center Aligned</div>
+                    <div class="code-label">textAlign: 'center'</div>
+                    <div class="visual-container" style="padding: 20px;">
+                        <div style="text-align: center; font-size: 16px;">
+                            This text is centered.
+                            Great for titles and headers.
+                            Use sparingly for body text.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Right Aligned</div>
+                    <div class="code-label">textAlign: 'right'</div>
+                    <div class="visual-container" style="padding: 20px;">
+                        <div style="text-align: right; font-size: 16px;">
+                            This text is aligned to the right.
+                            Useful for prices and numbers.
+                            Less common for paragraphs.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Justified</div>
+                    <div class="code-label">textAlign: 'justify'</div>
+                    <div class="visual-container" style="padding: 20px;">
+                        <div style="text-align: justify; font-size: 16px;">
+                            This text is justified, which means it stretches to fill the full width. Notice how both edges are aligned.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Text Shadow</h3>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-title">Subtle Shadow</div>
+                    <div class="code-label">textShadowRadius: 2</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 150px;">
+                        <div style="font-size: 32px; font-weight: 900; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                            Subtle Shadow
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Strong Shadow</div>
+                    <div class="code-label">textShadowRadius: 10</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); min-height: 150px;">
+                        <div style="font-size: 32px; font-weight: 900; color: white; text-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                            Strong Shadow
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Colored Shadow</div>
+                    <div class="code-label">textShadowColor: blue</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; background: white; min-height: 150px;">
+                        <div style="font-size: 32px; font-weight: 900; color: #333; text-shadow: 3px 3px 8px rgba(102, 126, 234, 0.6);">
+                            Colored Shadow
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-title">Offset Shadow</div>
+                    <div class="code-label">textShadowOffset: {10, 10}</div>
+                    <div class="visual-container" style="justify-content: center; align-items: center; background: #f8f9fa; min-height: 150px;">
+                        <div style="font-size: 32px; font-weight: 900; color: #667eea; text-shadow: 10px 10px 0 rgba(0,0,0,0.2);">
+                            Offset Shadow
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block">
+<span class="keyword">const</span> styles = <span class="function">StyleSheet</span>.<span class="function">create</span>({
+  <span class="comment">// Text Decorations</span>
+  underline: {
+    textDecorationLine: <span class="string">'underline'</span>,
+    textDecorationColor: <span class="string">'red'</span>,
+    textDecorationStyle: <span class="string">'solid'</span>, <span class="comment">// 'solid' | 'double' | 'dotted' | 'dashed'</span>
+  },
+  
+  <span class="comment">// Text Transform</span>
+  uppercase: {
+    textTransform: <span class="string">'uppercase'</span>,
+  },
+  
+  <span class="comment">// Font Styling</span>
+  bold: {
+    fontWeight: <span class="string">'700'</span>, <span class="comment">// or 'bold'</span>
+  },
+  italic: {
+    fontStyle: <span class="string">'italic'</span>,
+  },
+  
+  <span class="comment">// Spacing</span>
+  spaced: {
+    letterSpacing: <span class="number">2</span>,
+    lineHeight: <span class="number">28</span>,
+  },
+  
+  <span class="comment">// Alignment</span>
+  centered: {
+    textAlign: <span class="string">'center'</span>,
+  },
+  
+  <span class="comment">// Text Shadow (iOS)</span>
+  shadowed: {
+    textShadowColor: <span class="string">'rgba(0, 0, 0, 0.3)'</span>,
+    textShadowOffset: { width: <span class="number">0</span>, height: <span class="number">2</span> },
+    textShadowRadius: <span class="number">4</span>,
+  },
+  
+  <span class="comment">// Complete Typography Example</span>
+  heading: {
+    fontSize: <span class="number">32</span>,
+    fontWeight: <span class="string">'900'</span>,
+    color: <span class="string">'#333'</span>,
+    textAlign: <span class="string">'center'</span>,
+    letterSpacing: <span class="number">-0.5</span>,
+    lineHeight: <span class="number">38</span>,
+    textTransform: <span class="string">'uppercase'</span>,
+    textShadowColor: <span class="string">'rgba(0, 0, 0, 0.1)'</span>,
+    textShadowOffset: { width: <span class="number">0</span>, height: <span class="number">1</span> },
+    textShadowRadius: <span class="number">2</span>,
+  },
+});
+            </div>
+
+            <h3>Complete Typography Scale</h3>
+            <div class="visual-container" style="flex-direction: column; padding: 30px; gap: 20px; background: white;">
+                <div style="font-size: 48px; font-weight: 900; color: #667eea; line-height: 1.2;">
+                    H1 - Heading 1 (48px / 900)
+                </div>
+                <div style="font-size: 36px; font-weight: 800; color: #764ba2; line-height: 1.3;">
+                    H2 - Heading 2 (36px / 800)
+                </div>
+                <div style="font-size: 28px; font-weight: 700; color: #f093fb; line-height: 1.3;">
+                    H3 - Heading 3 (28px / 700)
+                </div>
+                <div style="font-size: 24px; font-weight: 700; color: #4facfe; line-height: 1.4;">
+                    H4 - Heading 4 (24px / 700)
+                </div>
+                <div style="font-size: 20px; font-weight: 600; color: #43e97b; line-height: 1.4;">
+                    H5 - Heading 5 (20px / 600)
+                </div>
+                <div style="font-size: 18px; font-weight: 600; color: #fa709a; line-height: 1.4;">
+                    H6 - Heading 6 (18px / 600)
+                </div>
+                <div style="font-size: 16px; font-weight: 400; color: #333; line-height: 1.6; margin-top: 10px;">
+                    Body Text - Regular paragraph text (16px / 400). This is the most common text size for readable content. Line height should be 1.5-1.6 times the font size.
+                </div>
+                <div style="font-size: 14px; font-weight: 400; color: #666; line-height: 1.5;">
+                    Small Text - Secondary information (14px / 400)
+                </div>
+                <div style="font-size: 12px; font-weight: 400; color: #999; line-height: 1.5;">
+                    Caption - Labels and captions (12px / 400)
+                </div>
+            </div>
+
+            <div class="best-practice">
+                <strong>Typography Best Practices:</strong>
+                <ul style="margin-top: 10px; line-height: 1.8;">
+                    <li>✅ Χρησιμοποίησε <span class="inline-code">lineHeight</span> για καλύτερη αναγνωσιμότητα (1.5-1.6x το fontSize)</li>
+                    <li>✅ Κράτησε το <span class="inline-code">letterSpacing</span> subtle (-1 έως 2)</li>
+                    <li>✅ Χρησιμοποίησε <span class="inline-code">fontWeight: '600'</span> ή <span class="inline-code">'700'</span> για έμφαση</li>
+                    <li>✅ Προτίμησε <span class="inline-code">textAlign: 'left'</span> για μεγάλα κείμενα</li>
+                    <li>✅ Χρησιμοποίησε <span class="inline-code">textShadow</span> για contrast σε εικόνες</li>
+                    <li>✅ Κράτησε typography scale consistent (1.2-1.5 ratio)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 5: FlatList & Lists -->
+        <div class="section" id="lists">
+            <h2>5. 📋 FlatList & Lists Visual Examples</h2>
+
+            <h3>FlatList - Basic Example</h3>
+            <div class="visual-container" style="flex-direction: column; padding: 20px; max-height: 400px; overflow-y: auto;">
+                <div class="list-item">
+                    <div>
+                        <div style="font-weight: 700; color: #333; margin-bottom: 5px;">🍎 Μήλα</div>
+                        <div style="font-size: 0.9em; color: #666;">Ποσότητα: 5</div>
+                    </div>
+                    <div style="color: #667eea; font-weight: 700;">€2.50</div>
+                </div>
+                <div class="list-item">
+                    <div>
+                        <div style="font-weight: 700; color: #333; margin-bottom: 5px;">🍌 Μπανάνες</div>
+                        <div style="font-size: 0.9em; color: #666;">Ποσότητα: 3</div>
+                    </div>
+                    <div style="color: #667eea; font-weight: 700;">€1.80</div>
+                </div>
+                <div class="list-item">
+                    <div>
+                        <div style="font-weight: 700; color: #333; margin-bottom: 5px;">🥛 Γάλα</div>
+                        <div style="font-size: 0.9em; color: #666;">Ποσότητα: 2</div>
+                    </div>
+                    <div style="color: #667eea; font-weight: 700;">€3.00</div>
+                </div>
+                <div class="list-item">
+                    <div>
+                        <div style="font-weight: 700; color: #333; margin-bottom: 5px;">🍞 Ψωμί</div>
+                        <div style="font-size: 0.9em; color: #666;">Ποσότητα: 1</div>
+                    </div>
+                    <div style="color: #667eea; font-weight: 700;">€1.20</div>
+                </div>
+            </div>
+
+            <div class="code-block">
+<span class="keyword">import</span> { <span class="function">FlatList</span>, <span class="function">View</span>, <span class="function">Text</span> } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="keyword">const</span> data = [
+  { id: <span class="string">'1'</span>, name: <span class="string">'Μήλα'</span>, quantity: <span class="number">5</span>, price: <span class="string">'€2.50'</span>, icon: <span class="string">'🍎'</span> },
+  { id: <span class="string">'2'</span>, name: <span class="string">'Μπανάνες'</span>, quantity: <span class="number">3</span>, price: <span class="string">'€1.80'</span>, icon: <span class="string">'🍌'</span> },
+  { id: <span class="string">'3'</span>, name: <span class="string">'Γάλα'</span>, quantity: <span class="number">2</span>, price: <span class="string">'€3.00'</span>, icon: <span class="string">'🥛'</span> },
+];
+
+<span class="keyword">const</span> <span class="function">renderItem</span> = ({ item }) =&gt; (
+  &lt;<span class="function">View</span> <span class="prop">style</span>={styles.listItem}&gt;
+    &lt;<span class="function">View</span>&gt;
+      &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.itemName}&gt;
+        {item.icon} {item.name}
+      &lt;/<span class="function">Text</span>&gt;
+      &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.quantity}&gt;
+        Ποσότητα: {item.quantity}
+      &lt;/<span class="function">Text</span>&gt;
+    &lt;/<span class="function">View</span>&gt;
+    &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.price}&gt;{item.price}&lt;/<span class="function">Text</span>&gt;
+  &lt;/<span class="function">View</span>&gt;
+);
+
+&lt;<span class="function">FlatList</span>
+  <span class="prop">data</span>={data}
+  <span class="prop">renderItem</span>={renderItem}
+  <span class="prop">keyExtractor</span>={item =&gt; item.id}
+  <span class="prop">ItemSeparatorComponent</span>={() =&gt; &lt;<span class="function">View</span> <span class="prop">style</span>={{ height: <span class="number">10</span> }} /&gt;}
+/&gt;
+            </div>
+
+            <h3>FlatList με Pull to Refresh</h3>
+            <div class="visual-container" style="flex-direction: column; align-items: center; padding: 30px;">
+                <div style="color: #667eea; font-size: 2em; margin-bottom: 10px;">↓</div>
+                <div style="color: #666;">Pull down to refresh</div>
+                <div class="spinner"></div>
+            </div>
+
+            <div class="code-block">
+<span class="keyword">import</span> { useState } <span class="keyword">from</span> <span class="string">'react'</span>;
+
+<span class="keyword">const</span> [refreshing, setRefreshing] = <span class="function">useState</span>(<span class="string">false</span>);
+
+<span class="keyword">const</span> <span class="function">onRefresh</span> = <span class="keyword">async</span> () =&gt; {
+  <span class="function">setRefreshing</span>(<span class="string">true</span>);
+  
+  <span class="comment">// Fetch new data</span>
+  <span class="keyword">await</span> <span class="function">fetchData</span>();
+  
+  <span class="function">setRefreshing</span>(<span class="string">false</span>);
+};
+
+&lt;<span class="function">FlatList</span>
+  <span class="prop">data</span>={data}
+  <span class="prop">renderItem</span>={renderItem}
+  <span class="prop">refreshing</span>={refreshing}
+  <span class="prop">onRefresh</span>={onRefresh}
+  <span class="prop">ListEmptyComponent</span>={() =&gt; (
+    &lt;<span class="function">View</span> <span class="prop">style</span>={styles.empty}&gt;
+      &lt;<span class="function">Text</span>&gt;Δεν υπάρχουν δεδομένα&lt;/<span class="function">Text</span>&gt;
+    &lt;/<span class="function">View</span>&gt;
+  )}
+/&gt;
+            </div>
+
+            <div class="tip">
+                <strong>Performance Tips:</strong>
+                <ul style="margin-top: 10px; line-height: 1.8;">
+                    <li>✅ Χρησιμοποίησε <span class="inline-code">keyExtractor</span> για unique keys</li>
+                    <li>✅ Χρησιμοποίησε <span class="inline-code">React.memo()</span> για το renderItem component</li>
+                    <li>✅ Χρησιμοποίησε <span class="inline-code">getItemLayout</span> για fixed-size items</li>
+                    <li>✅ Μην χρησιμοποιείς ScrollView για μεγάλες λίστες!</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 6: Forms -->
+        <div class="section" id="forms">
+            <h2>6. 📝 Forms & Input Components</h2>
+
+            <h3>Form Example - Visual</h3>
+            <div class="form-example">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: 700; margin-bottom: 8px; color: #333;">📧 Email</label>
+                    <input type="email" class="form-input" placeholder="your@email.com" />
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: 700; margin-bottom: 8px; color: #333;">🔒 Password</label>
+                    <input type="password" class="form-input" placeholder="••••••••" />
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: flex; align-items: center; cursor: pointer;">
+                        <input type="checkbox" style="margin-right: 10px; width: 20px; height: 20px;" />
+                        <span>Θυμήσου με</span>
+                    </label>
+                </div>
+
+                <div class="box box-1" style="width: 100%; margin: 0; cursor: pointer;">
+                    Σύνδεση
+                </div>
+            </div>
+
+            <div class="code-block">
+<span class="keyword">import</span> { <span class="function">TextInput</span>, <span class="function">View</span>, <span class="function">Text</span>, <span class="function">TouchableOpacity</span> } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+<span class="keyword">import</span> { useState } <span class="keyword">from</span> <span class="string">'react'</span>;
+
+<span class="keyword">export default function</span> <span class="function">LoginForm</span>() {
+  <span class="keyword">const</span> [email, setEmail] = <span class="function">useState</span>(<span class="string">''</span>);
+  <span class="keyword">const</span> [password, setPassword] = <span class="function">useState</span>(<span class="string">''</span>);
+
+  <span class="keyword">const</span> <span class="function">handleSubmit</span> = () =&gt; {
+    <span class="function">console</span>.<span class="function">log</span>(<span class="string">'Login:'</span>, { email, password });
+  };
+
+  <span class="keyword">return</span> (
+    &lt;<span class="function">View</span> <span class="prop">style</span>={styles.container}&gt;
+      <span class="comment">// Email Input</span>
+      &lt;<span class="function">View</span> <span class="prop">style</span>={styles.inputGroup}&gt;
+        &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.label}&gt;📧 Email&lt;/<span class="function">Text</span>&gt;
+        &lt;<span class="function">TextInput</span>
+          <span class="prop">style</span>={styles.input}
+          <span class="prop">value</span>={email}
+          <span class="prop">onChangeText</span>={setEmail}
+          <span class="prop">placeholder</span>=<span class="string">"<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a3daccd6d1e3c6cec2cacf8dc0ccce">[email&#160;protected]</a>"</span>
+          <span class="prop">keyboardType</span>=<span class="string">"email-address"</span>
+          <span class="prop">autoCapitalize</span>=<span class="string">"none"</span>
+        /&gt;
+      &lt;/<span class="function">View</span>&gt;
+
+      <span class="comment">// Password Input</span>
+      &lt;<span class="function">View</span> <span class="prop">style</span>={styles.inputGroup}&gt;
+        &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.label}&gt;🔒 Password&lt;/<span class="function">Text</span>&gt;
+        &lt;<span class="function">TextInput</span>
+          <span class="prop">style</span>={styles.input}
+          <span class="prop">value</span>={password}
+          <span class="prop">onChangeText</span>={setPassword}
+          <span class="prop">placeholder</span>=<span class="string">"••••••••"</span>
+          <span class="prop">secureTextEntry</span>
+        /&gt;
+      &lt;/<span class="function">View</span>&gt;
+
+      <span class="comment">// Submit Button</span>
+      &lt;<span class="function">TouchableOpacity</span>
+        <span class="prop">style</span>={styles.button}
+        <span class="prop">onPress</span>={handleSubmit}
+      &gt;
+        &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.buttonText}&gt;Σύνδεση&lt;/<span class="function">Text</span>&gt;
+      &lt;/<span class="function">TouchableOpacity</span>&gt;
+    &lt;/<span class="function">View</span>&gt;
+  );
+}
+            </div>
+
+            <h3>Custom Input Component</h3>
+            <div class="code-block">
+<span class="keyword">const</span> <span class="function">CustomInput</span> = ({ label, icon, error, ...props }) =&gt; (
+  &lt;<span class="function">View</span> <span class="prop">style</span>={styles.container}&gt;
+    {label &amp;&amp; &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.label}&gt;{label}&lt;/<span class="function">Text</span>&gt;}
+    
+    &lt;<span class="function">View</span> <span class="prop">style</span>={[
+      styles.inputContainer,
+      error &amp;&amp; styles.errorBorder
+    ]}&gt;
+      {icon &amp;&amp; &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.icon}&gt;{icon}&lt;/<span class="function">Text</span>&gt;}
+      &lt;<span class="function">TextInput</span>
+        <span class="prop">style</span>={styles.input}
+        <span class="prop">placeholderTextColor</span>=<span class="string">"#999"</span>
+        {...props}
+      /&gt;
+    &lt;/<span class="function">View</span>&gt;
+    
+    {error &amp;&amp; (
+      &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.errorText}&gt;{error}&lt;/<span class="function">Text</span>&gt;
+    )}
+  &lt;/<span class="function">View</span>&gt;
+);
+
+<span class="comment">// Usage</span>
+&lt;<span class="function">CustomInput</span>
+  <span class="prop">label</span>=<span class="string">"Email"</span>
+  <span class="prop">icon</span>=<span class="string">"📧"</span>
+  <span class="prop">value</span>={email}
+  <span class="prop">onChangeText</span>={setEmail}
+  <span class="prop">error</span>={emailError}
+  <span class="prop">keyboardType</span>=<span class="string">"email-address"</span>
+/&gt;
+            </div>
+        </div>
+
+        <!-- Section 7: API & Networking -->
+        <div class="section" id="api">
+            <h2>7. 🌐 API & Networking Visual Flow</h2>
+
+            <h3>API Call Flow</h3>
+            <div class="api-flow">
+                <div class="api-step">
+                    <div style="font-size: 2em; margin-bottom: 10px;">📱</div>
+                    <div>App</div>
+                </div>
+                <div class="api-arrow">→</div>
+                <div class="api-step">
+                    <div style="font-size: 2em; margin-bottom: 10px;">🔄</div>
+                    <div>Fetch</div>
+                </div>
+                <div class="api-arrow">→</div>
+                <div class="api-step">
+                    <div style="font-size: 2em; margin-bottom: 10px;">🌐</div>
+                    <div>API</div>
+                </div>
+                <div class="api-arrow">→</div>
+                <div class="api-step">
+                    <div style="font-size: 2em; margin-bottom: 10px;">✅</div>
+                    <div>Data</div>
+                </div>
+            </div>
+
+            <h3>Basic Fetch Example</h3>
+            <div class="code-block">
+<span class="keyword">import</span> { useState, useEffect } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { <span class="function">View</span>, <span class="function">Text</span>, <span class="function">FlatList</span>, <span class="function">ActivityIndicator</span> } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="keyword">export default function</span> <span class="function">UsersScreen</span>() {
+  <span class="keyword">const</span> [users, setUsers] = <span class="function">useState</span>([]);
+  <span class="keyword">const</span> [loading, setLoading] = <span class="function">useState</span>(<span class="string">true</span>);
+  <span class="keyword">const</span> [error, setError] = <span class="function">useState</span>(<span class="string">null</span>);
+
+  <span class="function">useEffect</span>(() =&gt; {
+    <span class="function">fetchUsers</span>();
+  }, []);
+
+  <span class="keyword">const</span> <span class="function">fetchUsers</span> = <span class="keyword">async</span> () =&gt; {
+    <span class="keyword">try</span> {
+      <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'https://api.example.com/users'</span>);
+      
+      <span class="keyword">if</span> (!response.ok) {
+        <span class="keyword">throw new</span> <span class="function">Error</span>(<span class="string">'Network response was not ok'</span>);
+      }
+      
+      <span class="keyword">const</span> data = <span class="keyword">await</span> response.<span class="function">json</span>();
+      <span class="function">setUsers</span>(data);
+    } <span class="keyword">catch</span> (err) {
+      <span class="function">setError</span>(err.message);
+    } <span class="keyword">finally</span> {
+      <span class="function">setLoading</span>(<span class="string">false</span>);
+    }
+  };
+
+  <span class="keyword">if</span> (loading) {
+    <span class="keyword">return</span> (
+      &lt;<span class="function">View</span> <span class="prop">style</span>={styles.center}&gt;
+        &lt;<span class="function">ActivityIndicator</span> <span class="prop">size</span>=<span class="string">"large"</span> <span class="prop">color</span>=<span class="string">"#667eea"</span> /&gt;
+      &lt;/<span class="function">View</span>&gt;
+    );
+  }
+
+  <span class="keyword">if</span> (error) {
+    <span class="keyword">return</span> (
+      &lt;<span class="function">View</span> <span class="prop">style</span>={styles.center}&gt;
+        &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.error}&gt;Error: {error}&lt;/<span class="function">Text</span>&gt;
+      &lt;/<span class="function">View</span>&gt;
+    );
+  }
+
+  <span class="keyword">return</span> (
+    &lt;<span class="function">FlatList</span>
+      <span class="prop">data</span>={users}
+      <span class="prop">renderItem</span>={({ item }) =&gt; &lt;<span class="function">UserItem</span> <span class="prop">user</span>={item} /&gt;}
+      <span class="prop">keyExtractor</span>={item =&gt; item.id.toString()}
+    /&gt;
+  );
+}
+            </div>
+
+            <h3>POST Request Example</h3>
+            <div class="code-block">
+<span class="keyword">const</span> <span class="function">createUser</span> = <span class="keyword">async</span> (userData) =&gt; {
+  <span class="keyword">try</span> {
+    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'https://api.example.com/users'</span>, {
+      method: <span class="string">'POST'</span>,
+      headers: {
+        <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>,
+        <span class="string">'Authorization'</span>: <span class="string">`Bearer ${token}`</span>,
+      },
+      body: <span class="function">JSON</span>.<span class="function">stringify</span>(userData),
+    });
+
+    <span class="keyword">if</span> (!response.ok) {
+      <span class="keyword">throw new</span> <span class="function">Error</span>(<span class="string">'Failed to create user'</span>);
+    }
+
+    <span class="keyword">const</span> data = <span class="keyword">await</span> response.<span class="function">json</span>();
+    <span class="keyword">return</span> data;
+  } <span class="keyword">catch</span> (error) {
+    <span class="function">console</span>.<span class="function">error</span>(<span class="string">'Error:'</span>, error);
+    <span class="keyword">throw</span> error;
+  }
+};
+
+<span class="comment">// Usage</span>
+<span class="keyword">const</span> <span class="function">handleSubmit</span> = <span class="keyword">async</span> () =&gt; {
+  <span class="keyword">try</span> {
+    <span class="keyword">const</span> newUser = <span class="keyword">await</span> <span class="function">createUser</span>({
+      name: <span class="string">'John Doe'</span>,
+      email: <span class="string">'<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="91fbfef9ffd1f4e9f0fce1fdf4bff2fefc">[email&#160;protected]</a>'</span>,
+    });
+    
+    <span class="function">console</span>.<span class="function">log</span>(<span class="string">'User created:'</span>, newUser);
+  } <span class="keyword">catch</span> (error) {
+    <span class="function">Alert</span>.<span class="function">alert</span>(<span class="string">'Error'</span>, error.message);
+  }
+};
+            </div>
+
+            <h3>Custom API Hook</h3>
+            <div class="code-block">
+<span class="keyword">import</span> { useState, useEffect } <span class="keyword">from</span> <span class="string">'react'</span>;
+
+<span class="keyword">export const</span> <span class="function">useApi</span> = (url) =&gt; {
+  <span class="keyword">const</span> [data, setData] = <span class="function">useState</span>(<span class="string">null</span>);
+  <span class="keyword">const</span> [loading, setLoading] = <span class="function">useState</span>(<span class="string">true</span>);
+  <span class="keyword">const</span> [error, setError] = <span class="function">useState</span>(<span class="string">null</span>);
+
+  <span class="keyword">const</span> <span class="function">fetchData</span> = <span class="keyword">async</span> () =&gt; {
+    <span class="keyword">try</span> {
+      <span class="function">setLoading</span>(<span class="string">true</span>);
+      <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(url);
+      
+      <span class="keyword">if</span> (!response.ok) {
+        <span class="keyword">throw new</span> <span class="function">Error</span>(<span class="string">'API request failed'</span>);
+      }
+      
+      <span class="keyword">const</span> json = <span class="keyword">await</span> response.<span class="function">json</span>();
+      <span class="function">setData</span>(json);
+      <span class="function">setError</span>(<span class="string">null</span>);
+    } <span class="keyword">catch</span> (err) {
+      <span class="function">setError</span>(err.message);
+    } <span class="keyword">finally</span> {
+      <span class="function">setLoading</span>(<span class="string">false</span>);
+    }
+  };
+
+  <span class="function">useEffect</span>(() =&gt; {
+    <span class="function">fetchData</span>();
+  }, [url]);
+
+  <span class="keyword">return</span> { data, loading, error, refetch: fetchData };
+};
+
+<span class="comment">// Usage</span>
+<span class="keyword">function</span> <span class="function">MyComponent</span>() {
+  <span class="keyword">const</span> { data, loading, error, refetch } = <span class="function">useApi</span>(
+    <span class="string">'https://api.example.com/data'</span>
+  );
+
+  <span class="keyword">if</span> (loading) <span class="keyword">return</span> &lt;<span class="function">Loading</span> /&gt;;
+  <span class="keyword">if</span> (error) <span class="keyword">return</span> &lt;<span class="function">Error</span> <span class="prop">message</span>={error} /&gt;;
+  
+  <span class="keyword">return</span> &lt;<span class="function">DataDisplay</span> <span class="prop">data</span>={data} <span class="prop">onRefresh</span>={refetch} /&gt;;
+}
+            </div>
+
+            <div class="best-practice">
+                <strong>API Best Practices:</strong>
+                <ul style="margin-top: 10px; line-height: 1.8;">
+                    <li>✅ Πάντα κάνε error handling (try/catch)</li>
+                    <li>✅ Δείξε loading states στον χρήστη</li>
+                    <li>✅ Χρησιμοποίησε custom hooks για reusability</li>
+                    <li>✅ Κάνε cancel των requests όταν το component unmounts</li>
+                    <li>✅ Χρησιμοποίησε AbortController για timeouts</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 8: SafeAreaProvider -->
+        <div class="section" id="safearea">
+            <h2>8. 📱 SafeAreaProvider - The Correct Way</h2>
+
+            <div class="warning">
+                <strong>ΣΗΜΑΝΤΙΚΟ!</strong> Το <span class="inline-code">SafeAreaView</span> από το <span class="inline-code">react-native</span> έχει γίνει deprecated! Χρησιμοποίησε το <span class="inline-code">SafeAreaProvider</span> από το <span class="inline-code">react-native-safe-area-context</span>!
+            </div>
+
+            <h3>Installation</h3>
+            <div class="code-block">
+<span class="comment"># Install the library</span>
+npx expo install react-native-safe-area-context
+            </div>
+
+            <h3>Correct Setup με SafeAreaProvider</h3>
+            <div class="code-block">
+<span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { <span class="function">View</span>, <span class="function">Text</span> } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+<span class="keyword">import</span> { <span class="function">SafeAreaProvider</span>, <span class="function">SafeAreaView</span> } <span class="keyword">from</span> <span class="string">'react-native-safe-area-context'</span>;
+
+<span class="keyword">export default function</span> <span class="function">App</span>() {
+  <span class="keyword">return</span> (
+    &lt;<span class="function">SafeAreaProvider</span>&gt;
+      &lt;<span class="function">SafeAreaView</span> <span class="prop">style</span>={{ flex: <span class="number">1</span> }}&gt;
+        &lt;<span class="function">View</span> <span class="prop">style</span>={{ flex: <span class="number">1</span>, padding: <span class="number">20</span> }}&gt;
+          &lt;<span class="function">Text</span>&gt;Safe content!&lt;/<span class="function">Text</span>&gt;
+        &lt;/<span class="function">View</span>&gt;
+      &lt;/<span class="function">SafeAreaView</span>&gt;
+    &lt;/<span class="function">SafeAreaProvider</span>&gt;
+  );
+}
+            </div>
+
+            <h3>Using useSafeAreaInsets Hook</h3>
+            <div class="code-block">
+<span class="keyword">import</span> { <span class="function">useSafeAreaInsets</span> } <span class="keyword">from</span> <span class="string">'react-native-safe-area-context'</span>;
+
+<span class="keyword">function</span> <span class="function">MyScreen</span>() {
+  <span class="keyword">const</span> insets = <span class="function">useSafeAreaInsets</span>();
+
+  <span class="keyword">return</span> (
+    &lt;<span class="function">View</span>
+      <span class="prop">style</span>={{
+        flex: <span class="number">1</span>,
+        paddingTop: insets.top,
+        paddingBottom: insets.bottom,
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
+      }}
+    &gt;
+      &lt;<span class="function">Text</span>&gt;Content with safe area padding&lt;/<span class="function">Text</span>&gt;
+    &lt;/<span class="function">View</span>&gt;
+  );
+}
+            </div>
+
+            <h3>Complete App Structure</h3>
+            <div class="code-block">
+<span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { <span class="function">NavigationContainer</span> } <span class="keyword">from</span> <span class="string">'@react-navigation/native'</span>;
+<span class="keyword">import</span> { <span class="function">SafeAreaProvider</span> } <span class="keyword">from</span> <span class="string">'react-native-safe-area-context'</span>;
+<span class="keyword">import</span> <span class="function">RootNavigator</span> <span class="keyword">from</span> <span class="string">'./navigation/RootNavigator'</span>;
+
+<span class="keyword">export default function</span> <span class="function">App</span>() {
+  <span class="keyword">return</span> (
+    &lt;<span class="function">SafeAreaProvider</span>&gt;
+      &lt;<span class="function">NavigationContainer</span>&gt;
+        &lt;<span class="function">RootNavigator</span> /&gt;
+      &lt;/<span class="function">NavigationContainer</span>&gt;
+    &lt;/<span class="function">SafeAreaProvider</span>&gt;
+  );
+}
+            </div>
+
+            <div class="tip">
+                <strong>Pro Tip:</strong> Βάλε το <span class="inline-code">SafeAreaProvider</span> στο root level του app σου (App.js), και μετά χρησιμοποίησε <span class="inline-code">SafeAreaView</span> ή <span class="inline-code">useSafeAreaInsets</span> σε οποιαδήποτε screen!
+            </div>
+
+            <h3>Comparison: Old vs New</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                <div style="background: #fff1f0; padding: 20px; border-radius: 10px; border: 2px solid #ff4d4f;">
+                    <h4 style="color: #ff4d4f; margin-bottom: 15px;">❌ Deprecated (Don't use!)</h4>
+                    <div class="code-block" style="font-size: 0.85em;">
+<span class="keyword">import</span> { <span class="function">SafeAreaView</span> } 
+  <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="comment">// ❌ Don't do this!</span>
+                    </div>
+                </div>
+
+                <div style="background: #f6ffed; padding: 20px; border-radius: 10px; border: 2px solid #52c41a;">
+                    <h4 style="color: #52c41a; margin-bottom: 15px;">✅ Correct Way</h4>
+                    <div class="code-block" style="font-size: 0.85em;">
+<span class="keyword">import</span> { 
+  <span class="function">SafeAreaProvider</span>,
+  <span class="function">SafeAreaView</span>
+} <span class="keyword">from</span> <span class="string">'react-native-safe-area-context'</span>;
+
+<span class="comment">// ✅ Do this!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 9: Complete App -->
+        <div class="section" id="complete">
+            <h2>9. 📱 Complete App Example - Family Organizer</h2>
+
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div style="text-align: center; padding: 25px 0; margin-bottom: 15px;">
+                        <div style="font-size: 2em; font-weight: 900; color: white; text-shadow: 2px 2px 6px rgba(0,0,0,0.3); margin-bottom: 5px;">
+                            Family Organizer
+                        </div>
+                        <div style="font-size: 1em; color: rgba(255,255,255,0.95);">
+                            Οργάνωσε τη ζωή σου
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.98); border-radius: 20px; padding: 25px; margin: 20px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                        <div style="font-size: 1.3em; font-weight: 700; margin-bottom: 15px; color: #667eea;">
+                            📋 Σημερινές Εργασίες
+                        </div>
+                        <div style="line-height: 2;">
+                            ✓ Ψώνια από σούπερ μάρκετ<br>
+                            ✓ Γυμναστική 18:00<br>
+                            ○ Προετοιμασία δείπνου<br>
+                            ○ Διάβασμα
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.98); border-radius: 20px; padding: 25px; margin: 20px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                        <div style="font-size: 1.3em; font-weight: 700; margin-bottom: 15px; color: #667eea;">
+                            💰 Έξοδα Μήνα
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.9em; color: #666;">Σούπερ</div>
+                                <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">€450</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.9em; color: #666;">Λογ/σμοί</div>
+                                <div style="font-size: 1.5em; font-weight: 700; color: #f093fb;">€320</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.9em; color: #666;">Διασκέδαση</div>
+                                <div style="font-size: 1.5em; font-weight: 700; color: #4facfe;">€180</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0;">
+                        <div style="flex: 1; min-width: 45%; background: rgba(255,255,255,0.95); padding: 18px 15px; border-radius: 15px; text-align: center; font-weight: 700; box-shadow: 0 5px 15px rgba(0,0,0,0.15);">
+                            📋 Λίστες
+                        </div>
+                        <div style="flex: 1; min-width: 45%; background: rgba(255,255,255,0.95); padding: 18px 15px; border-radius: 15px; text-align: center; font-weight: 700; box-shadow: 0 5px 15px rgba(0,0,0,0.15);">
+                            💰 Έξοδα
+                        </div>
+                        <div style="flex: 1; min-width: 45%; background: rgba(255,255,255,0.95); padding: 18px 15px; border-radius: 15px; text-align: center; font-weight: 700; box-shadow: 0 5px 15px rgba(0,0,0,0.15);">
+                            📅 Ημερολόγιο
+                        </div>
+                        <div style="flex: 1; min-width: 45%; background: rgba(255,255,255,0.95); padding: 18px 15px; border-radius: 15px; text-align: center; font-weight: 700; box-shadow: 0 5px 15px rgba(0,0,0,0.15);">
+                            ⚙️ Ρυθμίσεις
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #007AFF 0%, #0051D5 100%); color: white; padding: 20px; border-radius: 15px; text-align: center; font-weight: 900; font-size: 1.2em; box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);">
+                        Προσθήκη Νέου +
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block">
+<span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> {
+  <span class="function">View</span>, <span class="function">Text</span>, <span class="function">TouchableOpacity</span>,
+  <span class="function">ImageBackground</span>, <span class="function">StyleSheet</span>
+} <span class="keyword">from</span> <span class="string">'react-native'</span>;
+<span class="keyword">import</span> { <span class="function">SafeAreaProvider</span>, <span class="function">SafeAreaView</span> } <span class="keyword">from</span> <span class="string">'react-native-safe-area-context'</span>;
+
+<span class="keyword">export default function</span> <span class="function">HomeScreen</span>() {
+  <span class="keyword">return</span> (
+    &lt;<span class="function">SafeAreaProvider</span>&gt;
+      &lt;<span class="function">ImageBackground</span>
+        <span class="prop">source</span>={<span class="function">require</span>(<span class="string">'./assets/bg.jpg'</span>)}
+        <span class="prop">style</span>={styles.background}
+        <span class="prop">resizeMode</span>=<span class="string">"cover"</span>
+      &gt;
+        &lt;<span class="function">SafeAreaView</span> <span class="prop">style</span>={styles.safeArea}&gt;
+          &lt;<span class="function">View</span> <span class="prop">style</span>={styles.container}&gt;
+            
+            <span class="comment">{/* Header */}</span>
+            &lt;<span class="function">View</span> <span class="prop">style</span>={styles.header}&gt;
+              &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.title}&gt;Family Organizer&lt;/<span class="function">Text</span>&gt;
+              &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.subtitle}&gt;Οργάνωσε τη ζωή σου&lt;/<span class="function">Text</span>&gt;
+            &lt;/<span class="function">View</span>&gt;
+
+            <span class="comment">{/* Tasks Card */}</span>
+            &lt;<span class="function">View</span> <span class="prop">style</span>={styles.card}&gt;
+              &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.cardTitle}&gt;📋 Σημερινές Εργασίες&lt;/<span class="function">Text</span>&gt;
+              &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.taskItem}&gt;✓ Ψώνια από σούπερ μάρκετ&lt;/<span class="function">Text</span>&gt;
+              &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.taskItem}&gt;✓ Γυμναστική 18:00&lt;/<span class="function">Text</span>&gt;
+              &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.taskItem}&gt;○ Προετοιμασία δείπνου&lt;/<span class="function">Text</span>&gt;
+            &lt;/<span class="function">View</span>&gt;
+
+            <span class="comment">{/* Expenses Card */}</span>
+            &lt;<span class="function">View</span> <span class="prop">style</span>={styles.card}&gt;
+              &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.cardTitle}&gt;💰 Έξοδα Μήνα&lt;/<span class="function">Text</span>&gt;
+              &lt;<span class="function">View</span> <span class="prop">style</span>={styles.statsRow}&gt;
+                &lt;<span class="function">View</span> <span class="prop">style</span>={styles.stat}&gt;
+                  &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.statLabel}&gt;Σούπερ&lt;/<span class="function">Text</span>&gt;
+                  &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.statValue}&gt;€450&lt;/<span class="function">Text</span>&gt;
+                &lt;/<span class="function">View</span>&gt;
+                &lt;<span class="function">View</span> <span class="prop">style</span>={styles.stat}&gt;
+                  &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.statLabel}&gt;Λογ/σμοί&lt;/<span class="function">Text</span>&gt;
+                  &lt;<span class="function">Text</span> <span class="prop">style</span>={[styles.statValue, { color: <span class="string">'#f093fb'</span> }]}&gt;€320&lt;/<span class="function">Text</span>&gt;
+                &lt;/<span class="function">View</span>&gt;
+                &lt;<span class="function">View</span> <span class="prop">style</span>={styles.stat}&gt;
+                  &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.statLabel}&gt;Διασκέδαση&lt;/<span class="function">Text</span>&gt;
+                  &lt;<span class="function">Text</span> <span class="prop">style</span>={[styles.statValue, { color: <span class="string">'#4facfe'</span> }]}&gt;€180&lt;/<span class="function">Text</span>&gt;
+                &lt;/<span class="function">View</span>&gt;
+              &lt;/<span class="function">View</span>&gt;
+            &lt;/<span class="function">View</span>&gt;
+
+            <span class="comment">{/* Button Grid */}</span>
+            &lt;<span class="function">View</span> <span class="prop">style</span>={styles.buttonGrid}&gt;
+              &lt;<span class="function">TouchableOpacity</span> <span class="prop">style</span>={styles.gridButton}&gt;
+                &lt;<span class="function">Text</span>&gt;📋 Λίστες&lt;/<span class="function">Text</span>&gt;
+              &lt;/<span class="function">TouchableOpacity</span>&gt;
+              &lt;<span class="function">TouchableOpacity</span> <span class="prop">style</span>={styles.gridButton}&gt;
+                &lt;<span class="function">Text</span>&gt;💰 Έξοδα&lt;/<span class="function">Text</span>&gt;
+              &lt;/<span class="function">TouchableOpacity</span>&gt;
+              &lt;<span class="function">TouchableOpacity</span> <span class="prop">style</span>={styles.gridButton}&gt;
+                &lt;<span class="function">Text</span>&gt;📅 Ημερολόγιο&lt;/<span class="function">Text</span>&gt;
+              &lt;/<span class="function">TouchableOpacity</span>&gt;
+              &lt;<span class="function">TouchableOpacity</span> <span class="prop">style</span>={styles.gridButton}&gt;
+                &lt;<span class="function">Text</span>&gt;⚙️ Ρυθμίσεις&lt;/<span class="function">Text</span>&gt;
+              &lt;/<span class="function">TouchableOpacity</span>&gt;
+            &lt;/<span class="function">View</span>&gt;
+
+            <span class="comment">{/* Primary Action */}</span>
+            &lt;<span class="function">TouchableOpacity</span> <span class="prop">style</span>={styles.primaryButton}&gt;
+              &lt;<span class="function">Text</span> <span class="prop">style</span>={styles.primaryButtonText}&gt;
+                Προσθήκη Νέου +
+              &lt;/<span class="function">Text</span>&gt;
+            &lt;/<span class="function">TouchableOpacity</span>&gt;
+
+          &lt;/<span class="function">View</span>&gt;
+        &lt;/<span class="function">SafeAreaView</span>&gt;
+      &lt;/<span class="function">ImageBackground</span>&gt;
+    &lt;/<span class="function">SafeAreaProvider</span>&gt;
+  );
+}
+
+<span class="keyword">const</span> styles = <span class="function">StyleSheet</span>.<span class="function">create</span>({
+  background: {
+    flex: <span class="number">1</span>,
+  },
+  safeArea: {
+    flex: <span class="number">1</span>,
+  },
+  container: {
+    flex: <span class="number">1</span>,
+    padding: <span class="number">20</span>,
+  },
+  header: {
+    alignItems: <span class="string">'center'</span>,
+    paddingVertical: <span class="number">25</span>,
+  },
+  title: {
+    fontSize: <span class="number">32</span>,
+    fontWeight: <span class="string">'900'</span>,
+    color: <span class="string">'white'</span>,
+    textShadowColor: <span class="string">'rgba(0,0,0,0.3)'</span>,
+    textShadowOffset: { width: <span class="number">0</span>, height: <span class="number">2</span> },
+    textShadowRadius: <span class="number">6</span>,
+  },
+  card: {
+    backgroundColor: <span class="string">'rgba(255,255,255,0.98)'</span>,
+    borderRadius: <span class="number">20</span>,
+    padding: <span class="number">25</span>,
+    marginVertical: <span class="number">10</span>,
+    shadowColor: <span class="string">'#000'</span>,
+    shadowOffset: { width: <span class="number">0</span>, height: <span class="number">10</span> },
+    shadowOpacity: <span class="number">0.2</span>,
+    shadowRadius: <span class="number">15</span>,
+    elevation: <span class="number">10</span>,
+  },
+  buttonGrid: {
+    flexDirection: <span class="string">'row'</span>,
+    flexWrap: <span class="string">'wrap'</span>,
+    gap: <span class="number">12</span>,
+    marginVertical: <span class="number">20</span>,
+  },
+  gridButton: {
+    flex: <span class="number">1</span>,
+    minWidth: <span class="string">'45%'</span>,
+    backgroundColor: <span class="string">'rgba(255,255,255,0.95)'</span>,
+    padding: <span class="number">18</span>,
+    borderRadius: <span class="number">15</span>,
+    alignItems: <span class="string">'center'</span>,
+  },
+  primaryButton: {
+    backgroundColor: <span class="string">'#007AFF'</span>,
+    padding: <span class="number">20</span>,
+    borderRadius: <span class="number">15</span>,
+    alignItems: <span class="string">'center'</span>,
+  },
+});
+            </div>
+        </div>
+
+        <div class="footer">
+            <h2>🎉 Complete Guide Ready!</h2>
+            <p style="font-size: 1.4em; margin: 20px 0;">
+                Τώρα έχεις ένα comprehensive guide με ΟΛΑ τα essentials!
+            </p>
+            <p style="font-size: 1.1em;">
+                ✅ Flexbox • Core Components • Typography • Layouts • Lists • Forms • API • SafeAreaProvider
+            </p>
+        </div>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        function updatePlayground() {
+            const playground = document.getElementById('playground');
+            const flexDirection = document.getElementById('flexDirection').value;
+            const justifyContent = document.getElementById('justifyContent').value;
+            
+            playground.style.flexDirection = flexDirection;
+            playground.style.justifyContent = justifyContent;
+        }
+
+        window.addEventListener('load', updatePlayground);
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      

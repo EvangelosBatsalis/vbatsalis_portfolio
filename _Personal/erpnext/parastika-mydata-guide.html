@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Οδηγός Σεταρίσματος Παραστατικών - Φροντιστήριο (Άνευ ΦΠΑ)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        .nav {
+            background: #2d3748;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav a:hover {
+            background: #1e3c72;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section h2 {
+            color: #1e3c72;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #1e3c72;
+        }
+
+        .section h3 {
+            color: #2a5298;
+            font-size: 1.8em;
+            margin: 30px 0 20px 0;
+        }
+
+        .section h4 {
+            color: #2d3748;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #1e3c72;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #f59e0b;
+        }
+
+        .success-box {
+            background: #d1fae5;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #10b981;
+        }
+
+        .danger-box {
+            background: #fee2e2;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #ef4444;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 2px solid #e2e8f0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            border-color: #1e3c72;
+        }
+
+        .card h4 {
+            color: #1e3c72;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:hover {
+            background: #f7fafc;
+        }
+
+        .step {
+            background: #f8fafc;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            border-left: 5px solid #1e3c72;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #1e3c72;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        ul, ol {
+            margin-left: 40px;
+            margin-top: 15px;
+        }
+
+        li {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #92400e;
+        }
+
+        .highlight-blue {
+            background: #dbeafe;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .example-section {
+            background: #f0f9ff;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border: 2px dashed #0ea5e9;
+        }
+
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .doctype-code {
+            background: #1e293b;
+            color: #fbbf24;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+        }
+
+        .field-item {
+            background: #f8fafc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #1e3c72;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .field-type {
+            background: #1e3c72;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .screenshot-ref {
+            background: #e0e7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #6366f1;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .nav ul {
+                flex-direction: column;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Οδηγός Σεταρίσματος Παραστατικών</h1>
+            <p>Πλήρης οδηγός για Φροντιστήριο με Υπηρεσίες Άνευ ΦΠΑ (myDATA - ΑΑΔΕ)</p>
+        </div>
+
+        <nav class="nav">
+            <ul>
+                <li><a href="#intro">Εισαγωγή</a></li>
+                <li><a href="#types">Τύποι Παραστατικών</a></li>
+                <li><a href="#setup-company">Στοιχεία Επιχείρησης</a></li>
+                <li><a href="#categories">Κατηγορίες Παραστατικών</a></li>
+                <li><a href="#characterizations">Χαρακτηρισμοί ΑΑΔΕ</a></li>
+                <li><a href="#services">Αγαθά/Υπηρεσίες</a></li>
+                <li><a href="#vat-exempt">Άνευ ΦΠΑ</a></li>
+                <li><a href="#examples">Παραδείγματα</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <!-- Εισαγωγή -->
+            <section id="intro" class="section">
+                <h2>📚 Εισαγωγή στα Παραστατικά myDATA</h2>
+                
+                <div class="info-box">
+                    <h3>Τι είναι το myDATA;</h3>
+                    <p>Το <strong>myDATA</strong> είναι το σύστημα της ΑΑΔΕ (Ανεξάρτητη Αρχή Δημοσίων Εσόδων) για την ηλεκτρονική διαβίβαση και τήρηση των παραστατικών. Κάθε παραστατικό που εκδίδεις (απόδειξη, τιμολόγιο, πιστωτικό κλπ) πρέπει να αποσταλεί στο myDATA.</p>
+                </div>
+
+                <h3>Γιατί Αυτός ο Οδηγός;</h3>
+                <p>Από τα screenshots που μου έστειλες, βλέπω ότι έχεις ένα σύστημα για φροντιστήριο (Κέντρο Ξένων Γλωσσών) και θέλεις να σετάρεις σωστά:</p>
+                <ul>
+                    <li><strong>Κατηγορίες Παραστατικών</strong> - ποια παραστατικά θα εκδίδεις (ΑΛΠ, ΑΠΥ, Τιμολόγια κλπ)</li>
+                    <li><strong>Αγαθά/Υπηρεσίες</strong> - τα μαθήματα και υπηρεσίες του φροντιστηρίου</li>
+                    <li><strong>Άνευ ΦΠΑ</strong> - οι εκπαιδευτικές υπηρεσίες είναι απαλλασσόμενες από ΦΠΑ (Άρθρο 24)</li>
+                    <li><strong>Χαρακτηρισμοί ΑΑΔΕ</strong> - οι κωδικοί που πρέπει να αποστέλλονται στο myDATA</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4>⚠️ Πολύ Σημαντικό!</h4>
+                    <p>Τα εκπαιδευτήρια και φροντιστήρια είναι <strong>απαλλασσόμενα από ΦΠΑ</strong> σύμφωνα με το <strong>Άρθρο 24 του Κώδικα ΦΠΑ</strong>. Αυτό σημαίνει:</p>
+                    <ul>
+                        <li>Δεν χρεώνεις ΦΠΑ στα διδάκτρα</li>
+                        <li>Δεν εκπίπτεις ΦΠΑ στις αγορές σου</li>
+                        <li>Πρέπει να δηλώσεις την "Αιτία Εξαίρεσης ΦΠΑ" σε κάθε παραστατικό</li>
+                    </ul>
+                </div>
+
+                <h3>Βασικοί Όροι</h3>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Παραστατικό</h4>
+                        <p>Το έγγραφο που εκδίδεις (απόδειξη, τιμολόγιο κλπ). Κάθε παραστατικό έχει έναν <strong>Τύπο</strong> (π.χ. 2.1 = Τιμολόγιο Παροχής Υπηρεσιών).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Κατηγορία Παραστατικού</h4>
+                        <p>Η ρύθμιση που ορίζει ποιον τύπο παραστατικού θα εκδίδεις, με ποια σειρά (A, B κλπ) και από ποιον αριθμό ξεκινάει.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Χαρακτηρισμοί</h4>
+                        <p>Οι κωδικοί της ΑΑΔΕ που κατηγοριοποιούν τα έσοδα/έξοδα (π.χ. <span class="doctype-code">E3_561_001</span> = Έσοδα από Παροχή Υπηρεσιών).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Αγαθό/Υπηρεσία</h4>
+                        <p>Το προϊόν ή υπηρεσία που πουλάς (π.χ. "Μάθημα Αγγλικών B1", "Εξόφληση Διδάκτρων"). Κάθε αγαθό έχει Κωδικό, Περιγραφή, Τιμή, ΦΠΑ.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Τύποι Παραστατικών -->
+            <section id="types" class="section">
+                <h2>📄 Τύποι Παραστατικών που θα Χρησιμοποιήσεις</h2>
+                
+                <div class="info-box">
+                    <h3>Ποια Παραστατικά Εκδίδει ένα Φροντιστήριο;</h3>
+                    <p>Ανάλογα με το αν έχεις ΑΦΜ επιχείρησης και πώς λειτουργείς, θα εκδίδεις διαφορετικούς τύπους παραστατικών:</p>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Κωδικός</th>
+                            <th>Τύπος Παραστατικού</th>
+                            <th>Πότε το Χρησιμοποιείς</th>
+                            <th>Από screenshots</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>2.1</strong></td>
+                            <td>Τιμολόγιο Παροχής Υπηρεσιών</td>
+                            <td>Για B2B πελάτες (επιχειρήσεις) ή όταν ζητούν τιμολόγιο</td>
+                            <td>✓ Screenshot 4</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5.1</strong></td>
+                            <td>Πιστωτικό Τιμολόγιο (Συσχετιζόμενο)</td>
+                            <td>Για ακυρώσεις ή επιστροφές χρημάτων σε τιμολόγια</td>
+                            <td>✓ Screenshot 5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>11.1</strong></td>
+                            <td>ΑΛΠ - Απόδειξη Λιανικής Πώλησης</td>
+                            <td>Για λιανική πώληση (ιδιώτες χωρίς τιμολόγιο)</td>
+                            <td>✓ Screenshot 6</td>
+                        </tr>
+                        <tr>
+                            <td><strong>11.2</strong></td>
+                            <td>ΑΠΥ - Απόδειξη Παροχής Υπηρεσιών</td>
+                            <td>Για υπηρεσίες σε ιδιώτες (διδάκτρα)</td>
+                            <td>✓ Screenshot 7</td>
+                        </tr>
+                        <tr>
+                            <td><strong>11.4</strong></td>
+                            <td>Πιστωτικό Στοιχείο Λιανικής</td>
+                            <td>Για ακυρώσεις ή επιστροφές σε ΑΛΠ/ΑΠΥ</td>
+                            <td>✓ Screenshot 8</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <h4>💡 Τι να Επιλέξω για το Φροντιστήριο;</h4>
+                    <p><strong>Συνήθως θα χρησιμοποιείς:</strong></p>
+                    <ul>
+                        <li><strong>11.2 - ΑΠΥ</strong> για τα περισσότερα διδάκτρα (ιδιώτες)</li>
+                        <li><strong>2.1 - Τιμολόγιο</strong> αν έχεις εταιρικούς πελάτες ή κάποιος ζητήσει τιμολόγιο</li>
+                        <li><strong>11.4 / 5.1 - Πιστωτικά</strong> για ακυρώσεις και επιστροφές</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Στοιχεία Επιχείρησης -->
+            <section id="setup-company" class="section">
+                <h2>🏢 Βήμα 1: Γενικά Στοιχεία Επιχείρησης</h2>
+                
+                <div class="screenshot-ref">
+                    📸 Αντιστοιχεί σε: Screenshot 2 - "Γενικά Στοιχεία Επιχείρησης"
+                </div>
+
+                <p>Πρώτα πρέπει να συμπληρώσεις τα στοιχεία της επιχείρησής σου.</p>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Επωνυμία</strong>
+                    <div class="code-block">
+Παράδειγμα: ΦΙΛΙΠΠΑ ΕΛΕΝΗ ΒΑΣΙΛΕΙΟΣ
+           (ή το όνομα της επιχείρησής σου)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Επάγγελμα / Δραστηριότητα</strong>
+                    <div class="code-block">
+Παράδειγμα: Κέντρο Ξένων Γλωσσών
+           (όπως φαίνεται στο Screenshot 2)
+                    </div>
+                    <p>Μπορείς να γράψεις: "Φροντιστήριο Ξένων Γλωσσών" ή "Κέντρο Ξένων Γλωσσών"</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Διεύθυνση & Στοιχεία</strong>
+                    <ul>
+                        <li><strong>Διεύθυνση:</strong> ΠΕΡΙΚΛΕΟΥΣ 53 (ή η δική σου)</li>
+                        <li><strong>Τηλέφωνο:</strong> 2106010001</li>
+                        <li><strong>ΔΟΥ:</strong> ΧΟΛΑΡΓΟΥ (ή η δική σου ΔΟΥ)</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Λογότυπο (Optional)</strong>
+                    <p>Μπορείς να ανεβάσεις το λογότυπο του φροντιστηρίου για να εμφανίζεται στα παραστατικά.</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Αποδοχή Όρων Χρήσης</strong>
+                    <p>Τσέκαρε το checkbox: <span class="highlight">☑ Αποδοχή όρων χρήσης εφαρμογής</span></p>
+                </div>
+
+                <div class="success-box">
+                    <h4>✅ Ολοκλήρωση</h4>
+                    <p>Πάτα <strong>Επικαιροποίηση στοιχείων επιχείρησης μέσω taxisnet</strong> για να φέρει αυτόματα τα στοιχεία από την ΑΑΔΕ!</p>
+                </div>
+            </section>
+
+            <!-- Κατηγορίες Παραστατικών -->
+            <section id="categories" class="section">
+                <h2>📋 Βήμα 2: Κατηγορίες Παραστατικών</h2>
+                
+                <div class="screenshot-ref">
+                    📸 Αντιστοιχεί σε: Screenshots 3, 4, 5, 6, 7, 8 - "Κατηγορίες Παραστατικού"
+                </div>
+
+                <div class="info-box">
+                    <h3>Τι είναι η Κατηγορία Παραστατικού;</h3>
+                    <p>Η <strong>Κατηγορία Παραστατικού</strong> ορίζει:</p>
+                    <ul>
+                        <li><strong>Τύπο:</strong> Ποιο παραστατικό θα εκδίδεις (π.χ. 2.1, 11.2 κλπ)</li>
+                        <li><strong>Σειρά:</strong> Γράμμα σειράς (π.χ. A, B, C)</li>
+                        <li><strong>Ένάρξη Α/Α:</strong> Από ποιον αριθμό θα ξεκινήσει η αρίθμηση</li>
+                        <li><strong>Περιγραφή:</strong> Σημειώσεις για τη χρήση της σειράς</li>
+                    </ul>
+                </div>
+
+                <h3>Πώς να Δημιουργήσεις Κατηγορία Παραστατικού</h3>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Πήγαινε στις Κατηγορίες Παραστατικών</strong>
+                    <p>Από το μενού: <span class="highlight-blue">Ρυθμίσεις → Κατηγορίες Παραστατικών</span></p>
+                    <p>Πάτα: <span class="highlight">➕ Νέα Κατηγορία</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Συμπλήρωσε τα Στοιχεία</strong>
+                    <div class="example-section">
+                        <h4>Παράδειγμα 1: ΑΠΥ για Διδάκτρα</h4>
+                        <div class="field-item">
+                            <span><strong>Τύπος παραστατικού:</strong> 11.2 - ΑΠΥ (Απόδειξη Παροχής Υπηρεσιών)</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Σειρά:</strong> A</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Ένάρξη Α/Α Παραστατικών από:</strong> 3103</span>
+                            <span class="field-type">Screenshot 7</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Περιγραφή χρήσης σειράς:</strong> ΚΞΓ: Απόδειξη Παροχής Υπηρεσιών (ΑΠΥ) - ΑΝΕΥ ΦΠΑ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Αποθήκευση</strong>
+                    <p>Πάτα <span class="highlight">💾 Αποθήκευση</span></p>
+                </div>
+
+                <h3>Όλες οι Κατηγορίες που Χρειάζεσαι</h3>
+                <p>Με βάση τα screenshots, δημιούργησε τις παρακάτω κατηγορίες:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Τύπος</th>
+                            <th>Σειρά</th>
+                            <th>Ένάρξη Α/Α</th>
+                            <th>Περιγραφή</th>
+                            <th>Screenshot</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>2.1 - Τιμολόγιο Παροχής Υπηρεσιών</td>
+                            <td>A</td>
+                            <td>40</td>
+                            <td>ΚΞΓ: Τιμολόγιο Παροχής Υπηρεσιών (ΤΠΥ) - ΑΝΕΥ ΦΠΑ</td>
+                            <td>Screenshot 4</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>5.1 - Πιστωτικό Τιμολόγιο (Συσχετιζόμενο)</td>
+                            <td>A</td>
+                            <td>1</td>
+                            <td>Συσχετιζόμενο Πιστωτικό Τιμολόγιο</td>
+                            <td>Screenshot 5</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>11.1 - ΑΛΠ (Απόδειξη Λιανικής Πώλησης)</td>
+                            <td>A</td>
+                            <td>58</td>
+                            <td>VM: Απόδειξη Λιανικής Πώλησης (ΑΛΠ) - ΜΕ ΦΠΑ</td>
+                            <td>Screenshot 6</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>11.2 - ΑΠΥ (Απόδειξη Παροχής Υπηρεσιών)</td>
+                            <td>A</td>
+                            <td>3103</td>
+                            <td>ΚΞΓ: Απόδειξη Παροχής Υπηρεσιών (ΑΠΥ) - ΑΝΕΥ ΦΠΑ</td>
+                            <td>Screenshot 7</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>11.4 - Πιστωτικό Στοιχείο Λιανικής</td>
+                            <td>A</td>
+                            <td>1</td>
+                            <td>Πιστωτικό Απόδειξης Παροχής Υπηρεσιών (Λιανικών Συναλλαγών)</td>
+                            <td>Screenshot 8</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <h4>💡 Σημειώσεις</h4>
+                    <ul>
+                        <li><strong>Σειρά A:</strong> Είναι η πιο συνηθισμένη. Μπορείς να έχεις και B, C αν θέλεις διαφορετικές σειρές</li>
+                        <li><strong>Ένάρξη Α/Α:</strong> Μπορεί να είναι 1 για νέα σειρά, ή ο επόμενος διαθέσιμος αριθμός</li>
+                        <li><strong>ΚΞΓ vs VM:</strong> Βλέπω ότι έχεις δύο δραστηριότητες - Κέντρο Ξένων Γλωσσών (ΚΞΓ) και Vending Machine (VM)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Χαρακτηρισμοί ΑΑΔΕ -->
+            <section id="characterizations" class="section">
+                <h2>🏷️ Βήμα 3: Χαρακτηρισμοί ΑΑΔΕ</h2>
+                
+                <div class="screenshot-ref">
+                    📸 Αντιστοιχεί σε: Screenshot 10, 11 - "Χαρακτηρισμοί" & "Επεξεργασία Κατηγορίας Αγαθού/Υπηρεσίας"
+                </div>
+
+                <div class="info-box">
+                    <h3>Τι είναι οι Χαρακτηρισμοί;</h3>
+                    <p>Οι <strong>Χαρακτηρισμοί</strong> είναι κωδικοί της ΑΑΔΕ που κατηγοριοποιούν τα έσοδα και έξοδα. Κάθε αγαθό/υπηρεσία πρέπει να συνδεθεί με:</p>
+                    <ul>
+                        <li><strong>Τύπο Παραστατικού:</strong> Ποιο παραστατικό θα χρησιμοποιηθεί (11.1, 11.2, 2.1 κλπ)</li>
+                        <li><strong>Κατηγορία Εσόδου:</strong> Τι είδους έσοδο είναι (π.χ. "Έσοδα από Παροχή Υπηρεσιών")</li>
+                        <li><strong>Κωδικός ΑΑΔΕ:</strong> Ο κωδικός που θα αποσταλεί στο myDATA (π.χ. <span class="doctype-code">E3_561_001</span>)</li>
+                    </ul>
+                </div>
+
+                <h3>Βασικοί Κωδικοί για Φροντιστήριο</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Κωδικός ΑΑΔΕ</th>
+                            <th>Κατηγορία</th>
+                            <th>Πότε Χρησιμοποιείται</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="doctype-code">E3_561_001</span></td>
+                            <td>Πωλήσεις Αγαθών και υπηρεσιών Χονδρικές - Επιτηδευματιών</td>
+                            <td>Για Τιμολόγια (2.1) προς επιχειρήσεις</td>
+                        </tr>
+                        <tr>
+                            <td><span class="doctype-code">E3_561_003</span></td>
+                            <td>Πωλήσεις Αγαθών και υπηρεσιών Λιανικές - Ιδιωτική Πελατεία</td>
+                            <td>Για ΑΠΥ/ΑΛΠ (11.1, 11.2) προς ιδιώτες</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <h4>💡 Πώς Συνδέονται;</h4>
+                    <p>Από τα screenshots βλέπω ότι:</p>
+                    <ul>
+                        <li><strong>Vending Machine</strong> (Screenshot 10): Χρησιμοποιεί <span class="doctype-code">E3_561_003</span> με ΑΛΠ (11.1)</li>
+                        <li><strong>Κέντρο Ξένων Γλωσσών</strong> (Screenshot 11): Έχει διάφορους χαρακτηρισμούς για διαφορετικούς τύπους παραστατικών</li>
+                    </ul>
+                </div>
+
+                <h3>Πώς να Δημιουργήσεις Κατηγορία Αγαθού/Υπηρεσίας</h3>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Πήγαινε στις Κατηγορίες</strong>
+                    <p>Από το μενού: <span class="highlight-blue">Ρυθμίσεις → Κατηγορίες</span></p>
+                    <p>Ή από screenshot 9: Πάτα <span class="highlight">➕ Νέα Κατηγορία</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Ονομασία Κατηγορίας</strong>
+                    <div class="code-block">
+Ονομασία: Κέντρο Ξένων Γλωσσών
+                    </div>
+                    <p>Αυτή η κατηγορία θα περιλαμβάνει όλα τα μαθήματα και υπηρεσίες του φροντιστηρίου.</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Προσθήκη Χαρακτηρισμών</strong>
+                    <p>Πάτα <span class="highlight">➕ Νέος Χαρακτηρισμός</span> και πρόσθεσε:</p>
+                    
+                    <div class="example-section">
+                        <h4>Χαρακτηρισμός 1: Για ΑΠΥ (11.2)</h4>
+                        <div class="field-item">
+                            <span><strong>Είδος παραστατικού:</strong> 11.2 - ΑΠΥ (Απόδειξη Παροχής Υπηρεσιών)</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Αυτοτιμολόγηση:</strong> Όχι</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Κατηγορία:</strong> Έσοδα από Παροχή Υπηρεσιών (1.3)</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Κωδικός:</strong> <span class="doctype-code">E3_561_003</span></span>
+                            <span class="field-type">Λιανικές Πωλήσεις</span>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>Χαρακτηρισμός 2: Για Τιμολόγια (2.1)</h4>
+                        <div class="field-item">
+                            <span><strong>Είδος παραστατικού:</strong> 2.1 - Τιμολόγιο Παροχής Υπηρεσιών</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Αυτοτιμολόγηση:</strong> Όχι</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Κατηγορία:</strong> Έσοδα από Παροχή Υπηρεσιών (1.3)</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Κωδικός:</strong> <span class="doctype-code">E3_561_001</span></span>
+                            <span class="field-type">Χονδρικές Πωλήσεις</span>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>Χαρακτηρισμός 3: Για Πιστωτικά (11.4)</h4>
+                        <div class="field-item">
+                            <span><strong>Είδος παραστατικού:</strong> 11.4 - Πιστωτικό Στοιχείο Λιανικής</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Αυτοτιμολόγηση:</strong> Όχι</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Κατηγορία:</strong> Έσοδα από Παροχή Υπηρεσιών (1.3)</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Κωδικός:</strong> <span class="doctype-code">E3_561_003</span></span>
+                            <span class="field-type">Λιανικές Πωλήσεις</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Αποθήκευση</strong>
+                    <p>Πάτα <span class="highlight">💾 Αποθήκευση</span></p>
+                </div>
+
+                <div class="success-box">
+                    <h4>✅ Τέλεια!</h4>
+                    <p>Τώρα η κατηγορία "Κέντρο Ξένων Γλωσσών" έχει χαρακτηρισμούς για όλους τους τύπους παραστατικών που θα εκδίδεις!</p>
+                </div>
+            </section>
+
+            <!-- Αγαθά/Υπηρεσίες -->
+            <section id="services" class="section">
+                <h2>📦 Βήμα 4: Αγαθά/Υπηρεσίες (Μαθήματα)</h2>
+                
+                <div class="screenshot-ref">
+                    📸 Αντιστοιχεί σε: Screenshots 12, 13, 15 - "Προσθήκη", "Αγαθά/Υπηρεσίες", "Επεξεργασία Αγαθού/Υπηρεσίας"
+                </div>
+
+                <div class="info-box">
+                    <h3>Τι είναι Αγαθό/Υπηρεσία;</h3>
+                    <p>Κάθε <strong>Αγαθό/Υπηρεσία</strong> είναι ένα προϊόν ή υπηρεσία που πουλάς. Για το φροντιστήριο, αυτά είναι τα μαθήματα και οι υπηρεσίες που προσφέρεις:</p>
+                    <ul>
+                        <li>Έναντι Διδάκτρων</li>
+                        <li>Εξόφληση Διδάκτρων</li>
+                        <li>1η Δόση Διδάκτρων</li>
+                        <li>2η Δόση Διδάκτρων</li>
+                        <li>Δωρεάν Δίδακτρα</li>
+                        <li>Ενισχυτική Διδασκαλία</li>
+                        <li>κλπ</li>
+                    </ul>
+                </div>
+
+                <h3>Πώς να Δημιουργήσεις Αγαθό/Υπηρεσία</h3>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Πήγαινε στα Αγαθά/Υπηρεσίες</strong>
+                    <p>Από το μενού: <span class="highlight-blue">Αγαθά / Υπηρεσίες</span></p>
+                    <p>Πάτα: <span class="highlight">➕ Νέο Αγαθό/Υπηρεσία</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Βασικά Στοιχεία</strong>
+                    <div class="example-section">
+                        <h4>Παράδειγμα: "Έναντι Διδάκτρων" (Screenshot 12, 15)</h4>
+                        <div class="field-item">
+                            <span><strong>Τύπος:</strong> Υπηρεσία</span>
+                            <span class="field-type">Select</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Κατηγορία:</strong> Κέντρο Ξένων Γλωσσών</span>
+                            <span class="field-type">Select</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Κωδικός είδους:</strong> 0001</span>
+                            <span class="field-type">Text</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Κωδικός Taric:</strong> (προαιρετικό)</span>
+                            <span class="field-type">Text</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Περιγραφή:</strong> Έναντι Διδάκτρων</span>
+                            <span class="field-type">Textarea</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Τιμολόγηση</strong>
+                    <div class="field-item">
+                        <span><strong>Τιμή Μονάδος:</strong> 50.00 €</span>
+                        <span class="field-type">Number</span>
+                    </div>
+                    <div class="field-item">
+                        <span><strong>ΦΠΑ (%):</strong> Άνευ ΦΠΑ</span>
+                        <span class="field-type">Select - Screenshot 15</span>
+                    </div>
+                    <div class="field-item">
+                        <span><strong>Μονάδα Μέτρησης:</strong> Επιλέξτε...</span>
+                        <span class="field-type">Select (π.χ. "Τεμάχιο", "Ώρα")</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Χαρακτηρισμοί (Πολύ Σημαντικό!)</strong>
+                    <p>Στο section <span class="highlight-blue">Χαρακτηρισμοί</span>, πρόσθεσε τους χαρακτηρισμούς:</p>
+                    
+                    <div class="example-section">
+                        <h4>Από Screenshot 15:</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Είδος παραστατικού</th>
+                                    <th>Αυτοτιμολόγηση</th>
+                                    <th>Κατηγορία</th>
+                                    <th>Κωδικός</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>11.2 - ΑΠΥ (Απόδειξη Παροχής Υπηρεσιών)</td>
+                                    <td>Όχι</td>
+                                    <td>Έσοδα από Παροχή Υπηρεσιών (1.3)</td>
+                                    <td><span class="doctype-code">E3_561_003</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>2.1 - Τιμολόγιο Παροχής Υπηρεσιών</td>
+                                    <td>Όχι</td>
+                                    <td>Έσοδα από Παροχή Υπηρεσιών (1.3)</td>
+                                    <td><span class="doctype-code">E3_561_001</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>11.4 - Πιστωτικό Στοιχείο Λιανικής</td>
+                                    <td>Όχι</td>
+                                    <td>Έσοδα από Παροχή Υπηρεσιών (1.3)</td>
+                                    <td><span class="doctype-code">E3_561_003</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Αποθήκευση</strong>
+                    <p>Πάτα <span class="highlight">💾 Αποθήκευση</span></p>
+                </div>
+
+                <h3>Όλα τα Αγαθά/Υπηρεσίες που Χρειάζεσαι</h3>
+                <p>Από το Screenshot 13, δημιούργησε τα παρακάτω:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Κωδ. είδους</th>
+                            <th>Περιγραφή</th>
+                            <th>Τιμή Μονάδος</th>
+                            <th>ΦΠΑ</th>
+                            <th>Σημειώσεις</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0001</td>
+                            <td>Έναντι Διδάκτρων</td>
+                            <td>50.00 €</td>
+                            <td>Άνευ ΦΠΑ</td>
+                            <td>Προκαταβολή διδάκτρων</td>
+                        </tr>
+                        <tr>
+                            <td>0002</td>
+                            <td>Εξόφληση Διδάκτρων</td>
+                            <td>50.00 €</td>
+                            <td>Άνευ ΦΠΑ</td>
+                            <td>Τελική εξόφληση</td>
+                        </tr>
+                        <tr>
+                            <td>0003</td>
+                            <td>Δωρεάν Δίδακτρα</td>
+                            <td>40.00 €</td>
+                            <td>Άνευ ΦΠΑ</td>
+                            <td>Έκπτωση/Υποτροφία</td>
+                        </tr>
+                        <tr>
+                            <td>0004</td>
+                            <td>1η ΔΟΣΗ ΔΙΔΑΚΤΡΩΝ</td>
+                            <td>50.00 €</td>
+                            <td>Άνευ ΦΠΑ</td>
+                            <td>Πρώτη δόση</td>
+                        </tr>
+                        <tr>
+                            <td>0005</td>
+                            <td>2η ΔΟΣΗ ΔΙΔΑΚΤΡΩΝ</td>
+                            <td>50.00 €</td>
+                            <td>Άνευ ΦΠΑ</td>
+                            <td>Δεύτερη δόση</td>
+                        </tr>
+                        <tr>
+                            <td>0006</td>
+                            <td>Ενισχυτική Διδασκαλία</td>
+                            <td>40.00 €</td>
+                            <td>Άνευ ΦΠΑ</td>
+                            <td>Ειδικά μαθήματα</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <h4>💡 Συμβουλές</h4>
+                    <ul>
+                        <li><strong>Κωδικός είδους:</strong> Χρησιμοποίησε συνεπή αρίθμηση (0001, 0002, κλπ)</li>
+                        <li><strong>Τιμή:</strong> Μπορεί να είναι προεπιλεγμένη αλλά θα μπορείς να την αλλάξεις στο παραστατικό</li>
+                        <li><strong>Χαρακτηρισμοί:</strong> Πρόσθεσε ΠΑΝΤΑ χαρακτηρισμούς για όλους τους τύπους παραστατικών που θα εκδίδεις</li>
+                        <li><strong>Κατηγορία:</strong> Όλα να είναι στην κατηγορία "Κέντρο Ξένων Γλωσσών"</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Άνευ ΦΠΑ -->
+            <section id="vat-exempt" class="section">
+                <h2>🚫 Βήμα 5: Ρύθμιση Άνευ ΦΠΑ (Άρθρο 24)</h2>
+                
+                <div class="danger-box">
+                    <h4>🔴 ΚΡΙΣΙΜΟ: Απαλλαγή από ΦΠΑ για Εκπαιδευτικές Υπηρεσίες</h4>
+                    <p>Τα φροντιστήρια και εκπαιδευτήρια είναι <strong>απαλλασσόμενα από ΦΠΑ</strong> σύμφωνα με το <strong>Άρθρο 24 του Κώδικα ΦΠΑ</strong>.</p>
+                    <p>Αυτό σημαίνει ότι:</p>
+                    <ul>
+                        <li>❌ ΔΕΝ χρεώνεις ΦΠΑ στα διδάκτρα</li>
+                        <li>❌ ΔΕΝ εκπίπτεις ΦΠΑ στις αγορές σου</li>
+                        <li>✅ Πρέπει να δηλώσεις "Αιτία Εξαίρεσης ΦΠΑ" σε κάθε παραστατικό</li>
+                    </ul>
+                </div>
+
+                <h3>Πώς να Ρυθμίσεις Άνευ ΦΠΑ</h3>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Στα Αγαθά/Υπηρεσίες</strong>
+                    <p>Όταν δημιουργείς ή επεξεργάζεσαι αγαθό/υπηρεσία (Screenshot 12, 15):</p>
+                    <div class="field-item">
+                        <span><strong>ΦΠΑ (%):</strong> Άνευ ΦΠΑ</span>
+                        <span class="field-type">Select</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Αιτία Εξαίρεσης ΦΠΑ</strong>
+                    <p>Επίλεξε από το dropdown (Screenshot 12):</p>
+                    <div class="code-block">
+Χωρίς ΦΠΑ - άρθρο 24 του Κώδικα ΦΠΑ
+                    </div>
+                    <p>Αυτό είναι το σωστό άρθρο για εκπαιδευτικές υπηρεσίες!</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Επιβεβαίωση στο Παραστατικό</strong>
+                    <p>Όταν εκδίδεις παραστατικό, θα δεις:</p>
+                    <div class="field-item">
+                        <span><strong>Καθαρή Αξία:</strong> 50.00 €</span>
+                    </div>
+                    <div class="field-item">
+                        <span><strong>Έκπτωση:</strong> 0 €</span>
+                    </div>
+                    <div class="field-item">
+                        <span><strong>Καθ.Αξία με Έκπτωση:</strong> 50.00 €</span>
+                    </div>
+                    <div class="field-item">
+                        <span><strong>Ποσό ΦΠΑ:</strong> 0.00 €</span>
+                        <span class="field-type">Άνευ ΦΠΑ</span>
+                    </div>
+                    <div class="field-item">
+                        <span><strong>ΣΥΝΟΛΟ:</strong> 50.00 €</span>
+                        <span class="field-type">Screenshot 12</span>
+                    </div>
+                </div>
+
+                <h3>Τι Εμφανίζεται στο Παραστατικό</h3>
+                <div class="example-section">
+                    <h4>Παράδειγμα ΑΠΥ:</h4>
+                    <div class="code-block">
+Κέντρο Ξένων Γλωσσών
+ΑΦΜ: 123456789
+ΔΟΥ: ΧΟΛΑΡΓΟΥ
+
+ΑΠΟΔΕΙΞΗ ΠΑΡΟΧΗΣ ΥΠΗΡΕΣΙΩΝ
+Α/Α: 3103
+
+Περιγραφή: Έναντι Διδάκτρων
+Ποσότητα: 1
+Τιμή Μον.: 50.00 €
+Αξία: 50.00 €
+
+Σύνολο: 50.00 €
+ΦΠΑ: 0.00 € (Άνευ ΦΠΑ - Άρθρο 24 Κώδικα ΦΠΑ)
+
+ΤΕΛΙΚΟ ΣΥΝΟΛΟ: 50.00 €
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <h4>✅ Σωστή Ρύθμιση!</h4>
+                    <p>Με αυτές τις ρυθμίσεις, όλα τα παραστατικά θα εκδίδονται χωρίς ΦΠΑ και με την σωστή αιτία εξαίρεσης!</p>
+                </div>
+            </section>
+
+            <!-- Παραδείγματα -->
+            <section id="examples" class="section">
+                <h2>📖 Πρακτικά Παραδείγματα</h2>
+                
+                <h3>Σενάριο 1: Έκδοση ΑΠΥ για Έναντι Διδάκτρων</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Μαθητής Έρχεται να Πληρώσει</strong>
+                    <p>Ο Γιάννης πληρώνει προκαταβολή 50€ για τα μαθήματα του μήνα.</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Έκδοση Παραστατικού</strong>
+                    <p>Πήγαινε: <span class="highlight-blue">Έκδοση → Νέο Παραστατικό</span></p>
+                    <ul>
+                        <li><strong>Τύπος:</strong> 11.2 - ΑΠΥ</li>
+                        <li><strong>Σειρά:</strong> A</li>
+                        <li><strong>Α/Α:</strong> 3103 (αυτόματο)</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Προσθήκη Πελάτη</strong>
+                    <p>Συμπλήρωσε τα στοιχεία:</p>
+                    <ul>
+                        <li><strong>Τύπος Πελάτη:</strong> Ιδιώτης</li>
+                        <li><strong>Χώρα:</strong> Ελλάδα (GR)</li>
+                        <li><strong>ΑΦΜ:</strong> (προαιρετικό)</li>
+                        <li><strong>Επωνυμία:</strong> ΦΙΛΙΠΠΑ ΕΛΕΝΗ ΒΑΣΙΛΕΙΟΣ</li>
+                        <li><strong>Διεύθυνση:</strong> ΠΕΡΙΚΛΕΟΥΣ 12, ΑΓΙΑ ΠΑΡΑΣΚΕΥΗ, 15342</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Προσθήκη Αγαθού/Υπηρεσίας</strong>
+                    <p>Πάτα <span class="highlight">Φορολογικό Μητρώο</span> και επίλεξε:</p>
+                    <ul>
+                        <li><strong>Αγαθό/Υπηρεσία:</strong> 0001 - Έναντι Διδάκτρων</li>
+                        <li><strong>Ποσότητα:</strong> 1</li>
+                        <li><strong>Τιμή Μονάδος:</strong> 50.00 €</li>
+                        <li><strong>ΦΠΑ:</strong> Άνευ ΦΠΑ</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Αποθήκευση</strong>
+                    <p>Πάτα <span class="highlight">Αποθήκευση</span></p>
+                    <p>Το σύστημα θα:</p>
+                    <ul>
+                        <li>✅ Δημιουργήσει την ΑΠΥ με Α/Α 3103</li>
+                        <li>✅ Στείλει αυτόματα στο myDATA</li>
+                        <li>✅ Εκτυπώσει ή στείλει email στον πελάτη</li>
+                    </ul>
+                </div>
+
+                <h3>Σενάριο 2: Έκδοση Τιμολογίου για Επιχείρηση</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Εταιρεία Ζητά Τιμολόγιο</strong>
+                    <p>Η εταιρεία "TechCorp SA" θέλει εταιρικό πρόγραμμα αγγλικών και ζητά τιμολόγιο.</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Έκδοση Τιμολογίου</strong>
+                    <p>Πήγαινε: <span class="highlight-blue">Έκδοση → Νέο Παραστατικό</span></p>
+                    <ul>
+                        <li><strong>Τύπος:</strong> 2.1 - Τιμολόγιο Παροχής Υπηρεσιών</li>
+                        <li><strong>Σειρά:</strong> A</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Στοιχεία Εταιρείας</strong>
+                    <ul>
+                        <li><strong>Τύπος Πελάτη:</strong> Ιδιώτης (ή Επιχείρηση)</li>
+                        <li><strong>ΑΦΜ:</strong> 999999999</li>
+                        <li><strong>Επωνυμία:</strong> TechCorp SA</li>
+                        <li><strong>ΔΟΥ:</strong> Α' ΑΘΗΝΩΝ</li>
+                        <li><strong>Διεύθυνση:</strong> Πανεπιστημίου 1, Αθήνα</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Προσθήκη Υπηρεσιών</strong>
+                    <p>Προσθες το αγαθό "Εξόφληση Διδάκτρων" με ποσότητα 10 (για 10 υπαλλήλους)</p>
+                    <ul>
+                        <li><strong>Ποσότητα:</strong> 10</li>
+                        <li><strong>Τιμή Μονάδος:</strong> 50.00 €</li>
+                        <li><strong>Σύνολο:</strong> 500.00 € (Άνευ ΦΠΑ)</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Αποστολή</strong>
+                    <p>Το τιμολόγιο θα σταλεί στο myDATA με κωδικό <span class="doctype-code">E3_561_001</span> (Χονδρικές Πωλήσεις)</p>
+                </div>
+
+                <h3>Σενάριο 3: Ακύρωση με Πιστωτικό</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Μαθητής Ακυρώνει</strong>
+                    <p>Ο μαθητής αποφασίζει να σταματήσει και ζητά επιστροφή των 50€.</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Έκδοση Πιστωτικού</strong>
+                    <p>Πήγαινε: <span class="highlight-blue">Έκδοση → Νέο Παραστατικό</span></p>
+                    <ul>
+                        <li><strong>Τύπος:</strong> 11.4 - Πιστωτικό Στοιχείο Λιανικής</li>
+                        <li><strong>Σειρά:</strong> A</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Συσχέτιση με ΑΠΥ</strong>
+                    <p>Συμπλήρωσε:</p>
+                    <ul>
+                        <li><strong>Παραπέμπει σε:</strong> ΑΠΥ Α/Α 3103</li>
+                        <li><strong>Ποσό:</strong> 50.00 €</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Επιστροφή Χρημάτων</strong>
+                    <p>Κάνε την επιστροφή των 50€ και δώσε το πιστωτικό στον πελάτη.</p>
+                </div>
+
+                <div class="success-box">
+                    <h4>✅ Perfect!</h4>
+                    <p>Τώρα ξέρεις πώς να εκδίδεις όλους τους τύπους παραστατικών που χρειάζεσαι!</p>
+                </div>
+            </section>
+
+            <!-- Checklist -->
+            <section id="checklist" class="section">
+                <h2>✅ Τελικό Checklist</h2>
+                
+                <div class="info-box">
+                    <h3>Βεβαιώσου ότι έχεις κάνει τα παρακάτω:</h3>
+                    <ul style="list-style-type: none; margin-left: 0;">
+                        <li>☐ <strong>Στοιχεία Επιχείρησης:</strong> Επωνυμία, ΑΦΜ, ΔΟΥ, Διεύθυνση</li>
+                        <li>☐ <strong>Κατηγορίες Παραστατικών:</strong> 2.1, 5.1, 11.1, 11.2, 11.4</li>
+                        <li>☐ <strong>Κατηγορία Αγαθών:</strong> "Κέντρο Ξένων Γλωσσών" με χαρακτηρισμούς</li>
+                        <li>☐ <strong>Αγαθά/Υπηρεσίες:</strong> Έναντι Διδάκτρων, Εξόφληση, Δόσεις κλπ</li>
+                        <li>☐ <strong>Άνευ ΦΠΑ:</strong> Όλα τα αγαθά με "Άνευ ΦΠΑ - Άρθρο 24"</li>
+                        <li>☐ <strong>Χαρακτηρισμοί:</strong> E3_561_001 για τιμολόγια, E3_561_003 για ΑΠΥ</li>
+                        <li>☐ <strong>Test Παραστατικό:</strong> Δοκίμασε να εκδώσεις μία ΑΠΥ</li>
+                        <li>☐ <strong>myDATA:</strong> Σύνδεση με ΑΑΔΕ και αποστολή παραστατικών</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ Πριν Ξεκινήσεις Κανονικά</h4>
+                    <ul>
+                        <li>Κάνε <strong>test παραστατικά</strong> για να βεβαιωθείς ότι όλα δουλεύουν σωστά</li>
+                        <li>Ελέγξε ότι τα παραστατικά <strong>φτάνουν στο myDATA</strong></li>
+                        <li>Επαλήθευσε ότι οι <strong>χαρακτηρισμοί</strong> είναι σωστοί</li>
+                        <li>Κράτα <strong>backup</strong> των ρυθμίσεών σου</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h4>🎉 Συγχαρητήρια!</h4>
+                    <p>Έχεις σετάρει επιτυχώς το σύστημα παραστατικών για το φροντιστήριό σου! Τώρα μπορείς να εκδίδεις νόμιμα και εύκολα όλα τα παραστατικά που χρειάζεσαι.</p>
+                </div>
+            </section>
+
+            <!-- Πρόσθετες Συμβουλές -->
+            <section id="tips" class="section">
+                <h2>💡 Πρόσθετες Συμβουλές</h2>
+                
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>📊 Αναφορές</h4>
+                        <ul>
+                            <li>Χρησιμοποίησε τις αναφορές για να παρακολουθείς τα έσοδα</li>
+                            <li>Έλεγχε τακτικά ότι όλα τα παραστατικά έχουν αποσταλεί στο myDATA</li>
+                            <li>Κράτα αντίγραφα των παραστατικών</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🔒 Ασφάλεια</h4>
+                        <ul>
+                            <li>Κάνε τακτικά backups της βάσης δεδομένων</li>
+                            <li>Μην μοιράζεσαι κωδικούς πρόσβασης</li>
+                            <li>Ελέγξε ποιος έχει πρόσβαση στο σύστημα</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>📱 Mobile</h4>
+                        <ul>
+                            <li>Πολλά συστήματα έχουν mobile app</li>
+                            <li>Μπορείς να εκδίδεις παραστατικά από το κινητό</li>
+                            <li>Εύκολη πρόσβαση από παντού</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🤝 Υποστήριξη</h4>
+                        <ul>
+                            <li>Επικοινώνησε με την υποστήριξη του συστήματος για βοήθεια</li>
+                            <li>Ρώτα τον λογιστή σου για οποιαδήποτε απορία</li>
+                            <li>Παρακολούθησε τις αλλαγές στη νομοθεσία</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="footer">
+            <h3>📋 Οδηγός Παραστατικών - Φροντιστήριο</h3>
+            <p>Πλήρης οδηγός για την σωστή ρύθμιση παραστατικών με Άνευ ΦΠΑ</p>
+            <p style="margin-top: 20px; opacity: 0.8;">Created with ❤️ for Greek language schools</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <strong>Επόμενα Βήματα:</strong>
+                <br>
+                1. Συμπλήρωσε τα Στοιχεία Επιχείρησης<br>
+                2. Δημιούργησε τις Κατηγορίες Παραστατικών<br>
+                3. Φτιάξε την Κατηγορία "Κέντρο Ξένων Γλωσσών"<br>
+                4. Πρόσθεσε τα Αγαθά/Υπηρεσίες<br>
+                5. Έκδοσε το πρώτο σου παραστατικό!
+            </p>
+        </div>
+    </div>
+</body>
+</html>

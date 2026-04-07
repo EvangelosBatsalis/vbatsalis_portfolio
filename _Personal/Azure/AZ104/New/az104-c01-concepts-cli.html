@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AZ-104 Ch.01 — Azure Concepts &amp; CLI | Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07090f;--bg2:#0a0e1a;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--border2:#1e2d4a;--ab:#2196f3;--cyan:#06b6d4;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--acc:#2196f3;--acc2:#06b6d4;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--display:'Syne',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+
+/* ── HEADER ── */
+.hdr{background:linear-gradient(160deg,#040609,#07090f,#071018);border-bottom:1px solid var(--border);padding:52px 0 44px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:450px;height:450px;background:radial-gradient(circle,rgba(6,182,212,.07),transparent 65%);pointer-events:none}
+.hdr-inner{max-width:1100px;margin:0 auto;padding:0 32px}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:18px}
+.breadcrumb a{color:var(--text3);text-decoration:none;transition:color .15s}.breadcrumb a:hover{color:var(--text2)}
+.bc-sep{color:var(--border2)}
+.chapter-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(6,182,212,.08);border:1px solid rgba(6,182,212,.28);border-radius:4px;padding:5px 14px;font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.chapter-badge::before{content:'◈';font-size:13px}
+.hdr h1{font-family:var(--display);font-size:clamp(26px,5vw,50px);font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px}
+.hdr h1 span{color:var(--cyan)}
+.hdr-sub{color:var(--text2);font-size:15px;font-weight:300;margin-bottom:22px}
+.hdr-meta{display:flex;gap:20px;flex-wrap:wrap}
+.mp{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text3)}
+.mpd{width:6px;height:6px;border-radius:50%}
+.mpd.g{background:var(--green);box-shadow:0 0 5px var(--green)}
+.mpd.c{background:var(--cyan);box-shadow:0 0 5px var(--cyan)}
+.mpd.y{background:var(--yellow);box-shadow:0 0 5px var(--yellow)}
+
+/* ── LAYOUT ── */
+.layout{max-width:1100px;margin:0 auto;padding:40px 32px;display:grid;grid-template-columns:272px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.toc-hdr{background:var(--bg3);padding:13px 18px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.toc-hdr::before{content:'⬡';font-size:13px}
+.toc-body{padding:8px 0}
+.toc-sec{padding:6px 18px 2px;font-size:9px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:6px}
+.toc-a{display:flex;align-items:flex-start;gap:8px;padding:6px 18px;font-size:12.5px;color:var(--text2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}
+.toc-a:hover{color:var(--text);background:var(--card2);border-left-color:var(--cyan)}
+.toc-a.active{color:var(--cyan);background:rgba(6,182,212,.07);border-left-color:var(--cyan);font-weight:600}
+.toc-a .tnum{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:3px;flex-shrink:0;width:20px}
+
+/* ── CONTENT ── */
+.content{min-width:0}
+.ch-intro{background:linear-gradient(135deg,var(--card),var(--bg3));border:1px solid var(--border2);border-radius:10px;padding:30px;margin-bottom:36px;position:relative;overflow:hidden}
+.ch-intro::before{content:'';position:absolute;top:-20px;right:-20px;width:180px;height:180px;background:radial-gradient(circle,rgba(6,182,212,.07),transparent 70%)}
+.ch-n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--cyan);text-transform:uppercase;margin-bottom:8px}
+.ch-t{font-family:var(--display);font-size:26px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.ch-desc{color:var(--text2);font-size:14px;line-height:1.7;margin-bottom:18px}
+.ch-stats{display:flex;gap:16px;flex-wrap:wrap}
+.stat-c{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px 14px;font-family:var(--mono);font-size:11px}
+.stat-c .lbl{color:var(--text3);display:block;margin-bottom:2px}
+.stat-c .val{color:var(--text);font-weight:600}
+
+/* sections */
+.section{margin-bottom:52px;scroll-margin-top:24px}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.si{width:36px;height:36px;background:rgba(6,182,212,.09);border:1px solid rgba(6,182,212,.22);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.sn{font-family:var(--mono);font-size:10px;color:var(--text3)}
+.section h2{font-family:var(--display);font-size:20px;font-weight:700;color:#fff}
+.section h3{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);margin:28px 0 10px}
+.section h3::before{content:'▸ ';color:var(--cyan)}
+.section h4{font-size:13px;font-weight:600;color:var(--text2);margin:18px 0 8px;font-family:var(--mono);letter-spacing:.04em}
+.section p{color:var(--text2);margin-bottom:14px;font-size:14px}
+.section ul,.section ol{color:var(--text2);padding-left:22px;margin-bottom:14px}
+.section li{margin-bottom:6px;font-size:14px}
+.section li strong,.section p strong{color:var(--text)}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:13.5px}
+.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border)}
+.tbl td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:12.5px}
+.tbl tr:hover td{background:var(--card2)}
+
+/* code */
+pre{background:#050710;border:1px solid var(--border);border-left:3px solid var(--cyan);border-radius:6px;padding:18px 20px;overflow-x:auto;margin-bottom:16px;font-family:var(--mono);font-size:12.5px;line-height:1.7}
+code{font-family:var(--mono);font-size:12px;color:#7dd3fc;background:rgba(125,211,252,.07);padding:2px 5px;border-radius:3px}
+pre code{background:none;padding:0;color:inherit}
+.kw{color:#67e8f9}.cmd{color:#7dd3fc}.param{color:#86efac}.val{color:#fbbf24}.cmt{color:#3d5068;font-style:italic}.str{color:#f472b6}.op{color:#e879f9}.var{color:#a5f3fc}
+
+/* alerts */
+.alert{display:flex;gap:12px;padding:14px 18px;border-radius:6px;margin-bottom:16px;font-size:13.5px}
+.ai{font-size:16px;flex-shrink:0;margin-top:1px}
+.ab{color:var(--text2);line-height:1.6}.ab strong{color:var(--text)}
+.tip{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18)}.tip .ai{color:#22c55e}
+.warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18)}.warn .ai{color:var(--yellow)}
+.exam{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.22)}.exam .ai{color:var(--purple)}
+.info{background:rgba(6,182,212,.05);border:1px solid rgba(6,182,212,.22)}.info .ai{color:var(--cyan)}
+
+/* concept boxes */
+.box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-bottom:20px}
+.box.hl{border-color:rgba(6,182,212,.28);background:linear-gradient(135deg,var(--card),rgba(6,182,212,.03))}
+.box-t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px}
+
+/* scenario */
+.scenario{background:var(--card);border:1px solid var(--border2);border-radius:8px;overflow:hidden;margin-bottom:24px}
+.sc-hdr{background:linear-gradient(90deg,rgba(6,182,212,.13),rgba(6,182,212,.02));padding:12px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.sc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.28);border-radius:3px;padding:2px 8px}
+.sc-title{font-size:13px;font-weight:600;color:var(--text)}
+.sc-body{padding:18px 20px}
+.sc-body p{color:var(--text2);font-size:13.5px;margin-bottom:12px}
+.sc-body p:last-child{margin-bottom:0}
+.sc-body strong{color:var(--text)}
+.steps{list-style:none;padding:0;counter-reset:st}
+.steps li{counter-increment:st;display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;color:var(--text2);font-size:13.5px}
+.steps li::before{content:counter(st);min-width:22px;height:22px;background:rgba(6,182,212,.09);border:1px solid rgba(6,182,212,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--cyan);flex-shrink:0;margin-top:2px}
+
+/* compare */
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:20px}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.cc h4{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.cc ul{list-style:none;padding:0}
+.cc li{font-size:13px;color:var(--text2);padding:4px 0 4px 16px;position:relative}
+.cc li::before{content:'→';position:absolute;left:0;color:var(--text3);font-size:11px}
+
+/* badge */
+.badge{display:inline-flex;align-items:center;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:3px;font-weight:600;vertical-align:middle}
+.bg{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)}
+.by{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}
+.br{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25)}
+.bc{background:rgba(6,182,212,.1);color:var(--cyan);border:1px solid rgba(6,182,212,.25)}
+
+/* quiz */
+.quiz{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:8px;padding:20px 24px;margin-bottom:20px}
+.qh{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:12px}
+.qq{font-size:14px;color:var(--text);font-weight:600;margin-bottom:10px}
+.qo{list-style:none;padding:0}
+.qo li{font-size:13px;color:var(--text2);padding:7px 10px;margin-bottom:4px;cursor:pointer;border-radius:4px;transition:background .15s;border-left:2px solid transparent}
+.qo li:hover{background:rgba(139,92,246,.07)}
+.qo li.ok{background:rgba(34,197,94,.07);color:#22c55e;border-left-color:#22c55e}
+.qo li.no{background:rgba(239,68,68,.07);color:#ef4444;border-left-color:#ef4444}
+.qa{display:none;margin-top:12px;padding:12px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:6px;font-size:13px;color:var(--text2)}
+.qa.show{display:block}
+.qbtn{margin-top:10px;padding:7px 16px;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.3);border-radius:5px;color:var(--purple);font-family:var(--mono);font-size:11px;letter-spacing:.08em;cursor:pointer;transition:all .15s}
+.qbtn:hover{background:rgba(139,92,246,.22)}
+
+/* divider */
+hr{border:none;border-top:1px solid var(--border);margin:36px 0}
+
+/* nav */
+.nav{display:flex;justify-content:space-between;margin-top:48px;padding-top:24px;border-top:1px solid var(--border);gap:16px}
+.nb{display:flex;flex-direction:column;gap:4px;padding:14px 20px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-decoration:none;flex:1;transition:all .2s}
+.nb:hover{border-color:var(--cyan);background:var(--card2)}
+.nl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}
+.nt{font-size:13px;color:var(--text);font-weight:600}
+.nb.next{text-align:right}
+
+/* service cards */
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px}
+.svc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.svc-icon{font-size:24px;margin-bottom:8px}
+.svc-name{font-family:var(--display);font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.svc-cat{font-family:var(--mono);font-size:10px;color:var(--cyan);margin-bottom:6px}
+.svc-desc{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* cmd cheatsheet */
+.cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.cs{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.cs-head{background:var(--bg3);padding:10px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.cs-body{padding:14px 16px}
+.cs-body pre{margin:0;font-size:12px;padding:10px 14px}
+
+@media(max-width:768px){.layout{grid-template-columns:1fr;padding:24px 16px}.sidebar{position:static}.hdr-inner{padding:0 16px}.cs-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="breadcrumb">
+      <a href="az104-index.html">AZ-104</a>
+      <span class="bc-sep">/</span>
+      <span>Chapter 01</span>
+    </div>
+    <div class="chapter-badge">Chapter 01 · Sections 2–3</div>
+    <h1>Azure Concepts &amp;<br><span>CLI / PowerShell</span></h1>
+    <p class="hdr-sub">Overview of Azure Services · PowerShell Az Module · Azure CLI · Cloud Shell</p>
+    <div class="hdr-meta">
+      <div class="mp"><span class="mpd g"></span>Curriculum Sections 2–3</div>
+      <div class="mp"><span class="mpd c"></span>Foundation — Όλα τα domains</div>
+      <div class="mp"><span class="mpd y"></span>~3–5 ερωτήσεις CLI/PS στο exam</div>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="toc">
+    <div class="toc-hdr">Chapter 01</div>
+    <div class="toc-body">
+      <div class="toc-sec">Section 2 — Azure Concepts</div>
+      <a href="#s1" class="toc-a active"><span class="tnum">2.1</span>Azure Service Overview</a>
+      <a href="#s2" class="toc-a"><span class="tnum">2.2</span>VMs &amp; App Services</a>
+      <a href="#s3" class="toc-a"><span class="tnum">2.3</span>Storage &amp; Data Services</a>
+      <a href="#s4" class="toc-a"><span class="tnum">2.4</span>Networking &amp; Microservices</a>
+      <div class="toc-sec">Section 3 — CLI &amp; PowerShell</div>
+      <a href="#s5" class="toc-a"><span class="tnum">3.1</span>Scripting on the Exam</a>
+      <a href="#s6" class="toc-a"><span class="tnum">3.2</span>PowerShell Az Module</a>
+      <a href="#s7" class="toc-a"><span class="tnum">3.3</span>Azure CLI</a>
+      <a href="#s8" class="toc-a"><span class="tnum">3.4</span>Cloud Shell</a>
+      <a href="#s9" class="toc-a"><span class="tnum">3.5</span>Switch Subscriptions</a>
+      <a href="#s10" class="toc-a"><span class="tnum">Q</span>Quiz</a>
+      <div class="toc-sec">Navigation</div>
+      <a href="az104-index.html" class="toc-a">🏠 Index</a>
+      <a href="az104-c02-entra-id.html" class="toc-a">Ch02. Entra ID →</a>
+    </div>
+  </div>
+</aside>
+
+<!-- CONTENT -->
+<main class="content">
+
+  <div class="ch-intro">
+    <div class="ch-n">Chapter 01 / Sections 2–3</div>
+    <div class="ch-t">Azure Concepts &amp;<br>CLI / PowerShell</div>
+    <p class="ch-desc">Πριν βουτήξουμε στα βαθιά του AZ-104, χρειαζόμαστε solid foundation: τι υπηρεσίες παρέχει το Azure και πώς τις διαχειριζόμαστε μέσω κώδικα. Σε αυτό το chapter καλύπτουμε το "big picture" του Azure ecosystem και τα δύο βασικά εργαλεία CLI/PowerShell που χρησιμοποιείς καθημερινά και στο exam.</p>
+    <div class="ch-stats">
+      <div class="stat-c"><span class="lbl">Curriculum</span><span class="val">Sections 2–3</span></div>
+      <div class="stat-c"><span class="lbl">Lessons</span><span class="val">11, 12, 13, 14, 15, 16, 17, 18, 19</span></div>
+      <div class="stat-c"><span class="lbl">Exam relevance</span><span class="val">Foundation για όλα τα domains</span></div>
+      <div class="stat-c"><span class="lbl">Difficulty</span><span class="val">⭐⭐ Medium-Low</span></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 2.1 — AZURE SERVICE OVERVIEW -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section" id="s1">
+    <div class="sh">
+      <div class="si">☁️</div>
+      <div><div class="sn">Lesson 11 · Section 2.1</div><h2>Overview of Azure Services</h2></div>
+    </div>
+
+    <p>Το Azure παρέχει <strong>200+ cloud services</strong> οργανωμένες σε κατηγορίες. Για το AZ-104, εστιάζουμε στις κατηγορίες που καλύπτονται από τα 5 domains της εξέτασης.</p>
+
+    <h3>Azure Global Infrastructure</h3>
+    <p>Πριν τις υπηρεσίες, κατανόησε την υποδομή:</p>
+    <table class="tbl">
+      <thead><tr><th>Concept</th><th>Περιγραφή</th><th>AZ-104 Relevance</th></tr></thead>
+      <tbody>
+        <tr><td>Geography</td><td>Ομάδα regions (π.χ. "Europe") που ικανοποιεί data residency απαιτήσεις</td><td>Compliance, GDPR</td></tr>
+        <tr><td>Region</td><td>Φυσική τοποθεσία με datacenters (π.χ. "West Europe" = Amsterdam, "North Europe" = Dublin)</td><td>Επιλέγεις region σε κάθε resource</td></tr>
+        <tr><td>Availability Zone (AZ)</td><td>Physically separate datacenter μέσα στο ίδιο region. Τουλάχιστον 3 AZs ανά region που τα υποστηρίζει.</td><td>VM SLA 99.99%, ZRS storage</td></tr>
+        <tr><td>Region Pair</td><td>Κάθε region έχει paired region για geo-redundancy (West Europe ↔ North Europe)</td><td>GRS storage, ASR replication</td></tr>
+        <tr><td>Availability Set</td><td>Logical grouping VMs σε διαφορετικά fault/update domains μέσα στο ίδιο datacenter</td><td>VM SLA 99.95%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert info">
+      <span class="ai">ℹ️</span>
+      <div class="ab"><strong>West Europe vs North Europe:</strong> Για Septona ABEE — West Europe (Amsterdam) είναι η προτεινόμενη primary region για GR/BG operations λόγω GDPR compliance και χαμηλής latency. North Europe (Dublin) = DR (disaster recovery) region.</div>
+    </div>
+
+    <h3>Azure Service Categories — The Big Picture</h3>
+    <div class="svc-grid">
+      <div class="svc">
+        <div class="svc-icon">🖥️</div>
+        <div class="svc-name">Compute</div>
+        <div class="svc-cat">Domain 3 — 20–25%</div>
+        <div class="svc-desc">Virtual Machines, VMSS, App Service, Container Instances, Azure Kubernetes Service (AKS), Azure Functions</div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">🗄️</div>
+        <div class="svc-name">Storage</div>
+        <div class="svc-cat">Domain 2 — 15–20%</div>
+        <div class="svc-desc">Storage Accounts (Blob, Files, Queues, Tables), Azure Data Lake, Managed Disks</div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">🌐</div>
+        <div class="svc-name">Networking</div>
+        <div class="svc-cat">Domain 4 — 25–30% ⭐</div>
+        <div class="svc-desc">Virtual Networks, Load Balancer, Application Gateway, VPN Gateway, DNS, ExpressRoute, NSG</div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">🔐</div>
+        <div class="svc-name">Identity &amp; Security</div>
+        <div class="svc-cat">Domain 1 — 20–25%</div>
+        <div class="svc-desc">Microsoft Entra ID (Azure AD), RBAC, Azure Policy, Key Vault, Defender for Cloud</div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">📊</div>
+        <div class="svc-name">Management &amp; Governance</div>
+        <div class="svc-cat">Domain 1 &amp; 5</div>
+        <div class="svc-desc">Azure Monitor, Log Analytics, Cost Management, Azure Advisor, Azure Backup, ASR</div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">🗃️</div>
+        <div class="svc-name">Databases</div>
+        <div class="svc-cat">Not primary AZ-104</div>
+        <div class="svc-desc">Azure SQL Database, Cosmos DB, MySQL, PostgreSQL. Εμφανίζονται στο context άλλων services.</div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">🤖</div>
+        <div class="svc-name">AI &amp; ML</div>
+        <div class="svc-cat">Not in AZ-104</div>
+        <div class="svc-desc">Azure OpenAI, Cognitive Services, Machine Learning. Σε άλλα certifications (AI-102, DP-100).</div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">🔧</div>
+        <div class="svc-name">DevOps &amp; Automation</div>
+        <div class="svc-cat">Supporting role</div>
+        <div class="svc-desc">Azure DevOps, GitHub Actions, ARM Templates, Bicep, Azure Automation. Ch07 του οδηγού.</div>
+      </div>
+    </div>
+
+    <h3>Azure Resource Hierarchy</h3>
+    <p>Κατανόησε την ιεραρχία — σημαντική για RBAC, Policy και Locks:</p>
+    <div class="box hl">
+      <div class="box-t">Hierarchy — Top to Bottom</div>
+      <p style="font-family:var(--mono);font-size:12.5px;line-height:2.4;color:var(--text2);margin:0">
+        <span style="color:#7dd3fc">Tenant (Entra ID)</span> — Root organization, one per company<br>
+        &nbsp;&nbsp;└── <span style="color:#67e8f9">Management Group</span> — Logical grouping of subscriptions (max 6 levels deep)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── <span style="color:#86efac">Subscription</span> — Billing unit, trust relationship with Entra ID<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── <span style="color:#fbbf24">Resource Group</span> — Logical container for resources (same lifecycle)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── <span style="color:#f9a8d4">Resource</span> — Actual Azure service (VM, Storage Account, VNet, κλπ)
+      </p>
+    </div>
+
+    <div class="alert exam">
+      <span class="ai">🎯</span>
+      <div class="ab">
+        <strong>Exam: RBAC &amp; Policy inheritance:</strong> Ό,τι ορίζεις σε υψηλότερο scope <em>κληρονομείται</em> προς τα κάτω. RBAC assignment σε Subscription = ισχύει για όλα τα RGs και resources. Policy σε Management Group = ισχύει για όλες τις subscriptions κάτω από αυτό. <strong>Locks δεν κληρονομούνται αυτόματα</strong> — πρέπει να τα ορίσεις ξεχωριστά.
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 2.2 — VMs & APP SERVICES -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section" id="s2">
+    <div class="sh">
+      <div class="si">🖥️</div>
+      <div><div class="sn">Lesson 12 · Section 2.2</div><h2>Overview of Azure VM and App Services</h2></div>
+    </div>
+
+    <p>Δύο fundamentally διαφορετικά compute models — η επιλογή μεταξύ τους είναι <strong>πολύ συχνή ερώτηση</strong> στο AZ-104.</p>
+
+    <h3>IaaS vs PaaS vs SaaS — Το Μοντέλο</h3>
+    <table class="tbl">
+      <thead><tr><th>Model</th><th>Εσύ διαχειρίζεσαι</th><th>Azure διαχειρίζεται</th><th>Παράδειγμα</th></tr></thead>
+      <tbody>
+        <tr><td>On-Premises</td><td>Τα πάντα (hardware, OS, runtime, app, data)</td><td>Τίποτα</td><td>Septona on-prem server</td></tr>
+        <tr><td>IaaS <br><span class="badge bc">Infrastructure as a Service</span></td><td>OS, runtime, middleware, app, data</td><td>Hardware, hypervisor, network, storage</td><td>Azure VM, Managed Disks</td></tr>
+        <tr><td>PaaS <br><span class="badge bg">Platform as a Service</span></td><td>App, data (και μερικές settings)</td><td>OS patches, runtime, scaling, hardware</td><td>App Service, Azure SQL, ACI</td></tr>
+        <tr><td>SaaS <br><span class="badge by">Software as a Service</span></td><td>Χρήση μόνο (configuration)</td><td>Τα πάντα</td><td>Microsoft 365, Salesforce</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Azure Virtual Machines — Quick Overview</h3>
+    <p>Βαθύτερη κάλυψη στο <strong>Chapter 06</strong>. Εδώ: το conceptual framework.</p>
+    <ul>
+      <li><strong>IaaS model</strong> — full OS control, εσύ κάνεις patching και security</li>
+      <li>Επιλέγεις: Series (B/D/E/F/N), Size (cores, RAM, disk IOPS), OS, Region, Availability</li>
+      <li>Χρησιμοποιείς για: legacy apps, custom OS configuration, full control requirements</li>
+      <li>Billing: per second (Linux) ή per minute (Windows) όταν running. Stop/deallocate = no compute cost.</li>
+    </ul>
+
+    <h3>Azure App Service — Quick Overview</h3>
+    <p>Βαθύτερη κάλυψη στο <strong>Chapter 08</strong>. Εδώ: το conceptual framework.</p>
+    <ul>
+      <li><strong>PaaS model</strong> — δεν διαχειρίζεσαι OS ή patching</li>
+      <li>Υποστηρίζει: .NET, Node.js, Python, PHP, Java, Ruby, Docker containers</li>
+      <li>Built-in: auto-scaling, load balancing, deployment slots, SSL certificates</li>
+      <li>Χρησιμοποιείς για: web apps, REST APIs, mobile backends</li>
+    </ul>
+
+    <div class="scenario">
+      <div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">Septona — VM vs App Service Decision</span></div>
+      <div class="sc-body">
+        <p><strong>Κατάσταση:</strong> Το IT team πρέπει να αποφασίσει πού να τρέξει τρεις εφαρμογές:</p>
+        <p>
+          <strong>1. ERP System (Microsoft Dynamics NAV legacy):</strong> Απαιτεί Windows Server 2019, specific registry settings, custom DLLs. → <strong>Azure VM (IaaS)</strong> — χρειάζεσαι full OS control.<br><br>
+          <strong>2. Corporate web portal (.NET 8):</strong> Standard web app, automatic scaling needed, δεν χρειάζεσαι OS access. → <strong>App Service (PaaS)</strong> — zero OS management, built-in scaling.<br><br>
+          <strong>3. Data processing scripts (Python):</strong> Τρέχουν κατά διαστήματα, 5–10 λεπτά ανά run. → <strong>Azure Functions ή Container Instances</strong> — pay per execution, no idle cost.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 2.3 — STORAGE & DATA -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section" id="s3">
+    <div class="sh">
+      <div class="si">🗄️</div>
+      <div><div class="sn">Lesson 13 · Section 2.3</div><h2>Overview of Azure Storage and Data Services</h2></div>
+    </div>
+
+    <p>Το Azure Storage ecosystem είναι ευρύτερο από ένα απλό "file server". Κατανόησε ποια υπηρεσία κάνει τι — το exam ρωτά πολύ "ποια υπηρεσία χρησιμοποιείς για X;".</p>
+
+    <h3>Azure Storage Services</h3>
+    <table class="tbl">
+      <thead><tr><th>Service</th><th>Τύπος Data</th><th>Access</th><th>Use Case</th></tr></thead>
+      <tbody>
+        <tr><td>Blob Storage<br><span class="badge bg">Block/Append/Page</span></td><td>Unstructured (files, images, videos, backups)</td><td>HTTP/HTTPS REST API, SDK</td><td>Backups, media, static websites, logs</td></tr>
+        <tr><td>Azure Files</td><td>File shares (SMB/NFS)</td><td>Mount ως network drive (SMB 445)</td><td>Replace on-prem file servers, profile shares</td></tr>
+        <tr><td>Azure Queues</td><td>Text messages (max 64KB each)</td><td>REST API</td><td>Decoupled application communication</td></tr>
+        <tr><td>Azure Tables</td><td>Semi-structured key-value NoSQL</td><td>REST API, OData</td><td>IoT telemetry, structured non-relational data</td></tr>
+        <tr><td>Azure Managed Disks</td><td>Block storage (VHDs)</td><td>Attached to VMs</td><td>OS και data disks για VMs</td></tr>
+        <tr><td>Azure Data Lake Gen2</td><td>Big data analytics files</td><td>HDFS compatible, REST</td><td>Hadoop, Spark, analytics workloads</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Azure Database Services</h3>
+    <table class="tbl">
+      <thead><tr><th>Service</th><th>Engine</th><th>Model</th><th>AZ-104 relevance</th></tr></thead>
+      <tbody>
+        <tr><td>Azure SQL Database</td><td>SQL Server</td><td>PaaS — fully managed</td><td>Backup, networking, RBAC access</td></tr>
+        <tr><td>Azure SQL Managed Instance</td><td>SQL Server full</td><td>PaaS — near 100% compat.</td><td>Migration from on-prem SQL Server</td></tr>
+        <tr><td>Azure Database for MySQL/PostgreSQL</td><td>MySQL / PostgreSQL</td><td>PaaS</td><td>Linux-based web apps</td></tr>
+        <tr><td>Cosmos DB</td><td>Multi-model NoSQL</td><td>PaaS — globally distributed</td><td>Multi-region apps, low latency</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert tip">
+      <span class="ai">✅</span>
+      <div class="ab"><strong>AZ-104 Focus:</strong> Το exam εστιάζει στο <em>Azure Blob Storage</em> και <em>Azure Files</em> (περιλαμβάνεται στο Domain 2). Database services εμφανίζονται μόνο στα πλαίσια άλλων scenarios (networking, RBAC access). Δεν σε ρωτούν για query optimization.</div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 2.4 — NETWORKING & MICROSERVICES -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section" id="s4">
+    <div class="sh">
+      <div class="si">🌐</div>
+      <div><div class="sn">Lesson 14 · Section 2.4</div><h2>Overview of Azure Networking &amp; Microservices</h2></div>
+    </div>
+
+    <p>Το networking domain (25–30%) είναι το μεγαλύτερο στο exam. Εδώ overview των services — βαθύτερη κάλυψη στα Chapters 10–11.</p>
+
+    <h3>Core Networking Services</h3>
+    <table class="tbl">
+      <thead><tr><th>Service</th><th>Purpose</th><th>Analogy (Fortinet)</th></tr></thead>
+      <tbody>
+        <tr><td>Virtual Network (VNet)</td><td>Isolated private network στο Azure — το "LAN" σου</td><td>VLAN / network segment</td></tr>
+        <tr><td>Network Security Group (NSG)</td><td>Stateful firewall rules για subnet ή NIC</td><td>FortiGate firewall policy</td></tr>
+        <tr><td>Azure Firewall</td><td>Managed stateful firewall — L3-L7, FQDN filtering</td><td>FortiGate στο cloud (managed)</td></tr>
+        <tr><td>VPN Gateway</td><td>Encrypted S2S/P2S connectivity μέσω internet</td><td>IPSec tunnel σε FortiGate</td></tr>
+        <tr><td>ExpressRoute</td><td>Private dedicated link — δεν περνά internet</td><td>MPLS leased line</td></tr>
+        <tr><td>Azure DNS</td><td>Managed DNS — public και private zones</td><td>Internal DNS server</td></tr>
+        <tr><td>Load Balancer</td><td>L4 TCP/UDP load distribution</td><td>F5 / HAProxy L4</td></tr>
+        <tr><td>Application Gateway</td><td>L7 HTTP/HTTPS routing + WAF</td><td>Reverse proxy + WAF</td></tr>
+        <tr><td>Traffic Manager</td><td>DNS-based global load balancing</td><td>GeoDNS</td></tr>
+        <tr><td>Azure Front Door</td><td>Global CDN + WAF + load balancing</td><td>CDN + WAF combo</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Microservices &amp; Container Services (Overview)</h3>
+    <div class="cg">
+      <div class="cc">
+        <h4>Azure Container Instances (ACI)</h4>
+        <ul>
+          <li>Serverless containers</li>
+          <li>No orchestration needed</li>
+          <li>Pay per second</li>
+          <li>Simple, fast deploy</li>
+          <li>Short-lived tasks</li>
+        </ul>
+      </div>
+      <div class="cc">
+        <h4>Azure Kubernetes Service (AKS)</h4>
+        <ul>
+          <li>Managed Kubernetes</li>
+          <li>Full orchestration</li>
+          <li>Auto-scaling, self-healing</li>
+          <li>Production microservices</li>
+          <li>Free control plane</li>
+        </ul>
+      </div>
+      <div class="cc">
+        <h4>Azure Container Apps</h4>
+        <ul>
+          <li>Managed platform (on K8s)</li>
+          <li>KEDA-based scaling</li>
+          <li>Serverless containers</li>
+          <li>Dapr integration</li>
+          <li>Between ACI and AKS</li>
+        </ul>
+      </div>
+      <div class="cc">
+        <h4>Azure Functions</h4>
+        <ul>
+          <li>Serverless code execution</li>
+          <li>Event-driven</li>
+          <li>Pay per execution</li>
+          <li>Auto-scale to zero</li>
+          <li>300+ triggers</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 3.1 — SCRIPTING ON THE EXAM -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section" id="s5">
+    <div class="sh">
+      <div class="si">📝</div>
+      <div><div class="sn">Lesson 15 · Section 3.1</div><h2>Scripting on the AZ-104 Exam</h2></div>
+    </div>
+
+    <p>Πολλοί φοβούνται τις scripting ερωτήσεις. Η πραγματικότητα: <strong>δεν χρειάζεσαι να γράψεις κώδικα από μνήμης</strong>. Το exam σε ρωτά να <em>αναγνωρίσεις</em> τη σωστή εντολή ή να <em>συμπληρώσεις</em> κενά (completion type questions).</p>
+
+    <h3>Τι Ρωτά Το Exam</h3>
+    <ul>
+      <li><strong>Αναγνώριση σωστής εντολής:</strong> "Ποια εντολή δημιουργεί VM;" → <code>az vm create</code> ή <code>New-AzVM</code></li>
+      <li><strong>Συμπλήρωση παραμέτρου:</strong> "Ποιο parameter ορίζει το resource group;" → <code>--resource-group</code> ή <code>-ResourceGroupName</code></li>
+      <li><strong>Σωστή σύνταξη:</strong> PowerShell vs CLI διαφορές (verb-noun vs az subcommand)</li>
+      <li><strong>Output handling:</strong> <code>-o json</code>, <code>| ConvertTo-Json</code>, query με <code>--query</code></li>
+    </ul>
+
+    <h3>PowerShell vs Azure CLI — Key Differences</h3>
+    <table class="tbl">
+      <thead><tr><th></th><th>PowerShell (Az module)</th><th>Azure CLI</th></tr></thead>
+      <tbody>
+        <tr><td>Syntax pattern</td><td><code>Verb-AzNoun</code> (PascalCase)</td><td><code>az group subcommand</code> (lowercase)</td></tr>
+        <tr><td>Language</td><td>PowerShell (cross-platform)</td><td>Python-based CLI (cross-platform)</td></tr>
+        <tr><td>Platform</td><td>Windows, Linux, macOS, Cloud Shell</td><td>Windows, Linux, macOS, Cloud Shell</td></tr>
+        <tr><td>Output</td><td>Objects (pipe to other cmdlets)</td><td>JSON, table, tsv (--output flag)</td></tr>
+        <tr><td>Scripting</td><td>Ισχυρό για complex logic, loops, conditions</td><td>Καλό για simple commands, bash scripts</td></tr>
+        <tr><td>Exam Example</td><td><code>New-AzResourceGroup -Name "RG-GR" -Location "westeurope"</code></td><td><code>az group create --name RG-GR --location westeurope</code></td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert exam">
+      <span class="ai">🎯</span>
+      <div class="ab"><strong>Exam Strategy:</strong> Αν δεις ερώτηση με PowerShell κώδικα — ψάξε για <code>-ResourceGroupName</code>, <code>-Name</code>, <code>-Location</code> patterns. Αν δεις CLI — ψάξε για <code>--resource-group</code>, <code>--name</code>, <code>--location</code>. Το <code>Az</code> prefix στο PowerShell ξεχωρίζει τις Azure εντολές από τις native PS εντολές.</div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 3.2 — POWERSHELL AZ MODULE -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section" id="s6">
+    <div class="sh">
+      <div class="si">💙</div>
+      <div><div class="sn">Lessons 16–18 · Section 3.2</div><h2>PowerShell Az Module</h2></div>
+    </div>
+
+    <p>Το <strong>Az module</strong> είναι το επίσημο PowerShell module για Azure (αντικατέστησε το παλαιό AzureRM). Τρέχει σε Windows, Linux, macOS και Azure Cloud Shell.</p>
+
+    <h3>Installation &amp; Setup</h3>
+    <pre><code><span class="cmt"># Install Az module (PowerShell 7+ recommended)</span>
+<span class="cmd">Install-Module</span> <span class="param">-Name</span> Az <span class="param">-Scope</span> CurrentUser <span class="param">-Repository</span> PSGallery <span class="param">-Force</span>
+
+<span class="cmt"># Update existing installation</span>
+<span class="cmd">Update-Module</span> <span class="param">-Name</span> Az
+
+<span class="cmt"># Verify installation</span>
+<span class="cmd">Get-Module</span> <span class="param">-Name</span> Az <span class="param">-ListAvailable</span>
+
+<span class="cmt"># Check PowerShell version (needs 5.1+ or PowerShell 7+)</span>
+<span class="var">$PSVersionTable</span>.PSVersion</code></pre>
+
+    <h3>Authentication</h3>
+    <pre><code><span class="cmt"># Interactive login — opens browser</span>
+<span class="cmd">Connect-AzAccount</span>
+
+<span class="cmt"># Login με specific tenant (πολλαπλοί tenants)</span>
+<span class="cmd">Connect-AzAccount</span> <span class="param">-Tenant</span> <span class="str">"your-tenant-id"</span>
+
+<span class="cmt"># Service Principal login (automation, CI/CD)</span>
+<span class="var">$cred</span> = <span class="cmd">New-Object</span> System.Management.Automation.PSCredential(<span class="str">"app-id"</span>, (<span class="str">"secret"</span> | <span class="cmd">ConvertTo-SecureString</span> <span class="param">-AsPlainText</span> <span class="param">-Force</span>))
+<span class="cmd">Connect-AzAccount</span> <span class="param">-ServicePrincipal</span> <span class="param">-Credential</span> <span class="var">$cred</span> <span class="param">-Tenant</span> <span class="str">"tenant-id"</span>
+
+<span class="cmt"># Verify current connection</span>
+<span class="cmd">Get-AzContext</span></code></pre>
+
+    <h3>Essential Az Commands — AZ-104 Exam Vocabulary</h3>
+    <table class="tbl">
+      <thead><tr><th>Verb Pattern</th><th>Example Commands</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>Get-Az*</td><td><code>Get-AzVM</code>, <code>Get-AzResourceGroup</code>, <code>Get-AzSubscription</code></td><td>List / retrieve resources</td></tr>
+        <tr><td>New-Az*</td><td><code>New-AzVM</code>, <code>New-AzResourceGroup</code>, <code>New-AzVirtualNetwork</code></td><td>Create new resources</td></tr>
+        <tr><td>Set-Az*</td><td><code>Set-AzVM</code>, <code>Set-AzStorageAccount</code></td><td>Modify existing resources</td></tr>
+        <tr><td>Remove-Az*</td><td><code>Remove-AzVM</code>, <code>Remove-AzResourceGroup</code></td><td>Delete resources</td></tr>
+        <tr><td>Start-Az*</td><td><code>Start-AzVM</code>, <code>Start-AzWebApp</code></td><td>Start resources</td></tr>
+        <tr><td>Stop-Az*</td><td><code>Stop-AzVM</code>, <code>Stop-AzWebApp</code></td><td>Stop resources</td></tr>
+        <tr><td>Update-Az*</td><td><code>Update-AzVM</code>, <code>Update-AzFunctionApp</code></td><td>Update/patch resources</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Working with Resources — Common Patterns</h3>
+    <pre><code><span class="cmt"># ─── RESOURCE GROUPS ───────────────────────────────────────────</span>
+<span class="cmt"># Δημιουργία Resource Group</span>
+<span class="cmd">New-AzResourceGroup</span> <span class="param">-Name</span> <span class="str">"RG-Servers-GR"</span> <span class="param">-Location</span> <span class="str">"westeurope"</span>
+
+<span class="cmt"># List όλα τα resource groups</span>
+<span class="cmd">Get-AzResourceGroup</span>
+
+<span class="cmt"># ─── VIRTUAL MACHINES ──────────────────────────────────────────</span>
+<span class="cmt"># List όλα τα VMs στο subscription</span>
+<span class="cmd">Get-AzVM</span>
+
+<span class="cmt"># List VMs σε specific RG</span>
+<span class="cmd">Get-AzVM</span> <span class="param">-ResourceGroupName</span> <span class="str">"RG-Servers-GR"</span>
+
+<span class="cmt"># Start / Stop VM</span>
+<span class="cmd">Start-AzVM</span> <span class="param">-ResourceGroupName</span> <span class="str">"RG-Servers-GR"</span> <span class="param">-Name</span> <span class="str">"SRV-APP-GR-01"</span>
+<span class="cmd">Stop-AzVM</span>  <span class="param">-ResourceGroupName</span> <span class="str">"RG-Servers-GR"</span> <span class="param">-Name</span> <span class="str">"SRV-APP-GR-01"</span> <span class="param">-Force</span>
+
+<span class="cmt"># ─── STORAGE ───────────────────────────────────────────────────</span>
+<span class="cmt"># Δημιουργία Storage Account</span>
+<span class="cmd">New-AzStorageAccount</span> `
+  <span class="param">-ResourceGroupName</span> <span class="str">"RG-Storage-GR"</span> `
+  <span class="param">-Name</span> <span class="str">"septonabackupgr"</span> `
+  <span class="param">-Location</span> <span class="str">"westeurope"</span> `
+  <span class="param">-SkuName</span> <span class="str">"Standard_GRS"</span> `
+  <span class="param">-Kind</span> <span class="str">"StorageV2"</span>
+
+<span class="cmt"># ─── TAGGING ───────────────────────────────────────────────────</span>
+<span class="cmt"># Add tags σε resource group</span>
+<span class="cmd">Set-AzResourceGroup</span> <span class="param">-Name</span> <span class="str">"RG-Servers-GR"</span> `
+  <span class="param">-Tag</span> @{Environment=<span class="str">"Production"</span>; CostCenter=<span class="str">"IT-GR"</span>; Owner=<span class="str">"vag@septona.gr"</span>}
+
+<span class="cmt"># ─── ROLE ASSIGNMENTS ──────────────────────────────────────────</span>
+<span class="cmt"># Assign Contributor role σε user για specific RG</span>
+<span class="cmd">New-AzRoleAssignment</span> `
+  <span class="param">-ObjectId</span> <span class="str">"user-object-id"</span> `
+  <span class="param">-RoleDefinitionName</span> <span class="str">"Contributor"</span> `
+  <span class="param">-ResourceGroupName</span> <span class="str">"RG-Servers-GR"</span></code></pre>
+
+    <h3>Piping &amp; Filtering (PowerShell superpower)</h3>
+    <pre><code><span class="cmt"># Get VMs και filter όσα είναι stopped</span>
+<span class="cmd">Get-AzVM</span> <span class="param">-Status</span> | <span class="cmd">Where-Object</span> { <span class="var">$_</span>.PowerState <span class="op">-eq</span> <span class="str">"VM deallocated"</span> }
+
+<span class="cmt"># Start όλα τα stopped VMs σε ένα RG</span>
+<span class="cmd">Get-AzVM</span> <span class="param">-ResourceGroupName</span> <span class="str">"RG-Servers-GR"</span> <span class="param">-Status</span> |
+  <span class="cmd">Where-Object</span> { <span class="var">$_</span>.PowerState <span class="op">-ne</span> <span class="str">"VM running"</span> } |
+  <span class="cmd">ForEach-Object</span> { <span class="cmd">Start-AzVM</span> <span class="param">-ResourceGroupName</span> <span class="var">$_</span>.ResourceGroupName <span class="param">-Name</span> <span class="var">$_</span>.Name }
+
+<span class="cmt"># Export VM list σε CSV</span>
+<span class="cmd">Get-AzVM</span> | <span class="cmd">Select-Object</span> Name, Location, ResourceGroupName |
+  <span class="cmd">Export-Csv</span> <span class="param">-Path</span> <span class="str">"vm-inventory.csv"</span> <span class="param">-NoTypeInformation</span>
+
+<span class="cmt"># Get Resource Groups με specific tag</span>
+<span class="cmd">Get-AzResourceGroup</span> | <span class="cmd">Where-Object</span> { <span class="var">$_</span>.Tags.Environment <span class="op">-eq</span> <span class="str">"Production"</span> }</code></pre>
+
+    <div class="scenario">
+      <div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">Septona — M365/Azure Inventory Export με PowerShell</span></div>
+      <div class="sc-body">
+        <p><strong>Κατάσταση:</strong> Πρέπει να φτιάξεις inventory report: όλα τα Azure VMs, storage accounts και resource groups για EcoVadis compliance. Γνωστό αυτό από τη δουλειά σου!</p>
+        <pre><code><span class="cmt"># Complete Azure Inventory Script</span>
+<span class="cmd">Connect-AzAccount</span>
+
+<span class="cmt"># VMs</span>
+<span class="var">$vms</span> = <span class="cmd">Get-AzVM</span> | <span class="cmd">Select-Object</span> `
+  Name, Location, ResourceGroupName,
+  @{N=<span class="str">"Size"</span>;E={<span class="var">$_</span>.HardwareProfile.VmSize}},
+  @{N=<span class="str">"OS"</span>;E={<span class="var">$_</span>.StorageProfile.OsDisk.OsType}}
+
+<span class="cmt"># Storage Accounts</span>
+<span class="var">$storage</span> = <span class="cmd">Get-AzStorageAccount</span> | <span class="cmd">Select-Object</span> `
+  StorageAccountName, ResourceGroupName, Location,
+  @{N=<span class="str">"SKU"</span>;E={<span class="var">$_</span>.Sku.Name}},
+  @{N=<span class="str">"Kind"</span>;E={<span class="var">$_</span>.Kind}}
+
+<span class="cmt"># Export</span>
+<span class="var">$vms</span>     | <span class="cmd">Export-Csv</span> <span class="str">"azure-vms.csv"</span>     <span class="param">-NoTypeInformation</span>
+<span class="var">$storage</span> | <span class="cmd">Export-Csv</span> <span class="str">"azure-storage.csv"</span> <span class="param">-NoTypeInformation</span></code></pre>
+        <p>Αυτό είναι ακριβώς αυτό που έκανες για το Bulgarian tenant inventory project!</p>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 3.3 — AZURE CLI -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section" id="s7">
+    <div class="sh">
+      <div class="si">🖤</div>
+      <div><div class="sn">Lesson 16–17 · Section 3.3</div><h2>Azure CLI (az)</h2></div>
+    </div>
+
+    <p>Το <strong>Azure CLI</strong> είναι cross-platform command-line tool (Python-based). Χρησιμοποιείται ευρέως σε bash scripts, CI/CD pipelines, και Cloud Shell. Η syntax είναι πιο "unix-friendly" από το PowerShell.</p>
+
+    <h3>Installation</h3>
+    <pre><code><span class="cmt"># Windows — winget (recommended)</span>
+winget install <span class="param">--exact --id</span> Microsoft.AzureCLI
+
+<span class="cmt"># macOS</span>
+brew install azure-cli
+
+<span class="cmt"># Ubuntu/Debian</span>
+curl <span class="param">-sL</span> https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+<span class="cmt"># Verify installation</span>
+az <span class="param">--version</span>
+
+<span class="cmt"># Update</span>
+az upgrade</code></pre>
+
+    <h3>Authentication &amp; Context</h3>
+    <pre><code><span class="cmt"># Interactive login</span>
+az login
+
+<span class="cmt"># Login σε specific tenant</span>
+az login <span class="param">--tenant</span> your-tenant-id
+
+<span class="cmt"># Service Principal login (automation)</span>
+az login <span class="param">--service-principal</span> \
+  <span class="param">--username</span> <span class="str">"app-id"</span> \
+  <span class="param">--password</span> <span class="str">"secret"</span> \
+  <span class="param">--tenant</span> <span class="str">"tenant-id"</span>
+
+<span class="cmt"># Show current account/subscription</span>
+az account show
+
+<span class="cmt"># List all subscriptions</span>
+az account list <span class="param">--output table</span></code></pre>
+
+    <h3>CLI Syntax Structure</h3>
+    <div class="box hl">
+      <div class="box-t">Command Pattern</div>
+      <pre style="margin:0"><code><span class="kw">az</span> <span class="cmd">[group]</span> <span class="cmd">[subgroup]</span> <span class="cmd">[command]</span> <span class="param">[--parameters]</span>
+
+<span class="cmt"># Examples:</span>
+az <span class="cmd">vm create</span>          <span class="param">--resource-group</span> RG-GR <span class="param">--name</span> MyVM ...
+az <span class="cmd">network vnet create</span> <span class="param">--resource-group</span> RG-GR <span class="param">--name</span> MyVNet ...
+az <span class="cmd">storage account create</span> <span class="param">--name</span> mystorage <span class="param">--sku</span> Standard_GRS ...
+az <span class="cmd">role assignment create</span> <span class="param">--role</span> Contributor <span class="param">--assignee</span> user@email.com ...
+az <span class="cmd">policy assignment create</span> <span class="param">--name</span> MyPolicy <span class="param">--policy</span> PolicyDefId ...</code></pre>
+    </div>
+
+    <h3>Output Formats &amp; Querying</h3>
+    <pre><code><span class="cmt"># Output formats: json (default), jsonc, table, tsv, yaml, none</span>
+az vm list <span class="param">--output table</span>
+az vm list <span class="param">-o tsv</span>                    <span class="cmt"># Tab-separated — good for scripting</span>
+az vm list <span class="param">-o json</span> | python <span class="param">-m</span> json.tool  <span class="cmt"># Pretty-print JSON</span>
+
+<span class="cmt"># JMESPath query — extract specific fields</span>
+az vm list <span class="param">--query</span> <span class="str">"[].{Name:name, RG:resourceGroup, Location:location}"</span> <span class="param">-o table</span>
+
+<span class="cmt"># Single value extraction</span>
+az vm show <span class="param">--resource-group</span> RG-GR <span class="param">--name</span> SRV-APP-01 \
+  <span class="param">--query</span> <span class="str">"hardwareProfile.vmSize"</span> <span class="param">-o tsv</span>
+
+<span class="cmt"># Filter results</span>
+az vm list <span class="param">--query</span> <span class="str">"[?location=='westeurope']"</span> <span class="param">-o table</span></code></pre>
+
+    <h3>Essential CLI Commands — AZ-104 Core Reference</h3>
+
+    <div class="cs-grid">
+      <div class="cs">
+        <div class="cs-head" style="color:var(--cyan)">Resource Groups</div>
+        <div class="cs-body">
+<pre><code><span class="cmt"># Create</span>
+az group create \
+  <span class="param">--name</span> RG-Servers-GR \
+  <span class="param">--location</span> westeurope
+
+<span class="cmt"># List</span>
+az group list <span class="param">-o table</span>
+
+<span class="cmt"># Delete (με --yes skip confirm)</span>
+az group delete \
+  <span class="param">--name</span> RG-Servers-GR \
+  <span class="param">--yes</span> <span class="param">--no-wait</span></code></pre>
+        </div>
+      </div>
+
+      <div class="cs">
+        <div class="cs-head" style="color:var(--cyan)">Virtual Machines</div>
+        <div class="cs-body">
+<pre><code><span class="cmt"># Create VM</span>
+az vm create \
+  <span class="param">--resource-group</span> RG-Servers-GR \
+  <span class="param">--name</span> SRV-APP-GR-01 \
+  <span class="param">--image</span> Win2022Datacenter \
+  <span class="param">--size</span> Standard_D2s_v5 \
+  <span class="param">--admin-username</span> septonaadmin
+
+<span class="cmt"># Start / Stop</span>
+az vm start <span class="param">-g</span> RG-Servers-GR <span class="param">-n</span> SRV-APP-GR-01
+az vm stop  <span class="param">-g</span> RG-Servers-GR <span class="param">-n</span> SRV-APP-GR-01</code></pre>
+        </div>
+      </div>
+
+      <div class="cs">
+        <div class="cs-head" style="color:var(--cyan)">Storage Accounts</div>
+        <div class="cs-body">
+<pre><code><span class="cmt"># Create storage account</span>
+az storage account create \
+  <span class="param">--name</span> septonabackupgr \
+  <span class="param">--resource-group</span> RG-Storage-GR \
+  <span class="param">--location</span> westeurope \
+  <span class="param">--sku</span> Standard_GRS \
+  <span class="param">--kind</span> StorageV2
+
+<span class="cmt"># List</span>
+az storage account list <span class="param">-o table</span></code></pre>
+        </div>
+      </div>
+
+      <div class="cs">
+        <div class="cs-head" style="color:var(--cyan)">Networking</div>
+        <div class="cs-body">
+<pre><code><span class="cmt"># Create VNet με subnet</span>
+az network vnet create \
+  <span class="param">--name</span> VNet-Production-GR \
+  <span class="param">--resource-group</span> RG-Network-GR \
+  <span class="param">--address-prefix</span> 10.10.0.0/16 \
+  <span class="param">--subnet-name</span> Subnet-Servers \
+  <span class="param">--subnet-prefix</span> 10.10.1.0/24
+
+<span class="cmt"># List VNets</span>
+az network vnet list <span class="param">-o table</span></code></pre>
+        </div>
+      </div>
+
+      <div class="cs">
+        <div class="cs-head" style="color:var(--cyan)">NSG</div>
+        <div class="cs-body">
+<pre><code><span class="cmt"># Create NSG</span>
+az network nsg create \
+  <span class="param">-g</span> RG-Network-GR \
+  <span class="param">-n</span> NSG-Servers-GR
+
+<span class="cmt"># Add rule — allow HTTPS inbound</span>
+az network nsg rule create \
+  <span class="param">-g</span> RG-Network-GR \
+  <span class="param">--nsg-name</span> NSG-Servers-GR \
+  <span class="param">-n</span> Allow-HTTPS \
+  <span class="param">--priority</span> 100 \
+  <span class="param">--destination-port-ranges</span> 443 \
+  <span class="param">--access</span> Allow</code></pre>
+        </div>
+      </div>
+
+      <div class="cs">
+        <div class="cs-head" style="color:var(--cyan)">RBAC</div>
+        <div class="cs-body">
+<pre><code><span class="cmt"># Assign role</span>
+az role assignment create \
+  <span class="param">--assignee</span> user@septona.gr \
+  <span class="param">--role</span> "Contributor" \
+  <span class="param">--scope</span> /subscriptions/SUB-ID/resourceGroups/RG-GR
+
+<span class="cmt"># List role assignments σε RG</span>
+az role assignment list \
+  <span class="param">--resource-group</span> RG-Servers-GR \
+  <span class="param">-o table</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <h3>Azure CLI — Useful Flags</h3>
+    <table class="tbl">
+      <thead><tr><th>Flag</th><th>Full Version</th><th>Χρήση</th></tr></thead>
+      <tbody>
+        <tr><td><code>-g</code></td><td><code>--resource-group</code></td><td>Shorthand για resource group (σε σχεδόν κάθε εντολή)</td></tr>
+        <tr><td><code>-n</code></td><td><code>--name</code></td><td>Shorthand για name</td></tr>
+        <tr><td><code>-l</code></td><td><code>--location</code></td><td>Shorthand για location/region</td></tr>
+        <tr><td><code>-o table</code></td><td><code>--output table</code></td><td>Human-readable table format</td></tr>
+        <tr><td><code>-o tsv</code></td><td><code>--output tsv</code></td><td>Tab-separated — χρήσιμο σε scripts</td></tr>
+        <tr><td><code>--query</code></td><td>—</td><td>JMESPath expression για filtering output</td></tr>
+        <tr><td><code>--no-wait</code></td><td>—</td><td>Asynchronous — δεν περιμένει completion</td></tr>
+        <tr><td><code>--yes</code> / <code>-y</code></td><td>—</td><td>Skip confirmation prompts (destructive ops)</td></tr>
+        <tr><td><code>--debug</code></td><td>—</td><td>Verbose output για troubleshooting</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 3.4 — CLOUD SHELL -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section" id="s8">
+    <div class="sh">
+      <div class="si">☁️</div>
+      <div><div class="sn">Section 3.4</div><h2>Azure Cloud Shell</h2></div>
+    </div>
+
+    <p>Το <strong>Azure Cloud Shell</strong> είναι browser-based shell ενσωματωμένο στο Azure Portal. Δεν χρειάζεσαι τίποτα εγκατεστημένο τοπικά — άνοιξε portal, πάτα το shell icon, και έχεις PowerShell ή Bash με Az module/CLI pre-installed.</p>
+
+    <div class="cg">
+      <div class="cc">
+        <h4>Χαρακτηριστικά</h4>
+        <ul>
+          <li>Pre-installed: Az module, Azure CLI, kubectl, terraform, git</li>
+          <li>Persistent storage: 5GB Azure Files share (δωρεάν)</li>
+          <li>Authenticated αυτόματα με portal session</li>
+          <li>Bash ή PowerShell — εναλλαγή οποτεδήποτε</li>
+          <li>Monaco editor (VS Code engine) built-in</li>
+          <li>Upload/download αρχεία</li>
+        </ul>
+      </div>
+      <div class="cc">
+        <h4>Πώς ανοίγεις</h4>
+        <ul>
+          <li>Portal: top-right toolbar → shell icon (>&gt;_)</li>
+          <li>URL: shell.azure.com (standalone)</li>
+          <li>VS Code: Azure Account extension</li>
+          <li>Πρώτη χρήση: επιλέγεις Bash ή PowerShell</li>
+          <li>Απαιτεί storage account για persistence (δημιουργείται αυτόματα)</li>
+        </ul>
+      </div>
+    </div>
+
+    <pre><code><span class="cmt"># Στο Cloud Shell (Bash) — τρέχεις CLI απευθείας, χωρίς az login</span>
+az vm list <span class="param">-o table</span>
+
+<span class="cmt"># Στο Cloud Shell (PowerShell) — Connect-AzAccount δεν χρειάζεται</span>
+<span class="cmd">Get-AzVM</span>
+
+<span class="cmt"># Upload αρχείο και χρησιμοποίησέ το (ARM template deploy)</span>
+az deployment group create \
+  <span class="param">--resource-group</span> RG-Servers-GR \
+  <span class="param">--template-file</span> ~/my-template.json</code></pre>
+
+    <div class="alert tip">
+      <span class="ai">✅</span>
+      <div class="ab"><strong>Exam Tip:</strong> Cloud Shell ερωτήσεις είναι rare αλλά εμφανίζονται σε lab tasks. Το key point: Cloud Shell <strong>δεν απαιτεί authentication</strong> — είσαι ήδη logged in μέσω portal. Και <strong>persistent storage</strong> — αρχεία στο <code>~/clouddrive</code> παραμένουν μεταξύ sessions.</div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 3.5 — SWITCH SUBSCRIPTIONS -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section" id="s9">
+    <div class="sh">
+      <div class="si">🔄</div>
+      <div><div class="sn">Lesson 19 · Section 3.5</div><h2>Switch Between Subscriptions</h2></div>
+    </div>
+
+    <p>Πολύ πρακτικό για scenarios με πολλαπλά subscriptions — όπως Septona GR και BG tenants. Συχνά εμφανίζεται σε exam questions.</p>
+
+    <h3>PowerShell — Manage Subscriptions</h3>
+    <pre><code><span class="cmt"># List όλα τα subscriptions που έχεις access</span>
+<span class="cmd">Get-AzSubscription</span>
+
+<span class="cmt"># Switch σε specific subscription</span>
+<span class="cmd">Set-AzContext</span> <span class="param">-SubscriptionId</span> <span class="str">"subscription-guid"</span>
+<span class="cmt"># ή με όνομα</span>
+<span class="cmd">Set-AzContext</span> <span class="param">-SubscriptionName</span> <span class="str">"Septona-GR-Production"</span>
+
+<span class="cmt"># Verify τρέχον subscription</span>
+<span class="cmd">Get-AzContext</span>
+
+<span class="cmt"># Select subscription κατά login</span>
+<span class="cmd">Connect-AzAccount</span> <span class="param">-SubscriptionId</span> <span class="str">"subscription-guid"</span></code></pre>
+
+    <h3>Azure CLI — Manage Subscriptions</h3>
+    <pre><code><span class="cmt"># List subscriptions</span>
+az account list <span class="param">--output table</span>
+
+<span class="cmt"># Show current subscription</span>
+az account show
+
+<span class="cmt"># Set default subscription</span>
+az account set <span class="param">--subscription</span> <span class="str">"subscription-guid-or-name"</span>
+<span class="cmt"># ή με όνομα</span>
+az account set <span class="param">--subscription</span> <span class="str">"Septona-BG-Production"</span>
+
+<span class="cmt"># Run command σε specific subscription χωρίς να αλλάξεις default</span>
+az vm list <span class="param">--subscription</span> <span class="str">"Septona-BG-Production"</span> <span class="param">-o table</span></code></pre>
+
+    <div class="scenario">
+      <div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">Multi-Tenant Operations — GR &amp; BG Subscriptions</span></div>
+      <div class="sc-body">
+        <p><strong>Κατάσταση:</strong> Η Septona έχει δύο Azure subscriptions — ένα για GR operations και ένα για BG. Πρέπει να τρέξεις script που list-άρει VMs και από τα δύο.</p>
+        <pre><code><span class="cmt"># Script που τρέχει σε multiple subscriptions</span>
+<span class="var">$subscriptions</span> = @(
+  @{Name=<span class="str">"Septona-GR"</span>; Id=<span class="str">"gr-subscription-id"</span>},
+  @{Name=<span class="str">"Septona-BG"</span>; Id=<span class="str">"bg-subscription-id"</span>}
+)
+
+<span class="var">$allVMs</span> = @()
+<span class="kw">foreach</span> (<span class="var">$sub</span> <span class="kw">in</span> <span class="var">$subscriptions</span>) {
+  <span class="cmd">Set-AzContext</span> <span class="param">-SubscriptionId</span> <span class="var">$sub</span>.Id
+  <span class="var">$vms</span> = <span class="cmd">Get-AzVM</span> | <span class="cmd">Select-Object</span> Name, Location,
+    @{N=<span class="str">"Subscription"</span>;E={<span class="var">$sub</span>.Name}}
+  <span class="var">$allVMs</span> += <span class="var">$vms</span>
+}
+
+<span class="var">$allVMs</span> | <span class="cmd">Export-Csv</span> <span class="str">"all-azure-vms.csv"</span> <span class="param">-NoTypeInformation</span>
+<span class="cmd">Write-Host</span> <span class="str">"Total VMs: $($allVMs.Count)"</span></code></pre>
+        <p>Αυτό είναι παρόμοιο με το Bulgarian tenant data export project που έκανες!</p>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- QUIZ -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section" id="s10">
+    <div class="sh">
+      <div class="si">🧠</div>
+      <div><div class="sn">Chapter 01</div><h2>Quiz — Azure Concepts &amp; CLI</h2></div>
+    </div>
+
+    <div class="quiz">
+      <div class="qh">◈ Question 01 / Concepts</div>
+      <div class="qq">Ποιο Azure service model σε αφήνει να διαχειρίζεσαι ΜΟΝΟ την εφαρμογή και τα data, ενώ το Azure διαχειρίζεται OS, runtime, scaling;</div>
+      <ul class="qo" id="q1">
+        <li onclick="ans('q1',0)">A) IaaS (Infrastructure as a Service)</li>
+        <li onclick="ans('q1',1)">B) PaaS (Platform as a Service)</li>
+        <li onclick="ans('q1',2)">C) SaaS (Software as a Service)</li>
+        <li onclick="ans('q1',3)">D) CaaS (Containers as a Service)</li>
+      </ul>
+      <div class="qa" id="q1-a">✅ <strong>B — PaaS.</strong> Στο PaaS, εσύ deploy-άρεις την εφαρμογή (κώδικα, data), και το Azure αναλαμβάνει OS patching, runtime updates, scaling, load balancing. Παράδειγμα: App Service. IaaS = managed VMs, αλλά εσύ κάνεις OS. SaaS = χρησιμοποιείς το software (π.χ. M365).</div>
+      <button class="qbtn" onclick="toggle('q1-a')">Show Answer</button>
+    </div>
+
+    <div class="quiz">
+      <div class="qh">◈ Question 02 / PowerShell</div>
+      <div class="qq">Θέλεις να κάνεις list όλα τα VMs σε ένα Resource Group με PowerShell. Ποια εντολή χρησιμοποιείς;</div>
+      <ul class="qo" id="q2">
+        <li onclick="ans('q2',0)">A) <code>az vm list --resource-group RG-Servers-GR</code></li>
+        <li onclick="ans('q2',1)">B) <code>Get-AzVirtualMachine -ResourceGroupName "RG-Servers-GR"</code></li>
+        <li onclick="ans('q2',2)">C) <code>Get-AzVM -ResourceGroupName "RG-Servers-GR"</code></li>
+        <li onclick="ans('q2',3)">D) <code>List-AzVM -Group "RG-Servers-GR"</code></li>
+      </ul>
+      <div class="qa" id="q2-a">✅ <strong>C — Get-AzVM -ResourceGroupName "RG-Servers-GR".</strong> PowerShell Az module χρησιμοποιεί <code>Get-AzVM</code> (όχι Get-AzVirtualMachine). Option A είναι Azure CLI. Option D δεν υπάρχει — δεν υπάρχει "List-" verb στο Az module.</div>
+      <button class="qbtn" onclick="toggle('q2-a')">Show Answer</button>
+    </div>
+
+    <div class="quiz">
+      <div class="qh">◈ Question 03 / Azure CLI</div>
+      <div class="qq">Τρέχεις <code>az vm list --output table</code> και θέλεις να δεις μόνο το name και location κάθε VM. Ποιο flag χρησιμοποιείς;</div>
+      <ul class="qo" id="q3">
+        <li onclick="ans('q3',0)">A) <code>--filter "name,location"</code></li>
+        <li onclick="ans('q3',1)">B) <code>--select name location</code></li>
+        <li onclick="ans('q3',2)">C) <code>--query "[].{Name:name, Location:location}"</code></li>
+        <li onclick="ans('q3',3)">D) <code>--fields name,location</code></li>
+      </ul>
+      <div class="qa" id="q3-a">✅ <strong>C — --query με JMESPath expression.</strong> Azure CLI χρησιμοποιεί <code>--query</code> με JMESPath syntax για filtering output. Η έκφραση <code>"[].{Name:name, Location:location}"</code> επιλέγει τα πεδία name και location από κάθε element του array.</div>
+      <button class="qbtn" onclick="toggle('q3-a')">Show Answer</button>
+    </div>
+
+    <div class="quiz">
+      <div class="qh">◈ Question 04 / Hierarchy</div>
+      <div class="qq">Θέλεις να εφαρμόσεις Azure Policy σε <em>όλα</em> τα subscriptions της εταιρείας ταυτόχρονα. Σε ποιο scope την εφαρμόζεις;</div>
+      <ul class="qo" id="q4">
+        <li onclick="ans('q4',0)">A) Resource Group</li>
+        <li onclick="ans('q4',1)">B) Subscription</li>
+        <li onclick="ans('q4',2)">C) Management Group</li>
+        <li onclick="ans('q4',3)">D) Tenant Root</li>
+      </ul>
+      <div class="qa" id="q4-a">✅ <strong>C — Management Group.</strong> Management Group είναι πάνω από Subscriptions στην ιεραρχία. Policy εφαρμοσμένη σε Management Group κληρονομείται από ΟΛΕΣ τις subscriptions κάτω από αυτό. Resource Group scope = μόνο αυτό το RG. Subscription = μόνο αυτό το subscription.</div>
+      <button class="qbtn" onclick="toggle('q4-a')">Show Answer</button>
+    </div>
+
+    <div class="quiz">
+      <div class="qh">◈ Question 05 / Cloud Shell</div>
+      <div class="qq">Χρησιμοποιείς Azure Cloud Shell για πρώτη φορά. Τι χρειάζεται να κάνεις πριν τρέξεις <code>az vm list</code>;</div>
+      <ul class="qo" id="q5">
+        <li onclick="ans('q5',0)">A) Να εγκαταστήσεις Azure CLI με <code>az install</code></li>
+        <li onclick="ans('q5',1)">B) Να τρέξεις <code>az login</code> για authentication</li>
+        <li onclick="ans('q5',2)">C) Να επιλέξεις storage account για persistence — τίποτα άλλο</li>
+        <li onclick="ans('q5',3)">D) Να κατεβάσεις τα Az credentials τοπικά</li>
+      </ul>
+      <div class="qa" id="q5-a">✅ <strong>C — Επιλογή storage account.</strong> Στο Cloud Shell, Azure CLI είναι ήδη εγκατεστημένο και εσύ είσαι ήδη authenticated μέσω portal session — δεν χρειάζεσαι <code>az login</code>. Η μόνη απαίτηση πρώτης φοράς είναι να δημιουργηθεί storage account για persistent storage.</div>
+      <button class="qbtn" onclick="toggle('q5-a')">Show Answer</button>
+    </div>
+
+    <div class="quiz">
+      <div class="qh">◈ Question 06 / Switch Subscription</div>
+      <div class="qq">Με Azure CLI, θέλεις να αλλάξεις active subscription χωρίς να ξανακάνεις login. Ποια εντολή;</div>
+      <ul class="qo" id="q6">
+        <li onclick="ans('q6',0)">A) <code>az login --subscription "sub-name"</code></li>
+        <li onclick="ans('q6',1)">B) <code>az account set --subscription "sub-name-or-id"</code></li>
+        <li onclick="ans('q6',2)">C) <code>az subscription switch --name "sub-name"</code></li>
+        <li onclick="ans('q6',3)">D) <code>Set-AzContext -SubscriptionName "sub-name"</code></li>
+      </ul>
+      <div class="qa" id="q6-a">✅ <strong>B — az account set --subscription.</strong> <code>az account set</code> αλλάζει το active subscription χωρίς re-login. Δέχεται subscription ID ή name. Option D είναι PowerShell (σωστό για PS αλλά λάθος για CLI). Option A κάνει νέο login.</div>
+      <button class="qbtn" onclick="toggle('q6-a')">Show Answer</button>
+    </div>
+
+    <!-- Flashcards -->
+    <h3>Key Facts — Chapter 01</h3>
+    <div class="box">
+      <div class="box-t">📌 Flashcard Summary</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:7px 10px;color:var(--text);font-family:var(--mono);font-weight:600;width:38%">IaaS vs PaaS</td><td style="padding:7px 10px;color:var(--text2)">IaaS = VM (you manage OS). PaaS = App Service (you manage app only)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:7px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Azure Hierarchy</td><td style="padding:7px 10px;color:var(--text2)">Tenant → Management Group → Subscription → Resource Group → Resource</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:7px 10px;color:var(--text);font-family:var(--mono);font-weight:600">PS verb pattern</td><td style="padding:7px 10px;color:var(--text2)">Get- / New- / Set- / Remove- / Start- / Stop- + Az + Noun</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:7px 10px;color:var(--text);font-family:var(--mono);font-weight:600">CLI output format</td><td style="padding:7px 10px;color:var(--text2)"><code>--output table</code>, <code>-o json</code>, <code>-o tsv</code>. Query: <code>--query "[JMESPath]"</code></td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:7px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Switch subscription PS</td><td style="padding:7px 10px;color:var(--text2)"><code>Set-AzContext -SubscriptionId "id"</code></td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:7px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Switch subscription CLI</td><td style="padding:7px 10px;color:var(--text2)"><code>az account set --subscription "name-or-id"</code></td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:7px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Cloud Shell</td><td style="padding:7px 10px;color:var(--text2)">Pre-auth (portal session), pre-installed CLI/PS, persistent 5GB storage</td></tr>
+        <tr><td style="padding:7px 10px;color:var(--text);font-family:var(--mono);font-weight:600">AZ vs AZureRM</td><td style="padding:7px 10px;color:var(--text2)">Az = current module. AzureRM = deprecated. Exam uses Az.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- NAVIGATION -->
+  <div class="nav">
+    <a href="az104-index.html" class="nb">
+      <span class="nl">← Index</span>
+      <span class="nt">🏠 AZ-104 Study Guide</span>
+    </a>
+    <a href="az104-c02-entra-id.html" class="nb next">
+      <span class="nl">Next →</span>
+      <span class="nt">Ch 02. Microsoft Entra ID</span>
+    </a>
+  </div>
+
+</main>
+</div>
+
+<script>
+const correct={q1:1,q2:2,q3:2,q4:2,q5:2,q6:1};
+function ans(id,chosen){
+  document.querySelectorAll('#'+id+' li').forEach((el,i)=>{
+    el.classList.remove('ok','no');
+    if(i===correct[id])el.classList.add('ok');
+    else if(i===chosen&&chosen!==correct[id])el.classList.add('no');
+  });
+  document.getElementById(id+'-a').classList.add('show');
+}
+function toggle(id){document.getElementById(id).classList.toggle('show')}
+// TOC active tracking
+const secs=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('a.toc-a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});
+  links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+});
+</script>
+</body>
+</html>

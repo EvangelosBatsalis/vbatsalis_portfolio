@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>:root{--bg:#07090f;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--mono:"JetBrains Mono",monospace;--sans:"Inter",sans-serif;--display:"Syne",sans-serif}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}.hdr{border-bottom:1px solid var(--border);padding:46px 0 38px;position:relative;overflow:hidden}.hdr::before{content:"";position:absolute;top:-60px;right:-60px;width:380px;height:380px;background:radial-gradient(circle,rgba(96,165,250,.06),transparent 65%)}.hdr-inner{max-width:1100px;margin:0 auto;padding:0 32px}.bc{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:12px}.bc a{color:var(--text3);text-decoration:none}.cbadge{display:inline-flex;gap:7px;border-radius:4px;padding:4px 12px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}.hdr h1{font-family:var(--display);font-size:clamp(22px,5vw,42px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:9px}.hdr-sub{color:var(--text2);font-size:14px;margin-bottom:15px}.mp{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text3);margin-right:14px}.mpd{width:5px;height:5px;border-radius:50%}.layout{max-width:1100px;margin:0 auto;padding:38px 30px;display:grid;grid-template-columns:256px 1fr;gap:36px;align-items:start}.sidebar{position:sticky;top:22px}.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}.toc-hdr{background:var(--bg3);padding:11px 15px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;border-bottom:1px solid var(--border)}.toc-body{padding:6px 0}.toc-sec{padding:4px 15px 1px;font-size:9px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:4px}.ta{display:flex;align-items:flex-start;gap:7px;padding:5px 15px;font-size:12px;color:var(--text2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}.ta:hover{color:var(--text);background:var(--card2)}.ta.active{font-weight:600;border-left-color:#60a5fa}.ta .tn{font-family:var(--mono);font-size:9px;color:var(--text3);flex-shrink:0;width:17px}.content{min-width:0}.ch-intro{background:linear-gradient(135deg,var(--card),var(--bg3));border:1px solid #1e2d4a;border-radius:9px;padding:22px;margin-bottom:26px}.ch-n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:5px}.ch-t{font-family:var(--display);font-size:20px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:9px}.ch-desc{color:var(--text2);font-size:13.5px;line-height:1.7;margin-bottom:12px}.ch-stats{display:flex;gap:11px;flex-wrap:wrap}.stx{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:6px 11px;font-family:var(--mono);font-size:11px}.stx .l{color:var(--text3);display:block;margin-bottom:1px}.stx .v{color:var(--text);font-weight:600}.section{margin-bottom:40px;scroll-margin-top:22px}.sh{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}.si{width:33px;height:33px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}.sn{font-family:var(--mono);font-size:10px;color:var(--text3)}.section h2{font-family:var(--display);font-size:18px;font-weight:700;color:#fff}.section h3{font-family:var(--display);font-size:14px;font-weight:700;color:var(--text);margin:19px 0 8px}.section p{color:var(--text2);margin-bottom:10px;font-size:14px}.section ul,.section ol{color:var(--text2);padding-left:19px;margin-bottom:10px}.section li{margin-bottom:5px;font-size:14px}.section li strong,.section p strong{color:var(--text)}.tbl{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:13px}.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:7px 11px;border-bottom:1px solid var(--border)}.tbl td{padding:7px 11px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}.tbl tr:last-child td{border-bottom:none}.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:12px}.tbl tr:hover td{background:var(--card2)}pre{background:#050710;border:1px solid var(--border);border-radius:6px;padding:12px 15px;overflow-x:auto;margin-bottom:10px;font-family:var(--mono);font-size:12px;line-height:1.7}code{font-family:var(--mono);font-size:12px;background:rgba(200,200,200,.07);padding:2px 5px;border-radius:3px}pre code{background:none;padding:0}.cmt{color:#3d5068;font-style:italic}.str{color:#f472b6}.param{color:#86efac}.val{color:#fbbf24}.alert{display:flex;gap:10px;padding:10px 14px;border-radius:6px;margin-bottom:10px;font-size:13px}.ai{font-size:14px;flex-shrink:0;margin-top:1px}.ab{color:var(--text2);line-height:1.6}.ab strong{color:var(--text)}.tip{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18)}.tip .ai{color:#22c55e}.warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18)}.warn .ai{color:var(--yellow)}.exam{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.22)}.exam .ai{color:var(--purple)}.box{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:14px 17px;margin-bottom:14px}.box-t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}.scen{background:var(--card);border:1px solid #1e2d4a;border-radius:7px;overflow:hidden;margin-bottom:16px}.sc-hdr{padding:9px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}.sc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;border-radius:3px;padding:2px 7px}.sc-title{font-size:13px;font-weight:600;color:var(--text)}.sc-body{padding:12px 15px}.sc-body p{color:var(--text2);font-size:13px;margin-bottom:8px}.sc-body p:last-child{margin-bottom:0}.sc-body strong{color:var(--text)}.steps{list-style:none;padding:0;counter-reset:st}.steps li{counter-increment:st;display:flex;gap:8px;margin-bottom:6px;align-items:flex-start;color:var(--text2);font-size:13px}.steps li::before{content:counter(st);min-width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;flex-shrink:0;margin-top:2px}.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:14px}.cc{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:12px}.cc h4{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;padding-bottom:6px;border-bottom:1px solid var(--border)}.cc ul{list-style:none;padding:0}.cc li{font-size:12px;color:var(--text2);padding:3px 0 3px 12px;position:relative}.cc li::before{content:"→";position:absolute;left:0;color:var(--text3);font-size:10px}.badge{display:inline-flex;font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:3px;font-weight:600;vertical-align:middle}.bg{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)}.by{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}.br{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25)}hr{border:none;border-top:1px solid var(--border);margin:28px 0}.quiz{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:7px;padding:14px 17px;margin-bottom:14px}.qh{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:8px}.qq{font-size:14px;color:var(--text);font-weight:600;margin-bottom:8px}.qo{list-style:none;padding:0}.qo li{font-size:13px;color:var(--text2);padding:6px 9px;margin-bottom:3px;cursor:pointer;border-radius:3px;transition:background .15s;border-left:2px solid transparent}.qo li:hover{background:rgba(139,92,246,.07)}.qo li.ok{background:rgba(34,197,94,.07);color:#22c55e;border-left-color:#22c55e}.qo li.no{background:rgba(239,68,68,.07);color:#ef4444;border-left-color:#ef4444}.qa{display:none;margin-top:8px;padding:9px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:5px;font-size:13px;color:var(--text2)}.qa.show{display:block}.qbtn{margin-top:8px;padding:5px 12px;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.3);border-radius:4px;color:var(--purple);font-family:var(--mono);font-size:11px;cursor:pointer}.nav{display:flex;justify-content:space-between;margin-top:38px;padding-top:17px;border-top:1px solid var(--border);gap:12px}.nb{display:flex;flex-direction:column;gap:3px;padding:11px 15px;background:var(--card);border:1px solid var(--border);border-radius:7px;text-decoration:none;flex:1;transition:all .2s}.nb:hover{background:var(--card2)}.nl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}.nt{font-size:13px;color:var(--text);font-weight:600}.nb.next{text-align:right}@media(max-width:768px){.layout{grid-template-columns:1fr;padding:18px 14px}.sidebar{position:static}}</style></head><body><title>AZ-104 Ch.11</title>
+<style>
+title{display:none}
+.hdr{background:linear-gradient(160deg,#040609,#07090f,#020a10)!important}
+.hdr::before{background:radial-gradient(circle,rgba(96,165,250,.06),transparent 65%)!important}
+.cbadge{background:rgba(96,165,250,.08)!important;border:1px solid rgba(96,165,250,.28)!important;color:#60a5fa!important}
+.ta.active{color:#60a5fa!important;background:rgba(96,165,250,.06)!important;border-left-color:#60a5fa!important}
+.ta:hover{border-left-color:#60a5fa!important}
+.toc-hdr{color:#60a5fa!important}.ch-n{color:#60a5fa!important}
+.section h3::before{color:#60a5fa!important}
+.si{background:rgba(96,165,250,.09)!important;border:1px solid rgba(96,165,250,.22)!important}
+.box-t{color:#60a5fa!important}.sc-tag{color:#60a5fa!important;background:rgba(96,165,250,.08)!important;border:1px solid rgba(96,165,250,.25)!important}
+.sc-hdr{background:linear-gradient(90deg,rgba(96,165,250,.1),transparent)!important}
+.steps li::before{background:rgba(96,165,250,.09)!important;border:1px solid rgba(96,165,250,.3)!important;color:#60a5fa!important}
+.cc h4{color:#60a5fa!important}.nb:hover{border-color:#60a5fa!important}
+pre{border-left:3px solid #60a5fa!important}
+code{color:#60a5fa!important;background:rgba(96,165,250,.07)!important}
+pre code{background:none!important}
+.ba{background:rgba(96,165,250,.1)!important;color:#60a5fa!important;border:1px solid rgba(96,165,250,.25)!important}
+.mpd{background:#60a5fa;box-shadow:0 0 5px #60a5fa}
+.info{background:rgba(96,165,250,.05)!important;border:1px solid rgba(96,165,250,.22)!important}.info .ai{color:#60a5fa!important}
+</style><header class="hdr"><div class="hdr-inner"><div class="bc"><a href="az104-index.html">AZ-104</a> / Chapter 11</div><div class="cbadge">Chapter 11 · Sections 21</div><h1>Configure<br><span style="color:#60a5fa">Load Balancing</span></h1><p class="hdr-sub">Azure LB Basic/Standard · Health Probes · Backend Pools · Application Gateway · WAF</p><div><span class="mp"><span class="mpd"></span>Sections 21</span><span class="mp"><span class="mpd"></span>Lessons 151–157</span></div></div></header><div class="layout"><aside class="sidebar"><div class="toc"><div class="toc-hdr">Chapter 11</div><div class="toc-body"><div class="toc-sec">Section 21</div>
+<a href="#s1" class="ta active"><span class="tn">21.1</span>LB Introduction</a>
+<a href="#s2" class="ta"><span class="tn">21.2</span>Setup Load Balancer</a>
+<a href="#s3" class="ta"><span class="tn">21.3</span>Troubleshoot LB</a>
+<a href="#s4" class="ta"><span class="tn">21.4</span>Application Gateway</a>
+<a href="#s5" class="ta"><span class="tn">21.5</span>Comparison</a>
+<a href="#q" class="ta"><span class="tn">Q</span>Quiz</a><div class="toc-sec">Navigation</div><a href="az104-c10-vnet-nsg.html" class="ta">← Ch10. VNets &amp; NSG</a><a href="az104-c12-network-monitor.html" class="ta">Ch12. Network Monitor →</a></div></div></aside><main class="content"><div class="ch-intro">
+<div class="ch-n">Chapter 11 / Section 21</div>
+<div class="ch-t">Configure Load Balancing</div>
+<p class="ch-desc">Azure Load Balancer (L4) distributes TCP/UDP traffic. Application Gateway (L7) adds URL-based routing, WAF, SSL termination. Understand when to use each and the key differences.</p>
+<div class="ch-stats"><div class="stx"><span class="l">Domain</span><span class="v">Domain 4 — 25–30%</span></div><div class="stx"><span class="l">Lessons</span><span class="v">151–157</span></div></div>
+</div>
+
+<section class="section" id="s1">
+<div class="sh"><div class="si">⚖️</div><div><div class="sn">Lesson 151 · 21.1</div><h2>Introduction to Load Balancing</h2></div></div>
+<table class="tbl"><thead><tr><th></th><th>Basic LB</th><th>Standard LB</th></tr></thead><tbody>
+<tr><td>SKU</td><td>Legacy (retiring)</td><td>Current — use this</td></tr>
+<tr><td>Default behavior</td><td>Open (no NSG needed)</td><td>Closed — NSG required</td></tr>
+<tr><td>Backend pool</td><td>Avail Set or VMSS only</td><td>Any VM in VNet</td></tr>
+<tr><td>Health probes</td><td>TCP, HTTP</td><td>TCP, HTTP, HTTPS</td></tr>
+<tr><td>Zones</td><td>❌</td><td>✅ Zone redundant</td></tr>
+<tr><td>SLA</td><td>None</td><td>99.99%</td></tr>
+<tr><td>HTTPS frontend</td><td>❌</td><td>✅</td></tr>
+</tbody></table>
+<div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Standard LB is CLOSED by default.</strong> After creating Standard LB, traffic still blocked until you add NSG rule to allow it. Basic LB = open. This is a VERY common exam trap.</div></div>
+<h3>LB Components</h3>
+<ul>
+<li><strong>Frontend IP:</strong> Public or private IP that clients connect to</li>
+<li><strong>Backend pool:</strong> VMs or VMSS instances receiving traffic</li>
+<li><strong>Health probe:</strong> Checks VM health (HTTP GET / TCP connect). Unhealthy = removed from pool.</li>
+<li><strong>Load balancing rule:</strong> Maps frontend IP:port → backend pool:port</li>
+<li><strong>NAT rule:</strong> Forward specific port to specific VM (for RDP, SSH)</li>
+<li><strong>Outbound rule:</strong> Configure SNAT for outbound internet connectivity</li>
+</ul>
+</section><hr>
+
+<section class="section" id="s2">
+<div class="sh"><div class="si">🔧</div><div><div class="sn">Lessons 152–153 · 21.2</div><h2>Setup Load Balancer</h2></div></div>
+<pre><code><span class="cmt"># Create Standard Public LB</span>
+az network lb create   --resource-group RG-Network-GR   --name LB-WebServers   --sku Standard   --public-ip-address PIP-LB-WebServers   --frontend-ip-name FE-Web   --backend-pool-name BE-WebPool
+
+<span class="cmt"># Add health probe (HTTP on port 80)</span>
+az network lb probe create   --resource-group RG-Network-GR   --lb-name LB-WebServers   --name HealthProbe-HTTP   --protocol Http   --port 80   --path /health
+
+<span class="cmt"># Add LB rule: port 80 → backend port 80</span>
+az network lb rule create   --resource-group RG-Network-GR   --lb-name LB-WebServers   --name LBRule-HTTP   --protocol Tcp   --frontend-port 80   --backend-port 80   --frontend-ip-name FE-Web   --backend-pool-name BE-WebPool   --probe-name HealthProbe-HTTP
+
+<span class="cmt"># Add VM NIC to backend pool</span>
+az network nic ip-config update   --resource-group RG-Servers-GR   --nic-name SRV-WEB-01-NIC   --name ipconfig1   --lb-name LB-WebServers   --lb-address-pools BE-WebPool</code></pre>
+</section><hr>
+
+<section class="section" id="s3">
+<div class="sh"><div class="si">🔍</div><div><div class="sn">Lesson 155 · 21.3</div><h2>Troubleshoot Load Balancer</h2></div></div>
+<table class="tbl"><thead><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead><tbody>
+<tr><td>No traffic reaches VMs</td><td>Standard LB closed by default</td><td>Add NSG inbound rule on VMs</td></tr>
+<tr><td>VM marked unhealthy</td><td>Health probe failing</td><td>Ensure app running on probe port/path</td></tr>
+<tr><td>Can't add VM to backend pool</td><td>VM not in same VNet or wrong SKU</td><td>Use Standard SKU, same VNet</td></tr>
+<tr><td>VMs can't reach internet (SNAT)</td><td>Standard LB needs outbound rule</td><td>Create outbound rule or use NAT Gateway</td></tr>
+</tbody></table>
+<div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Health Probe Logic:</strong> If health probe receives 2 consecutive failures → VM removed from pool. Default: probe every 5s, unhealthy after 2 failures (10s). VM must respond on probe port with success (HTTP 200) to be included.</div></div>
+</section><hr>
+
+<section class="section" id="s4">
+<div class="sh"><div class="si">🌐</div><div><div class="sn">Lesson 156 · 21.4</div><h2>Application Gateway</h2></div></div>
+<p><strong>Application Gateway</strong> = L7 load balancer. Understands HTTP/HTTPS — can route based on URL path, hostname, or headers.</p>
+<h3>Key Features</h3>
+<ul>
+<li><strong>URL-based routing:</strong> <code>/api/*</code> → API servers, <code>/images/*</code> → image servers</li>
+<li><strong>Host-based routing:</strong> <code>api.septona.gr</code> → API pool, <code>www.septona.gr</code> → web pool</li>
+<li><strong>SSL termination:</strong> Decrypts HTTPS at gateway — backend VMs get plain HTTP</li>
+<li><strong>Cookie-based session affinity:</strong> Same user → same backend VM</li>
+<li><strong>WAF (Web Application Firewall):</strong> OWASP rule sets, protect against SQLi, XSS</li>
+<li><strong>Rewrite rules:</strong> Modify HTTP headers, URLs on the fly</li>
+<li><strong>Autoscaling (v2 SKU):</strong> Scale based on traffic load</li>
+</ul>
+<h3>AppGW SKUs</h3>
+<table class="tbl"><thead><tr><th>SKU</th><th>Features</th></tr></thead><tbody>
+<tr><td>Standard v1</td><td>Basic L7. Fixed capacity. Legacy.</td></tr>
+<tr><td>Standard v2 <span class="badge bg">Current</span></td><td>Autoscale, Zone redundancy, 99.95% SLA</td></tr>
+<tr><td>WAF v1</td><td>Standard v1 + WAF. Legacy.</td></tr>
+<tr><td>WAF v2 <span class="badge bg">Current</span></td><td>Standard v2 + WAF. OWASP 3.1. Recommended.</td></tr>
+</tbody></table>
+</section><hr>
+
+<section class="section" id="s5">
+<div class="sh"><div class="si">📊</div><div><div class="sn">21.5</div><h2>Load Balancing Services — Comparison</h2></div></div>
+<table class="tbl"><thead><tr><th>Service</th><th>Layer</th><th>Scope</th><th>Key Feature</th></tr></thead><tbody>
+<tr><td>Load Balancer</td><td>L4 (TCP/UDP)</td><td>Regional</td><td>Port-based distribution. Fast. Simple.</td></tr>
+<tr><td>Application Gateway</td><td>L7 (HTTP/S)</td><td>Regional</td><td>URL routing, WAF, SSL termination</td></tr>
+<tr><td>Traffic Manager</td><td>DNS</td><td>Global</td><td>DNS-based routing (latency, failover, geographic)</td></tr>
+<tr><td>Azure Front Door</td><td>L7 + CDN</td><td>Global</td><td>CDN + WAF + global routing + DDoS</td></tr>
+</tbody></table>
+<div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>When to use what:</strong><br>
+Need URL path routing or WAF → Application Gateway<br>
+Need global DNS-based routing/failover → Traffic Manager<br>
+Need global CDN + WAF → Azure Front Door<br>
+TCP load balancing, simple, fast → Load Balancer</div></div>
+</section><hr>
+
+<section class="section" id="q">
+<div class="sh"><div class="si">🧠</div><div><div class="sn">Chapter 11</div><h2>Quiz</h2></div></div>
+<div class="quiz"><div class="qh">◈ Q01</div>
+<div class="qq">Μετά την δημιουργία Standard Load Balancer, clients δεν μπορούν να συνδεθούν στα VMs. Τι λείπει;</div>
+<ul class="qo" id="q1"><li onclick="ans('q1',0)">A) Health probe config</li><li onclick="ans('q1',1)">B) NSG rule να allow inbound traffic στα VMs</li><li onclick="ans('q1',2)">C) Backend pool members</li><li onclick="ans('q1',3)">D) Public IP στα VMs</li></ul>
+<div class="qa" id="q1-a">✅ <strong>B — NSG rule.</strong> Standard LB is closed by default — all inbound blocked unless NSG on VMs/subnet allows it. Basic LB is open. Most common exam trap!</div>
+<button class="qbtn" onclick="toggle('q1-a')">Show Answer</button>
+</div>
+<div class="quiz"><div class="qh">◈ Q02</div>
+<div class="qq">E-commerce site: /api/* → API servers, /images/* → CDN servers, /shop/* → web servers. Ποιο Azure service;</div>
+<ul class="qo" id="q2"><li onclick="ans('q2',0)">A) Azure Load Balancer</li><li onclick="ans('q2',1)">B) Azure Traffic Manager</li><li onclick="ans('q2',2)">C) Azure Application Gateway</li><li onclick="ans('q2',3)">D) Azure Front Door (Global)</li></ul>
+<div class="qa" id="q2-a">✅ <strong>C — Application Gateway.</strong> URL path-based routing = L7 = Application Gateway. Load Balancer is L4 (no URL awareness). Traffic Manager = DNS-based global. Front Door = global CDN.</div>
+<button class="qbtn" onclick="toggle('q2-a')">Show Answer</button>
+</div>
+<div class="box"><div class="box-t">📌 Key Facts — Ch11</div>
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600;width:40%">Standard LB</td><td style="padding:6px 9px;color:var(--text2)">Closed by default. NSG required. Zone redundant. 99.99% SLA.</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">LB = L4</td><td style="padding:6px 9px;color:var(--text2)">TCP/UDP only. No HTTP awareness. Port-based routing.</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">AppGW = L7</td><td style="padding:6px 9px;color:var(--text2)">URL routing, WAF, SSL termination, cookie affinity.</td></tr>
+<tr><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">Traffic Manager</td><td style="padding:6px 9px;color:var(--text2)">DNS-based global routing. No data plane. Failover/latency/geographic.</td></tr>
+</table></div>
+</section><div class="nav"><a href="az104-c10-vnet-nsg.html" class="nb"><span class="nl">← Previous</span><span class="nt">Ch10. VNets &amp; NSG</span></a><a href="az104-c12-network-monitor.html" class="nb next"><span class="nl">Next →</span><span class="nt">Ch12. Network Monitor</span></a></div></main></div><script>
+function ans(id,c){document.querySelectorAll("#"+id+" li").forEach((el,i)=>{el.classList.remove("ok","no");if(i==={'q1':1,'q2':2}[id])el.classList.add("ok");else if(i===c&&c!=={'q1':1,'q2':2}[id])el.classList.add("no");});document.getElementById(id+"-a").classList.add("show");}
+function toggle(id){document.getElementById(id).classList.toggle("show")}
+const secs=document.querySelectorAll("section[id]");const links=document.querySelectorAll("a.ta");
+window.addEventListener("scroll",()=>{let cur="";secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+cur));});
+</script></body></html>

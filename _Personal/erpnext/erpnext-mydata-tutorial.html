@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERPNext Setup για myDATA - Tutorial Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        .nav {
+            background: #2d3748;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav a:hover {
+            background: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #667eea;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.8em;
+            margin: 30px 0 20px 0;
+        }
+
+        .section h4 {
+            color: #2d3748;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #f59e0b;
+        }
+
+        .success-box {
+            background: #d1fae5;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #10b981;
+        }
+
+        .danger-box {
+            background: #fee2e2;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #ef4444;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+            font-size: 0.95em;
+        }
+
+        .code-inline {
+            background: #1e293b;
+            color: #fbbf24;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 2px solid #e2e8f0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .card h4 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:hover {
+            background: #f7fafc;
+        }
+
+        .step {
+            background: #f8fafc;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 45px;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+
+        .sub-step {
+            background: #ffffff;
+            padding: 15px;
+            margin: 15px 0 15px 60px;
+            border-radius: 8px;
+            border-left: 3px solid #a78bfa;
+        }
+
+        ul, ol {
+            margin-left: 40px;
+            margin-top: 15px;
+        }
+
+        li {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #92400e;
+        }
+
+        .highlight-blue {
+            background: #dbeafe;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .path {
+            background: #f1f5f9;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .example-section {
+            background: #f0f9ff;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border: 2px dashed #0ea5e9;
+        }
+
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .field-item {
+            background: #f8fafc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .field-type {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .screenshot-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 3px solid #e2e8f0;
+        }
+
+        .screenshot-box img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .tutorial-note {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: start;
+        }
+
+        .tutorial-note::before {
+            content: "💡";
+            font-size: 1.5em;
+            margin-right: 15px;
+        }
+
+        .checklist {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #10b981;
+        }
+
+        .checklist li {
+            list-style-type: none;
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checklist li::before {
+            content: "☐";
+            font-size: 1.3em;
+            margin-right: 10px;
+            color: #10b981;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .nav ul {
+                flex-direction: column;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .step {
+                padding: 15px;
+            }
+
+            .sub-step {
+                margin-left: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 ERPNext Setup για myDATA</h1>
+            <p>Tutorial Guide: Στήσιμο Ελληνικών Παραστατικών σε ERPNext για Φροντιστήριο</p>
+        </div>
+
+        <nav class="nav">
+            <ul>
+                <li><a href="#intro">Εισαγωγή</a></li>
+                <li><a href="#prerequisites">Προαπαιτούμενα</a></li>
+                <li><a href="#company">Company Setup</a></li>
+                <li><a href="#taxes">Tax Templates</a></li>
+                <li><a href="#items">Items Setup</a></li>
+                <li><a href="#custom-fields">Custom Fields</a></li>
+                <li><a href="#invoicing">Sales Invoices</a></li>
+                <li><a href="#mydata">myDATA Integration</a></li>
+                <li><a href="#testing">Testing</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <!-- Εισαγωγή -->
+            <section id="intro" class="section">
+                <h2>📚 Εισαγωγή</h2>
+                
+                <div class="info-box">
+                    <h3>Τι θα μάθεις σε αυτό το Tutorial;</h3>
+                    <p>Αυτός ο οδηγός θα σε καθοδηγήσει βήμα-βήμα για να σετάρεις το ERPNext έτσι ώστε να εκδίδει <strong>νόμιμα ελληνικά παραστατικά</strong> συμβατά με το <strong>myDATA της ΑΑΔΕ</strong>.</p>
+                </div>
+
+                <h3>Τι θα Χρειαστείς;</h3>
+                <div class="grid-3">
+                    <div class="card">
+                        <h4>🖥️ ERPNext</h4>
+                        <p>Έκδοση 14 ή νεότερη, εγκατεστημένο και λειτουργικό</p>
+                    </div>
+                    <div class="card">
+                        <h4>🏢 Στοιχεία Επιχείρησης</h4>
+                        <p>ΑΦΜ, ΔΟΥ, Διεύθυνση, Στοιχεία επικοινωνίας</p>
+                    </div>
+                    <div class="card">
+                        <h4>🔑 myDATA Credentials</h4>
+                        <p>Κωδικοί πρόσβασης στο σύστημα της ΑΑΔΕ (προαιρετικά αρχικά)</p>
+                    </div>
+                </div>
+
+                <h3>Τι θα Φτιάξουμε;</h3>
+                <ul>
+                    <li><strong>Company</strong> με ελληνικά στοιχεία και ΑΦΜ</li>
+                    <li><strong>Tax Templates</strong> για "Άνευ ΦΠΑ - Άρθρο 24"</li>
+                    <li><strong>Items</strong> για τα μαθήματα του φροντιστηρίου</li>
+                    <li><strong>Custom Fields</strong> για myDATA compliance</li>
+                    <li><strong>Sales Invoices</strong> με σωστούς χαρακτηρισμούς ΑΑΔΕ</li>
+                    <li><strong>Integration</strong> με myDATA API (προαιρετικό)</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4>⚠️ Σημαντικό!</h4>
+                    <p>Αυτό το tutorial προϋποθέτει ότι έχεις ήδη εγκαταστήσει το ERPNext. Αν δεν το έχεις, δες το <a href="#" style="color: #667eea; font-weight: 600;">guide εγκατάστασης</a>.</p>
+                </div>
+            </section>
+
+            <!-- Prerequisites -->
+            <section id="prerequisites" class="section">
+                <h2>✅ Προαπαιτούμενα</h2>
+                
+                <h3>1. ERPNext Installation</h3>
+                <div class="step">
+                    <span class="step-number">✓</span>
+                    <strong>Έλεγχος Έκδοσης</strong>
+                    <p>Βεβαιώσου ότι έχεις ERPNext v14 ή νεότερη:</p>
+                    <div class="code-block">
+# Στο terminal
+bench version
+
+# Αναμενόμενο output:
+erpnext 14.x.x
+frappe 14.x.x
+                    </div>
+                </div>
+
+                <h3>2. Greek Localization</h3>
+                <div class="step">
+                    <span class="step-number">✓</span>
+                    <strong>Ενεργοποίηση Ελληνικής Τοποθεσίας</strong>
+                    <p>Κατά το Setup Wizard, επίλεξε:</p>
+                    <ul>
+                        <li><strong>Country:</strong> Greece</li>
+                        <li><strong>Currency:</strong> EUR (€)</li>
+                        <li><strong>Language:</strong> Greek (el)</li>
+                        <li><strong>Chart of Accounts:</strong> Greece - Chart of Accounts</li>
+                    </ul>
+                </div>
+
+                <h3>3. Administrator Access</h3>
+                <div class="step">
+                    <span class="step-number">✓</span>
+                    <strong>Δικαιώματα</strong>
+                    <p>Πρέπει να έχεις <span class="highlight-blue">System Manager</span> ή <span class="highlight-blue">Administrator</span> role για να κάνεις τις παρακάτω αλλαγές.</p>
+                </div>
+
+                <div class="success-box">
+                    <h4>✅ Ready!</h4>
+                    <p>Αν έχεις όλα τα παραπάνω, είσαι έτοιμος να ξεκινήσουμε!</p>
+                </div>
+            </section>
+
+            <!-- Company Setup -->
+            <section id="company" class="section">
+                <h2>🏢 Βήμα 1: Ρύθμιση Company</h2>
+                
+                <div class="info-box">
+                    <h3>Τι είναι το Company;</h3>
+                    <p>Το <strong>Company</strong> DocType στο ERPNext αντιπροσωπεύει την επιχείρησή σου. Εδώ ορίζεις τα βασικά στοιχεία της εταιρείας που θα εμφανίζονται στα παραστατικά.</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Πήγαινε στο Company</strong>
+                    <p>Από το Awesome Bar (Ctrl+K): <span class="code-inline">Company</span></p>
+                    <p>Ή από το μενού: <span class="path">Home → Settings → Company</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Βασικά Στοιχεία</strong>
+                    
+                    <div class="sub-step">
+                        <h4>Company Name</h4>
+                        <div class="code-block">
+Company Name: English Academy
+Abbr: EA
+                        </div>
+                        <div class="tutorial-note">
+                            Το <strong>Abbr</strong> (abbreviation) χρησιμοποιείται ως prefix στα accounts. Π.χ. "Sales - EA"
+                        </div>
+                    </div>
+
+                    <div class="sub-step">
+                        <h4>Ελληνικό Όνομα (Custom Field)</h4>
+                        <p>Αν θες, μπορείς να προσθέσεις custom field για το ελληνικό όνομα:</p>
+                        <div class="code-block">
+Company Name (Greek): Κέντρο Ξένων Γλωσσών "English Academy"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Ελληνικά Tax Details</strong>
+                    
+                    <div class="sub-step">
+                        <h4>Tax ID (ΑΦΜ)</h4>
+                        <div class="field-item">
+                            <span><strong>Tax ID:</strong> 123456789</span>
+                            <span class="field-type">Data (9 ψηφία)</span>
+                        </div>
+                        <div class="tutorial-note">
+                            Συμπλήρωσε το ΑΦΜ της επιχείρησής σου. Αυτό θα εμφανίζεται σε όλα τα παραστατικά.
+                        </div>
+                    </div>
+
+                    <div class="sub-step">
+                        <h4>Custom Fields για Ελλάδα</h4>
+                        <p>Πρέπει να προσθέσεις custom fields για:</p>
+                        <div class="field-item">
+                            <span><strong>DOY (ΔΟΥ):</strong> ΧΟΛΑΡΓΟΥ</span>
+                            <span class="field-type">Data</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Company Activity:</strong> Κέντρο Ξένων Γλωσσών</span>
+                            <span class="field-type">Data</span>
+                        </div>
+                        <p>Θα δούμε πώς να τα προσθέσεις στο <a href="#custom-fields" style="color: #667eea;">Βήμα Custom Fields</a>.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Address & Contact</strong>
+                    
+                    <div class="sub-step">
+                        <h4>Company Address</h4>
+                        <p>Δημιούργησε μία διεύθυνση για την εταιρεία:</p>
+                        <div class="code-block">
+Address Title: English Academy HQ
+Address Line 1: Περικλέους 53
+City/Town: Αγία Παρασκευή
+State: Αττική
+Postal Code: 15342
+Country: Greece
+Email: info@englishacademy.gr
+Phone: +30 210 6010001
+                        </div>
+                        <p>Πήγαινε: <span class="path">Home → CRM → Address → New</span></p>
+                        <p>Μετά, σύνδεσέ την με το Company από το section "Links".</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Chart of Accounts</strong>
+                    
+                    <div class="sub-step">
+                        <h4>Default Accounts</h4>
+                        <p>Βεβαιώσου ότι έχεις ορίσει:</p>
+                        <div class="field-item">
+                            <span><strong>Default Income Account:</strong> Sales - EA</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Default Expense Account:</strong> Cost of Goods Sold - EA</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Default Bank Account:</strong> Bank - EA</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Default Cash Account:</strong> Cash - EA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">6</span>
+                    <strong>Αποθήκευση</strong>
+                    <p>Πάτα <span class="highlight">Save</span> για να αποθηκεύσεις τις αλλαγές!</p>
+                </div>
+
+                <div class="example-section">
+                    <h3>📋 Παράδειγμα: Πλήρης Company Setup</h3>
+                    <div class="code-block">
+Company Name: English Academy
+Company Name (Greek): Κέντρο Ξένων Γλωσσών "English Academy"
+Abbr: EA
+Tax ID: 123456789
+DOY: ΧΟΛΑΡΓΟΥ
+Company Activity: Κέντρο Ξένων Γλωσσών
+
+Default Currency: EUR
+Country: Greece
+
+Address:
+  Περικλέους 53
+  Αγία Παρασκευή, Αττική 15342
+  Greece
+  
+Contact:
+  Email: info@englishacademy.gr
+  Phone: +30 210 6010001
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tax Templates -->
+            <section id="taxes" class="section">
+                <h2>💰 Βήμα 2: Δημιουργία Tax Templates</h2>
+                
+                <div class="info-box">
+                    <h3>Τι είναι τα Tax Templates;</h3>
+                    <p>Τα <strong>Sales Taxes and Charges Template</strong> ορίζουν πώς υπολογίζεται ο ΦΠΑ στα παραστατικά. Για το φροντιστήριο, χρειάζεσαι template για <strong>"Άνευ ΦΠΑ"</strong>.</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Νέο Tax Template</strong>
+                    <p>Πήγαινε: <span class="path">Home → Accounting → Sales Taxes and Charges Template → New</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Template για Άνευ ΦΠΑ (0%)</strong>
+                    
+                    <div class="sub-step">
+                        <h4>Βασικές Ρυθμίσεις</h4>
+                        <div class="field-item">
+                            <span><strong>Title:</strong> Greece VAT 0% - Article 24</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Company:</strong> English Academy</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Is Default:</strong> ✓ (Tick this)</span>
+                        </div>
+                    </div>
+
+                    <div class="sub-step">
+                        <h4>Tax Charges Table</h4>
+                        <p>Πάτα <span class="highlight">Add Row</span> στον πίνακα "Taxes":</p>
+                        
+                        <div class="field-item">
+                            <span><strong>Type:</strong> On Net Total</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Account Head:</strong> VAT - EA</span>
+                            <span class="field-type">Link to Account</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Rate:</strong> 0</span>
+                            <span class="field-type">Zero για άνευ ΦΠΑ</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Description:</strong> Άνευ ΦΠΑ - Άρθρο 24 Κώδικα ΦΠΑ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Template για ΦΠΑ 24% (για Vending Machine)</strong>
+                    
+                    <div class="sub-step">
+                        <p>Αν έχεις και άλλες δραστηριότητες με ΦΠΑ (π.χ. vending machine), φτιάξε και ένα template:</p>
+                        
+                        <div class="field-item">
+                            <span><strong>Title:</strong> Greece VAT 24%</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Rate:</strong> 24</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Αποθήκευση</strong>
+                    <p>Πάτα <span class="highlight">Save</span>!</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ Σημαντικό: VAT Account</h4>
+                    <p>Βεβαιώσου ότι έχεις ένα account για ΦΠΑ:</p>
+                    <ul>
+                        <li>Πήγαινε: <span class="path">Accounting → Chart of Accounts</span></li>
+                        <li>Αν δεν υπάρχει "VAT - EA", δημιούργησέ το ως child του "Duties and Taxes - EA"</li>
+                        <li>Account Type: <span class="highlight-blue">Tax</span></li>
+                    </ul>
+                </div>
+
+                <div class="example-section">
+                    <h3>📋 Παράδειγμα: Tax Template Setup</h3>
+                    <div class="code-block">
+Sales Taxes and Charges Template
+================================
+
+Template 1: Greece VAT 0% - Article 24
+  Company: English Academy
+  Is Default: ✓
+  
+  Taxes Table:
+  ┌─────────────────┬──────────────┬──────┬────────────────────────────┐
+  │ Type            │ Account Head │ Rate │ Description                │
+  ├─────────────────┼──────────────┼──────┼────────────────────────────┤
+  │ On Net Total    │ VAT - EA     │ 0    │ Άνευ ΦΠΑ - Άρθρο 24       │
+  └─────────────────┴──────────────┴──────┴────────────────────────────┘
+
+Template 2: Greece VAT 24%
+  Company: English Academy
+  
+  Taxes Table:
+  ┌─────────────────┬──────────────┬──────┬────────────────────────────┐
+  │ Type            │ Account Head │ Rate │ Description                │
+  ├─────────────────┼──────────────┼──────┼────────────────────────────┤
+  │ On Net Total    │ VAT - EA     │ 24   │ ΦΠΑ 24%                    │
+  └─────────────────┴──────────────┴──────┴────────────────────────────┘
+                    </div>
+                </div>
+            </section>
+
+            <!-- Items Setup -->
+            <section id="items" class="section">
+                <h2>📦 Βήμα 3: Δημιουργία Items (Μαθήματα)</h2>
+                
+                <div class="info-box">
+                    <h3>Items για το Φροντιστήριο</h3>
+                    <p>Τα <strong>Items</strong> στο ERPNext είναι τα προϊόντα ή υπηρεσίες που πουλάς. Για το φροντιστήριο, κάθε τύπος μαθήματος ή υπηρεσίας είναι ένα Item.</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Νέο Item</strong>
+                    <p>Πήγαινε: <span class="path">Home → Stock → Item → New</span></p>
+                    <p>Ή Awesome Bar: <span class="code-inline">Item</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Βασικά Στοιχεία</strong>
+                    
+                    <div class="sub-step">
+                        <h4>Item Code & Name</h4>
+                        <div class="field-item">
+                            <span><strong>Item Code:</strong> 0001</span>
+                            <span class="field-type">Unique ID</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Item Name:</strong> Έναντι Διδάκτρων</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Item Group:</strong> Services</span>
+                        </div>
+                        <div class="tutorial-note">
+                            Χρησιμοποίησε τον ίδιο κωδικό με το σύστημα myDATA για consistency!
+                        </div>
+                    </div>
+
+                    <div class="sub-step">
+                        <h4>Service Item</h4>
+                        <div class="field-item">
+                            <span><strong>Is Service Item:</strong> ✓ (Tick this)</span>
+                        </div>
+                        <div class="tutorial-note">
+                            Αυτό ενημερώνει το ERPNext ότι δεν υπάρχει inventory για αυτό το item.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Sales Details</strong>
+                    
+                    <div class="sub-step">
+                        <h4>Τιμή & Tax</h4>
+                        <div class="field-item">
+                            <span><strong>Standard Selling Rate:</strong> 50.00 EUR</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Income Account:</strong> Sales - EA</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Default Sales Taxes:</strong> Greece VAT 0% - Article 24</span>
+                            <span class="field-type">Link to Template</span>
+                        </div>
+                    </div>
+
+                    <div class="sub-step">
+                        <h4>Description</h4>
+                        <div class="code-block">
+Description:
+Προκαταβολή για διδάκτρα μαθήματος αγγλικών.
+Απαλλασσόμενο από ΦΠΑ σύμφωνα με το Άρθρο 24 του Κώδικα ΦΠΑ.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Custom Fields για myDATA</strong>
+                    
+                    <div class="sub-step">
+                        <h4>Χαρακτηρισμοί ΑΑΔΕ</h4>
+                        <p>Θα προσθέσουμε custom fields στο Βήμα 5, αλλά θα χρειαστούμε:</p>
+                        <div class="field-item">
+                            <span><strong>AADE Income Classification:</strong> E3_561_003</span>
+                            <span class="field-type">Custom Field</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>VAT Exemption Reason:</strong> Χωρίς ΦΠΑ - άρθρο 24</span>
+                            <span class="field-type">Custom Field</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Αποθήκευση</strong>
+                    <p>Πάτα <span class="highlight">Save</span>!</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">6</span>
+                    <strong>Επανάληψη για Όλα τα Items</strong>
+                    <p>Φτιάξε items για όλες τις υπηρεσίες:</p>
+                </div>
+
+                <div class="example-section">
+                    <h3>📋 Όλα τα Items που Χρειάζεσαι</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item Code</th>
+                                <th>Item Name</th>
+                                <th>Rate</th>
+                                <th>Tax Template</th>
+                                <th>AADE Code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>0001</strong></td>
+                                <td>Έναντι Διδάκτρων</td>
+                                <td>50.00 €</td>
+                                <td>VAT 0% - Art. 24</td>
+                                <td>E3_561_003</td>
+                            </tr>
+                            <tr>
+                                <td><strong>0002</strong></td>
+                                <td>Εξόφληση Διδάκτρων</td>
+                                <td>50.00 €</td>
+                                <td>VAT 0% - Art. 24</td>
+                                <td>E3_561_003</td>
+                            </tr>
+                            <tr>
+                                <td><strong>0003</strong></td>
+                                <td>Δωρεάν Δίδακτρα</td>
+                                <td>40.00 €</td>
+                                <td>VAT 0% - Art. 24</td>
+                                <td>E3_561_003</td>
+                            </tr>
+                            <tr>
+                                <td><strong>0004</strong></td>
+                                <td>1η Δόση Διδάκτρων</td>
+                                <td>50.00 €</td>
+                                <td>VAT 0% - Art. 24</td>
+                                <td>E3_561_003</td>
+                            </tr>
+                            <tr>
+                                <td><strong>0005</strong></td>
+                                <td>2η Δόση Διδάκτρων</td>
+                                <td>50.00 €</td>
+                                <td>VAT 0% - Art. 24</td>
+                                <td>E3_561_003</td>
+                            </tr>
+                            <tr>
+                                <td><strong>0006</strong></td>
+                                <td>Ενισχυτική Διδασκαλία</td>
+                                <td>40.00 €</td>
+                                <td>VAT 0% - Art. 24</td>
+                                <td>E3_561_003</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tutorial-note">
+                    <strong>Tip:</strong> Μπορείς να κάνεις "Duplicate" ένα existing item και να αλλάξεις μόνο το Item Code και το όνομα για να εξοικονομήσεις χρόνο!
+                </div>
+            </section>
+
+            <!-- Custom Fields -->
+            <section id="custom-fields" class="section">
+                <h2>🔧 Βήμα 4: Custom Fields για myDATA</h2>
+                
+                <div class="info-box">
+                    <h3>Γιατί Custom Fields;</h3>
+                    <p>Το ERPNext δεν έχει out-of-the-box support για τα ελληνικά παραστατικά και το myDATA. Πρέπει να προσθέσουμε <strong>Custom Fields</strong> για να αποθηκεύουμε πληροφορίες όπως:</p>
+                    <ul>
+                        <li>ΔΟΥ (DOY)</li>
+                        <li>Χαρακτηρισμοί ΑΑΔΕ (E3_561_001, E3_561_003 κλπ)</li>
+                        <li>Αιτία Εξαίρεσης ΦΠΑ</li>
+                        <li>Αριθμός MARK του myDATA</li>
+                    </ul>
+                </div>
+
+                <h3>Custom Fields για Company</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Customize Form</strong>
+                    <p>Πήγαινε: <span class="path">Home → Customization → Customize Form</span></p>
+                    <p>Ή Awesome Bar: <span class="code-inline">Customize Form</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Επιλογή DocType</strong>
+                    <div class="field-item">
+                        <span><strong>Enter Form Type:</strong> Company</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Προσθήκη Fields</strong>
+                    <p>Scroll down στο section "Fields" και πάτα <span class="highlight">Add Row</span>:</p>
+                    
+                    <div class="sub-step">
+                        <h4>Field 1: ΔΟΥ</h4>
+                        <div class="field-item">
+                            <span><strong>Label:</strong> DOY</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Field Type:</strong> Data</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Insert After:</strong> tax_id</span>
+                        </div>
+                    </div>
+
+                    <div class="sub-step">
+                        <h4>Field 2: Company Activity</h4>
+                        <div class="field-item">
+                            <span><strong>Label:</strong> Company Activity</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Field Type:</strong> Data</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Insert After:</strong> doy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Update</strong>
+                    <p>Πάτα <span class="highlight">Update</span> για να αποθηκεύσεις!</p>
+                </div>
+
+                <h3>Custom Fields για Item</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Customize Form → Item</strong>
+                    <div class="field-item">
+                        <span><strong>Enter Form Type:</strong> Item</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>myDATA Fields</strong>
+                    
+                    <div class="sub-step">
+                        <h4>Field 1: AADE Income Classification</h4>
+                        <div class="field-item">
+                            <span><strong>Label:</strong> AADE Income Classification</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Field Type:</strong> Select</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Options:</strong></span>
+                        </div>
+                        <div class="code-block">
+E3_561_001
+E3_561_003
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Insert After:</strong> sales_details_section</span>
+                        </div>
+                    </div>
+
+                    <div class="sub-step">
+                        <h4>Field 2: VAT Exemption Reason</h4>
+                        <div class="field-item">
+                            <span><strong>Label:</strong> VAT Exemption Reason</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Field Type:</strong> Select</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Options:</strong></span>
+                        </div>
+                        <div class="code-block">
+
+Χωρίς ΦΠΑ - άρθρο 24 του Κώδικα ΦΠΑ
+Χωρίς ΦΠΑ - άρθρο 43 του Κώδικα ΦΠΑ
+                        </div>
+                        <div class="tutorial-note">
+                            Η πρώτη γραμμή είναι κενή για να επιτρέπει "no selection"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Update</strong>
+                    <p>Πάτα <span class="highlight">Update</span>!</p>
+                </div>
+
+                <h3>Custom Fields για Sales Invoice</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Customize Form → Sales Invoice</strong>
+                    <div class="field-item">
+                        <span><strong>Enter Form Type:</strong> Sales Invoice</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>myDATA Response Fields</strong>
+                    
+                    <div class="sub-step">
+                        <h4>Section Break</h4>
+                        <p>Πρώτα φτιάξε ένα section για τα myDATA fields:</p>
+                        <div class="field-item">
+                            <span><strong>Field Type:</strong> Section Break</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Label:</strong> myDATA Details</span>
+                        </div>
+                    </div>
+
+                    <div class="sub-step">
+                        <h4>Field 1: myDATA MARK</h4>
+                        <div class="field-item">
+                            <span><strong>Label:</strong> myDATA MARK</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Field Type:</strong> Data</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Read Only:</strong> ✓</span>
+                        </div>
+                        <div class="tutorial-note">
+                            Αυτό θα συμπληρώνεται αυτόματα όταν το invoice αποσταλεί στο myDATA
+                        </div>
+                    </div>
+
+                    <div class="sub-step">
+                        <h4>Field 2: myDATA UID</h4>
+                        <div class="field-item">
+                            <span><strong>Label:</strong> myDATA UID</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Field Type:</strong> Data</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Read Only:</strong> ✓</span>
+                        </div>
+                    </div>
+
+                    <div class="sub-step">
+                        <h4>Field 3: Invoice Type Code</h4>
+                        <div class="field-item">
+                            <span><strong>Label:</strong> Invoice Type Code</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Field Type:</strong> Select</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Options:</strong></span>
+                        </div>
+                        <div class="code-block">
+2.1
+5.1
+11.1
+11.2
+11.4
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Default:</strong> 11.2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Update</strong>
+                    <p>Πάτα <span class="highlight">Update</span>!</p>
+                </div>
+
+                <h3>Custom Fields για Customer</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Customize Form → Customer</strong>
+                    <div class="field-item">
+                        <span><strong>Enter Form Type:</strong> Customer</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Greek Tax Fields</strong>
+                    
+                    <div class="sub-step">
+                        <h4>Field: DOY</h4>
+                        <div class="field-item">
+                            <span><strong>Label:</strong> DOY</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Field Type:</strong> Data</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Insert After:</strong> tax_id</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Update</strong>
+                    <p>Πάτα <span class="highlight">Update</span>!</p>
+                </div>
+
+                <div class="success-box">
+                    <h4>✅ Custom Fields Ολοκληρώθηκαν!</h4>
+                    <p>Τώρα τα DocTypes έχουν όλα τα fields που χρειάζονται για myDATA compliance!</p>
+                </div>
+
+                <div class="example-section">
+                    <h3>📋 Σύνοψη Custom Fields</h3>
+                    <div class="code-block">
+Company:
+  ├─ DOY (Data)
+  └─ Company Activity (Data)
+
+Item:
+  ├─ AADE Income Classification (Select)
+  └─ VAT Exemption Reason (Select)
+
+Sales Invoice:
+  ├─ myDATA Details (Section Break)
+  ├─ myDATA MARK (Data, Read Only)
+  ├─ myDATA UID (Data, Read Only)
+  └─ Invoice Type Code (Select, Default: 11.2)
+
+Customer:
+  └─ DOY (Data)
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sales Invoices -->
+            <section id="invoicing" class="section">
+                <h2>📄 Βήμα 5: Δημιουργία Sales Invoices</h2>
+                
+                <div class="info-box">
+                    <h3>Έτοιμοι για Invoicing!</h3>
+                    <p>Τώρα που έχεις σετάρει τα πάντα, μπορείς να δημιουργήσεις Sales Invoices που είναι συμβατά με το myDATA!</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Νέο Sales Invoice</strong>
+                    <p>Πήγαινε: <span class="path">Home → Selling → Sales Invoice → New</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Επιλογή Customer</strong>
+                    
+                    <div class="sub-step">
+                        <p>Αν δεν έχεις ακόμα Customers, δημιούργησε έναν:</p>
+                        <div class="field-item">
+                            <span><strong>Customer Name:</strong> Παπαδόπουλος Γιάννης</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Customer Group:</strong> Individual</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Territory:</strong> Greece</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Tax ID:</strong> (optional για ιδιώτες)</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>DOY:</strong> (optional)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Invoice Details</strong>
+                    
+                    <div class="sub-step">
+                        <div class="field-item">
+                            <span><strong>Posting Date:</strong> Today</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Due Date:</strong> +30 days</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Company:</strong> English Academy</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Invoice Type Code:</strong> 11.2 (ΑΠΥ)</span>
+                            <span class="field-type">Custom Field</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Προσθήκη Items</strong>
+                    
+                    <div class="sub-step">
+                        <p>Στον πίνακα "Items", πάτα <span class="highlight">Add Row</span>:</p>
+                        <div class="field-item">
+                            <span><strong>Item Code:</strong> 0001 - Έναντι Διδάκτρων</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Qty:</strong> 1</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Rate:</strong> 50.00</span>
+                            <span class="field-type">Auto-filled</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Amount:</strong> 50.00</span>
+                            <span class="field-type">Calculated</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Taxes and Charges</strong>
+                    
+                    <div class="sub-step">
+                        <p>Το template "Greece VAT 0% - Article 24" θα εφαρμοστεί αυτόματα:</p>
+                        <div class="field-item">
+                            <span><strong>Net Total:</strong> 50.00 €</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Total Taxes:</strong> 0.00 €</span>
+                            <span class="field-type">Άνευ ΦΠΑ</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Grand Total:</strong> 50.00 €</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">6</span>
+                    <strong>Αποθήκευση & Submit</strong>
+                    <p>Πάτα <span class="highlight">Save</span> και μετά <span class="highlight">Submit</span>!</p>
+                </div>
+
+                <div class="example-section">
+                    <h3>📋 Παράδειγμα: Πλήρες Sales Invoice</h3>
+                    <div class="code-block">
+Sales Invoice: SINV-2026-00001
+================================
+
+Customer: Παπαδόπουλος Γιάννης
+Posting Date: 2026-01-29
+Due Date: 2026-02-28
+Company: English Academy
+Invoice Type Code: 11.2
+
+Items:
+┌──────┬────────────────────────┬─────┬──────┬────────┐
+│ Code │ Description            │ Qty │ Rate │ Amount │
+├──────┼────────────────────────┼─────┼──────┼────────┤
+│ 0001 │ Έναντι Διδάκτρων      │ 1   │ 50   │ 50.00  │
+└──────┴────────────────────────┴─────┴──────┴────────┘
+
+Tax Template: Greece VAT 0% - Article 24
+┌────────────┬─────────┐
+│ Net Total  │ 50.00 € │
+│ VAT (0%)   │  0.00 € │
+│ Grand Total│ 50.00 € │
+└────────────┴─────────┘
+
+Payment Terms: Net 30
+Status: Unpaid
+                    </div>
+                </div>
+
+                <div class="tutorial-note">
+                    <strong>Σημείωση:</strong> Μετά το Submit, το invoice παίρνει unique number και δεν μπορεί να τροποποιηθεί. Αν χρειαστεί διόρθωση, πρέπει να κάνεις Credit Note (Debit Note για το αντίστροφο).
+                </div>
+            </section>
+
+            <!-- myDATA Integration -->
+            <section id="mydata" class="section">
+                <h2>🔌 Βήμα 6: myDATA Integration (Advanced)</h2>
+                
+                <div class="warning-box">
+                    <h4>⚠️ Advanced Section</h4>
+                    <p>Αυτό το section απαιτεί τεχνικές γνώσεις Python και Frappe development. Αν δεν είσαι developer, μπορείς να παραλείψεις αυτό το βήμα και να εξάγεις τα invoices manually για upload στο myDATA.</p>
+                </div>
+
+                <div class="info-box">
+                    <h3>Επιλογές για myDATA Integration</h3>
+                    <p>Υπάρχουν 3 τρόποι να στείλεις τα invoices στο myDATA:</p>
+                </div>
+
+                <div class="grid-3">
+                    <div class="card">
+                        <h4>1. Manual Export</h4>
+                        <p>Εξάγεις τα invoices από το ERPNext και τα ανεβάζεις manual στο portal του myDATA.</p>
+                        <p><strong>Πλεονέκτημα:</strong> Απλό, δεν χρειάζεται coding</p>
+                        <p><strong>Μειονέκτημα:</strong> Χειροκίνητη διαδικασία</p>
+                    </div>
+                    <div class="card">
+                        <h4>2. Custom Script</h4>
+                        <p>Γράφεις Python script που καλεί το myDATA API από το ERPNext.</p>
+                        <p><strong>Πλεονέκτημα:</strong> Αυτοματοποιημένο</p>
+                        <p><strong>Μειονέκτημα:</strong> Χρειάζεται development</p>
+                    </div>
+                    <div class="card">
+                        <h4>3. Frappe App</h4>
+                        <p>Δημιουργείς custom Frappe app με πλήρη myDATA integration.</p>
+                        <p><strong>Πλεονέκτημα:</strong> Professional, reusable</p>
+                        <p><strong>Μειονέκτημα:</strong> Πιο σύνθετο</p>
+                    </div>
+                </div>
+
+                <h3>Option 1: Manual Export (Προτεινόμενο για Αρχάριους)</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Export Invoices</strong>
+                    <p>Πήγαινε στο Sales Invoice List και επίλεξε τα invoices που θέλεις να στείλεις.</p>
+                    <p>Κάνε <span class="highlight">Export → Excel</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Format για myDATA</strong>
+                    <p>Άνοιξε το Excel και format τα δεδομένα σύμφωνα με τις προδιαγραφές του myDATA:</p>
+                    <ul>
+                        <li>Invoice Type Code (11.2, 2.1 κλπ)</li>
+                        <li>AADE Income Classification (E3_561_003 κλπ)</li>
+                        <li>VAT Exemption Reason</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Upload στο myDATA Portal</strong>
+                    <p>Μπες στο portal του myDATA και ανέβασε το formatted file.</p>
+                </div>
+
+                <h3>Option 2: Custom Script (για Developers)</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>myDATA API Setup</strong>
+                    <p>Θα χρειαστείς:</p>
+                    <ul>
+                        <li>myDATA API credentials (username, subscription key)</li>
+                        <li>Python library για API calls (requests)</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Custom Script Example</strong>
+                    <p>Δημιούργησε ένα Python script:</p>
+                    <div class="code-block">
+# mydata_integration.py
+import frappe
+import requests
+import json
+
+def send_invoice_to_mydata(invoice_name):
+    """Send Sales Invoice to myDATA"""
+    
+    # Get invoice
+    invoice = frappe.get_doc("Sales Invoice", invoice_name)
+    
+    # Prepare myDATA payload
+    payload = {
+        "issuer": {
+            "vatNumber": invoice.company_tax_id,
+            "country": "GR",
+            "branch": 0
+        },
+        "counterpart": {
+            "vatNumber": invoice.tax_id or "",
+            "country": "GR",
+            "branch": 0
+        },
+        "invoiceHeader": {
+            "series": "A",
+            "aa": invoice.name.split("-")[-1],
+            "issueDate": invoice.posting_date.isoformat(),
+            "invoiceType": invoice.invoice_type_code or "11.2",
+            "currency": "EUR"
+        },
+        "invoiceDetails": []
+    }
+    
+    # Add line items
+    for item in invoice.items:
+        line = {
+            "lineNumber": item.idx,
+            "netValue": item.amount,
+            "vatCategory": 7,  # Exempted
+            "vatAmount": 0,
+            "vatExemptionCategory": 16,  # Article 24
+            "incomeClassification": [{
+                "classificationType": item.aade_income_classification,
+                "classificationCategory": "category1_3",
+                "amount": item.amount
+            }]
+        }
+        payload["invoiceDetails"].append(line)
+    
+    # Call myDATA API
+    api_url = "https://mydata-register.gov.gr/api/v1/SendInvoices"
+    headers = {
+        "aade-user-id": frappe.conf.mydata_user_id,
+        "ocp-apim-subscription-key": frappe.conf.mydata_subscription_key,
+        "Content-Type": "application/json"
+    }
+    
+    response = requests.post(api_url, 
+                            headers=headers, 
+                            data=json.dumps(payload))
+    
+    if response.status_code == 200:
+        result = response.json()
+        # Update invoice with MARK
+        invoice.mydata_mark = result.get("mark")
+        invoice.mydata_uid = result.get("uid")
+        invoice.save()
+        frappe.db.commit()
+        return True
+    else:
+        frappe.throw(f"myDATA Error: {response.text}")
+        return False
+
+# Hook to auto-send on submit
+def on_submit(doc, method):
+    if doc.doctype == "Sales Invoice":
+        send_invoice_to_mydata(doc.name)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Add to hooks.py</strong>
+                    <div class="code-block">
+# hooks.py
+doc_events = {
+    "Sales Invoice": {
+        "on_submit": "mydata_integration.on_submit"
+    }
+}
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Configuration</strong>
+                    <p>Πρόσθεσε τα credentials στο <span class="code-inline">site_config.json</span>:</p>
+                    <div class="code-block">
+{
+  "mydata_user_id": "your_username",
+  "mydata_subscription_key": "your_subscription_key"
+}
+                    </div>
+                </div>
+
+                <div class="danger-box">
+                    <h4>🔴 Ασφάλεια</h4>
+                    <ul>
+                        <li>ΜΗΝ commit το site_config.json στο Git!</li>
+                        <li>Χρησιμοποίησε environment variables για production</li>
+                        <li>Κράτα backups των invoices πριν τα στείλεις</li>
+                        <li>Test σε sandbox environment πρώτα!</li>
+                    </ul>
+                </div>
+
+                <h3>Option 3: Frappe App</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Create New App</strong>
+                    <div class="code-block">
+# In terminal
+bench new-app erpnext_greece
+# Follow prompts
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>App Structure</strong>
+                    <div class="code-block">
+erpnext_greece/
+├── erpnext_greece/
+│   ├── mydata/
+│   │   ├── __init__.py
+│   │   ├── api.py           # myDATA API wrapper
+│   │   ├── utils.py         # Helper functions
+│   │   └── invoice_sender.py
+│   ├── fixtures/            # Custom Fields as fixtures
+│   └── hooks.py
+└── setup.py
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Install App</strong>
+                    <div class="code-block">
+bench install-app erpnext_greece
+                    </div>
+                </div>
+
+                <div class="tutorial-note">
+                    <strong>Tip:</strong> Αν φτιάξεις ένα καλό Frappe app για myDATA integration, μπορείς να το κάνεις open-source και να το μοιραστείς με την ελληνική ERPNext κοινότητα!
+                </div>
+            </section>
+
+            <!-- Testing -->
+            <section id="testing" class="section">
+                <h2>🧪 Βήμα 7: Testing & Validation</h2>
+                
+                <div class="info-box">
+                    <h3>Πριν Πας Live...</h3>
+                    <p>Είναι πολύ σημαντικό να δοκιμάσεις το setup σου πριν αρχίσεις να εκδίδεις πραγματικά παραστατικά!</p>
+                </div>
+
+                <h3>Testing Checklist</h3>
+                
+                <div class="checklist">
+                    <ul>
+                        <li>Company έχει όλα τα στοιχεία (ΑΦΜ, ΔΟΥ, Διεύθυνση)</li>
+                        <li>Tax Templates δημιουργήθηκαν σωστά (VAT 0%)</li>
+                        <li>Όλα τα Items έχουν σωστά Tax Templates</li>
+                        <li>Custom Fields εμφανίζονται στα forms</li>
+                        <li>Test Sales Invoice με 1 item</li>
+                        <li>Grand Total = Net Total (χωρίς ΦΠΑ)</li>
+                        <li>Print Preview δείχνει σωστά τα στοιχεία</li>
+                        <li>PDF generation λειτουργεί</li>
+                        <li>myDATA fields συμπληρώνονται (αν έχεις integration)</li>
+                        <li>Backup database πριν πας production</li>
+                    </ul>
+                </div>
+
+                <h3>Test Scenarios</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Test Invoice για Ιδιώτη</strong>
+                    <div class="sub-step">
+                        <ul>
+                            <li>Customer: Τεστ Πελάτης</li>
+                            <li>Item: Έναντι Διδάκτρων (50€)</li>
+                            <li>Invoice Type: 11.2 (ΑΠΥ)</li>
+                            <li>Έλεγχος: Grand Total = 50€ (χωρίς ΦΠΑ)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Test Invoice για Επιχείρηση</strong>
+                    <div class="sub-step">
+                        <ul>
+                            <li>Customer: TechCorp SA (με ΑΦΜ)</li>
+                            <li>Item: Εξόφληση Διδάκτρων (50€)</li>
+                            <li>Invoice Type: 2.1 (Τιμολόγιο)</li>
+                            <li>Έλεγχος: Τιμολόγιο εμφανίζει ΑΦΜ πελάτη</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Test Credit Note</strong>
+                    <div class="sub-step">
+                        <p>Δοκίμασε να κάνεις ακύρωση/επιστροφή:</p>
+                        <ul>
+                            <li>Από existing invoice, πάτα "Make → Credit Note"</li>
+                            <li>Έλεγχος: Negative amount</li>
+                            <li>Έλεγχος: Links back to original invoice</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Test Print Formats</strong>
+                    <div class="sub-step">
+                        <p>Βεβαιώσου ότι τα printed invoices δείχνουν:</p>
+                        <ul>
+                            <li>Όνομα & ΑΦΜ εταιρείας</li>
+                            <li>Όνομα & ΑΦΜ πελάτη (αν υπάρχει)</li>
+                            <li>Περιγραφή items</li>
+                            <li>Ποσά χωρίς ΦΠΑ</li>
+                            <li>"Άνευ ΦΠΑ - Άρθρο 24" notation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Common Issues & Solutions</h3>
+                
+                <div class="warning-box">
+                    <h4>❌ Problem: ΦΠΑ εμφανίζεται στο invoice</h4>
+                    <p><strong>Solution:</strong></p>
+                    <ul>
+                        <li>Έλεγξε ότι το Item έχει το σωστό Tax Template</li>
+                        <li>Βεβαιώσου ότι το template έχει Rate = 0</li>
+                        <li>Clear cache: <span class="code-inline">bench clear-cache</span></li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>❌ Problem: Custom fields δεν εμφανίζονται</h4>
+                    <p><strong>Solution:</strong></p>
+                    <ul>
+                        <li>Reload page (Ctrl+Shift+R)</li>
+                        <li>Restart bench: <span class="code-inline">bench restart</span></li>
+                        <li>Έλεγξε ότι πάτησες "Update" στο Customize Form</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>❌ Problem: Δεν μπορώ να submit invoice</h4>
+                    <p><strong>Solution:</strong></p>
+                    <ul>
+                        <li>Έλεγξε ότι έχεις συμπληρώσει mandatory fields</li>
+                        <li>Βεβαιώσου ότι έχεις Income Account</li>
+                        <li>Check error logs: <span class="code-inline">bench console</span></li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h4>✅ All Tests Passed!</h4>
+                    <p>Αν όλα τα tests πέρασαν επιτυχώς, είσαι έτοιμος να ξεκινήσεις να χρησιμοποιείς το σύστημα για πραγματικά invoices!</p>
+                </div>
+            </section>
+
+            <!-- Best Practices -->
+            <section id="best-practices" class="section">
+                <h2>💡 Best Practices & Tips</h2>
+                
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>🔄 Regular Backups</h4>
+                        <ul>
+                            <li>Καθημερινά automated backups</li>
+                            <li>Off-site storage</li>
+                            <li>Test restore process μηνιαίως</li>
+                        </ul>
+                        <div class="code-block">
+# Backup command
+bench backup --with-files
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4>📊 Reports & Analytics</h4>
+                        <ul>
+                            <li>Χρησιμοποίησε Accounts Receivable report</li>
+                            <li>Track outstanding invoices</li>
+                            <li>Monthly revenue reports</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>👥 User Training</h4>
+                        <ul>
+                            <li>Train staff σε βασικά workflows</li>
+                            <li>Document internal procedures</li>
+                            <li>Set up user roles properly</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>🔒 Security</h4>
+                        <ul>
+                            <li>Strong passwords</li>
+                            <li>Two-factor authentication</li>
+                            <li>Regular security updates</li>
+                            <li>SSL certificate</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Performance Optimization</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Database Maintenance</strong>
+                    <div class="code-block">
+# Optimize tables
+bench mariadb
+> OPTIMIZE TABLE `tabSales Invoice`;
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Cache Management</strong>
+                    <div class="code-block">
+# Clear cache
+bench clear-cache
+
+# Clear website cache
+bench clear-website-cache
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Archive Old Data</strong>
+                    <p>Μετά από 1-2 χρόνια, archive παλιά invoices για να κρατήσεις το σύστημα γρήγορο.</p>
+                </div>
+
+                <h3>Troubleshooting Resources</h3>
+                
+                <div class="grid-3">
+                    <div class="card">
+                        <h4>📚 Documentation</h4>
+                        <ul>
+                            <li><a href="https://docs.erpnext.com" target="_blank">ERPNext Docs</a></li>
+                            <li><a href="https://frappeframework.com/docs" target="_blank">Frappe Docs</a></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>💬 Community</h4>
+                        <ul>
+                            <li><a href="https://discuss.erpnext.com" target="_blank">ERPNext Forum</a></li>
+                            <li>Greek ERPNext Users Group</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🐛 Debug Mode</h4>
+                        <div class="code-block">
+# Enable debug
+bench set-config developer_mode 1
+bench restart
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Checklist -->
+            <section id="final-checklist" class="section">
+                <h2>✅ Τελικό Checklist</h2>
+                
+                <div class="success-box">
+                    <h3>Πριν Πας Production</h3>
+                    <div class="checklist">
+                        <ul>
+                            <li>ERPNext v14+ εγκατεστημένο και λειτουργικό</li>
+                            <li>Company setup με ΑΦΜ, ΔΟΥ, Διεύθυνση</li>
+                            <li>Chart of Accounts (Greece) ενεργοποιημένο</li>
+                            <li>Tax Templates δημιουργήθηκαν (VAT 0%)</li>
+                            <li>Items φτιαγμένα για όλες τις υπηρεσίες</li>
+                            <li>Custom Fields προστέθηκαν σε Company, Item, Customer, Sales Invoice</li>
+                            <li>Test invoices δημιουργήθηκαν και validated</li>
+                            <li>Print formats tested</li>
+                            <li>Backup strategy υλοποιημένη</li>
+                            <li>Staff training ολοκληρώθηκε</li>
+                            <li>myDATA integration tested (αν applicable)</li>
+                            <li>Go Live date scheduled!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h3>🎉 Συγχαρητήρια!</h3>
+                    <p>Έχεις ολοκληρώσει επιτυχώς το setup του ERPNext για ελληνικά παραστατικά! Τώρα μπορείς να ξεκινήσεις να εκδίδεις νόμιμα invoices για το φροντιστήριό σου.</p>
+                    <p style="margin-top: 15px;">Αν έχεις ερωτήσεις ή χρειάζεσαι βοήθεια, μπορείς να απευθυνθείς στην ERPNext community ή σε έναν local ERPNext partner.</p>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section id="next-steps" class="section">
+                <h2>🚀 Επόμενα Βήματα</h2>
+                
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>📈 Expand Functionality</h4>
+                        <ul>
+                            <li>Setup recurring invoices για monthly subscriptions</li>
+                            <li>Configure payment reminders</li>
+                            <li>Add more item variants</li>
+                            <li>Setup POS για on-site payments</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>🔗 Integrations</h4>
+                        <ul>
+                            <li>Email integration (Gmail/Outlook)</li>
+                            <li>Payment gateways (PayPal, Stripe)</li>
+                            <li>Accounting software sync</li>
+                            <li>CRM για lead management</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>📊 Advanced Features</h4>
+                        <ul>
+                            <li>Custom dashboards</li>
+                            <li>Advanced reports</li>
+                            <li>Automated workflows</li>
+                            <li>Student portal access</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>🎓 Further Learning</h4>
+                        <ul>
+                            <li>ERPNext certification course</li>
+                            <li>Frappe framework development</li>
+                            <li>Custom app development</li>
+                            <li>Advanced customization</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="footer">
+            <h3>🚀 ERPNext για myDATA - Tutorial Complete!</h3>
+            <p>Πλήρης οδηγός setup για ελληνικά παραστατικά</p>
+            <p style="margin-top: 20px; opacity: 0.8;">Created with ❤️ for Greek businesses</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                <strong>Questions? Feedback?</strong><br>
+                Μοιράσου το experience σου με την ERPNext community!
+            </p>
+        </div>
+    </div>
+</body>
+</html>

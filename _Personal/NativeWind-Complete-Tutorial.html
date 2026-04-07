@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NativeWind v5 - Πλήρες Tutorial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.8;
+            color: #1f2937;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .chapter {
+            margin-bottom: 60px;
+        }
+
+        .chapter-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .chapter-title {
+            font-size: 2.2em;
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+
+        .intro-box {
+            font-size: 1.1em;
+            color: #4b5563;
+            background: #f3f4f6;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.6em;
+            color: #4f46e5;
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 4px solid #4f46e5;
+        }
+
+        .explain-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .explain-box h4 {
+            color: #92400e;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .explain-box p {
+            color: #78350f;
+        }
+
+        .tip-box {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .tip-box strong {
+            color: #065f46;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box strong {
+            color: #991b1b;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 8px;
+            right: 15px;
+            background: #667eea;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7em;
+            font-weight: 600;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .keyword { color: #c792ea; }
+        .string { color: #c3e88d; }
+        .function { color: #82aaff; }
+        .comment { color: #546e7a; font-style: italic; }
+        .tag { color: #f07178; }
+        .attribute { color: #c792ea; }
+
+        .visual-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .phone-mockup {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            border-radius: 30px;
+            padding: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .phone-notch {
+            width: 100px;
+            height: 20px;
+            background: #1f2937;
+            margin: 8px auto 0;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .phone-screen {
+            background: white;
+            border-radius: 20px;
+            min-height: 400px;
+            overflow: hidden;
+        }
+
+        .demo-caption {
+            text-align: center;
+            margin-top: 12px;
+            font-weight: 600;
+            color: #4b5563;
+            font-size: 0.9em;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .comp-box {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e5e7eb;
+        }
+
+        .comp-box.good {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+
+        .comp-box.bad {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .comp-box h4 {
+            margin-bottom: 12px;
+        }
+
+        .comp-box.good h4 { color: #065f46; }
+        .comp-box.bad h4 { color: #991b1b; }
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .quick-item {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .use-case {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .use-case h4 {
+            color: #4f46e5;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2em; }
+            .content { padding: 20px; }
+            .comparison { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HERO -->
+        <div class="hero">
+            <h1>🚀 NativeWind v5 Tutorial</h1>
+            <p>Μάθε να φτιάχνεις όμορφα mobile apps με Tailwind CSS</p>
+            <p style="margin-top: 10px; font-size: 1em; opacity: 0.9;">Με ΠΡΑΓΜΑΤΙΚΕΣ εξηγήσεις, παραδείγματα και visual demos!</p>
+        </div>
+
+        <div class="content">
+            <!-- CHAPTER 1: ΤΙ ΕΙΝΑΙ -->
+            <div class="chapter">
+                <span class="chapter-badge">ΚΕΦΑΛΑΙΟ 1</span>
+                <h2 class="chapter-title">Τι είναι το NativeWind;</h2>
+                
+                <div class="intro-box">
+                    <strong>Με απλά λόγια:</strong> Το NativeWind σου επιτρέπει να γράφεις styles για React Native χρησιμοποιώντας Tailwind CSS classes. Αντί να γράφεις <code>StyleSheet.create</code>, απλά βάζεις classes όπως <code>bg-blue-500 p-4 rounded-xl</code> και έχεις τελειώσει!
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Γιατί να το χρησιμοποιήσεις;</h3>
+                    
+                    <div class="explain-box">
+                        <h4>🚀 Λόγος #1: Γρηγορότερο Development</h4>
+                        <p>Αντί να γράφεις 20 γραμμές code για ένα button, γράφεις μία γραμμή με classes. Boom, done!</p>
+                    </div>
+
+                    <div class="explain-box">
+                        <h4>🎨 Λόγος #2: Consistency (Συνέπεια)</h4>
+                        <p>Όλο το app σου θα έχει ίδια spacing (8px, 16px, 24px...), ίδια colors, ίδιο style. Δεν θα έχεις ένα button με 15px padding και άλλο με 17px "γιατί έτσι".</p>
+                    </div>
+
+                    <div class="explain-box">
+                        <h4>💪 Λόγος #3: Professional Design</h4>
+                        <p>Το Tailwind έχει built-in design system με color palettes και spacing scale που κάνουν το app σου να φαίνεται σύγχρονο χωρίς να είσαι designer!</p>
+                    </div>
+
+                    <div class="comparison">
+                        <div class="comp-box bad">
+                            <h4>❌ Παλιός Τρόπος</h4>
+                            <div class="code-block" data-lang="StyleSheet">
+<pre><span class="keyword">const</span> styles = StyleSheet.<span class="function">create</span>({
+  button: {
+    backgroundColor: <span class="string">'#3b82f6'</span>,
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 12,
+  }
+});
+
+<span class="tag">&lt;View</span> <span class="attribute">style</span>={styles.button}<span class="tag">&gt;</span>
+  <span class="tag">&lt;Text</span><span class="tag">&gt;</span>Click<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;/View&gt;</span></pre>
+                            </div>
+                        </div>
+
+                        <div class="comp-box good">
+                            <h4>✅ Με NativeWind</h4>
+                            <div class="code-block" data-lang="NativeWind">
+<pre><span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"bg-blue-500 py-4 px-6 rounded-xl"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-white font-semibold"</span><span class="tag">&gt;</span>
+    Click
+  <span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;/View&gt;</span></pre>
+                            </div>
+                            <p style="margin-top: 10px; color: #065f46;">Μία γραμμή, πολύ πιο readable!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHAPTER 2: INSTALLATION -->
+            <div class="chapter">
+                <span class="chapter-badge">ΚΕΦΑΛΑΙΟ 2</span>
+                <h2 class="chapter-title">Εγκατάσταση (Βήμα-Βήμα)</h2>
+                
+                <div class="intro-box">
+                    Ακολούθησε αυτά τα βήματα προσεκτικά. Είναι το setup που θα χρησιμοποιήσεις για το Family Organizer app!
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Βήμα 1: Εγκατάσταση Packages</h3>
+                    <div class="code-block" data-lang="bash">
+<pre><span class="comment"># Κύρια packages</span>
+npm install nativewind
+npm install react-native-reanimated@~3.17.4
+npm install react-native-safe-area-context@5.4.0
+
+<span class="comment"># Dev dependencies</span>
+npm install --save-dev tailwindcss@^3.4.17
+npm install --save-dev prettier-plugin-tailwindcss@^0.5.11</pre>
+                    </div>
+
+                    <div class="explain-box">
+                        <h4>Τι κάνει το καθένα;</h4>
+                        <p><strong>nativewind:</strong> Το κύριο library που μετατρέπει Tailwind classes σε React Native styles</p>
+                        <p><strong>react-native-reanimated:</strong> Για animations</p>
+                        <p><strong>react-native-safe-area-context:</strong> Φροντίζει τα safe areas (notch, status bar)</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Βήμα 2: Tailwind Config</h3>
+                    <div class="code-block" data-lang="bash">
+<pre>npx tailwindcss init</pre>
+                    </div>
+                    <p>Άνοιξε το <code>tailwind.config.js</code> και βάλε:</p>
+                    <div class="code-block" data-lang="JavaScript">
+<pre><span class="keyword">module.exports</span> = {
+  <span class="attribute">content</span>: [
+    <span class="string">"./App.{js,jsx,ts,tsx}"</span>,
+    <span class="string">"./app/**/*.{js,jsx,ts,tsx}"</span>,
+    <span class="string">"./components/**/*.{js,jsx,ts,tsx}"</span>
+  ],
+  <span class="attribute">presets</span>: [<span class="function">require</span>(<span class="string">"nativewind/preset"</span>)],
+  <span class="attribute">theme</span>: {
+    <span class="attribute">extend</span>: {},
+  },
+  <span class="attribute">plugins</span>: [],
+}</pre>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Βήμα 3: Global CSS</h3>
+                    <p>Φτιάξε <code>global.css</code> στο root:</p>
+                    <div class="code-block" data-lang="CSS">
+<pre><span class="tag">@tailwind</span> base;
+<span class="tag">@tailwind</span> components;
+<span class="tag">@tailwind</span> utilities;</pre>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Βήμα 4: Babel Config</h3>
+                    <div class="code-block" data-lang="JavaScript">
+<pre><span class="keyword">module.exports</span> = <span class="keyword">function</span> (api) {
+  api.<span class="function">cache</span>(<span class="keyword">true</span>);
+  <span class="keyword">return</span> {
+    <span class="attribute">presets</span>: [
+      [<span class="string">"babel-preset-expo"</span>, { <span class="attribute">jsxImportSource</span>: <span class="string">"nativewind"</span> }],
+      <span class="string">"nativewind/babel"</span>,
+    ],
+  };
+};</pre>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Βήμα 5: Metro Config</h3>
+                    <div class="code-block" data-lang="JavaScript">
+<pre><span class="keyword">const</span> { getDefaultConfig } = <span class="function">require</span>(<span class="string">"expo/metro-config"</span>);
+<span class="keyword">const</span> { withNativeWind } = <span class="function">require</span>(<span class="string">'nativewind/metro'</span>);
+
+<span class="keyword">const</span> config = <span class="function">getDefaultConfig</span>(__dirname);
+
+<span class="keyword">module.exports</span> = <span class="function">withNativeWind</span>(config, { 
+  <span class="attribute">input</span>: <span class="string">'./global.css'</span> 
+});</pre>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Βήμα 6: Import το CSS</h3>
+                    <div class="code-block" data-lang="JSX">
+<pre><span class="comment">// App.tsx</span>
+<span class="keyword">import</span> <span class="string">"./global.css"</span>;
+<span class="keyword">import</span> { View, Text } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="keyword">export default function</span> <span class="function">App</span>() {
+  <span class="keyword">return</span> (
+    <span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"flex-1 items-center justify-center"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-2xl font-bold text-blue-500"</span><span class="tag">&gt;</span>
+        It works! 🎉
+      <span class="tag">&lt;/Text&gt;</span>
+    <span class="tag">&lt;/View&gt;</span>
+  );
+}</pre>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <strong>💡 Τεστάρισμα:</strong>
+                    Κάνε <code>npm start</code> και δες αν βλέπεις styled text. Αν όχι, κάνε <code>npm start -- --reset-cache</code>
+                </div>
+            </div>
+
+            <!-- CHAPTER 3: FLEXBOX -->
+            <div class="chapter">
+                <span class="chapter-badge">ΚΕΦΑΛΑΙΟ 3</span>
+                <h2 class="chapter-title">Flexbox - Το Μυστικό του Layout</h2>
+                
+                <div class="intro-box">
+                    Το Flexbox είναι ο τρόπος με τον οποίο τοποθετείς τα πράγματα στην οθόνη. Σκέψου το σαν Tetris - πρέπει να ξέρεις πώς να βάλεις τα κομμάτια στη σωστή θέση!
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Βασικό Concept: flex-direction</h3>
+                    
+                    <div class="visual-grid">
+                        <div class="phone-mockup">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; gap: 15px; background: #f3f4f6;">
+                                <div style="background: #3b82f6; color: white; padding: 20px; border-radius: 12px; width: 80%; text-align: center;">Box 1</div>
+                                <div style="background: #3b82f6; color: white; padding: 20px; border-radius: 12px; width: 80%; text-align: center;">Box 2</div>
+                                <div style="background: #3b82f6; color: white; padding: 20px; border-radius: 12px; width: 80%; text-align: center;">Box 3</div>
+                            </div>
+                            <div class="demo-caption">flex-col (default)<br>Το ένα ΚΑΤΩ από το άλλο</div>
+                        </div>
+
+                        <div class="phone-mockup">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen" style="display: flex; flex-direction: row; align-items: center; justify-content: center; padding: 20px; gap: 10px; background: #f3f4f6;">
+                                <div style="background: #10b981; color: white; padding: 20px; border-radius: 12px; text-align: center;">Box 1</div>
+                                <div style="background: #10b981; color: white; padding: 20px; border-radius: 12px; text-align: center;">Box 2</div>
+                                <div style="background: #10b981; color: white; padding: 20px; border-radius: 12px; text-align: center;">Box 3</div>
+                            </div>
+                            <div class="demo-caption">flex-row<br>Το ένα ΔΙΠΛΑ στο άλλο</div>
+                        </div>
+                    </div>
+
+                    <div class="code-block" data-lang="JSX">
+<pre><span class="comment">// Vertical (Column) - Default</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"flex-col"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;Text</span><span class="tag">&gt;</span>Box 1<span class="tag">&lt;/Text&gt;</span>
+  <span class="tag">&lt;Text</span><span class="tag">&gt;</span>Box 2<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;/View&gt;</span>
+
+<span class="comment">// Horizontal (Row)</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"flex-row"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;Text</span><span class="tag">&gt;</span>Box 1<span class="tag">&lt;/Text&gt;</span>
+  <span class="tag">&lt;Text</span><span class="tag">&gt;</span>Box 2<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;/View&gt;</span></pre>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Alignment - Κεντράρισμα</h3>
+                    
+                    <div class="explain-box">
+                        <h4>🎯 Δύο Κύριες Ιδιότητες</h4>
+                        <p><strong>justify-content:</strong> Ελέγχει τοποθέτηση στον ΚΥΡΙΟ άξονα</p>
+                        <p><strong>items (align-items):</strong> Ελέγχει τοποθέτηση στον ΔΕΥΤΕΡΕΥΟΝΤΑ άξονα</p>
+                    </div>
+
+                    <div style="background: #f9fafb; padding: 20px; border-radius: 12px; margin: 20px 0;">
+                        <h4 style="margin-bottom: 15px;">justify-content Options:</h4>
+                        <div class="quick-grid">
+                            <div class="quick-item">justify-start</div>
+                            <div class="quick-item">justify-center</div>
+                            <div class="quick-item">justify-end</div>
+                            <div class="quick-item">justify-between</div>
+                            <div class="quick-item">justify-around</div>
+                        </div>
+
+                        <h4 style="margin: 20px 0 15px 0;">items Options:</h4>
+                        <div class="quick-grid">
+                            <div class="quick-item">items-start</div>
+                            <div class="quick-item">items-center</div>
+                            <div class="quick-item">items-end</div>
+                            <div class="quick-item">items-stretch</div>
+                        </div>
+                    </div>
+
+                    <div class="use-case">
+                        <h4>💼 Use Case: App Header</h4>
+                        <p>Logo αριστερά, menu δεξιά:</p>
+                        <div class="code-block" data-lang="JSX">
+<pre><span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"flex-row items-center justify-between p-4 bg-white"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-xl font-bold"</span><span class="tag">&gt;</span>Family Organizer<span class="tag">&lt;/Text&gt;</span>
+  <span class="tag">&lt;Text</span><span class="tag">&gt;</span>☰<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;/View&gt;</span></pre>
+                        </div>
+                        <div class="explain-box">
+                            <h4>Γιατί δουλεύει:</h4>
+                            <p><code>flex-row</code> = Βάλε τα δίπλα-δίπλα</p>
+                            <p><code>items-center</code> = Κεντράρισμα vertically</p>
+                            <p><code>justify-between</code> = Πρώτο αριστερά, δεύτερο δεξιά</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">flex-1: Η Μαγική Class</h3>
+                    
+                    <div class="explain-box">
+                        <h4>🪄 Τι κάνει;</h4>
+                        <p>Το <code>flex-1</code> λέει: "Πάρε όσο χώρο μπορείς!". Χρησιμοποιείται στο κύριο container για να πάρει όλο το screen.</p>
+                    </div>
+
+                    <div class="comparison">
+                        <div class="comp-box bad">
+                            <h4>❌ Χωρίς flex-1</h4>
+                            <div class="code-block" data-lang="JSX">
+<pre><span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"items-center justify-center"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;Text</span><span class="tag">&gt;</span>Μικρό box<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;/View&gt;</span></pre>
+                            </div>
+                        </div>
+
+                        <div class="comp-box good">
+                            <h4>✅ Με flex-1</h4>
+                            <div class="code-block" data-lang="JSX">
+<pre><span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"flex-1 items-center justify-center"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;Text</span><span class="tag">&gt;</span>Όλο το screen!<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;/View&gt;</span></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <strong>💡 Golden Rule:</strong>
+                        Στο React Native, ΠΑΝΤΑ βάζουμε <code>flex-1</code> στο top-level View του screen!
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHAPTER 4: SPACING -->
+            <div class="chapter">
+                <span class="chapter-badge">ΚΕΦΑΛΑΙΟ 4</span>
+                <h2 class="chapter-title">Spacing - Padding & Margin</h2>
+                
+                <div class="intro-box">
+                    Το spacing είναι ο "αέρας" γύρω από τα elements. Αυτό που κάνει το app σου να φαίνεται professional αντί για cramped (στριμωγμένο)!
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Padding vs Margin</h3>
+                    
+                    <div class="explain-box">
+                        <h4>📦 Η διαφορά:</h4>
+                        <p><strong>Padding (p):</strong> Χώρος ΜΕΣΑ στο box, μεταξύ περιεχομένου και άκρων</p>
+                        <p><strong>Margin (m):</strong> Χώρος ΕΞΩ από το box, μεταξύ box και γειτόνων</p>
+                    </div>
+
+                    <div style="background: #f3f4f6; padding: 30px; border-radius: 12px; margin: 25px 0;">
+                        <div style="border: 3px dashed #ef4444; padding: 15px; background: white;">
+                            <div style="border: 3px solid #3b82f6; padding: 25px; background: #dbeafe;">
+                                <div style="background: #1d4ed8; color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: 600;">
+                                    ΠΕΡΙΕΧΟΜΕΝΟ
+                                </div>
+                                <p style="text-align: center; margin-top: 12px; color: #1e40af; font-weight: 600;">↑ Padding (μπλε)</p>
+                            </div>
+                            <p style="text-align: center; margin-top: 12px; color: #dc2626; font-weight: 600;">Margin (κόκκινο)</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block" data-lang="JSX">
+<pre><span class="comment">// Padding παντού</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"p-4"</span><span class="tag">&gt;</span>16px σε όλες τις πλευρές<span class="tag">&lt;/View&gt;</span>
+
+<span class="comment">// Padding horizontal (αριστερά & δεξιά)</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"px-4"</span><span class="tag">&gt;</span>16px αριστερά και δεξιά<span class="tag">&lt;/View&gt;</span>
+
+<span class="comment">// Padding vertical (πάνω & κάτω)</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"py-4"</span><span class="tag">&gt;</span>16px πάνω και κάτω<span class="tag">&lt;/View&gt;</span>
+
+<span class="comment">// Συγκεκριμένες πλευρές</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"pt-4"</span><span class="tag">&gt;</span>Top only<span class="tag">&lt;/View&gt;</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"pb-4"</span><span class="tag">&gt;</span>Bottom only<span class="tag">&lt;/View&gt;</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"pl-4"</span><span class="tag">&gt;</span>Left only<span class="tag">&lt;/View&gt;</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"pr-4"</span><span class="tag">&gt;</span>Right only<span class="tag">&lt;/View&gt;</span></pre>
+                    </div>
+
+                    <div style="background: #ecfdf5; padding: 20px; border-radius: 12px; margin: 25px 0; border-left: 4px solid #10b981;">
+                        <h4 style="color: #065f46; margin-bottom: 12px;">🎯 Το Spacing Scale:</h4>
+                        <div class="quick-grid">
+                            <div class="quick-item">0 = 0px</div>
+                            <div class="quick-item">1 = 4px</div>
+                            <div class="quick-item">2 = 8px</div>
+                            <div class="quick-item">3 = 12px</div>
+                            <div class="quick-item">4 = 16px ⭐</div>
+                            <div class="quick-item">5 = 20px</div>
+                            <div class="quick-item">6 = 24px</div>
+                            <div class="quick-item">8 = 32px</div>
+                            <div class="quick-item">10 = 40px</div>
+                            <div class="quick-item">12 = 48px</div>
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <strong>💡 Golden Rule:</strong>
+                        Χρησιμοποίησε <code>p-4</code> για τα περισσότερα screens και cards. Είναι το sweet spot!
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Πότε χρησιμοποιώ τι;</h3>
+                    
+                    <div class="use-case">
+                        <h4>📱 Screen Container</h4>
+                        <div class="code-block" data-lang="JSX">
+<pre><span class="tag">&lt;SafeAreaView</span> <span class="attribute">className</span>=<span class="string">"flex-1 bg-gray-50"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"p-4"</span><span class="tag">&gt;</span>
+    <span class="comment">{/* Όλο το περιεχόμενο */}</span>
+  <span class="tag">&lt;/View&gt;</span>
+<span class="tag">&lt;/SafeAreaView&gt;</span></pre>
+                        </div>
+                    </div>
+
+                    <div class="use-case">
+                        <h4>🎴 Card Component</h4>
+                        <div class="code-block" data-lang="JSX">
+<pre><span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"bg-white p-4 rounded-xl mb-4"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"font-bold mb-2"</span><span class="tag">&gt;</span>Title<span class="tag">&lt;/Text&gt;</span>
+  <span class="tag">&lt;Text</span><span class="tag">&gt;</span>Description<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;/View&gt;</span></pre>
+                        </div>
+                    </div>
+
+                    <div class="use-case">
+                        <h4>🔘 Button</h4>
+                        <div class="code-block" data-lang="JSX">
+<pre><span class="tag">&lt;Pressable</span> <span class="attribute">className</span>=<span class="string">"bg-blue-500 py-4 px-6 rounded-xl"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-white font-semibold"</span><span class="tag">&gt;</span>Click<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;/Pressable&gt;</span></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHAPTER 5: COLORS -->
+            <div class="chapter">
+                <span class="chapter-badge">ΚΕΦΑΛΑΙΟ 5</span>
+                <h2 class="chapter-title">Colors & Typography</h2>
+                
+                <div class="intro-box">
+                    Ας κάνουμε το app σου όμορφο! Χρώματα, fonts, sizes - όλα όσα χρειάζεσαι.
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Χρώματα</h3>
+                    
+                    <div class="explain-box">
+                        <h4>🎨 Πώς λειτουργούν;</h4>
+                        <p>Κάθε χρώμα έχει 10 shades: 50, 100, 200... 900, 950</p>
+                        <p><strong>50-300:</strong> Ανοιχτά (backgrounds)</p>
+                        <p><strong>400-600:</strong> Κύρια (buttons) ⭐</p>
+                        <p><strong>700-950:</strong> Σκούρα (text)</p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin: 25px 0;">
+                        <div style="text-align: center;">
+                            <div style="height: 50px; background: #eff6ff; border-radius: 8px; border: 1px solid #ddd;"></div>
+                            <div style="margin-top: 8px; font-size: 0.8em; font-weight: 600;">blue-50</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="height: 50px; background: #dbeafe; border-radius: 8px;"></div>
+                            <div style="margin-top: 8px; font-size: 0.8em; font-weight: 600;">blue-100</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="height: 50px; background: #93c5fd; border-radius: 8px;"></div>
+                            <div style="margin-top: 8px; font-size: 0.8em; font-weight: 600;">blue-300</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="height: 50px; background: #3b82f6; border-radius: 8px;"></div>
+                            <div style="margin-top: 8px; font-size: 0.8em; font-weight: 600; color: #3b82f6;">blue-500 ⭐</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="height: 50px; background: #1d4ed8; border-radius: 8px;"></div>
+                            <div style="margin-top: 8px; font-size: 0.8em; font-weight: 600;">blue-700</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="height: 50px; background: #1e3a8a; border-radius: 8px;"></div>
+                            <div style="margin-top: 8px; font-size: 0.8em; font-weight: 600;">blue-900</div>
+                        </div>
+                    </div>
+
+                    <div class="code-block" data-lang="JSX">
+<pre><span class="comment">// Background Colors</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"bg-blue-500"</span><span class="tag">&gt;</span><span class="tag">&lt;/View&gt;</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"bg-red-500"</span><span class="tag">&gt;</span><span class="tag">&lt;/View&gt;</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"bg-green-500"</span><span class="tag">&gt;</span><span class="tag">&lt;/View&gt;</span>
+
+<span class="comment">// Text Colors</span>
+<span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-blue-600"</span><span class="tag">&gt;</span>Μπλε<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-gray-500"</span><span class="tag">&gt;</span>Γκρι<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-white"</span><span class="tag">&gt;</span>Άσπρο<span class="tag">&lt;/Text&gt;</span></pre>
+                    </div>
+
+                    <div class="tip-box">
+                        <strong>💡 Pro Tip:</strong>
+                        Διάλεξε ΕΝΑ κύριο χρώμα (π.χ. blue-500) και χρησιμοποίησέ το consistently!
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Typography</h3>
+                    
+                    <div style="background: #f9fafb; padding: 20px; border-radius: 12px; margin: 20px 0;">
+                        <div style="margin-bottom: 15px;">
+                            <code>text-xs</code> <span style="font-size: 12px;">= 12px</span>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <code>text-sm</code> <span style="font-size: 14px;">= 14px</span>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <code>text-base</code> <span style="font-size: 16px;">= 16px (default) ⭐</span>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <code>text-lg</code> <span style="font-size: 18px;">= 18px</span>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <code>text-xl</code> <span style="font-size: 20px;">= 20px</span>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <code>text-2xl</code> <span style="font-size: 24px;">= 24px</span>
+                        </div>
+                        <div>
+                            <code>text-3xl</code> <span style="font-size: 30px;">= 30px</span>
+                        </div>
+                    </div>
+
+                    <div class="code-block" data-lang="JSX">
+<pre><span class="comment">// Font Weights</span>
+<span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"font-light"</span><span class="tag">&gt;</span>Light (300)<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"font-normal"</span><span class="tag">&gt;</span>Normal (400)<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"font-semibold"</span><span class="tag">&gt;</span>Semibold (600) ⭐<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"font-bold"</span><span class="tag">&gt;</span>Bold (700)<span class="tag">&lt;/Text&gt;</span>
+
+<span class="comment">// Combine!</span>
+<span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-2xl font-bold text-gray-900"</span><span class="tag">&gt;</span>
+  Screen Title
+<span class="tag">&lt;/Text&gt;</span></pre>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Borders & Shadows</h3>
+                    
+                    <div class="code-block" data-lang="JSX">
+<pre><span class="comment">// Border Radius</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"rounded"</span><span class="tag">&gt;</span><span class="tag">&lt;/View&gt;</span>      <span class="comment">// 4px</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"rounded-lg"</span><span class="tag">&gt;</span><span class="tag">&lt;/View&gt;</span>   <span class="comment">// 8px</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"rounded-xl"</span><span class="tag">&gt;</span><span class="tag">&lt;/View&gt;</span>   <span class="comment">// 12px ⭐</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"rounded-full"</span><span class="tag">&gt;</span><span class="tag">&lt;/View&gt;</span> <span class="comment">// Circle</span>
+
+<span class="comment">// Shadows</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"shadow-sm"</span><span class="tag">&gt;</span><span class="tag">&lt;/View&gt;</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"shadow-lg"</span><span class="tag">&gt;</span><span class="tag">&lt;/View&gt;</span>  <span class="comment">// Cards ⭐</span>
+
+<span class="comment">// Perfect Card</span>
+<span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"bg-white p-4 rounded-xl shadow-lg"</span><span class="tag">&gt;</span>
+  <span class="comment">{/* Content */}</span>
+<span class="tag">&lt;/View&gt;</span></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHAPTER 6: COMPONENTS -->
+            <div class="chapter">
+                <span class="chapter-badge">ΚΕΦΑΛΑΙΟ 6</span>
+                <h2 class="chapter-title">Φτιάχνοντας Components</h2>
+                
+                <div class="intro-box">
+                    Ας φτιάξουμε τα βασικά components που θα χρησιμοποιήσεις στο Family Organizer!
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Button Component</h3>
+                    <div class="code-block" data-lang="JSX">
+<pre><span class="keyword">import</span> { Pressable, Text } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="keyword">function</span> <span class="function">PrimaryButton</span>({ <span class="attribute">title</span>, <span class="attribute">onPress</span> }) {
+  <span class="keyword">return</span> (
+    <span class="tag">&lt;Pressable</span>
+      <span class="attribute">onPress</span>={onPress}
+      <span class="attribute">className</span>=<span class="string">"bg-blue-500 py-4 px-6 rounded-xl active:bg-blue-600"</span>
+    <span class="tag">&gt;</span>
+      <span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-white text-center font-semibold"</span><span class="tag">&gt;</span>
+        {title}
+      <span class="tag">&lt;/Text&gt;</span>
+    <span class="tag">&lt;/Pressable&gt;</span>
+  );
+}</pre>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Card Component</h3>
+                    <div class="code-block" data-lang="JSX">
+<pre><span class="keyword">function</span> <span class="function">Card</span>({ <span class="attribute">title</span>, <span class="attribute">description</span> }) {
+  <span class="keyword">return</span> (
+    <span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"bg-white p-4 rounded-xl shadow-lg mb-4"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-lg font-bold text-gray-900 mb-2"</span><span class="tag">&gt;</span>
+        {title}
+      <span class="tag">&lt;/Text&gt;</span>
+      <span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-sm text-gray-600"</span><span class="tag">&gt;</span>
+        {description}
+      <span class="tag">&lt;/Text&gt;</span>
+    <span class="tag">&lt;/View&gt;</span>
+  );
+}</pre>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Input Component</h3>
+                    <div class="code-block" data-lang="JSX">
+<pre><span class="keyword">function</span> <span class="function">InputField</span>({ <span class="attribute">label</span>, <span class="attribute">placeholder</span>, <span class="attribute">value</span>, <span class="attribute">onChangeText</span> }) {
+  <span class="keyword">return</span> (
+    <span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"mb-4"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-sm font-semibold text-gray-700 mb-2"</span><span class="tag">&gt;</span>
+        {label}
+      <span class="tag">&lt;/Text&gt;</span>
+      <span class="tag">&lt;TextInput</span>
+        <span class="attribute">className</span>=<span class="string">"bg-white border border-gray-300 rounded-xl px-4 py-3"</span>
+        <span class="attribute">placeholder</span>={placeholder}
+        <span class="attribute">value</span>={value}
+        <span class="attribute">onChangeText</span>={onChangeText}
+      <span class="tag">/&gt;</span>
+    <span class="tag">&lt;/View&gt;</span>
+  );
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUICK REFERENCE -->
+            <div class="chapter">
+                <span class="chapter-badge">QUICK REFERENCE</span>
+                <h2 class="chapter-title">Cheat Sheet - Τα πιο χρήσιμα</h2>
+                
+                <div style="background: #f0f9ff; padding: 25px; border-radius: 12px; margin: 25px 0;">
+                    <h3 style="color: #0c4a6e; margin-bottom: 20px;">Layouts που θα χρησιμοποιείς συνέχεια:</h3>
+                    <div class="quick-grid">
+                        <div class="quick-item">flex-1</div>
+                        <div class="quick-item">flex-row</div>
+                        <div class="quick-item">flex-col</div>
+                        <div class="quick-item">items-center</div>
+                        <div class="quick-item">justify-center</div>
+                        <div class="quick-item">justify-between</div>
+                        <div class="quick-item">gap-4</div>
+                    </div>
+                </div>
+
+                <div style="background: #fef3c7; padding: 25px; border-radius: 12px; margin: 25px 0;">
+                    <h3 style="color: #92400e; margin-bottom: 20px;">Spacing που θα χρησιμοποιείς:</h3>
+                    <div class="quick-grid">
+                        <div class="quick-item">p-4 (padding)</div>
+                        <div class="quick-item">px-4 (horizontal)</div>
+                        <div class="quick-item">py-4 (vertical)</div>
+                        <div class="quick-item">m-4 (margin)</div>
+                        <div class="quick-item">mb-4 (margin bottom)</div>
+                    </div>
+                </div>
+
+                <div style="background: #f0fdf4; padding: 25px; border-radius: 12px; margin: 25px 0;">
+                    <h3 style="color: #065f46; margin-bottom: 20px;">Styling basics:</h3>
+                    <div class="quick-grid">
+                        <div class="quick-item">bg-blue-500</div>
+                        <div class="quick-item">text-white</div>
+                        <div class="quick-item">text-2xl</div>
+                        <div class="quick-item">font-bold</div>
+                        <div class="quick-item">rounded-xl</div>
+                        <div class="quick-item">shadow-lg</div>
+                    </div>
+                </div>
+
+                <div class="use-case">
+                    <h4>🏆 Το Τέλειο Card (copy-paste ready!)</h4>
+                    <div class="code-block" data-lang="JSX">
+<pre><span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"bg-white p-4 rounded-xl shadow-lg mb-4"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-lg font-bold mb-2"</span><span class="tag">&gt;</span>Title<span class="tag">&lt;/Text&gt;</span>
+  <span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-gray-600"</span><span class="tag">&gt;</span>Description<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;/View&gt;</span></pre>
+                    </div>
+                </div>
+
+                <div class="use-case">
+                    <h4>🏆 Το Τέλειο Screen Layout (copy-paste ready!)</h4>
+                    <div class="code-block" data-lang="JSX">
+<pre><span class="tag">&lt;SafeAreaView</span> <span class="attribute">className</span>=<span class="string">"flex-1 bg-gray-50"</span><span class="tag">&gt;</span>
+  <span class="comment">{/* Header */}</span>
+  <span class="tag">&lt;View</span> <span class="attribute">className</span>=<span class="string">"flex-row items-center justify-between p-4 bg-white"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;Text</span> <span class="attribute">className</span>=<span class="string">"text-2xl font-bold"</span><span class="tag">&gt;</span>Screen Title<span class="tag">&lt;/Text&gt;</span>
+  <span class="tag">&lt;/View&gt;</span>
+
+  <span class="comment">{/* Content */}</span>
+  <span class="tag">&lt;ScrollView</span> <span class="attribute">className</span>=<span class="string">"flex-1 p-4"</span><span class="tag">&gt;</span>
+    <span class="comment">{/* Your content here */}</span>
+  <span class="tag">&lt;/ScrollView&gt;</span>
+<span class="tag">&lt;/SafeAreaView&gt;</span></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FINAL TIPS -->
+            <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 50px 30px; text-align: center; border-radius: 20px; margin-top: 60px;">
+                <h2 style="font-size: 2.5em; margin-bottom: 20px;">🎉 Τελείωσες!</h2>
+                <p style="font-size: 1.2em; max-width: 700px; margin: 0 auto 30px;">
+                    Τώρα ξέρεις τα basics του NativeWind! Αυτό που έμαθες εδώ είναι το 80% που θα χρησιμοποιείς καθημερινά στο Family Organizer app.
+                </p>
+                
+                <div style="background: rgba(255, 255, 255, 0.2); padding: 25px; border-radius: 12px; max-width: 600px; margin: 0 auto; text-align: left;">
+                    <h3 style="margin-bottom: 15px; font-size: 1.3em;">💡 Τελευταίες Συμβουλές:</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 10px;">✅ Χρησιμοποίησε <code style="background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 4px;">flex-1</code> σε όλα τα screens</li>
+                        <li style="margin-bottom: 10px;">✅ Κάνε consistent το spacing (<code style="background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 4px;">p-4</code> παντού)</li>
+                        <li style="margin-bottom: 10px;">✅ Χρησιμοποίησε <code style="background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 4px;">SafeAreaView</code></li>
+                        <li style="margin-bottom: 10px;">✅ Διάλεξε ΕΝΑ κύριο χρώμα (π.χ. blue-500)</li>
+                        <li>✅ Cards = <code style="background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 4px;">bg-white p-4 rounded-xl shadow-lg</code></li>
+                    </ul>
+                </div>
+
+                <p style="margin-top: 30px; font-size: 1.1em; opacity: 0.9;">
+                    Καλή επιτυχία με το Family Organizer! 🚀
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

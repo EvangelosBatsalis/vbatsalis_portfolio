@@ -1,0 +1,334 @@
+<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>AZ-104 Ch.05 — Storage</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>:root{--bg:#07090f;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--acc:#34d399;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--display:'Syne',sans-serif}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}.hdr{background:linear-gradient(160deg,#040609,#07090f,#03100a);border-bottom:1px solid var(--border);padding:48px 0 40px;position:relative;overflow:hidden}.hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(52,211,153,.06),transparent 65%)}.hdr-inner{max-width:1100px;margin:0 auto;padding:0 32px}.bc{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:14px}.bc a{color:var(--text3);text-decoration:none}.cbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.28);border-radius:4px;padding:5px 14px;font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}.cbadge::before{content:'◈'}.hdr h1{font-family:var(--display);font-size:clamp(26px,5vw,46px);font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px}.hdr h1 span{color:var(--acc)}.hdr-sub{color:var(--text2);font-size:15px;font-weight:300;margin-bottom:18px}.hdr-meta{display:flex;gap:18px;flex-wrap:wrap}.mp{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text3)}.mpd{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green)}.mpd.a{background:var(--acc);box-shadow:0 0 5px var(--acc)}.layout{max-width:1100px;margin:0 auto;padding:40px 32px;display:grid;grid-template-columns:268px 1fr;gap:40px;align-items:start}.sidebar{position:sticky;top:24px}.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}.toc-hdr{background:var(--bg3);padding:12px 18px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid var(--border)}.toc-body{padding:8px 0}.toc-sec{padding:5px 18px 2px;font-size:9px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:6px}.ta{display:flex;align-items:flex-start;gap:8px;padding:6px 18px;font-size:12.5px;color:var(--text2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}.ta:hover{color:var(--text);background:var(--card2);border-left-color:var(--acc)}.ta.active{color:var(--acc);background:rgba(52,211,153,.06);border-left-color:var(--acc);font-weight:600}.ta .tn{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:3px;flex-shrink:0;width:20px}.content{min-width:0}.ch-intro{background:linear-gradient(135deg,var(--card),var(--bg3));border:1px solid #1e2d4a;border-radius:10px;padding:26px;margin-bottom:30px}.ch-n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--acc);text-transform:uppercase;margin-bottom:6px}.ch-t{font-family:var(--display);font-size:22px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}.ch-desc{color:var(--text2);font-size:14px;line-height:1.7;margin-bottom:14px}.ch-stats{display:flex;gap:12px;flex-wrap:wrap}.stx{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:7px 12px;font-family:var(--mono);font-size:11px}.stx .l{color:var(--text3);display:block;margin-bottom:1px}.stx .v{color:var(--text);font-weight:600}.section{margin-bottom:46px;scroll-margin-top:24px}.sh{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}.si{width:36px;height:36px;background:rgba(52,211,153,.09);border:1px solid rgba(52,211,153,.22);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}.sn{font-family:var(--mono);font-size:10px;color:var(--text3)}.section h2{font-family:var(--display);font-size:19px;font-weight:700;color:#fff}.section h3{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);margin:22px 0 10px}.section h3::before{content:'▸ ';color:var(--acc)}.section p{color:var(--text2);margin-bottom:12px;font-size:14px}.section ul,.section ol{color:var(--text2);padding-left:22px;margin-bottom:12px}.section li{margin-bottom:6px;font-size:14px}.section li strong,.section p strong{color:var(--text)}.tbl{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:13px}.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:8px 12px;border-bottom:1px solid var(--border)}.tbl td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}.tbl tr:last-child td{border-bottom:none}.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:12px}.tbl tr:hover td{background:var(--card2)}pre{background:#050710;border:1px solid var(--border);border-left:3px solid var(--acc);border-radius:6px;padding:14px 18px;overflow-x:auto;margin-bottom:12px;font-family:var(--mono);font-size:12px;line-height:1.7}code{font-family:var(--mono);font-size:12px;color:#6ee7b7;background:rgba(110,231,183,.07);padding:2px 5px;border-radius:3px}pre code{background:none;padding:0;color:inherit}.kw{color:#c084fc}.cmd{color:#6ee7b7}.param{color:#86efac}.val{color:#fbbf24}.cmt{color:#3d5068;font-style:italic}.str{color:#f472b6}.alert{display:flex;gap:12px;padding:12px 16px;border-radius:6px;margin-bottom:12px;font-size:13.5px}.ai{font-size:16px;flex-shrink:0;margin-top:1px}.ab{color:var(--text2);line-height:1.6}.ab strong{color:var(--text)}.tip{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18)}.tip .ai{color:#22c55e}.warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18)}.warn .ai{color:var(--yellow)}.exam{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.22)}.exam .ai{color:var(--purple)}.info{background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.22)}.info .ai{color:var(--acc)}.box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:16px}.box-t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}.scen{background:var(--card);border:1px solid #1e2d4a;border-radius:8px;overflow:hidden;margin-bottom:20px}.sc-hdr{background:linear-gradient(90deg,rgba(52,211,153,.1),transparent);padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}.sc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);border-radius:3px;padding:2px 8px}.sc-title{font-size:13px;font-weight:600;color:var(--text)}.sc-body{padding:14px 18px}.sc-body p{color:var(--text2);font-size:13.5px;margin-bottom:10px}.sc-body p:last-child{margin-bottom:0}.sc-body strong{color:var(--text)}.steps{list-style:none;padding:0;counter-reset:st}.steps li{counter-increment:st;display:flex;gap:10px;margin-bottom:8px;align-items:flex-start;color:var(--text2);font-size:13.5px}.steps li::before{content:counter(st);min-width:20px;height:20px;background:rgba(52,211,153,.09);border:1px solid rgba(52,211,153,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--acc);flex-shrink:0;margin-top:2px}.badge{display:inline-flex;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:3px;font-weight:600;vertical-align:middle}.bg{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)}.by{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}.br{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25)}.ba{background:rgba(52,211,153,.1);color:var(--acc);border:1px solid rgba(52,211,153,.25)}hr{border:none;border-top:1px solid var(--border);margin:32px 0}.quiz{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:8px;padding:16px 20px;margin-bottom:16px}.qh{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:10px}.qq{font-size:14px;color:var(--text);font-weight:600;margin-bottom:10px}.qo{list-style:none;padding:0}.qo li{font-size:13px;color:var(--text2);padding:7px 10px;margin-bottom:4px;cursor:pointer;border-radius:4px;transition:background .15s;border-left:2px solid transparent}.qo li:hover{background:rgba(139,92,246,.07)}.qo li.ok{background:rgba(34,197,94,.07);color:#22c55e;border-left-color:#22c55e}.qo li.no{background:rgba(239,68,68,.07);color:#ef4444;border-left-color:#ef4444}.qa{display:none;margin-top:10px;padding:11px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:6px;font-size:13px;color:var(--text2)}.qa.show{display:block}.qbtn{margin-top:10px;padding:7px 14px;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.3);border-radius:5px;color:var(--purple);font-family:var(--mono);font-size:11px;cursor:pointer}.nav{display:flex;justify-content:space-between;margin-top:44px;padding-top:20px;border-top:1px solid var(--border);gap:14px}.nb{display:flex;flex-direction:column;gap:4px;padding:12px 18px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-decoration:none;flex:1;transition:all .2s}.nb:hover{border-color:var(--acc);background:var(--card2)}.nl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}.nt{font-size:13px;color:var(--text);font-weight:600}.nb.next{text-align:right}.tier-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}.tier{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center}.tier-name{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--acc);margin-bottom:4px}.tier-lat{font-family:var(--display);font-size:20px;font-weight:800;color:#fff}.tier-info{font-size:11px;color:var(--text3);margin-top:4px}@media(max-width:768px){.layout{grid-template-columns:1fr;padding:20px 16px}.sidebar{position:static}.tier-row{grid-template-columns:1fr 1fr}}</style>
+</head>
+<body>
+<header class="hdr"><div class="hdr-inner">
+  <div class="bc"><a href="az104-index.html">AZ-104</a> / <span>Chapter 05</span></div>
+  <div class="cbadge">Chapter 05 · Sections 8–10</div>
+  <h1>Storage Accounts, Blob,<br><span>Files &amp; Security</span></h1>
+  <p class="hdr-sub">Storage Types · Redundancy · Blob Tiers · SAS · Azure Files · AzCopy · Lifecycle</p>
+  <div class="hdr-meta"><div class="mp"><span class="mpd"></span>Domain 2 — 15–20%</div><div class="mp"><span class="mpd a"></span>Sections 8–10 · Lessons 59–78</div></div>
+</div></header>
+<div class="layout">
+<aside class="sidebar"><div class="toc"><div class="toc-hdr">Chapter 05 — Storage</div><div class="toc-body">
+  <div class="toc-sec">Section 8</div>
+  <a href="#s1" class="ta active"><span class="tn">8.1</span>Storage Account Types</a>
+  <a href="#s2" class="ta"><span class="tn">8.2</span>Redundancy</a>
+  <a href="#s3" class="ta"><span class="tn">8.3</span>Access Tiers &amp; Blob</a>
+  <a href="#s4" class="ta"><span class="tn">8.4</span>Networking &amp; Encryption</a>
+  <a href="#s5" class="ta"><span class="tn">8.5</span>Access Keys &amp; SAS</a>
+  <a href="#s6" class="ta"><span class="tn">8.6</span>Entra ID Access</a>
+  <div class="toc-sec">Section 9</div>
+  <a href="#s7" class="ta"><span class="tn">9.1</span>Lifecycle Management</a>
+  <a href="#s8" class="ta"><span class="tn">9.2</span>AzCopy &amp; Tools</a>
+  <div class="toc-sec">Section 10</div>
+  <a href="#s9" class="ta"><span class="tn">10</span>Azure Files</a>
+  <a href="#s10" class="ta"><span class="tn">Q</span>Quiz</a>
+  <div class="toc-sec">Navigation</div>
+  <a href="az104-c04-governance.html" class="ta">← Ch04</a>
+  <a href="az104-c06-virtual-machines.html" class="ta">Ch06 →</a>
+</div></div></aside>
+<main class="content">
+<div class="ch-intro">
+  <div class="ch-n">Chapter 05 / Sections 8–10</div>
+  <div class="ch-t">Storage Accounts, Blob, Files &amp; Security</div>
+  <p class="ch-desc">Covers Azure Storage Account creation, types, redundancy (LRS/ZRS/GRS/GZRS), blob access tiers (Hot/Cool/Cold/Archive), security (SAS, access keys, RBAC), data protection, Azure Files, AzCopy and lifecycle management.</p>
+  <div class="ch-stats">
+    <div class="stx"><span class="l">Domain Weight</span><span class="v">15–20%</span></div>
+    <div class="stx"><span class="l">Lessons</span><span class="v">59–78</span></div>
+    <div class="stx"><span class="l">~Questions</span><span class="v">5–8</span></div>
+  </div>
+</div>
+
+<section class="section" id="s1">
+  <div class="sh"><div class="si">🗄️</div><div><div class="sn">Lesson 59 · 8.1</div><h2>Storage Account Types</h2></div></div>
+  <table class="tbl"><thead><tr><th>Type</th><th>Services</th><th>Performance</th><th>Use Case</th></tr></thead><tbody>
+    <tr><td>Standard GPv2 <span class="badge bg">Default</span></td><td>Blob, Files, Queues, Tables, Data Lake</td><td>Standard (HDD)</td><td>99% scenarios</td></tr>
+    <tr><td>Premium Block Blobs</td><td>Block Blobs only</td><td>SSD</td><td>High transactions, AI/ML</td></tr>
+    <tr><td>Premium File Shares</td><td>Azure Files only</td><td>SSD</td><td>Low-latency SMB/NFS</td></tr>
+    <tr><td>Premium Page Blobs</td><td>Page Blobs only</td><td>SSD</td><td>Unmanaged VM disks</td></tr>
+  </tbody></table>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Premium = No Geo:</strong> Premium accounts support LRS and ZRS only — no GRS/GZRS. Cannot change performance tier after creation. Naming: 3–24 chars, lowercase+numbers, globally unique.</div></div>
+  <pre><code><span class="cmt"># Create Storage Account</span>
+az storage account create \
+  <span class="param">--name</span> <span class="str">septonabackupgr</span> \
+  <span class="param">--resource-group</span> <span class="str">RG-Storage-GR</span> \
+  <span class="param">--location</span> <span class="str">westeurope</span> \
+  <span class="param">--sku</span> <span class="str">Standard_GRS</span> \
+  <span class="param">--kind</span> <span class="str">StorageV2</span> \
+  <span class="param">--min-tls-version</span> <span class="str">TLS1_2</span> \
+  <span class="param">--https-only</span> <span class="str">true</span></code></pre>
+</section><hr>
+
+<section class="section" id="s2">
+  <div class="sh"><div class="si">🔄</div><div><div class="sn">Lesson 60 · 8.2</div><h2>Redundancy Options</h2></div></div>
+  <table class="tbl"><thead><tr><th>Option</th><th>Copies</th><th>Location</th><th>Protects</th><th>SLA</th></tr></thead><tbody>
+    <tr><td>LRS</td><td>3</td><td>Same datacenter</td><td>Disk/rack</td><td>99.9%</td></tr>
+    <tr><td>ZRS</td><td>3</td><td>3 AZs same region</td><td>Datacenter</td><td>99.99%</td></tr>
+    <tr><td>GRS</td><td>6</td><td>Primary(LRS)+Secondary</td><td>Region outage</td><td>99.99%</td></tr>
+    <tr><td>GZRS</td><td>6</td><td>Primary(ZRS)+Secondary</td><td>Zone+Region</td><td>99.9999%</td></tr>
+    <tr><td>RA-GRS</td><td>6</td><td>GRS+Read secondary</td><td>Read failover</td><td>99.99%</td></tr>
+    <tr><td>RA-GZRS <span class="badge bg">Best</span></td><td>6</td><td>GZRS+Read secondary</td><td>Maximum</td><td>99.9999%</td></tr>
+  </tbody></table>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>RA-GRS secondary URL:</strong> <code>accountname<strong>-secondary</strong>.blob.core.windows.net</code>. GRS = secondary readable only during MS failover. RA-GRS = always readable. Premium = LRS/ZRS only.</div></div>
+</section><hr>
+
+<section class="section" id="s3">
+  <div class="sh"><div class="si">🌡️</div><div><div class="sn">Lessons 61–62 · 8.3</div><h2>Access Tiers &amp; Blob Types</h2></div></div>
+  <div class="tier-row">
+    <div class="tier"><div class="tier-name">Hot</div><div class="tier-lat">ms</div><div class="tier-info">Frequent access<br>High storage $</div></div>
+    <div class="tier"><div class="tier-name">Cool</div><div class="tier-lat">ms</div><div class="tier-info">Min 30 days<br>Lower storage $</div></div>
+    <div class="tier"><div class="tier-name">Cold</div><div class="tier-lat">ms</div><div class="tier-info">Min 90 days<br>Low storage $</div></div>
+    <div class="tier"><div class="tier-name">Archive</div><div class="tier-lat">1–15h</div><div class="tier-info">Min 180 days<br>Lowest storage $</div></div>
+  </div>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Archive = OFFLINE:</strong> Cannot read directly. Must rehydrate (change tier):<br>• Standard priority: up to <strong>15 hours</strong><br>• High priority: up to <strong>1 hour</strong> (extra cost)</div></div>
+  <h3>Blob Types</h3>
+  <table class="tbl"><thead><tr><th>Type</th><th>Characteristics</th><th>Use Case</th></tr></thead><tbody>
+    <tr><td>Block Blob <span class="badge bg">Default</span></td><td>Blocks ≤100MB. Max 190.7 TiB.</td><td>Files, images, backups</td></tr>
+    <tr><td>Append Blob</td><td>Append-only. Cannot modify existing blocks.</td><td>Log files, audit trails</td></tr>
+    <tr><td>Page Blob</td><td>Random read/write. 512-byte pages. Max 8 TiB.</td><td>VHD/unmanaged disks</td></tr>
+  </tbody></table>
+  <h3>Container Access Levels</h3>
+  <table class="tbl"><thead><tr><th>Level</th><th>Access</th></tr></thead><tbody>
+    <tr><td>Private <span class="badge bg">Default</span></td><td>Authorized only (key/SAS/RBAC)</td></tr>
+    <tr><td>Blob (anonymous read)</td><td>Read individual blobs — no container listing</td></tr>
+    <tr><td>Container (full public)</td><td>Read blobs + list container</td></tr>
+  </tbody></table>
+</section><hr>
+
+<section class="section" id="s4">
+  <div class="sh"><div class="si">🌐</div><div><div class="sn">Lessons 63–66 · 8.4</div><h2>Networking, Encryption &amp; Data Protection</h2></div></div>
+  <h3>Firewall &amp; Network Access</h3>
+  <ul>
+    <li><strong>All networks (default):</strong> Public internet access</li>
+    <li><strong>Selected networks:</strong> Specific IP ranges or VNets via Service Endpoints</li>
+    <li><strong>Private Endpoint:</strong> Storage gets private IP in VNet — no public exposure</li>
+    <li><strong>Trusted services:</strong> Allows Azure Backup, Monitor even when firewall on</li>
+  </ul>
+  <h3>Data Protection Features</h3>
+  <ul>
+    <li><strong>Soft delete (Blobs):</strong> Retain deleted blobs 1–365 days. Default: 7 days.</li>
+    <li><strong>Soft delete (Containers):</strong> Same for containers</li>
+    <li><strong>Blob versioning:</strong> Auto-saves all versions on write/delete</li>
+    <li><strong>Point-in-time restore:</strong> Restore blocks to any past point (needs versioning)</li>
+    <li><strong>Immutability policies:</strong> WORM (Write Once Read Many) — locked blobs</li>
+  </ul>
+  <h3>Encryption</h3>
+  <ul>
+    <li><strong>At rest:</strong> Automatic 256-bit AES — cannot disable</li>
+    <li><strong>MMK:</strong> Microsoft manages keys (default)</li>
+    <li><strong>CMK:</strong> Customer manages keys in Azure Key Vault</li>
+    <li><strong>In transit:</strong> HTTPS enforced with min TLS 1.2</li>
+  </ul>
+</section><hr>
+
+<section class="section" id="s5">
+  <div class="sh"><div class="si">🔑</div><div><div class="sn">Lessons 68–69 · 8.5</div><h2>Access Keys &amp; SAS Tokens</h2></div></div>
+  <table class="tbl"><thead><tr><th>Method</th><th>How it works</th><th>Risk</th><th>Best For</th></tr></thead><tbody>
+    <tr><td>Account Keys <span class="badge br">Avoid</span></td><td>2 master keys — full access</td><td>Leak = full compromise</td><td>Legacy only</td></tr>
+    <tr><td>Service/Account SAS</td><td>Signed URI, scoped permissions, expiry</td><td>Medium</td><td>Temp external access</td></tr>
+    <tr><td>Stored Access Policy</td><td>Server-side policy referenced by SAS</td><td>Low — revocable</td><td>Revocable SAS</td></tr>
+    <tr><td>User Delegation SAS <span class="badge bg">Best</span></td><td>Signed by Entra ID — Blob only</td><td>Lowest</td><td>Blob external access</td></tr>
+    <tr><td>Azure AD RBAC <span class="badge bg">Best</span></td><td>Identity-based, no credentials</td><td>Lowest</td><td>Internal apps/users</td></tr>
+  </tbody></table>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Revoke SAS:</strong> To instantly revoke a SAS: if it uses a Stored Access Policy → delete/modify the policy. If signed with account key → rotate the key (affects ALL SAS signed with that key). User Delegation SAS → revoke the Entra ID permissions.</div></div>
+  <pre><code><span class="cmt"># Generate SAS token for blob (read, 48h)</span>
+az storage blob generate-sas \
+  <span class="param">--account-name</span> <span class="str">septonabackupgr</span> \
+  <span class="param">--container-name</span> <span class="str">backups</span> \
+  <span class="param">--name</span> <span class="str">vm-backup-2026.vhd</span> \
+  <span class="param">--permissions</span> <span class="str">r</span> \
+  <span class="param">--expiry</span> <span class="str">2026-04-03</span> \
+  <span class="param">--https-only</span></code></pre>
+</section><hr>
+
+<section class="section" id="s6">
+  <div class="sh"><div class="si">🔐</div><div><div class="sn">Lesson 70 · 8.6</div><h2>Entra ID (RBAC) Access Control</h2></div></div>
+  <p>Αντί για Access Keys, χρησιμοποίησε RBAC roles για granular, identity-based access:</p>
+  <table class="tbl"><thead><tr><th>Role</th><th>Access</th></tr></thead><tbody>
+    <tr><td>Storage Blob Data Owner</td><td>Full access to blob data + ACLs</td></tr>
+    <tr><td>Storage Blob Data Contributor</td><td>Read/write/delete blobs</td></tr>
+    <tr><td>Storage Blob Data Reader</td><td>Read blobs only</td></tr>
+    <tr><td>Storage File Data Privileged Contributor</td><td>Read/write Azure Files</td></tr>
+    <tr><td>Storage Queue Data Contributor</td><td>Read/write queues</td></tr>
+  </tbody></table>
+  <div class="alert info"><span class="ai">💡</span><div class="ab"><strong>Μεγάλη διαφορά:</strong> "Storage Account Contributor" (RBAC) = manages the storage account resource αλλά ΔΕΝ δίνει access στα DATA. "Storage Blob Data Reader" (RBAC) = reads blob data. Χρειάζεσαι data-plane role για πρόσβαση σε blobs.</div></div>
+</section><hr>
+
+<section class="section" id="s7">
+  <div class="sh"><div class="si">♻️</div><div><div class="sn">Lesson 73 · 9.1</div><h2>Lifecycle Management</h2></div></div>
+  <p>Αυτόματη μετακίνηση blobs μεταξύ tiers και διαγραφή βάσει rules. Εκτελείται μία φορά ημερησίως.</p>
+  <pre><code><span class="cmt"># Lifecycle policy — Cool after 30d, Archive after 365d, Delete after 2555d</span>
+{
+  <span class="str">"rules"</span>: [{
+    <span class="str">"name"</span>: <span class="str">"MarketingAssets"</span>,
+    <span class="str">"type"</span>: <span class="str">"Lifecycle"</span>,
+    <span class="str">"definition"</span>: {
+      <span class="str">"filters"</span>: {
+        <span class="str">"blobTypes"</span>: [<span class="str">"blockBlob"</span>],
+        <span class="str">"prefixMatch"</span>: [<span class="str">"marketing/"</span>]
+      },
+      <span class="str">"actions"</span>: {
+        <span class="str">"baseBlob"</span>: {
+          <span class="str">"tierToCool"</span>: {<span class="str">"daysAfterModificationGreaterThan"</span>: <span class="val">30</span>},
+          <span class="str">"tierToArchive"</span>: {<span class="str">"daysAfterModificationGreaterThan"</span>: <span class="val">365</span>},
+          <span class="str">"delete"</span>: {<span class="str">"daysAfterModificationGreaterThan"</span>: <span class="val">2555</span>}
+        }
+      }
+    }
+  }]
+}</code></pre>
+  <div class="scen">
+    <div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">Cosmoprof Assets — Tiered Storage</span></div>
+    <div class="sc-body">
+      <p><strong>Κατάσταση:</strong> Εκατοντάδες GB φωτογραφίες/videos από εκθέσεις. Πρόσφατα 30 ημερών = γρήγορη πρόσβαση. Παλαιότερα σπάνια χρειάζονται.</p>
+      <ol class="steps">
+        <li>Νέα αρχεία ανεβαίνουν στο <strong>Hot tier</strong></li>
+        <li>Lifecycle policy: μετά 30 ημέρες → <strong>Cool</strong></li>
+        <li>Μετά 365 ημέρες → <strong>Archive</strong></li>
+        <li>Soft Delete enabled 30 ημέρες — προστασία από τυχαία διαγραφή</li>
+      </ol>
+      <p>Αποτέλεσμα: αυτόματη cost optimization χωρίς manual work.</p>
+    </div>
+  </div>
+</section><hr>
+
+<section class="section" id="s8">
+  <div class="sh"><div class="si">🚀</div><div><div class="sn">Lesson 75 · 9.2</div><h2>AzCopy &amp; Storage Tools</h2></div></div>
+  <h3>AzCopy</h3>
+  <p>High-performance CLI tool για data transfer. Supports resume, server-side copy.</p>
+  <pre><code><span class="cmt"># Login</span>
+azcopy login
+
+<span class="cmt"># Upload directory</span>
+azcopy copy <span class="str">'C:\Backups\'</span> \
+  <span class="str">'https://septonabackup.blob.core.windows.net/backups/'</span> \
+  <span class="param">--recursive</span>
+
+<span class="cmt"># Sync (incremental — only changed files)</span>
+azcopy sync \
+  <span class="str">'C:\FileServer\'</span> \
+  <span class="str">'https://septonafiles.blob.core.windows.net/shared?SAS'</span> \
+  <span class="param">--recursive</span> <span class="param">--delete-destination</span> <span class="str">true</span>
+
+<span class="cmt"># Server-side copy between accounts</span>
+azcopy copy \
+  <span class="str">'https://source.blob.core.windows.net/c?SAS'</span> \
+  <span class="str">'https://dest.blob.core.windows.net/c?SAS'</span> \
+  <span class="param">--recursive</span></code></pre>
+  <h3>Other Tools</h3>
+  <ul>
+    <li><strong>Azure Storage Explorer:</strong> GUI app (Windows/Mac/Linux) — browse, upload, download, manage SAS</li>
+    <li><strong>Storage Browser (Portal):</strong> Web-based storage management in Azure portal</li>
+    <li><strong>Azure Import/Export:</strong> Physical drives sent to datacenter for massive transfers</li>
+    <li><strong>Azure Data Box:</strong> Appliance sent by Microsoft — 35TB (Disk), 80TB (Box), 800TB (Heavy)</li>
+  </ul>
+</section><hr>
+
+<section class="section" id="s9">
+  <div class="sh"><div class="si">📁</div><div><div class="sn">Lessons 77–78 · 10</div><h2>Azure Files</h2></div></div>
+  <p><strong>Azure Files</strong> = fully managed SMB/NFS file shares. Mount as network drive (Z:\) from Windows, Linux, macOS. Replaces on-premises file servers.</p>
+  <table class="tbl"><thead><tr><th></th><th>Azure Files</th><th>Blob Storage</th></tr></thead><tbody>
+    <tr><td>Protocol</td><td>SMB (port 445), NFS</td><td>HTTP/HTTPS REST</td></tr>
+    <tr><td>Access model</td><td>Mount as drive letter</td><td>URL-based SDK</td></tr>
+    <tr><td>Shared access</td><td>✅ Multiple users/apps</td><td>Object-based</td></tr>
+    <tr><td>Use case</td><td>File server replacement</td><td>Unstructured data, backups</td></tr>
+  </tbody></table>
+  <div class="alert warn"><span class="ai">⚠️</span><div class="ab"><strong>Port 445 Problem:</strong> SMB uses port 445. Many ISPs/corporate firewalls block outbound 445. Fix: use Azure VPN, ExpressRoute, or Azure File Sync (bypasses 445 requirement).</div></div>
+  <h3>Azure File Sync</h3>
+  <p>Syncs on-premises Windows file servers with Azure Files. Enables cloud tiering — cold files move to cloud, freeing local disk.</p>
+  <pre><code><span class="cmt"># Mount Azure File Share on Windows</span>
+net use Z: \\septonafiles.file.core.windows.net\shared /user:AZURE\septonafiles <span class="str">ACCESS_KEY</span>
+
+<span class="cmt"># Create file share</span>
+az storage share create \
+  <span class="param">--name</span> <span class="str">company-shared</span> \
+  <span class="param">--account-name</span> <span class="str">septonafiles</span> \
+  <span class="param">--quota</span> <span class="val">100</span></code></pre>
+  <div class="scen">
+    <div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">File Server Migration — Septona GR</span></div>
+    <div class="sc-body">
+      <p><strong>Κατάσταση:</strong> On-prem file server (2TB data) πρέπει να μεταφερθεί στο cloud. Users πρέπει να εξακολουθούν να βλέπουν Z:\ drive.</p>
+      <ol class="steps">
+        <li>Δημιουργία Azure File Share: <code>septona-shared</code></li>
+        <li>Deploy Azure File Sync agent στον on-prem server</li>
+        <li>Register server, create Sync Group</li>
+        <li>Server Endpoint: <code>D:\CompanyShare</code>, Cloud Tiering: ON (80% free space)</li>
+        <li>Initial sync: 2TB upload στο Azure</li>
+        <li>Users continue using Z:\ — cold files served from cloud on-demand</li>
+      </ol>
+    </div>
+  </div>
+</section><hr>
+
+<section class="section" id="s10">
+  <div class="sh"><div class="si">🧠</div><div><div class="sn">Chapter 05</div><h2>Quiz — Storage</h2></div></div>
+  <div class="quiz"><div class="qh">◈ Q01</div>
+    <div class="qq">Archive tier blob χρειάζεται σε λιγότερο από 1 ώρα. Τι επιλέγεις;</div>
+    <ul class="qo" id="q1">
+      <li onclick="ans('q1',0)">A) Standard priority rehydration — 15 ώρες</li>
+      <li onclick="ans('q1',1)">B) High priority rehydration — 1 ώρα</li>
+      <li onclick="ans('q1',2)">C) Copy με AzCopy — instant</li>
+      <li onclick="ans('q1',3)">D) Archive blobs είναι πάντα accessible σε seconds</li>
+    </ul>
+    <div class="qa" id="q1-a">✅ <strong>B — High priority rehydration.</strong> Archive blobs are OFFLINE. Must rehydrate (change tier). High priority = up to 1 hour but costs more. Standard = up to 15 hours. AzCopy cannot read offline blobs.</div>
+    <button class="qbtn" onclick="toggle('q1-a')">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q02</div>
+    <div class="qq">Θέλεις max protection + read access σε secondary region πάντα. Ποιο redundancy;</div>
+    <ul class="qo" id="q2">
+      <li onclick="ans('q2',0)">A) GRS</li>
+      <li onclick="ans('q2',1)">B) GZRS</li>
+      <li onclick="ans('q2',2)">C) RA-GRS</li>
+      <li onclick="ans('q2',3)">D) RA-GZRS</li>
+    </ul>
+    <div class="qa" id="q2-a">✅ <strong>D — RA-GZRS.</strong> Zone redundant primary (ZRS) + geo secondary (GRS) + read access (RA) = maximum protection with always-available secondary reads. RA-GRS has LRS primary (not zone redundant).</div>
+    <button class="qbtn" onclick="toggle('q2-a')">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q03</div>
+    <div class="qq">SAS token δόθηκε σε εξωτερικό συνεργάτη και θέλεις να το revoke-άρεις αμέσως χωρίς να επηρεαστούν άλλα SAS. Πώς;</div>
+    <ul class="qo" id="q3">
+      <li onclick="ans('q3',0)">A) Rotate account keys</li>
+      <li onclick="ans('q3',1)">B) Delete/modify the Stored Access Policy που reference-άρει το SAS</li>
+      <li onclick="ans('q3',2)">C) Περίμενε να expire</li>
+      <li onclick="ans('q3',3)">D) Disable storage account</li>
+    </ul>
+    <div class="qa" id="q3-a">✅ <strong>B — Stored Access Policy.</strong> If SAS references a policy, deleting/modifying the policy instantly invalidates those SAS tokens. Rotating account key invalidates ALL SAS signed with that key — affects everyone.</div>
+    <button class="qbtn" onclick="toggle('q3-a')">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q04</div>
+    <div class="qq">Tags που βάλεις στο Resource Group μεταφέρονται αυτόματα στα Storage Accounts μέσα;</div>
+    <ul class="qo" id="q4">
+      <li onclick="ans('q4',0)">A) Ναι, tags κληρονομούνται πάντα</li>
+      <li onclick="ans('q4',1)">B) Ναι, αλλά μόνο αν το storage account δεν έχει δικά του tags</li>
+      <li onclick="ans('q4',2)">C) Όχι, tags δεν κληρονομούνται στο Azure</li>
+      <li onclick="ans('q4',3)">D) Ναι, αλλά μόνο σε Standard GPv2 accounts</li>
+    </ul>
+    <div class="qa" id="q4-a">✅ <strong>C — Tags ΔΕΝ κληρονομούνται.</strong> Azure tags never inherit from RG to resources. Use Azure Policy with Append or Modify effect to auto-apply tags to resources in a RG.</div>
+    <button class="qbtn" onclick="toggle('q4-a')">Show Answer</button>
+  </div>
+  <div class="box"><div class="box-t">📌 Key Facts — Ch05</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600;width:38%">Premium = no geo</td><td style="padding:6px 10px;color:var(--text2)">LRS or ZRS only — no GRS/GZRS</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Archive rehydration</td><td style="padding:6px 10px;color:var(--text2)">Standard: 15h | High: 1h</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">RA-GRS secondary</td><td style="padding:6px 10px;color:var(--text2)">accountname-secondary.blob.core.windows.net</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">User Delegation SAS</td><td style="padding:6px 10px;color:var(--text2)">Signed by AAD. Blob only. Most secure SAS type.</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">SMB port</td><td style="padding:6px 10px;color:var(--text2)">445 — often blocked by ISPs. Use File Sync to bypass.</td></tr>
+      <tr><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Lifecycle</td><td style="padding:6px 10px;color:var(--text2)">Runs once/day. Based on last-modified date.</td></tr>
+    </table>
+  </div>
+</section>
+<div class="nav">
+  <a href="az104-c04-governance.html" class="nb"><span class="nl">← Previous</span><span class="nt">Ch04. Governance</span></a>
+  <a href="az104-c06-virtual-machines.html" class="nb next"><span class="nl">Next →</span><span class="nt">Ch06. Virtual Machines</span></a>
+</div>
+</main></div>
+<script>
+const correct={q1:1,q2:3,q3:1,q4:2};
+function ans(id,c){document.querySelectorAll('#'+id+' li').forEach((el,i)=>{el.classList.remove('ok','no');if(i===correct[id])el.classList.add('ok');else if(i===c&&c!==correct[id])el.classList.add('no');});document.getElementById(id+'-a').classList.add('show');}
+function toggle(id){document.getElementById(id).classList.toggle('show')}
+const secs=document.querySelectorAll('section[id]');const links=document.querySelectorAll('a.ta');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));});
+</script>
+</body></html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AZ-104 Ch.04 — Governance | Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07090f;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--border2:#1e2d4a;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--acc:#22d3ee;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--display:'Syne',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+.hdr{background:linear-gradient(160deg,#040609,#07090f,#03100f);border-bottom:1px solid var(--border);padding:50px 0 42px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(34,211,238,.06),transparent 65%)}
+.hdr-inner{max-width:1100px;margin:0 auto;padding:0 32px}
+.bc{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:14px}
+.bc a{color:var(--text3);text-decoration:none}
+.cbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.28);border-radius:4px;padding:5px 14px;font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.cbadge::before{content:'◈';font-size:12px}
+.hdr h1{font-family:var(--display);font-size:clamp(26px,5vw,48px);font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px}
+.hdr h1 span{color:var(--acc)}
+.hdr-sub{color:var(--text2);font-size:15px;font-weight:300;margin-bottom:20px}
+.hdr-meta{display:flex;gap:18px;flex-wrap:wrap}
+.mp{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text3)}
+.mpd{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green)}
+.mpd.c{background:var(--acc);box-shadow:0 0 5px var(--acc)}
+.layout{max-width:1100px;margin:0 auto;padding:40px 32px;display:grid;grid-template-columns:268px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.toc-hdr{background:var(--bg3);padding:12px 18px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.toc-hdr::before{content:'⬡'}
+.toc-body{padding:8px 0}
+.toc-sec{padding:5px 18px 2px;font-size:9px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:6px}
+.ta{display:flex;align-items:flex-start;gap:8px;padding:6px 18px;font-size:12.5px;color:var(--text2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}
+.ta:hover{color:var(--text);background:var(--card2);border-left-color:var(--acc)}
+.ta.active{color:var(--acc);background:rgba(34,211,238,.06);border-left-color:var(--acc);font-weight:600}
+.ta .tn{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:3px;flex-shrink:0;width:20px}
+.content{min-width:0}
+.ch-intro{background:linear-gradient(135deg,var(--card),var(--bg3));border:1px solid var(--border2);border-radius:10px;padding:28px;margin-bottom:32px}
+.ch-n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--acc);text-transform:uppercase;margin-bottom:6px}
+.ch-t{font-family:var(--display);font-size:24px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.ch-desc{color:var(--text2);font-size:14px;line-height:1.7;margin-bottom:16px}
+.ch-stats{display:flex;gap:14px;flex-wrap:wrap}
+.sc2{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:7px 13px;font-family:var(--mono);font-size:11px}
+.sc2 .l{color:var(--text3);display:block;margin-bottom:1px}
+.sc2 .v{color:var(--text);font-weight:600}
+.section{margin-bottom:50px;scroll-margin-top:24px}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.si{width:36px;height:36px;background:rgba(34,211,238,.09);border:1px solid rgba(34,211,238,.22);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.sn{font-family:var(--mono);font-size:10px;color:var(--text3)}
+.section h2{font-family:var(--display);font-size:20px;font-weight:700;color:#fff}
+.section h3{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);margin:24px 0 10px}
+.section h3::before{content:'▸ ';color:var(--acc)}
+.section p{color:var(--text2);margin-bottom:12px;font-size:14px}
+.section ul,.section ol{color:var(--text2);padding-left:22px;margin-bottom:12px}
+.section li{margin-bottom:6px;font-size:14px}
+.section li strong,.section p strong{color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;margin-bottom:18px;font-size:13px}
+.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:9px 13px;border-bottom:1px solid var(--border)}
+.tbl td{padding:9px 13px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:12px}
+.tbl tr:hover td{background:var(--card2)}
+pre{background:#050710;border:1px solid var(--border);border-left:3px solid var(--acc);border-radius:6px;padding:16px 20px;overflow-x:auto;margin-bottom:14px;font-family:var(--mono);font-size:12.5px;line-height:1.7}
+code{font-family:var(--mono);font-size:12px;color:#67e8f9;background:rgba(103,232,249,.07);padding:2px 5px;border-radius:3px}
+pre code{background:none;padding:0;color:inherit}
+.kw{color:#c084fc}.cmd{color:#67e8f9}.param{color:#86efac}.val{color:#fbbf24}.cmt{color:#3d5068;font-style:italic}.str{color:#f472b6}
+.alert{display:flex;gap:12px;padding:13px 17px;border-radius:6px;margin-bottom:14px;font-size:13.5px}
+.ai{font-size:16px;flex-shrink:0;margin-top:1px}
+.ab{color:var(--text2);line-height:1.6}.ab strong{color:var(--text)}
+.tip{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18)}.tip .ai{color:#22c55e}
+.warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18)}.warn .ai{color:var(--yellow)}
+.exam{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.22)}.exam .ai{color:var(--purple)}
+.info{background:rgba(34,211,238,.05);border:1px solid rgba(34,211,238,.22)}.info .ai{color:var(--acc)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 22px;margin-bottom:18px}
+.box.hl{border-color:rgba(34,211,238,.28)}
+.box-t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.scen{background:var(--card);border:1px solid var(--border2);border-radius:8px;overflow:hidden;margin-bottom:22px}
+.sc-hdr{background:linear-gradient(90deg,rgba(34,211,238,.1),transparent);padding:11px 17px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.sc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);border-radius:3px;padding:2px 8px}
+.sc-title{font-size:13px;font-weight:600;color:var(--text)}
+.sc-body{padding:16px 20px}
+.sc-body p{color:var(--text2);font-size:13.5px;margin-bottom:10px}
+.sc-body p:last-child{margin-bottom:0}
+.sc-body strong{color:var(--text)}
+.steps{list-style:none;padding:0;counter-reset:st}
+.steps li{counter-increment:st;display:flex;gap:12px;margin-bottom:9px;align-items:flex-start;color:var(--text2);font-size:13.5px}
+.steps li::before{content:counter(st);min-width:22px;height:22px;background:rgba(34,211,238,.09);border:1px solid rgba(34,211,238,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--acc);flex-shrink:0;margin-top:2px}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:13px;margin-bottom:18px}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px}
+.cc h4{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.cc ul{list-style:none;padding:0}
+.cc li{font-size:12.5px;color:var(--text2);padding:3px 0 3px 14px;position:relative}
+.cc li::before{content:'→';position:absolute;left:0;color:var(--text3);font-size:10px}
+.badge{display:inline-flex;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:3px;font-weight:600;vertical-align:middle}
+.bg{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)}
+.by{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}
+.br{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25)}
+hr{border:none;border-top:1px solid var(--border);margin:34px 0}
+.quiz{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:8px;padding:18px 22px;margin-bottom:18px}
+.qh{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:10px}
+.qq{font-size:14px;color:var(--text);font-weight:600;margin-bottom:10px}
+.qo{list-style:none;padding:0}
+.qo li{font-size:13px;color:var(--text2);padding:7px 10px;margin-bottom:4px;cursor:pointer;border-radius:4px;transition:background .15s;border-left:2px solid transparent}
+.qo li:hover{background:rgba(139,92,246,.07)}
+.qo li.ok{background:rgba(34,197,94,.07);color:#22c55e;border-left-color:#22c55e}
+.qo li.no{background:rgba(239,68,68,.07);color:#ef4444;border-left-color:#ef4444}
+.qa{display:none;margin-top:10px;padding:12px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:6px;font-size:13px;color:var(--text2)}
+.qa.show{display:block}
+.qbtn{margin-top:10px;padding:7px 16px;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.3);border-radius:5px;color:var(--purple);font-family:var(--mono);font-size:11px;cursor:pointer}
+.qbtn:hover{background:rgba(139,92,246,.22)}
+.nav{display:flex;justify-content:space-between;margin-top:48px;padding-top:22px;border-top:1px solid var(--border);gap:16px}
+.nb{display:flex;flex-direction:column;gap:4px;padding:13px 19px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-decoration:none;flex:1;transition:all .2s}
+.nb:hover{border-color:var(--acc);background:var(--card2)}
+.nl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}
+.nt{font-size:13px;color:var(--text);font-weight:600}
+.nb.next{text-align:right}
+.lock-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.lc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.lc-hdr{font-family:var(--mono);font-size:12px;font-weight:600;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.lc-body li{font-size:13px;color:var(--text2);list-style:none;padding:4px 0 4px 16px;position:relative}
+.lc-body li::before{position:absolute;left:0;font-size:10px}
+.lc-body li.yes::before{content:'✓';color:var(--green)}
+.lc-body li.no2::before{content:'✗';color:var(--red)}
+@media(max-width:768px){.layout{grid-template-columns:1fr;padding:22px 16px}.sidebar{position:static}.lock-cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="bc"><a href="az104-index.html">AZ-104</a><span>/</span><span>Chapter 04</span></div>
+    <div class="cbadge">Chapter 04 · Section 7</div>
+    <h1>Subscriptions &amp;<br><span>Governance</span></h1>
+    <p class="hdr-sub">Management Groups · Resource Locks · Azure Policy · Tags · Cost Management</p>
+    <div class="hdr-meta">
+      <div class="mp"><span class="mpd"></span>Domain 1 — 20–25%</div>
+      <div class="mp"><span class="mpd c"></span>Section 7 · Lessons 46–58</div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+<aside class="sidebar">
+  <div class="toc">
+    <div class="toc-hdr">Chapter 04 — Governance</div>
+    <div class="toc-body">
+      <div class="toc-sec">Section 7</div>
+      <a href="#s1" class="ta active"><span class="tn">7.1</span>Accounts &amp; Subscriptions</a>
+      <a href="#s2" class="ta"><span class="tn">7.2</span>Management Groups</a>
+      <a href="#s3" class="ta"><span class="tn">7.3</span>Resource Locks</a>
+      <a href="#s4" class="ta"><span class="tn">7.4</span>Azure Policy</a>
+      <a href="#s5" class="ta"><span class="tn">7.5</span>Tags</a>
+      <a href="#s6" class="ta"><span class="tn">7.6</span>Move Resources</a>
+      <a href="#s7" class="ta"><span class="tn">7.7</span>Cost Management</a>
+      <a href="#s8" class="ta"><span class="tn">Q</span>Quiz</a>
+      <div class="toc-sec">Navigation</div>
+      <a href="az104-c03-rbac.html" class="ta">← Ch03</a>
+      <a href="az104-c05-storage.html" class="ta">Ch05. Storage →</a>
+    </div>
+  </div>
+</aside>
+<main class="content">
+  <div class="ch-intro">
+    <div class="ch-n">Chapter 04 / Section 7</div>
+    <div class="ch-t">Subscriptions &amp;<br>Governance</div>
+    <p class="ch-desc">Governance στο Azure = ελέγχεις πώς χρησιμοποιούνται resources, ποιος έχει access, τι επιτρέπεται να δημιουργηθεί, και πόσο κοστίζει. Καλύπτουμε Management Groups, Resource Locks, Azure Policy, Tags, Move Resources και Cost Management.</p>
+    <div class="ch-stats">
+      <div class="sc2"><span class="l">Domain</span><span class="v">Domain 1 — 20–25%</span></div>
+      <div class="sc2"><span class="l">Lessons</span><span class="v">46–58</span></div>
+      <div class="sc2"><span class="l">Difficulty</span><span class="v">⭐⭐⭐ Medium</span></div>
+    </div>
+  </div>
+
+  <section class="section" id="s1">
+    <div class="sh"><div class="si">🏢</div><div><div class="sn">Lesson 46 · 7.1</div><h2>Accounts, Subscriptions &amp; Resource Groups</h2></div></div>
+    <table class="tbl">
+      <thead><tr><th>Concept</th><th>Περιγραφή</th><th>Billing</th></tr></thead>
+      <tbody>
+        <tr><td>Account (Billing Account)</td><td>Microsoft Customer Agreement / EA — ο "λογαριασμός" πληρωμής</td><td>Invoices εδώ</td></tr>
+        <tr><td>Subscription</td><td>Logical unit resources + billing. Εμπιστεύεται έναν Entra tenant.</td><td>Costs aggregated per subscription</td></tr>
+        <tr><td>Resource Group (RG)</td><td>Logical container — ίδιος lifecycle, region-agnostic</td><td>Δεν χρεώνεται ξεχωριστά</td></tr>
+        <tr><td>Resource</td><td>Actual Azure service — VM, Storage, VNet κλπ</td><td>Per-resource billing</td></tr>
+      </tbody>
+    </table>
+    <h3>Resource Group Best Practices</h3>
+    <ul>
+      <li><strong>Same lifecycle:</strong> Resources που deploy/delete μαζί → ίδιο RG</li>
+      <li><strong>Region του RG:</strong> Metadata location — resources μπορούν να είναι σε άλλες regions</li>
+      <li><strong>One resource, one RG:</strong> Resource ανήκει σε ακριβώς ένα RG ανά πάσα στιγμή</li>
+      <li><strong>Move:</strong> Μπορείς να μεταφέρεις resources μεταξύ RGs ή subscriptions</li>
+    </ul>
+  </section>
+  <hr>
+
+  <section class="section" id="s2">
+    <div class="sh"><div class="si">🗂️</div><div><div class="sn">Lesson 56 · 7.2</div><h2>Management Groups</h2></div></div>
+    <p>Τα <strong>Management Groups</strong> είναι containers για subscriptions — επιτρέπουν να εφαρμόζεις policies και RBAC σε πολλαπλά subscriptions ταυτόχρονα.</p>
+    <div class="box hl">
+      <div class="box-t">Hierarchy Example — Septona</div>
+      <pre style="margin:0;font-size:12px"><code>Root Management Group (Tenant)
+  └── Septona-Root MG
+        ├── Production MG
+        │     ├── Subscription: Septona-GR-Prod
+        │     └── Subscription: Septona-BG-Prod
+        ├── Development MG
+        │     └── Subscription: Septona-Dev
+        └── Sandbox MG
+              └── Subscription: Septona-Sandbox</code></pre>
+    </div>
+    <ul>
+      <li>Max <strong>6 levels</strong> deep (not counting root)</li>
+      <li>Policies/RBAC assigned at MG level <strong>inherit</strong> to all subscriptions below</li>
+      <li>Each MG/subscription έχει έναν parent (tree structure)</li>
+      <li>Root MG = "Tenant Root Group" — auto-created, all subscriptions are under it</li>
+    </ul>
+    <pre><code><span class="cmt"># Create Management Group</span>
+az account management-group create \
+  <span class="param">--name</span> <span class="str">"Septona-Production"</span> \
+  <span class="param">--display-name</span> <span class="str">"Septona Production"</span>
+
+<span class="cmt"># Move subscription to Management Group</span>
+az account management-group subscription add \
+  <span class="param">--name</span> <span class="str">"Septona-Production"</span> \
+  <span class="param">--subscription</span> <span class="str">"SUBSCRIPTION-ID"</span></code></pre>
+  </section>
+  <hr>
+
+  <section class="section" id="s3">
+    <div class="sh"><div class="si">🔒</div><div><div class="sn">Lesson 49 · 7.3</div><h2>Resource Locks</h2></div></div>
+    <p>Τα <strong>Resource Locks</strong> προστατεύουν critical resources από τυχαία διαγραφή ή τροποποίηση. Εφαρμόζονται σε subscription, RG, ή individual resource.</p>
+    <div class="lock-cards">
+      <div class="lc">
+        <div class="lc-hdr" style="color:#22c55e">🔒 CanNotDelete (Delete Lock)</div>
+        <ul class="lc-body">
+          <li class="yes">Read resource</li>
+          <li class="yes">Modify resource (update settings)</li>
+          <li class="no2">Delete resource</li>
+        </ul>
+      </div>
+      <div class="lc">
+        <div class="lc-hdr" style="color:#ef4444">🔒 ReadOnly Lock</div>
+        <ul class="lc-body">
+          <li class="yes">Read resource</li>
+          <li class="no2">Modify resource</li>
+          <li class="no2">Delete resource</li>
+          <li class="no2">listKeys (POST operations)</li>
+          <li class="no2">Restart VM (POST)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert exam"><span class="ai">🎯</span><div class="ab">
+      <strong>ReadOnly Lock Traps:</strong><br>
+      • ReadOnly lock σε Storage Account → <strong>δεν μπορείς να κάνεις listKeys()</strong> — POST operation<br>
+      • ReadOnly lock σε VM → <strong>δεν μπορείς να το κάνεις start/stop/restart</strong><br>
+      • Locks <strong>ΔΕΝ κληρονομούνται</strong> αυτόματα — πρέπει να τα βάλεις ξεχωριστά<br>
+      • Lock σε RG ισχύει για ΟΛΑ τα resources μέσα στο RG
+    </div></div>
+    <pre><code><span class="cmt"># Create CanNotDelete lock σε critical RG</span>
+az lock create \
+  <span class="param">--name</span> <span class="str">"DoNotDelete-Production"</span> \
+  <span class="param">--resource-group</span> <span class="str">"RG-Production-GR"</span> \
+  <span class="param">--lock-type</span> <span class="str">"CanNotDelete"</span> \
+  <span class="param">--notes</span> <span class="str">"Production resources - do not delete"</span>
+
+<span class="cmt"># List locks</span>
+az lock list <span class="param">--resource-group</span> <span class="str">"RG-Production-GR"</span>
+
+<span class="cmt"># Delete lock (πρέπει να το αφαιρέσεις πριν delete resource)</span>
+az lock delete \
+  <span class="param">--name</span> <span class="str">"DoNotDelete-Production"</span> \
+  <span class="param">--resource-group</span> <span class="str">"RG-Production-GR"</span>
+
+<span class="cmt"># PowerShell</span>
+<span class="cmd">New-AzResourceLock</span> <span class="param">-LockName</span> <span class="str">"NoDeletion"</span> <span class="param">-LockLevel</span> CanNotDelete <span class="param">-ResourceGroupName</span> <span class="str">"RG-Production-GR"</span></code></pre>
+  </section>
+  <hr>
+
+  <section class="section" id="s4">
+    <div class="sh"><div class="si">📜</div><div><div class="sn">Lessons 50–52,55 · 7.4</div><h2>Azure Policy</h2></div></div>
+    <p>Το <strong>Azure Policy</strong> επιτρέπει να ορίζεις και εφαρμόζεις organizational standards στα Azure resources. Ελέγχει ποια resources δημιουργούνται και πώς configurated.</p>
+    <h3>Policy Effects</h3>
+    <table class="tbl">
+      <thead><tr><th>Effect</th><th>Τι κάνει</th><th>Use Case</th></tr></thead>
+      <tbody>
+        <tr><td>Deny</td><td>Μπλοκάρει resource creation/update που παραβιάζει policy</td><td>"Δεν επιτρέπεται resources εκτός West Europe"</td></tr>
+        <tr><td>Audit</td><td>Resource δημιουργείται αλλά μαρκάρεται ως non-compliant στο log</td><td>Visibility χωρίς enforcement</td></tr>
+        <tr><td>AuditIfNotExists</td><td>Audits αν related resource δεν υπάρχει</td><td>"Αν VM δεν έχει antimalware extension, audit it"</td></tr>
+        <tr><td>DeployIfNotExists</td><td>Αυτόματα deploy related resource αν δεν υπάρχει</td><td>Auto-deploy monitoring agent σε νέα VMs</td></tr>
+        <tr><td>Append</td><td>Προσθέτει fields κατά resource creation</td><td>Auto-add required tags</td></tr>
+        <tr><td>Modify</td><td>Τροποποιεί properties κατά create/update</td><td>Auto-add/modify tags</td></tr>
+      </tbody>
+    </table>
+    <h3>Policy Initiatives (Policy Sets)</h3>
+    <p>Ομαδοποίηση πολλών policies σε ένα set — εκχωρείς το initiative σαν ένα αντικείμενο:</p>
+    <pre><code><span class="cmt"># Assign built-in policy — "Allowed locations"</span>
+az policy assignment create \
+  <span class="param">--name</span> <span class="str">"Allowed-Locations-GR"</span> \
+  <span class="param">--policy</span> <span class="str">"e56962a6-4747-49cd-b67b-bf8b01975c4f"</span> \
+  <span class="param">--scope</span> <span class="str">"/subscriptions/SUBSCRIPTION-ID"</span> \
+  <span class="param">--params</span> <span class="str">'{"listOfAllowedLocations":{"value":["westeurope","northeurope"]}}'</span>
+
+<span class="cmt"># Create custom policy definition</span>
+az policy definition create \
+  <span class="param">--name</span> <span class="str">"require-tags-policy"</span> \
+  <span class="param">--rules</span> require-tags.json \
+  <span class="param">--mode</span> <span class="str">Indexed</span>
+
+<span class="cmt"># Check compliance</span>
+az policy state list \
+  <span class="param">--resource-group</span> <span class="str">"RG-Production-GR"</span> \
+  <span class="param">--filter</span> <span class="str">"complianceState eq 'NonCompliant'"</span></code></pre>
+    <h3>Remediation Tasks</h3>
+    <p>Για policies με <code>DeployIfNotExists</code> ή <code>Modify</code> effect, μπορείς να δημιουργήσεις <strong>Remediation Task</strong> για να φέρεις existing non-compliant resources σε compliance.</p>
+    <div class="scen">
+      <div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">EcoVadis Compliance — Azure Policy για Septona</span></div>
+      <div class="sc-body">
+        <p><strong>Κατάσταση:</strong> EcoVadis audit απαιτεί: (1) Όλα τα resources να έχουν tags, (2) VMs να έχουν monitoring agent, (3) Storage accounts να χρησιμοποιούν minimum TLS 1.2.</p>
+        <ol class="steps">
+          <li><strong>Policy 1 — Require Tags:</strong> Effect: Deny — δεν δημιουργείται resource χωρίς tags "Environment", "CostCenter", "Owner"</li>
+          <li><strong>Policy 2 — Azure Monitor Agent:</strong> Effect: DeployIfNotExists — auto-installs monitor agent σε νέα VMs</li>
+          <li><strong>Policy 3 — TLS 1.2:</strong> Effect: Deny — αρνείται storage accounts με minimumTlsVersion &lt; TLS1_2</li>
+          <li>Group σε <strong>Initiative: "Septona-Security-Baseline"</strong></li>
+          <li>Assign initiative σε subscription scope → ισχύει για GR και BG</li>
+          <li>Remediation task για existing non-compliant resources</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+  <hr>
+
+  <section class="section" id="s5">
+    <div class="sh"><div class="si">🏷️</div><div><div class="sn">Lesson 53 · 7.5</div><h2>Tags</h2></div></div>
+    <p>Tags = key-value pairs που attach-άρεις σε Azure resources για organization, cost tracking, automation.</p>
+    <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Tags ΔΕΣΜΕΥΤΙΚΟ FACT:</strong> Tags <strong>ΔΕΝ κληρονομούνται</strong> από Resource Group σε resources. Αν βάλεις tag στο RG, τα resources μέσα ΔΕΝ παίρνουν αυτόματα το tag. Χρησιμοποίησε Azure Policy με Append ή Modify effect για auto-tagging.</div></div>
+    <pre><code><span class="cmt"># Add tags σε resource group</span>
+az group update \
+  <span class="param">--name</span> <span class="str">"RG-Production-GR"</span> \
+  <span class="param">--tags</span> Environment=Production CostCenter=IT-GR Owner=vag@septona.gr
+
+<span class="cmt"># Add tag σε specific resource</span>
+az resource tag \
+  <span class="param">--ids</span> <span class="str">"/subscriptions/.../virtualMachines/SRV-APP-01"</span> \
+  <span class="param">--tags</span> Environment=Production Tier=Application
+
+<span class="cmt"># List resources με specific tag</span>
+az resource list <span class="param">--tag</span> <span class="str">"Environment=Production"</span> <span class="param">-o table</span>
+
+<span class="cmt"># Cost analysis by tag (cost management)</span>
+az consumption usage list \
+  <span class="param">--start-date</span> <span class="str">"2026-01-01"</span> \
+  <span class="param">--end-date</span> <span class="str">"2026-03-31"</span></code></pre>
+  </section>
+  <hr>
+
+  <section class="section" id="s6">
+    <div class="sh"><div class="si">↗️</div><div><div class="sn">Lesson 54 · 7.6</div><h2>Move Resources</h2></div></div>
+    <p>Μπορείς να μεταφέρεις resources μεταξύ RGs, subscriptions (ίδιο tenant), ή regions.</p>
+    <h3>Move Constraints</h3>
+    <ul>
+      <li>Κατά τη μεταφορά, source και destination RG <strong>locked</strong> — δεν μπορείς να αλλάξεις τίποτα</li>
+      <li>Δεν μπορούν όλα τα resources να μετακινηθούν — ελέγχεις με <code>az resource show --move-validation</code></li>
+      <li><strong>VNets:</strong> Μπορούν να μετακινηθούν αλλά μόνο με ΟΛΑ τα resources που τα χρησιμοποιούν</li>
+      <li><strong>Cross-subscription:</strong> Το subscription target πρέπει να εμπιστεύεται τον ίδιο Entra tenant</li>
+      <li><strong>Resource IDs αλλάζουν</strong> μετά τη μεταφορά — update hardcoded references</li>
+    </ul>
+    <pre><code><span class="cmt"># Move VM από RG-Old σε RG-New</span>
+az resource move \
+  <span class="param">--destination-group</span> <span class="str">"RG-New"</span> \
+  <span class="param">--ids</span> <span class="str">"/subscriptions/.../resourceGroups/RG-Old/providers/Microsoft.Compute/virtualMachines/MyVM"</span></code></pre>
+  </section>
+  <hr>
+
+  <section class="section" id="s7">
+    <div class="sh"><div class="si">💰</div><div><div class="sn">Lesson 48 · 7.7</div><h2>Cost Management &amp; Budgets</h2></div></div>
+    <p>Azure Cost Management σου δίνει visibility και control σε Azure spending.</p>
+    <h3>Key Features</h3>
+    <div class="cg">
+      <div class="cc">
+        <h4>Cost Analysis</h4>
+        <ul>
+          <li>Breakdown per service</li>
+          <li>Filter by tag, RG, subscription</li>
+          <li>Trends over time</li>
+          <li>Forecast future costs</li>
+        </ul>
+      </div>
+      <div class="cc">
+        <h4>Budgets</h4>
+        <ul>
+          <li>Set monthly spending limit</li>
+          <li>Alert at % threshold (e.g. 80%)</li>
+          <li>Email notifications</li>
+          <li>Trigger action groups</li>
+        </ul>
+      </div>
+      <div class="cc">
+        <h4>Azure Advisor</h4>
+        <ul>
+          <li>Cost optimization tips</li>
+          <li>"Resize/shutdown idle VMs"</li>
+          <li>Reserved instances recommendations</li>
+          <li>Security, reliability tips</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Cost Optimization Strategies</h3>
+    <table class="tbl">
+      <thead><tr><th>Strategy</th><th>Savings</th><th>Use When</th></tr></thead>
+      <tbody>
+        <tr><td>Reserved Instances (1 or 3 year)</td><td>Up to 72%</td><td>Predictable, steady-state workloads</td></tr>
+        <tr><td>Azure Hybrid Benefit</td><td>Up to 40%</td><td>Existing Windows Server / SQL licenses</td></tr>
+        <tr><td>Spot VMs</td><td>Up to 90%</td><td>Batch jobs, dev/test, fault-tolerant workloads</td></tr>
+        <tr><td>Dev/Test pricing</td><td>Significant on Windows</td><td>Non-production environments</td></tr>
+        <tr><td>Auto-shutdown VMs</td><td>Eliminates idle cost</td><td>Dev VMs that don't run 24/7</td></tr>
+      </tbody>
+    </table>
+    <pre><code><span class="cmt"># Create budget με alert στο 80%</span>
+az consumption budget create \
+  <span class="param">--budget-name</span> <span class="str">"Monthly-IT-Budget"</span> \
+  <span class="param">--amount</span> <span class="val">1000</span> \
+  <span class="param">--time-grain</span> <span class="str">"Monthly"</span> \
+  <span class="param">--start-date</span> <span class="str">"2026-04-01"</span> \
+  <span class="param">--end-date</span> <span class="str">"2027-03-31"</span> \
+  <span class="param">--notifications</span> <span class="str">'[{"enabled":true,"operator":"GreaterThan","threshold":80,"contactEmails":["vag@septona.gr"]}]'</span></code></pre>
+  </section>
+  <hr>
+
+  <section class="section" id="s8">
+    <div class="sh"><div class="si">🧠</div><div><div class="sn">Chapter 04</div><h2>Quiz — Governance</h2></div></div>
+    <div class="quiz">
+      <div class="qh">◈ Q01</div>
+      <div class="qq">Βάλεις ReadOnly lock σε ένα storage account. Τι δεν μπορεί να γίνει;</div>
+      <ul class="qo" id="q1">
+        <li onclick="ans('q1',0)">A) Διαβάσεις blobs μέσω SAS token</li>
+        <li onclick="ans('q1',1)">B) Κάνεις listKeys() για τα access keys</li>
+        <li onclick="ans('q1',2)">C) Δεις τα properties του storage account</li>
+        <li onclick="ans('q1',3)">D) Download αρχεία με Azure Storage Explorer</li>
+      </ul>
+      <div class="qa" id="q1-a">✅ <strong>B — listKeys().</strong> ReadOnly lock μπλοκάρει POST operations. listKeys() είναι POST. Το storage account είναι readable, αλλά δεν μπορείς να πάρεις τα access keys. Αυτό effectively blocks management-plane access μέσω keys.</div>
+      <button class="qbtn" onclick="toggle('q1-a')">Show Answer</button>
+    </div>
+    <div class="quiz">
+      <div class="qh">◈ Q02</div>
+      <div class="qq">Resource Group έχει tag "Environment=Production". Ένα VM δημιουργείται μέσα στο RG. Ποιο tag έχει το VM;</div>
+      <ul class="qo" id="q2">
+        <li onclick="ans('q2',0)">A) Environment=Production (κληρονομεί από RG)</li>
+        <li onclick="ans('q2',1)">B) Κανένα tag (tags δεν κληρονομούνται)</li>
+        <li onclick="ans('q2',2)">C) Εξαρτάται από το VM type</li>
+        <li onclick="ans('q2',3)">D) Environment=Production αν δεν έχεις ορίσει άλλο</li>
+      </ul>
+      <div class="qa" id="q2-a">✅ <strong>B — Κανένα tag.</strong> Tags ΔΕΝ κληρονομούνται στο Azure. RG tag δεν μεταφέρεται σε resources. Για auto-tagging χρησιμοποιείς Azure Policy με Append/Modify effect.</div>
+      <button class="qbtn" onclick="toggle('q2-a')">Show Answer</button>
+    </div>
+    <div class="quiz">
+      <div class="qh">◈ Q03</div>
+      <div class="qq">Θέλεις να απαγορεύσεις δημιουργία Azure resources εκτός της region "West Europe" σε ΟΛΑ τα subscriptions. Ποιο scope χρησιμοποιείς;</div>
+      <ul class="qo" id="q3">
+        <li onclick="ans('q3',0)">A) Assign policy σε κάθε subscription ξεχωριστά</li>
+        <li onclick="ans('q3',1)">B) Assign policy σε Management Group που περιέχει όλα τα subscriptions</li>
+        <li onclick="ans('q3',2)">C) Assign policy σε Resource Group</li>
+        <li onclick="ans('q3',3)">D) Χρησιμοποίησε Resource Lock</li>
+      </ul>
+      <div class="qa" id="q3-a">✅ <strong>B — Management Group scope.</strong> Policy σε MG ισχύει για ΟΛΑ τα subscriptions κάτω από αυτό μέσω inheritance. Ξεχωριστό assignment σε κάθε subscription = error-prone και δεν covers future subscriptions.</div>
+      <button class="qbtn" onclick="toggle('q3-a')">Show Answer</button>
+    </div>
+    <div class="quiz">
+      <div class="qh">◈ Q04</div>
+      <div class="qq">Ποιο policy effect αυτόματα deploy-άρει related resource (π.χ. diagnostic settings) αν δεν υπάρχει;</div>
+      <ul class="qo" id="q4">
+        <li onclick="ans('q4',0)">A) Deny</li>
+        <li onclick="ans('q4',1)">B) Audit</li>
+        <li onclick="ans('q4',2)">C) DeployIfNotExists</li>
+        <li onclick="ans('q4',3)">D) Append</li>
+      </ul>
+      <div class="qa" id="q4-a">✅ <strong>C — DeployIfNotExists.</strong> Auto-deploys related resource αν condition δεν ικανοποιείται. Χρειάζεται managed identity για το policy assignment για να κάνει deployments. Audit = μόνο logs. Deny = μπλοκάρει. Append = προσθέτει properties.</div>
+      <button class="qbtn" onclick="toggle('q4-a')">Show Answer</button>
+    </div>
+    <h3>Key Facts — Chapter 04</h3>
+    <div class="box">
+      <div class="box-t">📌 Flashcard Summary</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600;width:38%">Tags inheritance</td><td style="padding:6px 10px;color:var(--text2)">Tags do NOT inherit RG→Resource. Use Policy to enforce.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">ReadOnly lock</td><td style="padding:6px 10px;color:var(--text2)">Blocks POST operations. Cannot listKeys, restart VM.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">MG depth</td><td style="padding:6px 10px;color:var(--text2)">Max 6 levels deep. Policy/RBAC inherits to all subscriptions below.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Policy effects</td><td style="padding:6px 10px;color:var(--text2)">Deny &gt; AuditIfNotExists &gt; DeployIfNotExists &gt; Append &gt; Audit</td></tr>
+        <tr><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Locks vs Policy</td><td style="padding:6px 10px;color:var(--text2)">Locks = protect from delete/modify. Policy = governance rules on what CAN be created.</td></tr>
+      </table>
+    </div>
+  </section>
+  <div class="nav">
+    <a href="az104-c03-rbac.html" class="nb"><span class="nl">← Previous</span><span class="nt">Ch03. RBAC</span></a>
+    <a href="az104-c05-storage.html" class="nb next"><span class="nl">Next →</span><span class="nt">Ch05. Storage</span></a>
+  </div>
+</main>
+</div>
+<script>
+const correct={q1:1,q2:1,q3:1,q4:2};
+function ans(id,chosen){document.querySelectorAll('#'+id+' li').forEach((el,i)=>{el.classList.remove('ok','no');if(i===correct[id])el.classList.add('ok');else if(i===chosen&&chosen!==correct[id])el.classList.add('no');});document.getElementById(id+'-a').classList.add('show');}
+function toggle(id){document.getElementById(id).classList.toggle('show')}
+const secs=document.querySelectorAll('section[id]');const links=document.querySelectorAll('a.ta');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));});
+</script>
+</body>
+</html>

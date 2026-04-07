@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WinGet Tutorial - Windows Package Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2193b0, #6dd5ed);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        h2 {
+            color: #2193b0;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #6dd5ed;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #667eea;
+            margin: 20px 0 10px 0;
+            font-size: 1.4em;
+        }
+        
+        .info-box {
+            background: #e8f4f8;
+            border-left: 4px solid #2193b0;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .info-box strong {
+            color: #2193b0;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95em;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .code-block code {
+            display: block;
+            white-space: pre;
+        }
+        
+        .command {
+            color: #9cdcfe;
+        }
+        
+        .parameter {
+            color: #ce9178;
+        }
+        
+        .comment {
+            color: #6a9955;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: #2193b0;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .example-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .tip {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .tip::before {
+            content: "💡 ";
+            font-size: 1.2em;
+        }
+        
+        ul, ol {
+            margin-left: 30px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 WinGet Tutorial</h1>
+            <p>Windows Package Manager - Ο Σύγχρονος Τρόπος Διαχείρισης Εφαρμογών</p>
+        </header>
+
+        <div class="content">
+            <h2>📖 Τι είναι το WinGet;</h2>
+            <div class="info-box">
+                <strong>WinGet (Windows Package Manager)</strong>
+                Είναι το επίσημο command-line εργαλείο της Microsoft για την εγκατάσταση, αναβάθμιση και διαχείριση εφαρμογών στα Windows 10/11. Είναι παρόμοιο με το apt (Linux), brew (macOS), ή chocolatey (Windows).
+            </div>
+
+            <h3>✨ Πλεονεκτήματα</h3>
+            <ul>
+                <li>Γρήγορη εγκατάσταση εφαρμογών χωρίς GUI</li>
+                <li>Αυτοματοποίηση εγκαταστάσεων</li>
+                <li>Κεντρική διαχείριση όλων των εφαρμογών</li>
+                <li>Επίσημο repository της Microsoft</li>
+                <li>Δωρεάν και built-in στα Windows 11</li>
+            </ul>
+
+            <h2>🔧 Εγκατάσταση WinGet</h2>
+            <div class="info-box">
+                <strong>Windows 11:</strong> Το WinGet είναι προεγκατεστημένο!<br>
+                <strong>Windows 10:</strong> Εγκατάστησε το App Installer από το Microsoft Store
+            </div>
+
+            <h3>Έλεγχος Εγκατάστασης</h3>
+            <div class="code-block">
+<code><span class="command">winget --version</span>
+<span class="comment"># Αναμενόμενο output: v1.7.xxxxx ή νεότερο</span></code>
+            </div>
+
+            <h2>🎯 Βασικές Εντολές</h2>
+
+            <h3>1. Αναζήτηση Εφαρμογών (Search)</h3>
+            <div class="code-block">
+<code><span class="comment"># Αναζήτηση με όνομα</span>
+<span class="command">winget search</span> <span class="parameter">powershell</span>
+
+<span class="comment"># Αναζήτηση με wildcard</span>
+<span class="command">winget search</span> <span class="parameter">"visual studio"</span>
+
+<span class="comment"># Πιο λεπτομερής αναζήτηση</span>
+<span class="command">winget search</span> <span class="parameter">chrome</span> <span class="command">--source</span> <span class="parameter">winget</span></code>
+            </div>
+
+            <div class="example-section">
+                <h4>Παράδειγμα Output:</h4>
+                <div class="code-block">
+<code>Name               Id                           Version   Source
+----------------------------------------------------------------
+PowerShell         Microsoft.PowerShell         7.4.1     winget
+Windows PowerShell Microsoft.PowerShell.Preview 7.5.0     winget</code>
+                </div>
+            </div>
+
+            <h3>2. Εγκατάσταση Εφαρμογών (Install)</h3>
+            <div class="code-block">
+<code><span class="comment"># Βασική εγκατάσταση</span>
+<span class="command">winget install</span> <span class="parameter">Microsoft.PowerShell</span>
+
+<span class="comment"># Εγκατάσταση με συγκεκριμένη έκδοση</span>
+<span class="command">winget install</span> <span class="parameter">Microsoft.PowerShell</span> <span class="command">--version</span> <span class="parameter">7.4.1</span>
+
+<span class="comment"># Σιωπηλή εγκατάσταση (χωρίς UI)</span>
+<span class="command">winget install</span> <span class="parameter">Microsoft.PowerShell</span> <span class="command">--silent</span>
+
+<span class="comment"># Αποδοχή όλων των licenses αυτόματα</span>
+<span class="command">winget install</span> <span class="parameter">Microsoft.PowerShell</span> <span class="command">--accept-package-agreements --accept-source-agreements</span></code>
+            </div>
+
+            <div class="tip">
+                <strong>Tip:</strong> Χρησιμοποίησε το <code>--id</code> flag για ακρίβεια όταν υπάρχουν πολλά αποτελέσματα
+            </div>
+
+            <h3>3. Λίστα Εγκατεστημένων (List)</h3>
+            <div class="code-block">
+<code><span class="comment"># Όλες οι εγκατεστημένες εφαρμογές</span>
+<span class="command">winget list</span>
+
+<span class="comment"># Φιλτράρισμα με όνομα</span>
+<span class="command">winget list</span> <span class="parameter">powershell</span>
+
+<span class="comment"># Έλεγχος για updates</span>
+<span class="command">winget list --upgrade-available</span></code>
+            </div>
+
+            <h3>4. Ενημέρωση Εφαρμογών (Update/Upgrade)</h3>
+            <div class="code-block">
+<code><span class="comment"># Ενημέρωση μιας εφαρμογής</span>
+<span class="command">winget upgrade</span> <span class="parameter">Microsoft.PowerShell</span>
+
+<span class="comment"># Ενημέρωση ΟΛΩΝ των εφαρμογών</span>
+<span class="command">winget upgrade --all</span>
+
+<span class="comment"># Ενημέρωση χωρίς αλληλεπίδραση</span>
+<span class="command">winget upgrade --all</span> <span class="command">--silent --accept-package-agreements</span></code>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Προσοχή:</strong> Το <code>winget upgrade --all</code> μπορεί να πάρει αρκετή ώρα αν έχεις πολλές εφαρμογές. Εκτέλεσέ το όταν έχεις χρόνο!
+            </div>
+
+            <h3>5. Απεγκατάσταση (Uninstall)</h3>
+            <div class="code-block">
+<code><span class="comment"># Απεγκατάσταση με ID</span>
+<span class="command">winget uninstall</span> <span class="parameter">Microsoft.PowerShell</span>
+
+<span class="comment"># Σιωπηλή απεγκατάσταση</span>
+<span class="command">winget uninstall</span> <span class="parameter">Microsoft.PowerShell</span> <span class="command">--silent</span></code>
+            </div>
+
+            <h3>6. Πληροφορίες Πακέτου (Show)</h3>
+            <div class="code-block">
+<code><span class="comment"># Λεπτομερείς πληροφορίες</span>
+<span class="command">winget show</span> <span class="parameter">Microsoft.PowerShell</span></code>
+            </div>
+
+            <h2>🎨 Χρήσιμες Παράμετροι</h2>
+            <table>
+                <tr>
+                    <th>Παράμετρος</th>
+                    <th>Περιγραφή</th>
+                </tr>
+                <tr>
+                    <td><code>--silent</code></td>
+                    <td>Σιωπηλή εγκατάσταση χωρίς GUI</td>
+                </tr>
+                <tr>
+                    <td><code>--interactive</code></td>
+                    <td>Εμφάνιση του installer GUI</td>
+                </tr>
+                <tr>
+                    <td><code>--accept-package-agreements</code></td>
+                    <td>Αυτόματη αποδοχή package licenses</td>
+                </tr>
+                <tr>
+                    <td><code>--accept-source-agreements</code></td>
+                    <td>Αυτόματη αποδοχή source agreements</td>
+                </tr>
+                <tr>
+                    <td><code>--version</code></td>
+                    <td>Συγκεκριμένη έκδοση προς εγκατάσταση</td>
+                </tr>
+                <tr>
+                    <td><code>--location</code></td>
+                    <td>Προσαρμοσμένη τοποθεσία εγκατάστασης</td>
+                </tr>
+                <tr>
+                    <td><code>--scope</code></td>
+                    <td>user ή machine (για όλους τους users)</td>
+                </tr>
+                <tr>
+                    <td><code>--source</code></td>
+                    <td>Επιλογή source (winget, msstore, κτλ)</td>
+                </tr>
+            </table>
+
+            <h2>💼 Πρακτικά Παραδείγματα</h2>
+
+            <div class="example-section">
+                <h3>Σενάριο 1: Setup Νέου Υπολογιστή</h3>
+                <div class="code-block">
+<code><span class="comment"># Εγκατάσταση essential tools</span>
+<span class="command">winget install</span> <span class="parameter">Microsoft.PowerShell</span> <span class="command">--silent</span>
+<span class="command">winget install</span> <span class="parameter">Google.Chrome</span> <span class="command">--silent</span>
+<span class="command">winget install</span> <span class="parameter">Microsoft.VisualStudioCode</span> <span class="command">--silent</span>
+<span class="command">winget install</span> <span class="parameter">7zip.7zip</span> <span class="command">--silent</span>
+<span class="command">winget install</span> <span class="parameter">Git.Git</span> <span class="command">--silent</span>
+<span class="command">winget install</span> <span class="parameter">Docker.DockerDesktop</span> <span class="command">--silent</span></code>
+                </div>
+            </div>
+
+            <div class="example-section">
+                <h3>Σενάριο 2: Developer Setup</h3>
+                <div class="code-block">
+<code><span class="comment"># Development environment</span>
+<span class="command">winget install</span> <span class="parameter">Microsoft.WindowsTerminal</span>
+<span class="command">winget install</span> <span class="parameter">Microsoft.PowerShell</span>
+<span class="command">winget install</span> <span class="parameter">Microsoft.VisualStudioCode</span>
+<span class="command">winget install</span> <span class="parameter">Git.Git</span>
+<span class="command">winget install</span> <span class="parameter">OpenJS.NodeJS</span>
+<span class="command">winget install</span> <span class="parameter">Python.Python.3.12</span>
+<span class="command">winget install</span> <span class="parameter">Postman.Postman</span></code>
+                </div>
+            </div>
+
+            <div class="example-section">
+                <h3>Σενάριο 3: Εβδομαδιαία Συντήρηση</h3>
+                <div class="code-block">
+<code><span class="comment"># Έλεγχος για updates</span>
+<span class="command">winget list --upgrade-available</span>
+
+<span class="comment"># Update όλων των εφαρμογών</span>
+<span class="command">winget upgrade --all --silent --accept-package-agreements</span></code>
+                </div>
+            </div>
+
+            <h2>🔍 Advanced Tips</h2>
+
+            <h3>Export/Import Εγκατεστημένων Εφαρμογών</h3>
+            <div class="code-block">
+<code><span class="comment"># Export λίστας εγκατεστημένων</span>
+<span class="command">winget export</span> <span class="parameter">-o C:\backup\apps.json</span>
+
+<span class="comment"># Import σε νέο μηχάνημα</span>
+<span class="command">winget import</span> <span class="parameter">-i C:\backup\apps.json</span> <span class="command">--accept-package-agreements</span></code>
+            </div>
+
+            <div class="tip">
+                <strong>Pro Tip:</strong> Χρησιμοποίησε το export/import για γρήγορο setup νέων μηχανημάτων!
+            </div>
+
+            <h3>Δημιουργία Batch Script για Automation</h3>
+            <div class="code-block">
+<code><span class="comment"># Δημιούργησε ένα install-apps.bat αρχείο</span>
+@echo off
+echo Installing applications...
+
+winget install Microsoft.PowerShell --silent --accept-package-agreements
+winget install Google.Chrome --silent --accept-package-agreements
+winget install Microsoft.VisualStudioCode --silent --accept-package-agreements
+
+echo Installation complete!
+pause</code>
+            </div>
+
+            <h3>Χρήση με PowerShell Scripting</h3>
+            <div class="code-block">
+<code><span class="comment"># PowerShell script για mass installation</span>
+$apps = @(
+    "Microsoft.PowerShell",
+    "Google.Chrome",
+    "Microsoft.VisualStudioCode",
+    "Git.Git"
+)
+
+foreach ($app in $apps) {
+    Write-Host "Installing $app..." -ForegroundColor Green
+    winget install $app --silent --accept-package-agreements
+}</code>
+            </div>
+
+            <h2>❓ Συχνές Ερωτήσεις</h2>
+
+            <h3>Q: Πώς βρίσκω το σωστό Package ID;</h3>
+            <div class="info-box">
+                Χρησιμοποίησε το <code>winget search [όνομα]</code> και δες την στήλη "Id". Για ακρίβεια, χρησιμοποιείς το ID αντί για το όνομα.
+            </div>
+
+            <h3>Q: Το WinGet δεν αναγνωρίζει εγκατεστημένες εφαρμογές;</h3>
+            <div class="info-box">
+                Εφαρμογές που εγκαταστάθηκαν πριν το WinGet μπορεί να μην εμφανίζονται. Το WinGet διαχειρίζεται κυρίως εφαρμογές που εγκατέστησε το ίδιο.
+            </div>
+
+            <h3>Q: Μπορώ να χρησιμοποιήσω το WinGet σε scripts;</h3>
+            <div class="info-box">
+                Ναι! Είναι ιδανικό για automation. Χρησιμοποίησε τα <code>--silent</code> και <code>--accept-*-agreements</code> flags.
+            </div>
+
+            <h2>🚨 Troubleshooting</h2>
+
+            <h3>Πρόβλημα: "winget" δεν αναγνωρίζεται</h3>
+            <div class="warning-box">
+                <strong>Λύση:</strong>
+                <ol>
+                    <li>Εγκατάστησε το "App Installer" από το Microsoft Store</li>
+                    <li>Κάνε restart το PowerShell/Terminal</li>
+                    <li>Ενημέρωσε τα Windows στην τελευταία έκδοση</li>
+                </ol>
+            </div>
+
+            <h3>Πρόβλημα: "Agreement required"</h3>
+            <div class="code-block">
+<code><span class="comment"># Πρόσθεσε αυτά τα flags</span>
+<span class="command">--accept-package-agreements --accept-source-agreements</span></code>
+            </div>
+
+            <h2>📚 Χρήσιμα Links</h2>
+            <ul>
+                <li><strong>Official Docs:</strong> https://learn.microsoft.com/windows/package-manager/</li>
+                <li><strong>Package Repository:</strong> https://winget.run/</li>
+                <li><strong>GitHub:</strong> https://github.com/microsoft/winget-cli</li>
+                <li><strong>Community Packages:</strong> https://winstall.app/</li>
+            </ul>
+
+            <h2>🎓 Best Practices</h2>
+            <ul>
+                <li>✅ Κάνε τακτικά <code>winget upgrade --all</code> για updates</li>
+                <li>✅ Χρησιμοποίησε Package IDs αντί για ονόματα για ακρίβεια</li>
+                <li>✅ Export την λίστα των apps σου για backup</li>
+                <li>✅ Χρησιμοποίησε <code>--silent</code> σε scripts</li>
+                <li>✅ Έλεγξε το <code>winget show [package]</code> πριν την εγκατάσταση</li>
+                <li>❌ Μην τρέχεις <code>winget upgrade --all</code> πριν σημαντικές παρουσιάσεις</li>
+                <li>❌ Μην εγκαθιστάς πακέτα χωρίς να ελέγξεις το source</li>
+            </ul>
+
+            <div class="tip">
+                <strong>Final Tip:</strong> Συνδύασε το WinGet με PowerShell scripts για πλήρη automation του setup process!
+            </div>
+        </div>
+
+        <footer>
+            <p>Created with ❤️ for Vag | WinGet Tutorial 2025</p>
+            <p>Happy Package Managing! 🚀</p>
+        </footer>
+    </div>
+</body>
+</html>

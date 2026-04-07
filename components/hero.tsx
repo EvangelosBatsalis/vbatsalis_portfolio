@@ -55,12 +55,18 @@ export function Hero() {
         </div>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-4">
           <a
             href="#projects"
             className="px-8 py-4 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-400 transition-colors flex items-center gap-2"
           >
             View Projects <ArrowRight className="w-4 h-4" />
+          </a>
+          <a
+            href="#cheats-and-tuts"
+            className="px-8 py-4 bg-[#0a0a0a] text-yellow-500 font-semibold rounded-lg hover:bg-yellow-500/10 transition-colors border border-yellow-500/30 flex items-center gap-2 shadow-[0_0_15px_rgba(234,179,8,0.1)] hover:shadow-[0_0_20px_rgba(234,179,8,0.2)]"
+          >
+            Cheats & Tuts 💛
           </a>
           <a
             href="#contact"

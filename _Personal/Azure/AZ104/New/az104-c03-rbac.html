@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AZ-104 Ch.03 — RBAC | Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07090f;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--border2:#1e2d4a;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--acc:#f59e0b;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--display:'Syne',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+.hdr{background:linear-gradient(160deg,#040609,#07090f,#110d04);border-bottom:1px solid var(--border);padding:50px 0 42px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(245,158,11,.06),transparent 65%)}
+.hdr-inner{max-width:1100px;margin:0 auto;padding:0 32px}
+.bc{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:14px}
+.bc a{color:var(--text3);text-decoration:none}
+.cbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.28);border-radius:4px;padding:5px 14px;font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.cbadge::before{content:'◈';font-size:12px}
+.hdr h1{font-family:var(--display);font-size:clamp(26px,5vw,48px);font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px}
+.hdr h1 span{color:var(--acc)}
+.hdr-sub{color:var(--text2);font-size:15px;font-weight:300;margin-bottom:20px}
+.hdr-meta{display:flex;gap:18px;flex-wrap:wrap}
+.mp{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text3)}
+.mpd{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green)}
+.mpd.y{background:var(--acc);box-shadow:0 0 5px var(--acc)}
+.layout{max-width:1100px;margin:0 auto;padding:40px 32px;display:grid;grid-template-columns:268px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.toc-hdr{background:var(--bg3);padding:12px 18px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.toc-hdr::before{content:'⬡';font-size:13px}
+.toc-body{padding:8px 0}
+.toc-sec{padding:5px 18px 2px;font-size:9px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:6px}
+.ta{display:flex;align-items:flex-start;gap:8px;padding:6px 18px;font-size:12.5px;color:var(--text2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}
+.ta:hover{color:var(--text);background:var(--card2);border-left-color:var(--acc)}
+.ta.active{color:var(--acc);background:rgba(245,158,11,.07);border-left-color:var(--acc);font-weight:600}
+.ta .tn{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:3px;flex-shrink:0;width:20px}
+.content{min-width:0}
+.ch-intro{background:linear-gradient(135deg,var(--card),var(--bg3));border:1px solid var(--border2);border-radius:10px;padding:28px;margin-bottom:32px}
+.ch-n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--acc);text-transform:uppercase;margin-bottom:6px}
+.ch-t{font-family:var(--display);font-size:24px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.ch-desc{color:var(--text2);font-size:14px;line-height:1.7;margin-bottom:16px}
+.ch-stats{display:flex;gap:14px;flex-wrap:wrap}
+.stc{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:7px 13px;font-family:var(--mono);font-size:11px}
+.stc .l{color:var(--text3);display:block;margin-bottom:1px}
+.stc .v{color:var(--text);font-weight:600}
+.section{margin-bottom:50px;scroll-margin-top:24px}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.si{width:36px;height:36px;background:rgba(245,158,11,.09);border:1px solid rgba(245,158,11,.22);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.sn{font-family:var(--mono);font-size:10px;color:var(--text3)}
+.section h2{font-family:var(--display);font-size:20px;font-weight:700;color:#fff}
+.section h3{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);margin:24px 0 10px}
+.section h3::before{content:'▸ ';color:var(--acc)}
+.section p{color:var(--text2);margin-bottom:12px;font-size:14px}
+.section ul,.section ol{color:var(--text2);padding-left:22px;margin-bottom:12px}
+.section li{margin-bottom:6px;font-size:14px}
+.section li strong,.section p strong{color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;margin-bottom:18px;font-size:13px}
+.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:9px 13px;border-bottom:1px solid var(--border)}
+.tbl td{padding:9px 13px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:12px}
+.tbl tr:hover td{background:var(--card2)}
+pre{background:#050710;border:1px solid var(--border);border-left:3px solid var(--acc);border-radius:6px;padding:16px 20px;overflow-x:auto;margin-bottom:14px;font-family:var(--mono);font-size:12.5px;line-height:1.7}
+code{font-family:var(--mono);font-size:12px;color:#fbbf24;background:rgba(251,191,36,.07);padding:2px 5px;border-radius:3px}
+pre code{background:none;padding:0;color:inherit}
+.kw{color:#c084fc}.cmd{color:#7dd3fc}.param{color:#86efac}.val{color:#fbbf24}.cmt{color:#3d5068;font-style:italic}.str{color:#f472b6}
+.alert{display:flex;gap:12px;padding:13px 17px;border-radius:6px;margin-bottom:14px;font-size:13.5px}
+.ai{font-size:16px;flex-shrink:0;margin-top:1px}
+.ab{color:var(--text2);line-height:1.6}.ab strong{color:var(--text)}
+.tip{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18)}.tip .ai{color:#22c55e}
+.warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18)}.warn .ai{color:var(--yellow)}
+.exam{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.22)}.exam .ai{color:var(--purple)}
+.info{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.22)}.info .ai{color:var(--acc)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 22px;margin-bottom:18px}
+.box.hl{border-color:rgba(245,158,11,.28)}
+.box-t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.scen{background:var(--card);border:1px solid var(--border2);border-radius:8px;overflow:hidden;margin-bottom:22px}
+.sc-hdr{background:linear-gradient(90deg,rgba(245,158,11,.12),rgba(245,158,11,.02));padding:11px 17px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.sc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.28);border-radius:3px;padding:2px 8px}
+.sc-title{font-size:13px;font-weight:600;color:var(--text)}
+.sc-body{padding:16px 20px}
+.sc-body p{color:var(--text2);font-size:13.5px;margin-bottom:10px}
+.sc-body p:last-child{margin-bottom:0}
+.sc-body strong{color:var(--text)}
+.steps{list-style:none;padding:0;counter-reset:st}
+.steps li{counter-increment:st;display:flex;gap:12px;margin-bottom:9px;align-items:flex-start;color:var(--text2);font-size:13.5px}
+.steps li::before{content:counter(st);min-width:22px;height:22px;background:rgba(245,158,11,.09);border:1px solid rgba(245,158,11,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--acc);flex-shrink:0;margin-top:2px}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:13px;margin-bottom:18px}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px}
+.cc h4{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.cc ul{list-style:none;padding:0}
+.cc li{font-size:12.5px;color:var(--text2);padding:3px 0 3px 14px;position:relative}
+.cc li::before{content:'→';position:absolute;left:0;color:var(--text3);font-size:10px}
+.badge{display:inline-flex;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:3px;font-weight:600;vertical-align:middle}
+.bg{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)}
+.by{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}
+.br{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25)}
+.bp{background:rgba(139,92,246,.1);color:var(--purple);border:1px solid rgba(139,92,246,.25)}
+hr{border:none;border-top:1px solid var(--border);margin:34px 0}
+.quiz{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:8px;padding:18px 22px;margin-bottom:18px}
+.qh{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:10px}
+.qq{font-size:14px;color:var(--text);font-weight:600;margin-bottom:10px}
+.qo{list-style:none;padding:0}
+.qo li{font-size:13px;color:var(--text2);padding:7px 10px;margin-bottom:4px;cursor:pointer;border-radius:4px;transition:background .15s;border-left:2px solid transparent}
+.qo li:hover{background:rgba(139,92,246,.07)}
+.qo li.ok{background:rgba(34,197,94,.07);color:#22c55e;border-left-color:#22c55e}
+.qo li.no{background:rgba(239,68,68,.07);color:#ef4444;border-left-color:#ef4444}
+.qa{display:none;margin-top:10px;padding:12px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:6px;font-size:13px;color:var(--text2)}
+.qa.show{display:block}
+.qbtn{margin-top:10px;padding:7px 16px;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.3);border-radius:5px;color:var(--purple);font-family:var(--mono);font-size:11px;cursor:pointer;transition:all .15s}
+.qbtn:hover{background:rgba(139,92,246,.22)}
+.nav{display:flex;justify-content:space-between;margin-top:48px;padding-top:22px;border-top:1px solid var(--border);gap:16px}
+.nb{display:flex;flex-direction:column;gap:4px;padding:13px 19px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-decoration:none;flex:1;transition:all .2s}
+.nb:hover{border-color:var(--acc);background:var(--card2)}
+.nl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}
+.nt{font-size:13px;color:var(--text);font-weight:600}
+.nb.next{text-align:right}
+.rbac-visual{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:18px}
+.rv{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
+.rv-icon{font-size:28px;margin-bottom:8px}
+.rv-title{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--acc);margin-bottom:4px}
+.rv-desc{font-size:12px;color:var(--text2);line-height:1.5}
+.scope-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-bottom:8px;font-family:var(--mono);font-size:12.5px;color:var(--text2)}
+.scope-box strong{color:var(--text)}
+@media(max-width:768px){.layout{grid-template-columns:1fr;padding:22px 16px}.sidebar{position:static}.rbac-visual{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="bc"><a href="az104-index.html">AZ-104</a><span>/</span><span>Chapter 03</span></div>
+    <div class="cbadge">Chapter 03 · Section 6</div>
+    <h1>Role-Based Access<br><span>Control (RBAC)</span></h1>
+    <p class="hdr-sub">Security Principals · Role Definitions · Scopes · Custom Roles · Managed Identity</p>
+    <div class="hdr-meta">
+      <div class="mp"><span class="mpd"></span>Domain 1 — 20–25%</div>
+      <div class="mp"><span class="mpd y"></span>Section 6 · Lessons 38–45</div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+<aside class="sidebar">
+  <div class="toc">
+    <div class="toc-hdr">Chapter 03 — RBAC</div>
+    <div class="toc-body">
+      <div class="toc-sec">Section 6</div>
+      <a href="#s1" class="ta active"><span class="tn">6.1</span>RBAC Overview</a>
+      <a href="#s2" class="ta"><span class="tn">6.2</span>Security Principals</a>
+      <a href="#s3" class="ta"><span class="tn">6.3</span>Role Definitions</a>
+      <a href="#s4" class="ta"><span class="tn">6.4</span>Scopes</a>
+      <a href="#s5" class="ta"><span class="tn">6.5</span>Built-in Roles</a>
+      <a href="#s6" class="ta"><span class="tn">6.6</span>Custom Roles</a>
+      <a href="#s7" class="ta"><span class="tn">6.7</span>Managed Identity</a>
+      <a href="#s8" class="ta"><span class="tn">6.8</span>Interpret Access</a>
+      <a href="#s9" class="ta"><span class="tn">Q</span>Quiz</a>
+      <div class="toc-sec">Navigation</div>
+      <a href="az104-c02-entra-id.html" class="ta">← Ch02</a>
+      <a href="az104-c04-governance.html" class="ta">Ch04. Governance →</a>
+    </div>
+  </div>
+</aside>
+<main class="content">
+  <div class="ch-intro">
+    <div class="ch-n">Chapter 03 / Section 6</div>
+    <div class="ch-t">Role-Based Access Control</div>
+    <p class="ch-desc">Το RBAC είναι το authorization system του Azure. Ελέγχει WHO μπορεί να κάνει WHAT σε WHICH resources. Βασίζεται στην αρχή Least Privilege — δίνεις μόνο ό,τι χρειάζεται. Κατανοήσε τα τρία βασικά στοιχεία: Security Principal + Role Definition + Scope.</p>
+    <div class="ch-stats">
+      <div class="stc"><span class="l">Domain</span><span class="v">Domain 1 — 20–25%</span></div>
+      <div class="stc"><span class="l">Lessons</span><span class="v">38–45</span></div>
+      <div class="stc"><span class="l">Difficulty</span><span class="v">⭐⭐⭐ Medium</span></div>
+    </div>
+  </div>
+
+  <section class="section" id="s1">
+    <div class="sh"><div class="si">🔒</div><div><div class="sn">Lesson 38 · 6.1</div><h2>RBAC Overview</h2></div></div>
+    <p>Το <strong>Azure RBAC</strong> (Role-Based Access Control) είναι το σύστημα authorization που ελέγχει την πρόσβαση σε Azure resources. Είναι ξεχωριστό από την Entra ID authentication — RBAC = τι κάνεις, Entra ID = ποιος είσαι.</p>
+    <div class="rbac-visual">
+      <div class="rv"><div class="rv-icon">👤</div><div class="rv-title">Security Principal</div><div class="rv-desc">WHO gets access<br>User, Group, Service Principal, Managed Identity</div></div>
+      <div class="rv"><div class="rv-icon">📋</div><div class="rv-title">Role Definition</div><div class="rv-desc">WHAT they can do<br>Set of allowed actions &amp; data actions</div></div>
+      <div class="rv"><div class="rv-icon">🎯</div><div class="rv-title">Scope</div><div class="rv-desc">WHERE they can do it<br>Management Group, Subscription, RG, Resource</div></div>
+    </div>
+    <p>Η <strong>Role Assignment</strong> = Security Principal + Role Definition + Scope. Αυτό είναι ένα record στο Azure RBAC system.</p>
+    <div class="alert exam"><span class="ai">🎯</span><div class="ab">
+      <strong>RBAC Key Rules:</strong><br>
+      • RBAC είναι <strong>additive</strong> — αν έχεις πολλά role assignments, οι permissions αθροίζονται<br>
+      • <strong>Deny assignment</strong> wins over any Allow — Deny is explicit and takes priority<br>
+      • Permissions <strong>κληρονομούνται</strong> από higher scopes (Subscription scope → ισχύει και σε RGs και resources)<br>
+      • RBAC δεν ελέγχει τι κάνεις <em>μέσα</em> σε resource (π.χ. SQL queries) — μόνο τη <em>διαχείριση</em> του resource
+    </div></div>
+  </section>
+  <hr>
+
+  <section class="section" id="s2">
+    <div class="sh"><div class="si">👤</div><div><div class="sn">6.2</div><h2>Security Principals</h2></div></div>
+    <table class="tbl">
+      <thead><tr><th>Type</th><th>Περιγραφή</th><th>Use Case</th></tr></thead>
+      <tbody>
+        <tr><td>User</td><td>Individual Entra ID account (cloud ή synced)</td><td>Person χρειάζεται access</td></tr>
+        <tr><td>Group</td><td>Entra ID group — members κληρονομούν role</td><td>Team χρειάζεται ίδια access</td></tr>
+        <tr><td>Service Principal</td><td>Identity για application ή automated service</td><td>App χρειάζεται Azure API access</td></tr>
+        <tr><td>Managed Identity <span class="badge bg">Recommended</span></td><td>Auto-managed Service Principal για Azure resources</td><td>Azure VM, Function, App Service χρειάζεται Azure API access</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <hr>
+
+  <section class="section" id="s3">
+    <div class="sh"><div class="si">📋</div><div><div class="sn">6.3</div><h2>Role Definitions</h2></div></div>
+    <p>Κάθε role είναι JSON με <strong>Actions</strong> (management operations) και <strong>DataActions</strong> (data plane operations):</p>
+    <pre><code><span class="cmt"># Structure ενός Role Definition</span>
+{
+  <span class="str">"Name"</span>: <span class="str">"Custom Storage Reader"</span>,
+  <span class="str">"Id"</span>: <span class="str">"guid"</span>,
+  <span class="str">"IsCustom"</span>: <span class="kw">true</span>,
+  <span class="str">"Description"</span>: <span class="str">"Can read storage but not write"</span>,
+  <span class="str">"Actions"</span>: [
+    <span class="str">"Microsoft.Storage/storageAccounts/read"</span>,
+    <span class="str">"Microsoft.Storage/storageAccounts/blobServices/read"</span>
+  ],
+  <span class="str">"NotActions"</span>: [],
+  <span class="str">"DataActions"</span>: [
+    <span class="str">"Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read"</span>
+  ],
+  <span class="str">"NotDataActions"</span>: [],
+  <span class="str">"AssignableScopes"</span>: [
+    <span class="str">"/subscriptions/your-subscription-id"</span>
+  ]
+}</code></pre>
+    <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Actions vs DataActions:</strong> Actions = management plane (CRUD resources μέσω ARM). DataActions = data plane (read/write blobs, query SQL tables). Παράδειγμα: "Storage Blob Data Reader" DataAction = μπορείς να διαβάσεις blob content. Χωρίς DataAction, μπορείς να δεις το storage account αλλά όχι τα data.</div></div>
+  </section>
+  <hr>
+
+  <section class="section" id="s4">
+    <div class="sh"><div class="si">🎯</div><div><div class="sn">6.4</div><h2>Scopes &amp; Inheritance</h2></div></div>
+    <div class="scope-box"><strong>Management Group</strong> → κληρονομείται σε όλα τα subscriptions κάτω</div>
+    <div class="scope-box" style="margin-left:20px"><strong>Subscription</strong> → κληρονομείται σε όλα τα RGs</div>
+    <div class="scope-box" style="margin-left:40px"><strong>Resource Group</strong> → κληρονομείται σε όλα τα resources</div>
+    <div class="scope-box" style="margin-left:60px"><strong>Resource</strong> → μόνο αυτό το resource</div>
+    <p style="margin-top:12px">Αν κάποιος έχει <strong>Contributor</strong> σε Subscription scope → έχει Contributor σε ΟΛΑ τα Resource Groups και resources.</p>
+    <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>ReadOnly Lock + listKeys:</strong> Αν βάλεις ReadOnly lock σε storage account, ακόμα και Owners δεν μπορούν να κάνουν <code>listKeys</code> (είναι POST operation). Αυτό μπλοκάρει access σε storage data μέσω keys. Πολύ συχνή exam trap.</div></div>
+  </section>
+  <hr>
+
+  <section class="section" id="s5">
+    <div class="sh"><div class="si">⭐</div><div><div class="sn">Lessons 39–42 · 6.5</div><h2>Built-in Roles</h2></div></div>
+    <table class="tbl">
+      <thead><tr><th>Role</th><th>Permissions</th><th>Use Case</th></tr></thead>
+      <tbody>
+        <tr><td>Owner</td><td>Full access + manage access (assign roles)</td><td>Subscription owners, admin team</td></tr>
+        <tr><td>Contributor</td><td>Full access αλλά ΔΕΝ μπορεί να assign roles</td><td>Developers, DevOps teams</td></tr>
+        <tr><td>Reader</td><td>View only — δεν μπορεί να αλλάξει τίποτα</td><td>Auditors, monitoring</td></tr>
+        <tr><td>User Access Administrator</td><td>Manage user access ΜΟΝΟ (assign roles)</td><td>IT admin χωρίς resource permissions</td></tr>
+        <tr><td>Virtual Machine Contributor</td><td>Manage VMs αλλά ΌΧΙ VNet ή storage</td><td>VM admins</td></tr>
+        <tr><td>Storage Blob Data Contributor</td><td>Read/write/delete blob data</td><td>Apps που γράφουν σε blob storage</td></tr>
+        <tr><td>Key Vault Secrets Officer</td><td>Manage Key Vault secrets</td><td>Secret management</td></tr>
+        <tr><td>Network Contributor</td><td>Manage networking resources</td><td>Network admins</td></tr>
+      </tbody>
+    </table>
+    <div class="alert info"><span class="ai">💡</span><div class="ab"><strong>Entra ID Roles vs RBAC Roles:</strong> Δύο ξεχωριστά role systems! Entra ID roles (Global Admin, User Admin) ελέγχουν Entra ID objects. Azure RBAC roles ελέγχουν Azure resources. Global Admin δεν έχει αυτόματα πρόσβαση σε Azure VMs — χρειάζεται RBAC assignment.</div></div>
+    <pre><code><span class="cmt"># Assign Contributor role σε user για specific RG</span>
+az role assignment create \
+  <span class="param">--assignee</span> <span class="str">"developer@septona.gr"</span> \
+  <span class="param">--role</span> <span class="str">"Contributor"</span> \
+  <span class="param">--resource-group</span> <span class="str">"RG-Dev-GR"</span>
+
+<span class="cmt"># Assign Reader σε group για subscription</span>
+az role assignment create \
+  <span class="param">--assignee</span> <span class="str">"GROUP-OBJECT-ID"</span> \
+  <span class="param">--role</span> <span class="str">"Reader"</span> \
+  <span class="param">--scope</span> <span class="str">"/subscriptions/SUBSCRIPTION-ID"</span>
+
+<span class="cmt"># List role assignments σε RG</span>
+az role assignment list \
+  <span class="param">--resource-group</span> <span class="str">"RG-Dev-GR"</span> \
+  <span class="param">--output table</span>
+
+<span class="cmt"># PowerShell — list assignments</span>
+<span class="cmd">Get-AzRoleAssignment</span> <span class="param">-ResourceGroupName</span> <span class="str">"RG-Dev-GR"</span> | 
+  <span class="cmd">Select-Object</span> DisplayName, RoleDefinitionName, Scope</code></pre>
+  </section>
+  <hr>
+
+  <section class="section" id="s6">
+    <div class="sh"><div class="si">🛠️</div><div><div class="sn">Lesson 43 · 6.6</div><h2>Custom RBAC Roles</h2></div></div>
+    <p>Όταν τα built-in roles δεν καλύπτουν ακριβώς αυτό που θέλεις, δημιουργείς <strong>custom role</strong>. Μέχρι <strong>5000 custom roles</strong> ανά tenant.</p>
+    <div class="scen">
+      <div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">Custom Role — Septona VM Operator</span></div>
+      <div class="sc-body">
+        <p><strong>Κατάσταση:</strong> Το operations team πρέπει να μπορεί να start/stop/restart VMs αλλά ΌΧΙ να τα δημιουργεί ή διαγράφει. Κανένα built-in role δεν ταιριάζει ακριβώς.</p>
+        <pre><code><span class="cmt"># custom-vm-operator.json</span>
+{
+  <span class="str">"Name"</span>: <span class="str">"Septona VM Operator"</span>,
+  <span class="str">"Description"</span>: <span class="str">"Start, stop, restart VMs only"</span>,
+  <span class="str">"Actions"</span>: [
+    <span class="str">"Microsoft.Compute/virtualMachines/start/action"</span>,
+    <span class="str">"Microsoft.Compute/virtualMachines/powerOff/action"</span>,
+    <span class="str">"Microsoft.Compute/virtualMachines/restart/action"</span>,
+    <span class="str">"Microsoft.Compute/virtualMachines/read"</span>,
+    <span class="str">"Microsoft.Compute/virtualMachines/instanceView/read"</span>
+  ],
+  <span class="str">"NotActions"</span>: [],
+  <span class="str">"AssignableScopes"</span>: [<span class="str">"/subscriptions/SUBSCRIPTION-ID"</span>]
+}
+
+<span class="cmt"># Create custom role</span>
+az role definition create <span class="param">--role-definition</span> custom-vm-operator.json
+
+<span class="cmt"># Assign σε operations team group</span>
+az role assignment create \
+  <span class="param">--assignee</span> <span class="str">"GRP-OPERATIONS-OBJECT-ID"</span> \
+  <span class="param">--role</span> <span class="str">"Septona VM Operator"</span> \
+  <span class="param">--scope</span> <span class="str">"/subscriptions/SUBSCRIPTION-ID"</span></code></pre>
+      </div>
+    </div>
+  </section>
+  <hr>
+
+  <section class="section" id="s7">
+    <div class="sh"><div class="si">🤖</div><div><div class="sn">6.7</div><h2>Managed Identity</h2></div></div>
+    <p>Το <strong>Managed Identity</strong> επιτρέπει σε Azure resources (VM, App Service, Function) να authenticate σε άλλες Azure services χωρίς credentials (passwords, keys) στον κώδικα.</p>
+    <div class="cg">
+      <div class="cc">
+        <h4>System-assigned</h4>
+        <ul>
+          <li>Tied στο lifetime του resource</li>
+          <li>Διαγράφεται μαζί με το resource</li>
+          <li>1:1 resource-to-identity</li>
+          <li>Enable μέσω resource settings</li>
+          <li>Απλό configuration</li>
+        </ul>
+      </div>
+      <div class="cc">
+        <h4>User-assigned</h4>
+        <ul>
+          <li>Standalone resource</li>
+          <li>Μπορεί να χρησιμοποιηθεί σε πολλά resources</li>
+          <li>Independent lifecycle</li>
+          <li>Δημιουργείς ξεχωριστά</li>
+          <li>Πιο flexible για multi-resource</li>
+        </ul>
+      </div>
+    </div>
+    <pre><code><span class="cmt"># Enable system-assigned managed identity σε VM</span>
+az vm identity assign \
+  <span class="param">--resource-group</span> <span class="str">"RG-Servers-GR"</span> \
+  <span class="param">--name</span> <span class="str">"SRV-APP-GR-01"</span>
+
+<span class="cmt"># Assign role στο managed identity (π.χ. read storage)</span>
+<span class="val">IDENTITY_ID</span>=$(az vm show \
+  <span class="param">-g</span> RG-Servers-GR <span class="param">-n</span> SRV-APP-GR-01 \
+  <span class="param">--query</span> <span class="str">"identity.principalId"</span> <span class="param">-o tsv</span>)
+
+az role assignment create \
+  <span class="param">--assignee</span> <span class="val">$IDENTITY_ID</span> \
+  <span class="param">--role</span> <span class="str">"Storage Blob Data Reader"</span> \
+  <span class="param">--scope</span> <span class="str">"/subscriptions/.../storageAccounts/septonabackup"</span>
+
+<span class="cmt"># Τώρα το VM μπορεί να access storage χωρίς storage keys!</span>
+<span class="cmt"># Στον κώδικα χρησιμοποιείς DefaultAzureCredential()</span></code></pre>
+  </section>
+  <hr>
+
+  <section class="section" id="s8">
+    <div class="sh"><div class="si">🔍</div><div><div class="sn">Lesson 45 · 6.8</div><h2>Interpret Access Assignments</h2></div></div>
+    <p>Το <strong>Check Access</strong> feature στο portal σου δείχνει τι access έχει ένας user — χρήσιμο για troubleshooting.</p>
+    <ul>
+      <li>Portal: Resource → Access Control (IAM) → Check Access → επιλέγεις user/group</li>
+      <li>Βλέπεις: ποια roles έχει, από ποιο scope, inherited ή direct</li>
+      <li>PowerShell: <code>Get-AzRoleAssignment -SignInName "user@septona.gr"</code></li>
+    </ul>
+    <div class="scen">
+      <div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">Access Troubleshooting — "Why can't I delete this VM?"</span></div>
+      <div class="sc-body">
+        <p><strong>Κατάσταση:</strong> Developer λέει "μπορώ να δω τα VMs αλλά δεν μπορώ να τα διαγράψω". Τι ελέγχεις;</p>
+        <ol class="steps">
+          <li>Portal → RG-Dev-GR → Access Control (IAM) → Check Access → developer@septona.gr</li>
+          <li>Βλέπεις: Reader role σε Subscription (inherited) + Virtual Machine Contributor σε RG</li>
+          <li>VM Contributor = μπορεί να manage VMs αλλά όχι να τα διαγράψει από RG? Ναι, μπορεί delete VM αλλά...<br>Ελέγχεις: υπάρχει <strong>Delete Lock</strong> στο RG;</li>
+          <li>Portal → RG-Dev-GR → Locks → βρίσκεις CanNotDelete lock</li>
+          <li>Λύση: Remove lock (αν επιτρέπεται) ή εξήγησε ότι lock υπάρχει για λόγο</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+  <hr>
+
+  <section class="section" id="s9">
+    <div class="sh"><div class="si">🧠</div><div><div class="sn">Chapter 03</div><h2>Quiz — RBAC</h2></div></div>
+    <div class="quiz">
+      <div class="qh">◈ Q01</div>
+      <div class="qq">User έχει Reader role σε Subscription και Contributor role σε Resource Group RG-Dev. Τι μπορεί να κάνει σε ένα VM μέσα στο RG-Dev;</div>
+      <ul class="qo" id="q1">
+        <li onclick="ans('q1',0)">A) Μόνο read — Reader από subscription wins</li>
+        <li onclick="ans('q1',1)">B) Full Contributor permissions — RBAC είναι additive</li>
+        <li onclick="ans('q1',2)">C) Τίποτα — conflicting roles cancel each other</li>
+        <li onclick="ans('q1',3)">D) Εξαρτάται από το role που assigned πρώτο</li>
+      </ul>
+      <div class="qa" id="q1-a">✅ <strong>B — RBAC είναι additive.</strong> Contributor σε RG scope includes VM actions. Reader από subscription δεν αφαιρεί Contributor permissions. Additive = highest permission wins. Αν θέλεις restriction, χρειάζεσαι Deny assignment.</div>
+      <button class="qbtn" onclick="toggle('q1-a')">Show Answer</button>
+    </div>
+    <div class="quiz">
+      <div class="qh">◈ Q02</div>
+      <div class="qq">Θέλεις application που τρέχει σε Azure VM να κάνει read/write σε Azure Key Vault secrets χωρίς να αποθηκεύσεις credentials στον κώδικα. Ποια λύση;</div>
+      <ul class="qo" id="q2">
+        <li onclick="ans('q2',0)">A) Δημιουργείς service principal, βάζεις secret σε app config</li>
+        <li onclick="ans('q2',1)">B) Χρησιμοποιείς τον admin account</li>
+        <li onclick="ans('q2',2)">C) System-assigned Managed Identity + Key Vault Secrets Officer role</li>
+        <li onclick="ans('q2',3)">D) Storage access keys</li>
+      </ul>
+      <div class="qa" id="q2-a">✅ <strong>C — Managed Identity.</strong> System-assigned managed identity δημιουργεί αυτόματα identity για το VM. Assign Key Vault Secrets Officer role σε αυτό το identity. Ο κώδικας χρησιμοποιεί DefaultAzureCredential() — no credentials stored.</div>
+      <button class="qbtn" onclick="toggle('q2-a')">Show Answer</button>
+    </div>
+    <div class="quiz">
+      <div class="qh">◈ Q03</div>
+      <div class="qq">User έχει Owner role σε Resource Group αλλά δεν μπορεί να κάνει listKeys σε storage account μέσα στο RG. Ποια η αιτία;</div>
+      <ul class="qo" id="q3">
+        <li onclick="ans('q3',0)">A) Χρειάζεται Storage Blob Data Owner role</li>
+        <li onclick="ans('q3',1)">B) Υπάρχει ReadOnly Lock στο storage account ή RG</li>
+        <li onclick="ans('q3',2)">C) Storage keys disabled</li>
+        <li onclick="ans('q3',3)">D) Χρειάζεται Entra ID Global Admin</li>
+      </ul>
+      <div class="qa" id="q3-a">✅ <strong>B — ReadOnly Lock.</strong> ReadOnly lock μπλοκάρει POST operations. listKeys() είναι POST. Ακόμα και Owner δεν μπορεί να πάρει access keys αν υπάρχει ReadOnly lock. Πρέπει πρώτα να αφαιρεθεί το lock (αν έχεις permissions).</div>
+      <button class="qbtn" onclick="toggle('q3-a')">Show Answer</button>
+    </div>
+    <div class="quiz">
+      <div class="qh">◈ Q04</div>
+      <div class="qq">Θέλεις να δώσεις σε developer access να manage μόνο VMs (start/stop/resize) χωρίς access σε networking ή storage. Ποιο role;</div>
+      <ul class="qo" id="q4">
+        <li onclick="ans('q4',0)">A) Contributor</li>
+        <li onclick="ans('q4',1)">B) Owner</li>
+        <li onclick="ans('q4',2)">C) Virtual Machine Contributor</li>
+        <li onclick="ans('q4',3)">D) Reader</li>
+      </ul>
+      <div class="qa" id="q4-a">✅ <strong>C — Virtual Machine Contributor.</strong> Built-in role που δίνει access μόνο σε VM management — δεν περιλαμβάνει networking, storage, ή role assignments. Contributor = full resource management (includes VNet, storage κλπ) — πολύ broad.</div>
+      <button class="qbtn" onclick="toggle('q4-a')">Show Answer</button>
+    </div>
+    <h3>Key Facts — Chapter 03</h3>
+    <div class="box">
+      <div class="box-t">📌 Flashcard Summary</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600;width:35%">RBAC = additive</td><td style="padding:6px 10px;color:var(--text2)">Multiple roles add up. Deny explicitly overrides all.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Owner vs Contributor</td><td style="padding:6px 10px;color:var(--text2)">Owner = Contributor + manage access. Only Owner can assign roles.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">ReadOnly Lock + listKeys</td><td style="padding:6px 10px;color:var(--text2)">ReadOnly blocks POST → cannot list storage keys</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Managed Identity</td><td style="padding:6px 10px;color:var(--text2)">No credentials needed. System-assigned (1:1) or User-assigned (reusable)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Actions vs DataActions</td><td style="padding:6px 10px;color:var(--text2)">Actions = manage resource. DataActions = access data inside resource.</td></tr>
+        <tr><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Entra Roles vs RBAC</td><td style="padding:6px 10px;color:var(--text2)">Different systems. Entra = directory objects. RBAC = Azure resources.</td></tr>
+      </table>
+    </div>
+  </section>
+  <div class="nav">
+    <a href="az104-c02-entra-id.html" class="nb"><span class="nl">← Previous</span><span class="nt">Ch02. Entra ID</span></a>
+    <a href="az104-c04-governance.html" class="nb next"><span class="nl">Next →</span><span class="nt">Ch04. Governance</span></a>
+  </div>
+</main>
+</div>
+<script>
+const correct={q1:1,q2:2,q3:1,q4:2};
+function ans(id,chosen){document.querySelectorAll('#'+id+' li').forEach((el,i)=>{el.classList.remove('ok','no');if(i===correct[id])el.classList.add('ok');else if(i===chosen&&chosen!==correct[id])el.classList.add('no');});document.getElementById(id+'-a').classList.add('show');}
+function toggle(id){document.getElementById(id).classList.toggle('show')}
+const secs=document.querySelectorAll('section[id]');const links=document.querySelectorAll('a.ta');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));});
+</script>
+</body>
+</html>

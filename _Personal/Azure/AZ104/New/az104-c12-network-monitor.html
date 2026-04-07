@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>:root{--bg:#07090f;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--mono:"JetBrains Mono",monospace;--sans:"Inter",sans-serif;--display:"Syne",sans-serif}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}.hdr{border-bottom:1px solid var(--border);padding:46px 0 38px;position:relative;overflow:hidden}.hdr::before{content:"";position:absolute;top:-60px;right:-60px;width:380px;height:380px;background:radial-gradient(circle,rgba(232,121,249,.06),transparent 65%)}.hdr-inner{max-width:1100px;margin:0 auto;padding:0 32px}.bc{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:12px}.bc a{color:var(--text3);text-decoration:none}.cbadge{display:inline-flex;gap:7px;border-radius:4px;padding:4px 12px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}.hdr h1{font-family:var(--display);font-size:clamp(22px,5vw,42px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:9px}.hdr-sub{color:var(--text2);font-size:14px;margin-bottom:15px}.mp{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text3);margin-right:14px}.mpd{width:5px;height:5px;border-radius:50%}.layout{max-width:1100px;margin:0 auto;padding:38px 30px;display:grid;grid-template-columns:256px 1fr;gap:36px;align-items:start}.sidebar{position:sticky;top:22px}.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}.toc-hdr{background:var(--bg3);padding:11px 15px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;border-bottom:1px solid var(--border)}.toc-body{padding:6px 0}.toc-sec{padding:4px 15px 1px;font-size:9px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:4px}.ta{display:flex;align-items:flex-start;gap:7px;padding:5px 15px;font-size:12px;color:var(--text2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}.ta:hover{color:var(--text);background:var(--card2)}.ta.active{font-weight:600;border-left-color:#e879f9}.ta .tn{font-family:var(--mono);font-size:9px;color:var(--text3);flex-shrink:0;width:17px}.content{min-width:0}.ch-intro{background:linear-gradient(135deg,var(--card),var(--bg3));border:1px solid #1e2d4a;border-radius:9px;padding:22px;margin-bottom:26px}.ch-n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:5px}.ch-t{font-family:var(--display);font-size:20px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:9px}.ch-desc{color:var(--text2);font-size:13.5px;line-height:1.7;margin-bottom:12px}.ch-stats{display:flex;gap:11px;flex-wrap:wrap}.stx{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:6px 11px;font-family:var(--mono);font-size:11px}.stx .l{color:var(--text3);display:block;margin-bottom:1px}.stx .v{color:var(--text);font-weight:600}.section{margin-bottom:40px;scroll-margin-top:22px}.sh{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}.si{width:33px;height:33px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}.sn{font-family:var(--mono);font-size:10px;color:var(--text3)}.section h2{font-family:var(--display);font-size:18px;font-weight:700;color:#fff}.section h3{font-family:var(--display);font-size:14px;font-weight:700;color:var(--text);margin:19px 0 8px}.section p{color:var(--text2);margin-bottom:10px;font-size:14px}.section ul,.section ol{color:var(--text2);padding-left:19px;margin-bottom:10px}.section li{margin-bottom:5px;font-size:14px}.section li strong,.section p strong{color:var(--text)}.tbl{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:13px}.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:7px 11px;border-bottom:1px solid var(--border)}.tbl td{padding:7px 11px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}.tbl tr:last-child td{border-bottom:none}.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:12px}.tbl tr:hover td{background:var(--card2)}pre{background:#050710;border:1px solid var(--border);border-radius:6px;padding:12px 15px;overflow-x:auto;margin-bottom:10px;font-family:var(--mono);font-size:12px;line-height:1.7}code{font-family:var(--mono);font-size:12px;background:rgba(200,200,200,.07);padding:2px 5px;border-radius:3px}pre code{background:none;padding:0}.cmt{color:#3d5068;font-style:italic}.str{color:#f472b6}.param{color:#86efac}.val{color:#fbbf24}.alert{display:flex;gap:10px;padding:10px 14px;border-radius:6px;margin-bottom:10px;font-size:13px}.ai{font-size:14px;flex-shrink:0;margin-top:1px}.ab{color:var(--text2);line-height:1.6}.ab strong{color:var(--text)}.tip{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18)}.tip .ai{color:#22c55e}.warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18)}.warn .ai{color:var(--yellow)}.exam{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.22)}.exam .ai{color:var(--purple)}.box{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:14px 17px;margin-bottom:14px}.box-t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}.scen{background:var(--card);border:1px solid #1e2d4a;border-radius:7px;overflow:hidden;margin-bottom:16px}.sc-hdr{padding:9px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}.sc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;border-radius:3px;padding:2px 7px}.sc-title{font-size:13px;font-weight:600;color:var(--text)}.sc-body{padding:12px 15px}.sc-body p{color:var(--text2);font-size:13px;margin-bottom:8px}.sc-body p:last-child{margin-bottom:0}.sc-body strong{color:var(--text)}.steps{list-style:none;padding:0;counter-reset:st}.steps li{counter-increment:st;display:flex;gap:8px;margin-bottom:6px;align-items:flex-start;color:var(--text2);font-size:13px}.steps li::before{content:counter(st);min-width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;flex-shrink:0;margin-top:2px}.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:14px}.cc{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:12px}.cc h4{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;padding-bottom:6px;border-bottom:1px solid var(--border)}.cc ul{list-style:none;padding:0}.cc li{font-size:12px;color:var(--text2);padding:3px 0 3px 12px;position:relative}.cc li::before{content:"→";position:absolute;left:0;color:var(--text3);font-size:10px}.badge{display:inline-flex;font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:3px;font-weight:600;vertical-align:middle}.bg{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)}.by{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}.br{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25)}hr{border:none;border-top:1px solid var(--border);margin:28px 0}.quiz{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:7px;padding:14px 17px;margin-bottom:14px}.qh{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:8px}.qq{font-size:14px;color:var(--text);font-weight:600;margin-bottom:8px}.qo{list-style:none;padding:0}.qo li{font-size:13px;color:var(--text2);padding:6px 9px;margin-bottom:3px;cursor:pointer;border-radius:3px;transition:background .15s;border-left:2px solid transparent}.qo li:hover{background:rgba(139,92,246,.07)}.qo li.ok{background:rgba(34,197,94,.07);color:#22c55e;border-left-color:#22c55e}.qo li.no{background:rgba(239,68,68,.07);color:#ef4444;border-left-color:#ef4444}.qa{display:none;margin-top:8px;padding:9px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:5px;font-size:13px;color:var(--text2)}.qa.show{display:block}.qbtn{margin-top:8px;padding:5px 12px;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.3);border-radius:4px;color:var(--purple);font-family:var(--mono);font-size:11px;cursor:pointer}.nav{display:flex;justify-content:space-between;margin-top:38px;padding-top:17px;border-top:1px solid var(--border);gap:12px}.nb{display:flex;flex-direction:column;gap:3px;padding:11px 15px;background:var(--card);border:1px solid var(--border);border-radius:7px;text-decoration:none;flex:1;transition:all .2s}.nb:hover{background:var(--card2)}.nl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}.nt{font-size:13px;color:var(--text);font-weight:600}.nb.next{text-align:right}@media(max-width:768px){.layout{grid-template-columns:1fr;padding:18px 14px}.sidebar{position:static}}</style></head><body><title>AZ-104 Ch.12</title>
+<style>
+title{display:none}
+.hdr{background:linear-gradient(160deg,#040609,#07090f,#0d0310)!important}
+.hdr::before{background:radial-gradient(circle,rgba(232,121,249,.06),transparent 65%)!important}
+.cbadge{background:rgba(232,121,249,.08)!important;border:1px solid rgba(232,121,249,.28)!important;color:#e879f9!important}
+.ta.active{color:#e879f9!important;background:rgba(232,121,249,.06)!important;border-left-color:#e879f9!important}
+.ta:hover{border-left-color:#e879f9!important}
+.toc-hdr{color:#e879f9!important}.ch-n{color:#e879f9!important}
+.section h3::before{color:#e879f9!important}
+.si{background:rgba(232,121,249,.09)!important;border:1px solid rgba(232,121,249,.22)!important}
+.box-t{color:#e879f9!important}.sc-tag{color:#e879f9!important;background:rgba(232,121,249,.08)!important;border:1px solid rgba(232,121,249,.25)!important}
+.sc-hdr{background:linear-gradient(90deg,rgba(232,121,249,.1),transparent)!important}
+.steps li::before{background:rgba(232,121,249,.09)!important;border:1px solid rgba(232,121,249,.3)!important;color:#e879f9!important}
+.cc h4{color:#e879f9!important}.nb:hover{border-color:#e879f9!important}
+pre{border-left:3px solid #e879f9!important}
+code{color:#e879f9!important;background:rgba(232,121,249,.07)!important}
+pre code{background:none!important}
+.ba{background:rgba(232,121,249,.1)!important;color:#e879f9!important;border:1px solid rgba(232,121,249,.25)!important}
+.mpd{background:#e879f9;box-shadow:0 0 5px #e879f9}
+.info{background:rgba(232,121,249,.05)!important;border:1px solid rgba(232,121,249,.22)!important}.info .ai{color:#e879f9!important}
+</style><header class="hdr"><div class="hdr-inner"><div class="bc"><a href="az104-index.html">AZ-104</a> / Chapter 12</div><div class="cbadge">Chapter 12 · Sections 22</div><h1>Monitor &amp; Troubleshoot<br><span style="color:#e879f9">Virtual Networking</span></h1><p class="hdr-sub">Network Watcher · IP Flow Verify · Next Hop · Packet Capture · NSG Flow Logs</p><div><span class="mp"><span class="mpd"></span>Sections 22</span><span class="mp"><span class="mpd"></span>Lessons 158–160</span></div></div></header><div class="layout"><aside class="sidebar"><div class="toc"><div class="toc-hdr">Chapter 12</div><div class="toc-body"><div class="toc-sec">Section 22</div>
+<a href="#s1" class="ta active"><span class="tn">22.1</span>Network Watcher</a>
+<a href="#s2" class="ta"><span class="tn">22.2</span>Diagnostic Tools</a>
+<a href="#s3" class="ta"><span class="tn">22.3</span>NSG Flow Logs</a>
+<a href="#q" class="ta"><span class="tn">Q</span>Quiz</a><div class="toc-sec">Navigation</div><a href="az104-c11-load-balancing.html" class="ta">← Ch11. Load Balancing</a><a href="az104-c13-azure-monitor.html" class="ta">Ch13. Azure Monitor →</a></div></div></aside><main class="content"><div class="ch-intro">
+<div class="ch-n">Chapter 12 / Section 22</div>
+<div class="ch-t">Monitor &amp; Troubleshoot Virtual Networking</div>
+<p class="ch-desc">Network Watcher provides tools for monitoring, diagnosing, and gaining insights into your Azure network. Key tools: IP Flow Verify, Next Hop, Connection Troubleshoot, Packet Capture, NSG Flow Logs.</p>
+<div class="ch-stats"><div class="stx"><span class="l">Domain</span><span class="v">Domain 4</span></div><div class="stx"><span class="l">Lessons</span><span class="v">158–160</span></div></div>
+</div>
+
+<section class="section" id="s1">
+<div class="sh"><div class="si">🔭</div><div><div class="sn">Lesson 158 · 22.1</div><h2>Network Watcher</h2></div></div>
+<p>Network Watcher is enabled per-region automatically when you create VNet resources. Access via Portal → Network Watcher.</p>
+<table class="tbl"><thead><tr><th>Tool</th><th>What it does</th><th>Use Case</th></tr></thead><tbody>
+<tr><td>IP Flow Verify</td><td>Tests if traffic is allowed/denied by NSG rules</td><td>&quot;Why can't VM-A reach VM-B on port 443?&quot;</td></tr>
+<tr><td>Next Hop</td><td>Shows routing path for traffic from VM</td><td>&quot;Where does traffic go when VM tries to reach 8.8.8.8?&quot;</td></tr>
+<tr><td>Connection Troubleshoot</td><td>Tests end-to-end connectivity between two endpoints</td><td>&quot;Can this VM reach this URL?&quot;</td></tr>
+<tr><td>Packet Capture</td><td>Captures network packets to .pcap file in Storage Account</td><td>Deep network debugging</td></tr>
+<tr><td>NSG Diagnostic</td><td>Shows all NSG rules applied to VM/NIC</td><td>Understand effective security rules</td></tr>
+<tr><td>Connection Monitor</td><td>Continuous testing between endpoints</td><td>Ongoing connectivity monitoring</td></tr>
+<tr><td>VPN Diagnostics</td><td>Troubleshoot VPN Gateway connections</td><td>S2S VPN not connecting</td></tr>
+</tbody></table>
+</section><hr>
+
+<section class="section" id="s2">
+<div class="sh"><div class="si">🔬</div><div><div class="sn">22.2</div><h2>Key Diagnostic Tools</h2></div></div>
+<h3>IP Flow Verify</h3>
+<p>Tests a specific traffic flow against NSG rules. Input: source IP, destination IP, port, protocol, direction. Output: Allow or Deny + which NSG rule caused it.</p>
+<pre><code><span class="cmt"># Test if RDP is allowed from my IP to VM</span>
+az network watcher test-ip-flow   --resource-group RG-Servers-GR   --vm SRV-APP-GR-01   --direction Inbound   --protocol TCP   --local 10.10.1.4:3389   --remote 1.2.3.4:5000</code></pre>
+<h3>Next Hop</h3>
+<p>Shows the next hop type and IP for traffic leaving a VM's NIC. Types: Internet, VirtualAppliance, VirtualNetworkGateway, VnetLocal, None (no route).</p>
+<pre><code><span class="cmt"># Check routing from VM to external IP</span>
+az network watcher show-next-hop   --resource-group RG-Servers-GR   --vm SRV-APP-GR-01   --source-ip 10.10.1.4   --dest-ip 8.8.8.8</code></pre>
+<h3>Packet Capture</h3>
+<pre><code><span class="cmt"># Start packet capture (stores to storage account)</span>
+az network watcher packet-capture create   --resource-group RG-Servers-GR   --vm SRV-APP-GR-01   --name CaptureHTTPS   --storage-account septonadiag   --filters '[{"protocol":"TCP","remotePort":"443"}]'</code></pre>
+<div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>IP Flow Verify vs Next Hop:</strong><br>
+IP Flow Verify = Is traffic ALLOWED by NSG? (firewall perspective)<br>
+Next Hop = WHERE does traffic GO? (routing perspective)<br>
+Both together = complete network troubleshooting picture.</div></div>
+</section><hr>
+
+<section class="section" id="s3">
+<div class="sh"><div class="si">📊</div><div><div class="sn">22.3</div><h2>NSG Flow Logs</h2></div></div>
+<p>NSG Flow Logs record information about all traffic flowing through NSGs — stored in Storage Account as JSON.</p>
+<ul>
+<li>Enabled per NSG</li>
+<li>Records: timestamp, source/dest IP, port, protocol, allow/deny, bytes</li>
+<li>Version 2: also includes bytes and packet count</li>
+<li>Stored in Storage Account — path: <code>insights-logs-networksecuritygroupflowevent</code></li>
+<li>Can be analyzed in: Traffic Analytics (via Log Analytics), Splunk, Grafana</li>
+</ul>
+<pre><code><span class="cmt"># Enable NSG Flow Logs</span>
+az network watcher flow-log create   --resource-group RG-Network-GR   --name FlowLog-NSG-Servers   --nsg NSG-Servers-GR   --storage-account septonadiag   --enabled true   --retention 30   --format JSON   --log-version 2</code></pre>
+<div class="scen">
+<div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">Network Troubleshooting — VM Can't Reach SQL Server</span></div>
+<div class="sc-body">
+<p><strong>Problem:</strong> App VM (10.10.1.10) can't connect to SQL Server (10.10.2.20) on port 1433.</p>
+<ol class="steps">
+<li><strong>IP Flow Verify:</strong> Source=10.10.1.10, Dest=10.10.2.20, Port=1433, Protocol=TCP → Result: DENY, Rule: DenyAll (NSG-Database)</li>
+<li>NSG-Database doesn't have rule for port 1433 from app subnet</li>
+<li>Add rule: Allow TCP 1433 from 10.10.1.0/24 to SQL servers</li>
+<li>Verify with IP Flow Verify again → Allow</li>
+<li>Enable NSG Flow Logs to monitor ongoing traffic</li>
+</ol>
+</div></div>
+</section><hr>
+
+<section class="section" id="q">
+<div class="sh"><div class="si">🧠</div><div><div class="sn">Chapter 12</div><h2>Quiz</h2></div></div>
+<div class="quiz"><div class="qh">◈ Q01</div>
+<div class="qq">Θέλεις να δεις αν NSG rules μπλοκάρουν traffic από VM-A στο VM-B port 3389. Ποιο tool;</div>
+<ul class="qo" id="q1"><li onclick="ans('q1',0)">A) Next Hop</li><li onclick="ans('q1',1)">B) IP Flow Verify</li><li onclick="ans('q1',2)">C) Packet Capture</li><li onclick="ans('q1',3)">D) Connection Monitor</li></ul>
+<div class="qa" id="q1-a">✅ <strong>B — IP Flow Verify.</strong> Tests specific traffic flow against NSG rules. Output: Allow or Deny + which rule. Next Hop = routing path. Packet Capture = capture raw traffic. Connection Monitor = continuous testing.</div>
+<button class="qbtn" onclick="toggle('q1-a')">Show Answer</button>
+</div>
+<div class="quiz"><div class="qh">◈ Q02</div>
+<div class="qq">NSG Flow Logs αποθηκεύονται σε;</div>
+<ul class="qo" id="q2"><li onclick="ans('q2',0)">A) Log Analytics Workspace</li><li onclick="ans('q2',1)">B) Azure Storage Account</li><li onclick="ans('q2',2)">C) Azure Monitor Metrics</li><li onclick="ans('q2',3)">D) Event Hub</li></ul>
+<div class="qa" id="q2-a">✅ <strong>B — Storage Account.</strong> NSG Flow Logs are stored as JSON in a Storage Account. From there they can be analyzed using Traffic Analytics (which uses Log Analytics) or third-party tools.</div>
+<button class="qbtn" onclick="toggle('q2-a')">Show Answer</button>
+</div>
+<div class="box"><div class="box-t">📌 Key Facts — Ch12</div>
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600;width:40%">IP Flow Verify</td><td style="padding:6px 9px;color:var(--text2)">Is traffic allowed by NSG? Which rule?</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">Next Hop</td><td style="padding:6px 9px;color:var(--text2)">Where does traffic route? (Internet, VNAppliance, None)</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">Packet Capture</td><td style="padding:6px 9px;color:var(--text2)">Raw packet capture → Storage Account (.pcap)</td></tr>
+<tr><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">NSG Flow Logs</td><td style="padding:6px 9px;color:var(--text2)">All traffic through NSG → Storage Account (JSON)</td></tr>
+</table></div>
+</section><div class="nav"><a href="az104-c11-load-balancing.html" class="nb"><span class="nl">← Previous</span><span class="nt">Ch11. Load Balancing</span></a><a href="az104-c13-azure-monitor.html" class="nb next"><span class="nl">Next →</span><span class="nt">Ch13. Azure Monitor</span></a></div></main></div><script>
+function ans(id,c){document.querySelectorAll("#"+id+" li").forEach((el,i)=>{el.classList.remove("ok","no");if(i==={'q1':1,'q2':1}[id])el.classList.add("ok");else if(i===c&&c!=={'q1':1,'q2':1}[id])el.classList.add("no");});document.getElementById(id+"-a").classList.add("show");}
+function toggle(id){document.getElementById(id).classList.toggle("show")}
+const secs=document.querySelectorAll("section[id]");const links=document.querySelectorAll("a.ta");
+window.addEventListener("scroll",()=>{let cur="";secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+cur));});
+</script></body></html>

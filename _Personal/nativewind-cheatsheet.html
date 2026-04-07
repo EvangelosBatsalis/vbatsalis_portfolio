@@ -1,0 +1,2192 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NativeWind Complete Guide & Cheat Sheet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --bg: #0f172a;
+            --bg-lighter: #1e293b;
+            --bg-card: #334155;
+            --text: #f1f5f9;
+            --text-dim: #94a3b8;
+            --border: #475569;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sora', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(255,255,255,0.03) 20px,
+                    rgba(255,255,255,0.03) 40px
+                );
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 300;
+            position: relative;
+        }
+
+        /* Search & Filter */
+        .controls {
+            background: var(--bg-lighter);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 1px solid var(--border);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Space Mono', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .filter-tag {
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .filter-tag:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .filter-tag.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--bg-lighter);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 1px solid var(--border);
+        }
+
+        .toc h2 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .toc-link {
+            padding: 12px 15px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.2s ease;
+            display: block;
+            border: 1px solid transparent;
+        }
+
+        .toc-link:hover {
+            background: var(--primary);
+            transform: translateX(5px);
+            border-color: var(--primary-dark);
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 60px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .section-icon {
+            font-size: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .section-description {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* Class Grid */
+        .class-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .class-card {
+            background: var(--bg-lighter);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .class-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .class-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+        }
+
+        .class-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .class-name {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .class-description {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .code-block {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+
+        .example-output {
+            background: var(--bg-card);
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        /* Category badges */
+        .category-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--primary);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        /* Quick Reference Table */
+        .quick-ref {
+            background: var(--bg-lighter);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .quick-ref table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .quick-ref th {
+            background: var(--bg-card);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--secondary);
+            border-bottom: 2px solid var(--border);
+        }
+
+        .quick-ref td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .quick-ref tr:hover {
+            background: var(--bg-card);
+        }
+
+        .quick-ref code {
+            font-family: 'Space Mono', monospace;
+            color: var(--accent);
+            background: var(--bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Pattern Cards */
+        .pattern-card {
+            background: var(--bg-lighter);
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .pattern-title {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .pattern-code {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            line-height: 1.8;
+        }
+
+        .pattern-code .keyword {
+            color: var(--primary);
+        }
+
+        .pattern-code .string {
+            color: var(--success);
+        }
+
+        .pattern-code .tag {
+            color: var(--secondary);
+        }
+
+        /* Warning/Info boxes */
+        .info-box {
+            background: rgba(6, 182, 212, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .class-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 NativeWind Complete Guide</h1>
+            <p class="subtitle">Tailwind CSS για React Native | Comprehensive Cheat Sheet & Tutorial</p>
+        </header>
+
+        <!-- Search & Controls -->
+        <div class="controls">
+            <input 
+                type="text" 
+                class="search-box" 
+                id="searchBox" 
+                placeholder="🔍 Αναζήτηση (π.χ. flex, padding, text-xl)..."
+            >
+            <div class="filter-tags" id="filterTags">
+                <button class="filter-tag active" data-category="all">Όλα</button>
+                <button class="filter-tag" data-category="layout">Layout</button>
+                <button class="filter-tag" data-category="flexbox">Flexbox</button>
+                <button class="filter-tag" data-category="spacing">Spacing</button>
+                <button class="filter-tag" data-category="sizing">Sizing</button>
+                <button class="filter-tag" data-category="typography">Typography</button>
+                <button class="filter-tag" data-category="colors">Colors</button>
+                <button class="filter-tag" data-category="borders">Borders</button>
+                <button class="filter-tag" data-category="effects">Effects</button>
+                <button class="filter-tag" data-category="patterns">Patterns</button>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h2>📚 Περιεχόμενα</h2>
+            <div class="toc-grid">
+                <a href="#intro" class="toc-link">🚀 Introduction</a>
+                <a href="#layout" class="toc-link">📐 Layout</a>
+                <a href="#flexbox" class="toc-link">🔄 Flexbox & Grid</a>
+                <a href="#spacing" class="toc-link">📏 Spacing</a>
+                <a href="#sizing" class="toc-link">📊 Sizing</a>
+                <a href="#typography" class="toc-link">✍️ Typography</a>
+                <a href="#colors" class="toc-link">🎨 Colors</a>
+                <a href="#borders" class="toc-link">🔲 Borders & Radius</a>
+                <a href="#effects" class="toc-link">✨ Effects</a>
+                <a href="#platforms" class="toc-link">📱 Platform Differences</a>
+                <a href="#patterns" class="toc-link">🎯 Common Patterns</a>
+                <a href="#custom" class="toc-link">🛠️ Custom Values</a>
+            </div>
+        </div>
+
+        <!-- Introduction Section -->
+        <section id="intro" class="section" data-category="intro">
+            <div class="section-header">
+                <span class="section-icon">🚀</span>
+                <h2 class="section-title">Introduction</h2>
+            </div>
+            <p class="section-description">
+                Το <strong>NativeWind</strong> σου επιτρέπει να χρησιμοποιείς Tailwind CSS classes για να στυλάρεις 
+                React Native components. Γράφεις <code>className="..."</code> αντί για <code>style={...}</code> 
+                και όλα μετατρέπονται αυτόματα σε native styles!
+            </p>
+
+            <div class="info-box">
+                <strong>💡 Πώς λειτουργεί:</strong><br>
+                Γράφεις: <code>className="flex-1 bg-blue-500 p-4"</code><br>
+                Γίνεται: <code>style={{ flex: 1, backgroundColor: '#3b82f6', padding: 16 }}</code>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ Τι υποστηρίζεται:</strong><br>
+                • Όλα τα Tailwind utility classes<br>
+                • Responsive design (sm:, md:, lg:)<br>
+                • Dark mode (dark:)<br>
+                • Custom values με [] brackets<br>
+                • Container queries<br>
+                • Animations
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">Βασικό Παράδειγμα</h3>
+                <div class="pattern-code">
+<span class="keyword">import</span> { <span class="tag">View</span>, <span class="tag">Text</span> } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="keyword">export default function</span> <span class="tag">App</span>() {
+  <span class="keyword">return</span> (
+    &lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"flex-1 items-center justify-center bg-white"</span>&gt;
+      &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-2xl font-bold text-blue-500"</span>&gt;
+        Hello NativeWind! 🎨
+      &lt;/<span class="tag">Text</span>&gt;
+    &lt;/<span class="tag">View</span>&gt;
+  );
+}
+                </div>
+            </div>
+        </section>
+
+        <!-- Layout Section -->
+        <section id="layout" class="section" data-category="layout">
+            <div class="section-header">
+                <span class="section-icon">📐</span>
+                <h2 class="section-title">Layout</h2>
+            </div>
+            <p class="section-description">
+                Βασικά layout utilities για positioning και display.
+            </p>
+
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">flex-1</div>
+                    <div class="class-description">Κάνει το element να παίρνει όλο τον διαθέσιμο χώρο</div>
+                    <div class="code-block">className="flex-1"</div>
+                    <div class="example-output">flex: 1</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">flex-[value]</div>
+                    <div class="class-description">Custom flex value</div>
+                    <div class="code-block">className="flex-[0.5]"</div>
+                    <div class="example-output">flex: 0.5</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">hidden</div>
+                    <div class="class-description">Κρύβει το element</div>
+                    <div class="code-block">className="hidden"</div>
+                    <div class="example-output">display: none</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">absolute</div>
+                    <div class="class-description">Absolute positioning</div>
+                    <div class="code-block">className="absolute top-0 left-0"</div>
+                    <div class="example-output">position: absolute</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">relative</div>
+                    <div class="class-description">Relative positioning</div>
+                    <div class="code-block">className="relative"</div>
+                    <div class="example-output">position: relative</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">top-{n} / bottom-{n} / left-{n} / right-{n}</div>
+                    <div class="class-description">Position offsets</div>
+                    <div class="code-block">className="absolute top-4 right-4"</div>
+                    <div class="example-output">top: 16, right: 16</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">z-{n}</div>
+                    <div class="class-description">Z-index για layering</div>
+                    <div class="code-block">className="z-10" // 0, 10, 20, 30, 40, 50</div>
+                    <div class="example-output">zIndex: 10</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">overflow-hidden</div>
+                    <div class="class-description">Κρύβει overflow content</div>
+                    <div class="code-block">className="overflow-hidden"</div>
+                    <div class="example-output">overflow: hidden</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flexbox Section -->
+        <section id="flexbox" class="section" data-category="flexbox">
+            <div class="section-header">
+                <span class="section-icon">🔄</span>
+                <h2 class="section-title">Flexbox & Grid</h2>
+            </div>
+            <p class="section-description">
+                Το Flexbox είναι το κύριο layout system στο React Native. Αυτά τα classes θα τα χρησιμοποιείς παντού!
+            </p>
+
+            <div class="quick-ref">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>React Native Style</th>
+                            <th>Χρήση</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>flex-row</code></td>
+                            <td>flexDirection: 'row'</td>
+                            <td>Οριζόντια διάταξη παιδιών</td>
+                        </tr>
+                        <tr>
+                            <td><code>flex-col</code></td>
+                            <td>flexDirection: 'column'</td>
+                            <td>Κάθετη διάταξη παιδιών (default)</td>
+                        </tr>
+                        <tr>
+                            <td><code>flex-row-reverse</code></td>
+                            <td>flexDirection: 'row-reverse'</td>
+                            <td>Αντίστροφη οριζόντια διάταξη</td>
+                        </tr>
+                        <tr>
+                            <td><code>flex-col-reverse</code></td>
+                            <td>flexDirection: 'column-reverse'</td>
+                            <td>Αντίστροφη κάθετη διάταξη</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Justify Content (Horizontal Alignment)</h3>
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">justify-start</div>
+                    <div class="class-description">Στοίχιση στην αρχή του container</div>
+                    <div class="code-block">className="flex-row justify-start"</div>
+                    <div class="example-output">justifyContent: 'flex-start'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">justify-center</div>
+                    <div class="class-description">Κεντράρισμα στο container</div>
+                    <div class="code-block">className="flex-row justify-center"</div>
+                    <div class="example-output">justifyContent: 'center'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">justify-end</div>
+                    <div class="class-description">Στοίχιση στο τέλος του container</div>
+                    <div class="code-block">className="flex-row justify-end"</div>
+                    <div class="example-output">justifyContent: 'flex-end'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">justify-between</div>
+                    <div class="class-description">Ίσο διάστημα ανάμεσα στα items</div>
+                    <div class="code-block">className="flex-row justify-between"</div>
+                    <div class="example-output">justifyContent: 'space-between'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">justify-around</div>
+                    <div class="class-description">Ίσο διάστημα γύρω από τα items</div>
+                    <div class="code-block">className="flex-row justify-around"</div>
+                    <div class="example-output">justifyContent: 'space-around'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">justify-evenly</div>
+                    <div class="class-description">Ίσο διάστημα παντού</div>
+                    <div class="code-block">className="flex-row justify-evenly"</div>
+                    <div class="example-output">justifyContent: 'space-evenly'</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Align Items (Vertical Alignment)</h3>
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">items-start</div>
+                    <div class="class-description">Στοίχιση στην αρχή του cross axis</div>
+                    <div class="code-block">className="flex-row items-start"</div>
+                    <div class="example-output">alignItems: 'flex-start'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">items-center</div>
+                    <div class="class-description">Κεντράρισμα στο cross axis</div>
+                    <div class="code-block">className="flex-row items-center"</div>
+                    <div class="example-output">alignItems: 'center'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">items-end</div>
+                    <div class="class-description">Στοίχιση στο τέλος του cross axis</div>
+                    <div class="code-block">className="flex-row items-end"</div>
+                    <div class="example-output">alignItems: 'flex-end'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">items-stretch</div>
+                    <div class="class-description">Τέντωμα για να γεμίσει το container</div>
+                    <div class="code-block">className="flex-row items-stretch"</div>
+                    <div class="example-output">alignItems: 'stretch'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">items-baseline</div>
+                    <div class="class-description">Στοίχιση με baseline του text</div>
+                    <div class="code-block">className="flex-row items-baseline"</div>
+                    <div class="example-output">alignItems: 'baseline'</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Align Self (Individual Item Alignment)</h3>
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">self-start / self-center / self-end</div>
+                    <div class="class-description">Override alignItems για συγκεκριμένο item</div>
+                    <div class="code-block">className="self-center"</div>
+                    <div class="example-output">alignSelf: 'center'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">self-stretch</div>
+                    <div class="class-description">Τέντωμα του item</div>
+                    <div class="code-block">className="self-stretch"</div>
+                    <div class="example-output">alignSelf: 'stretch'</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Flex Wrap & Gap</h3>
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">flex-wrap</div>
+                    <div class="class-description">Wrap items σε νέες γραμμές</div>
+                    <div class="code-block">className="flex-row flex-wrap"</div>
+                    <div class="example-output">flexWrap: 'wrap'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">flex-nowrap</div>
+                    <div class="class-description">Όλα τα items σε μία γραμμή</div>
+                    <div class="code-block">className="flex-row flex-nowrap"</div>
+                    <div class="example-output">flexWrap: 'nowrap'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">gap-{n}</div>
+                    <div class="class-description">Διάστημα ανάμεσα στα items</div>
+                    <div class="code-block">className="flex-row gap-4"<br>// 0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20...</div>
+                    <div class="example-output">gap: 16</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">gap-x-{n} / gap-y-{n}</div>
+                    <div class="class-description">Horizontal / Vertical gap</div>
+                    <div class="code-block">className="gap-x-4 gap-y-2"</div>
+                    <div class="example-output">columnGap: 16, rowGap: 8</div>
+                </div>
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">🎯 Common Flexbox Pattern: Centered Container</h3>
+                <div class="pattern-code">
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"flex-1 items-center justify-center"</span>&gt;
+  &lt;<span class="tag">Text</span>&gt;Perfectly Centered!&lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+                </div>
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">🎯 Common Flexbox Pattern: Header με icon + text</h3>
+                <div class="pattern-code">
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"flex-row items-center justify-between px-4"</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-xl font-bold"</span>&gt;Title&lt;/<span class="tag">Text</span>&gt;
+  &lt;<span class="tag">Icon</span> <span class="keyword">name</span>=<span class="string">"settings"</span> /&gt;
+&lt;/<span class="tag">View</span>&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Spacing Section -->
+        <section id="spacing" class="section" data-category="spacing">
+            <div class="section-header">
+                <span class="section-icon">📏</span>
+                <h2 class="section-title">Spacing (Padding & Margin)</h2>
+            </div>
+            <p class="section-description">
+                Padding και Margin utilities. Τα νούμερα πολλαπλασιάζονται με 4 (π.χ. p-4 = 16px).
+            </p>
+
+            <div class="warning-box">
+                <strong>⚠️ Προσοχή:</strong> Το React Native δεν υποστηρίζει negative margins όπως το web!
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Padding Classes</h3>
+            <div class="quick-ref">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>React Native Style</th>
+                            <th>Περιγραφή</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>p-{n}</code></td>
+                            <td>padding: n * 4</td>
+                            <td>Padding από όλες τις πλευρές</td>
+                        </tr>
+                        <tr>
+                            <td><code>px-{n}</code></td>
+                            <td>paddingHorizontal: n * 4</td>
+                            <td>Left + Right padding</td>
+                        </tr>
+                        <tr>
+                            <td><code>py-{n}</code></td>
+                            <td>paddingVertical: n * 4</td>
+                            <td>Top + Bottom padding</td>
+                        </tr>
+                        <tr>
+                            <td><code>pt-{n}</code></td>
+                            <td>paddingTop: n * 4</td>
+                            <td>Top padding μόνο</td>
+                        </tr>
+                        <tr>
+                            <td><code>pr-{n}</code></td>
+                            <td>paddingRight: n * 4</td>
+                            <td>Right padding μόνο</td>
+                        </tr>
+                        <tr>
+                            <td><code>pb-{n}</code></td>
+                            <td>paddingBottom: n * 4</td>
+                            <td>Bottom padding μόνο</td>
+                        </tr>
+                        <tr>
+                            <td><code>pl-{n}</code></td>
+                            <td>paddingLeft: n * 4</td>
+                            <td>Left padding μόνο</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Margin Classes</h3>
+            <div class="quick-ref">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>React Native Style</th>
+                            <th>Περιγραφή</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>m-{n}</code></td>
+                            <td>margin: n * 4</td>
+                            <td>Margin από όλες τις πλευρές</td>
+                        </tr>
+                        <tr>
+                            <td><code>mx-{n}</code></td>
+                            <td>marginHorizontal: n * 4</td>
+                            <td>Left + Right margin</td>
+                        </tr>
+                        <tr>
+                            <td><code>my-{n}</code></td>
+                            <td>marginVertical: n * 4</td>
+                            <td>Top + Bottom margin</td>
+                        </tr>
+                        <tr>
+                            <td><code>mt-{n}</code></td>
+                            <td>marginTop: n * 4</td>
+                            <td>Top margin μόνο</td>
+                        </tr>
+                        <tr>
+                            <td><code>mr-{n}</code></td>
+                            <td>marginRight: n * 4</td>
+                            <td>Right margin μόνο</td>
+                        </tr>
+                        <tr>
+                            <td><code>mb-{n}</code></td>
+                            <td>marginBottom: n * 4</td>
+                            <td>Bottom margin μόνο</td>
+                        </tr>
+                        <tr>
+                            <td><code>ml-{n}</code></td>
+                            <td>marginLeft: n * 4</td>
+                            <td>Left margin μόνο</td>
+                        </tr>
+                        <tr>
+                            <td><code>m-auto</code></td>
+                            <td>margin: 'auto'</td>
+                            <td>Auto margin (κεντράρισμα)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 Spacing Scale:</strong><br>
+                <code>0</code> = 0px, <code>1</code> = 4px, <code>2</code> = 8px, <code>3</code> = 12px, <code>4</code> = 16px, 
+                <code>5</code> = 20px, <code>6</code> = 24px, <code>8</code> = 32px, <code>10</code> = 40px, 
+                <code>12</code> = 48px, <code>16</code> = 64px, <code>20</code> = 80px
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">🎯 Common Pattern: Card με padding</h3>
+                <div class="pattern-code">
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"bg-white p-4 m-2 rounded-lg"</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-lg font-bold mb-2"</span>&gt;Card Title&lt;/<span class="tag">Text</span>&gt;
+  &lt;<span class="tag">Text</span>&gt;Card content here&lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Sizing Section -->
+        <section id="sizing" class="section" data-category="sizing">
+            <div class="section-header">
+                <span class="section-icon">📊</span>
+                <h2 class="section-title">Sizing (Width & Height)</h2>
+            </div>
+            <p class="section-description">
+                Width και Height utilities για να ορίσεις το μέγεθος των elements.
+            </p>
+
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">w-full</div>
+                    <div class="class-description">100% width</div>
+                    <div class="code-block">className="w-full"</div>
+                    <div class="example-output">width: '100%'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">w-{n}</div>
+                    <div class="class-description">Fixed width</div>
+                    <div class="code-block">className="w-64" // 256px</div>
+                    <div class="example-output">width: 256</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">w-{fraction}</div>
+                    <div class="class-description">Fractional width</div>
+                    <div class="code-block">className="w-1/2" // 50%<br>className="w-1/3" // 33.333%</div>
+                    <div class="example-output">width: '50%'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">w-[value]</div>
+                    <div class="class-description">Custom width value</div>
+                    <div class="code-block">className="w-[250px]"</div>
+                    <div class="example-output">width: 250</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">h-full</div>
+                    <div class="class-description">100% height</div>
+                    <div class="code-block">className="h-full"</div>
+                    <div class="example-output">height: '100%'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">h-{n}</div>
+                    <div class="class-description">Fixed height</div>
+                    <div class="code-block">className="h-64" // 256px</div>
+                    <div class="example-output">height: 256</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">h-[value]</div>
+                    <div class="class-description">Custom height value</div>
+                    <div class="code-block">className="h-[150px]"</div>
+                    <div class="example-output">height: 150</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">min-w-{n} / max-w-{n}</div>
+                    <div class="class-description">Min/Max width</div>
+                    <div class="code-block">className="min-w-[200px] max-w-[400px]"</div>
+                    <div class="example-output">minWidth: 200, maxWidth: 400</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">min-h-{n} / max-h-{n}</div>
+                    <div class="class-description">Min/Max height</div>
+                    <div class="code-block">className="min-h-[100px] max-h-screen"</div>
+                    <div class="example-output">minHeight: 100, maxHeight: '100%'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">aspect-{ratio}</div>
+                    <div class="class-description">Aspect ratio</div>
+                    <div class="code-block">className="aspect-square" // 1:1<br>className="aspect-video" // 16:9</div>
+                    <div class="example-output">aspectRatio: 1 or 16/9</div>
+                </div>
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">🎯 Common Pattern: Square Image</h3>
+                <div class="pattern-code">
+&lt;<span class="tag">Image</span> 
+  <span class="keyword">source</span>={avatar}
+  <span class="keyword">className</span>=<span class="string">"w-24 h-24 rounded-full"</span> 
+/&gt;
+
+<span class="keyword">// ή με aspect ratio:</span>
+&lt;<span class="tag">Image</span> 
+  <span class="keyword">source</span>={avatar}
+  <span class="keyword">className</span>=<span class="string">"w-24 aspect-square rounded-full"</span> 
+/&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography Section -->
+        <section id="typography" class="section" data-category="typography">
+            <div class="section-header">
+                <span class="section-icon">✍️</span>
+                <h2 class="section-title">Typography</h2>
+            </div>
+            <p class="section-description">
+                Text styling utilities - όλα αυτά μπαίνουν στο <code>&lt;Text&gt;</code> component.
+            </p>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Font Size</h3>
+            <div class="quick-ref">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Size</th>
+                            <th>Παράδειγμα</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>text-xs</code></td>
+                            <td>12px</td>
+                            <td><span style="font-size: 12px;">Extra Small Text</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>text-sm</code></td>
+                            <td>14px</td>
+                            <td><span style="font-size: 14px;">Small Text</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>text-base</code></td>
+                            <td>16px</td>
+                            <td><span style="font-size: 16px;">Base Text</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>text-lg</code></td>
+                            <td>18px</td>
+                            <td><span style="font-size: 18px;">Large Text</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>text-xl</code></td>
+                            <td>20px</td>
+                            <td><span style="font-size: 20px;">Extra Large</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>text-2xl</code></td>
+                            <td>24px</td>
+                            <td><span style="font-size: 24px;">2X Large</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>text-3xl</code></td>
+                            <td>30px</td>
+                            <td><span style="font-size: 30px;">3X Large</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>text-4xl</code></td>
+                            <td>36px</td>
+                            <td><span style="font-size: 36px;">4X Large</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Font Weight</h3>
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">font-thin</div>
+                    <div class="code-block">className="font-thin"</div>
+                    <div class="example-output" style="font-weight: 100;">fontWeight: '100'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">font-light</div>
+                    <div class="code-block">className="font-light"</div>
+                    <div class="example-output" style="font-weight: 300;">fontWeight: '300'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">font-normal</div>
+                    <div class="code-block">className="font-normal"</div>
+                    <div class="example-output" style="font-weight: 400;">fontWeight: '400'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">font-medium</div>
+                    <div class="code-block">className="font-medium"</div>
+                    <div class="example-output" style="font-weight: 500;">fontWeight: '500'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">font-semibold</div>
+                    <div class="code-block">className="font-semibold"</div>
+                    <div class="example-output" style="font-weight: 600;">fontWeight: '600'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">font-bold</div>
+                    <div class="code-block">className="font-bold"</div>
+                    <div class="example-output" style="font-weight: 700;">fontWeight: '700'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">font-extrabold</div>
+                    <div class="code-block">className="font-extrabold"</div>
+                    <div class="example-output" style="font-weight: 800;">fontWeight: '800'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">font-black</div>
+                    <div class="code-block">className="font-black"</div>
+                    <div class="example-output" style="font-weight: 900;">fontWeight: '900'</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Text Alignment & Transform</h3>
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">text-left</div>
+                    <div class="code-block">className="text-left"</div>
+                    <div class="example-output">textAlign: 'left'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">text-center</div>
+                    <div class="code-block">className="text-center"</div>
+                    <div class="example-output">textAlign: 'center'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">text-right</div>
+                    <div class="code-block">className="text-right"</div>
+                    <div class="example-output">textAlign: 'right'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">text-justify</div>
+                    <div class="code-block">className="text-justify"</div>
+                    <div class="example-output">textAlign: 'justify'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">uppercase</div>
+                    <div class="code-block">className="uppercase"</div>
+                    <div class="example-output">textTransform: 'uppercase'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">lowercase</div>
+                    <div class="code-block">className="lowercase"</div>
+                    <div class="example-output">textTransform: 'lowercase'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">capitalize</div>
+                    <div class="code-block">className="capitalize"</div>
+                    <div class="example-output">textTransform: 'capitalize'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">italic</div>
+                    <div class="code-block">className="italic"</div>
+                    <div class="example-output">fontStyle: 'italic'</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Text Decoration & Line Height</h3>
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">underline</div>
+                    <div class="code-block">className="underline"</div>
+                    <div class="example-output">textDecorationLine: 'underline'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">line-through</div>
+                    <div class="code-block">className="line-through"</div>
+                    <div class="example-output">textDecorationLine: 'line-through'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">no-underline</div>
+                    <div class="code-block">className="no-underline"</div>
+                    <div class="example-output">textDecorationLine: 'none'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">leading-{n}</div>
+                    <div class="class-description">Line height</div>
+                    <div class="code-block">className="leading-tight" // 1.25<br>className="leading-normal" // 1.5<br>className="leading-loose" // 2</div>
+                    <div class="example-output">lineHeight: 1.25</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">tracking-{n}</div>
+                    <div class="class-description">Letter spacing</div>
+                    <div class="code-block">className="tracking-tight" // -0.05em<br>className="tracking-wide" // 0.025em</div>
+                    <div class="example-output">letterSpacing: 0.025</div>
+                </div>
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">🎯 Common Typography Patterns</h3>
+                <div class="pattern-code">
+<span class="keyword">// Heading</span>
+&lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-3xl font-bold text-gray-900"</span>&gt;
+  Page Title
+&lt;/<span class="tag">Text</span>&gt;
+
+<span class="keyword">// Subtitle</span>
+&lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-lg font-semibold text-gray-700 mb-2"</span>&gt;
+  Section Title
+&lt;/<span class="tag">Text</span>&gt;
+
+<span class="keyword">// Body text</span>
+&lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-base text-gray-600 leading-relaxed"</span>&gt;
+  Regular paragraph text with comfortable line height.
+&lt;/<span class="tag">Text</span>&gt;
+
+<span class="keyword">// Caption/Small text</span>
+&lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-sm text-gray-500 italic"</span>&gt;
+  Last updated: 2 hours ago
+&lt;/<span class="tag">Text</span>&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Colors Section -->
+        <section id="colors" class="section" data-category="colors">
+            <div class="section-header">
+                <span class="section-icon">🎨</span>
+                <h2 class="section-title">Colors</h2>
+            </div>
+            <p class="section-description">
+                Background colors, text colors, border colors - με Tailwind color scale (50-950).
+            </p>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Background Colors</h3>
+            <div class="info-box">
+                <strong>💡 Color Scale:</strong> Κάθε χρώμα έχει 10 shades από 50 (πολύ ανοιχτό) έως 950 (πολύ σκούρο).<br>
+                Παράδειγμα: <code>bg-blue-50</code>, <code>bg-blue-100</code>, <code>bg-blue-200</code>, ... <code>bg-blue-950</code>
+            </div>
+
+            <div class="class-grid">
+                <div class="class-card" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                    <div class="class-name" style="color: white;">bg-red-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-red-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);">
+                    <div class="class-name" style="color: white;">bg-orange-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-orange-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                    <div class="class-name" style="color: white;">bg-amber-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-amber-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);">
+                    <div class="class-name" style="color: white;">bg-yellow-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-yellow-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);">
+                    <div class="class-name" style="color: white;">bg-lime-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-lime-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);">
+                    <div class="class-name" style="color: white;">bg-green-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-green-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    <div class="class-name" style="color: white;">bg-emerald-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-emerald-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);">
+                    <div class="class-name" style="color: white;">bg-teal-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-teal-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);">
+                    <div class="class-name" style="color: white;">bg-cyan-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-cyan-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);">
+                    <div class="class-name" style="color: white;">bg-sky-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-sky-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+                    <div class="class-name" style="color: white;">bg-blue-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-blue-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
+                    <div class="class-name" style="color: white;">bg-indigo-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-indigo-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                    <div class="class-name" style="color: white;">bg-violet-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-violet-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);">
+                    <div class="class-name" style="color: white;">bg-purple-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-purple-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #d946ef 0%, #c026d3 100%);">
+                    <div class="class-name" style="color: white;">bg-fuchsia-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-fuchsia-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);">
+                    <div class="class-name" style="color: white;">bg-pink-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-pink-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);">
+                    <div class="class-name" style="color: white;">bg-rose-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-rose-500"</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Grayscale Colors</h3>
+            <div class="class-grid">
+                <div class="class-card" style="background: linear-gradient(135deg, #71717a 0%, #52525b 100%);">
+                    <div class="class-name" style="color: white;">bg-gray-{50-950}</div>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3);">className="bg-gray-500"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);">
+                    <div class="class-name">bg-white</div>
+                    <div class="code-block">className="bg-white"</div>
+                </div>
+
+                <div class="class-card" style="background: linear-gradient(135deg, #18181b 0%, #000000 100%);">
+                    <div class="class-name" style="color: white;">bg-black</div>
+                    <div class="code-block" style="background: rgba(255,255,255,0.1);">className="bg-black"</div>
+                </div>
+
+                <div class="class-card" style="background: transparent; border: 2px dashed var(--border);">
+                    <div class="class-name">bg-transparent</div>
+                    <div class="code-block">className="bg-transparent"</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Background Opacity</h3>
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">bg-{color}/{opacity}</div>
+                    <div class="class-description">Background με opacity</div>
+                    <div class="code-block">className="bg-blue-500/50" // 50% opacity<br>className="bg-red-500/25" // 25% opacity<br>className="bg-black/10" // 10% opacity</div>
+                    <div class="example-output">backgroundColor: 'rgba(..., 0.5)'</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Text Colors</h3>
+            <div class="info-box">
+                <strong>💡 Tip:</strong> Τα text colors λειτουργούν ακριβώς όπως τα background colors!<br>
+                <code>text-blue-500</code>, <code>text-red-600</code>, <code>text-gray-700</code>, κτλ.
+            </div>
+
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">text-{color}-{shade}</div>
+                    <div class="code-block">className="text-blue-500"<br>className="text-gray-700"<br>className="text-red-600"</div>
+                    <div class="example-output">color: '#3b82f6'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">text-{color}/{opacity}</div>
+                    <div class="class-description">Text color με opacity</div>
+                    <div class="code-block">className="text-black/60"<br>className="text-white/80"</div>
+                    <div class="example-output">color: 'rgba(0,0,0,0.6)'</div>
+                </div>
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">🎯 Color Usage Examples</h3>
+                <div class="pattern-code">
+<span class="keyword">// Primary button</span>
+&lt;<span class="tag">Pressable</span> <span class="keyword">className</span>=<span class="string">"bg-blue-500 px-6 py-3 rounded-lg"</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-white font-bold text-center"</span>&gt;Press Me&lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">Pressable</span>&gt;
+
+<span class="keyword">// Success message</span>
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"bg-green-100 border border-green-500 p-4 rounded"</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-green-800"</span>&gt;✅ Success!&lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+
+<span class="keyword">// Overlay με opacity</span>
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"absolute inset-0 bg-black/50"</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-white"</span>&gt;Modal Content&lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Borders Section -->
+        <section id="borders" class="section" data-category="borders">
+            <div class="section-header">
+                <span class="section-icon">🔲</span>
+                <h2 class="section-title">Borders & Radius</h2>
+            </div>
+            <p class="section-description">
+                Border width, color, radius - για cards, buttons, και containers.
+            </p>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Border Width</h3>
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">border</div>
+                    <div class="class-description">1px border από όλες τις πλευρές</div>
+                    <div class="code-block">className="border"</div>
+                    <div class="example-output">borderWidth: 1</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">border-{n}</div>
+                    <div class="class-description">Custom border width (0, 2, 4, 8)</div>
+                    <div class="code-block">className="border-2"<br>className="border-4"</div>
+                    <div class="example-output">borderWidth: 2</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">border-{side}</div>
+                    <div class="class-description">Border σε συγκεκριμένη πλευρά</div>
+                    <div class="code-block">className="border-t" // top<br>className="border-b" // bottom<br>className="border-l" // left<br>className="border-r" // right</div>
+                    <div class="example-output">borderTopWidth: 1</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">border-{side}-{n}</div>
+                    <div class="class-description">Custom width σε πλευρά</div>
+                    <div class="code-block">className="border-t-2 border-b-4"</div>
+                    <div class="example-output">borderTopWidth: 2, borderBottomWidth: 4</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Border Color</h3>
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">border-{color}-{shade}</div>
+                    <div class="class-description">Border color με Tailwind scale</div>
+                    <div class="code-block">className="border border-blue-500"<br>className="border-2 border-red-600"</div>
+                    <div class="example-output">borderColor: '#3b82f6'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">border-{color}/{opacity}</div>
+                    <div class="class-description">Border color με opacity</div>
+                    <div class="code-block">className="border border-black/20"</div>
+                    <div class="example-output">borderColor: 'rgba(0,0,0,0.2)'</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Border Radius</h3>
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">rounded-none</div>
+                    <div class="code-block">className="rounded-none"</div>
+                    <div class="example-output" style="border-radius: 0; border: 2px solid var(--primary); padding: 10px;">borderRadius: 0</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">rounded-sm</div>
+                    <div class="code-block">className="rounded-sm"</div>
+                    <div class="example-output" style="border-radius: 2px; border: 2px solid var(--primary); padding: 10px;">borderRadius: 2</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">rounded</div>
+                    <div class="code-block">className="rounded"</div>
+                    <div class="example-output" style="border-radius: 4px; border: 2px solid var(--primary); padding: 10px;">borderRadius: 4</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">rounded-md</div>
+                    <div class="code-block">className="rounded-md"</div>
+                    <div class="example-output" style="border-radius: 6px; border: 2px solid var(--primary); padding: 10px;">borderRadius: 6</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">rounded-lg</div>
+                    <div class="code-block">className="rounded-lg"</div>
+                    <div class="example-output" style="border-radius: 8px; border: 2px solid var(--primary); padding: 10px;">borderRadius: 8</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">rounded-xl</div>
+                    <div class="code-block">className="rounded-xl"</div>
+                    <div class="example-output" style="border-radius: 12px; border: 2px solid var(--primary); padding: 10px;">borderRadius: 12</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">rounded-2xl</div>
+                    <div class="code-block">className="rounded-2xl"</div>
+                    <div class="example-output" style="border-radius: 16px; border: 2px solid var(--primary); padding: 10px;">borderRadius: 16</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">rounded-3xl</div>
+                    <div class="code-block">className="rounded-3xl"</div>
+                    <div class="example-output" style="border-radius: 24px; border: 2px solid var(--primary); padding: 10px;">borderRadius: 24</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">rounded-full</div>
+                    <div class="code-block">className="rounded-full"</div>
+                    <div class="example-output" style="border-radius: 9999px; border: 2px solid var(--primary); padding: 10px; text-align: center;">borderRadius: 9999</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Individual Corner Radius</h3>
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">rounded-{corner}-{size}</div>
+                    <div class="class-description">Radius σε συγκεκριμένη γωνία</div>
+                    <div class="code-block">className="rounded-tl-lg" // top-left<br>className="rounded-tr-lg" // top-right<br>className="rounded-bl-lg" // bottom-left<br>className="rounded-br-lg" // bottom-right</div>
+                    <div class="example-output">borderTopLeftRadius: 8</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">rounded-t-{size}</div>
+                    <div class="class-description">Top corners</div>
+                    <div class="code-block">className="rounded-t-xl"</div>
+                    <div class="example-output">borderTopLeftRadius: 12, borderTopRightRadius: 12</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">rounded-b-{size}</div>
+                    <div class="class-description">Bottom corners</div>
+                    <div class="code-block">className="rounded-b-xl"</div>
+                    <div class="example-output">borderBottomLeftRadius: 12, borderBottomRightRadius: 12</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">rounded-l-{size}</div>
+                    <div class="class-description">Left corners</div>
+                    <div class="code-block">className="rounded-l-xl"</div>
+                    <div class="example-output">borderTopLeftRadius: 12, borderBottomLeftRadius: 12</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">rounded-r-{size}</div>
+                    <div class="class-description">Right corners</div>
+                    <div class="code-block">className="rounded-r-xl"</div>
+                    <div class="example-output">borderTopRightRadius: 12, borderBottomRightRadius: 12</div>
+                </div>
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">🎯 Border Patterns</h3>
+                <div class="pattern-code">
+<span class="keyword">// Card με border</span>
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"bg-white border-2 border-gray-200 rounded-lg p-4"</span>&gt;
+  &lt;<span class="tag">Text</span>&gt;Card Content&lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+
+<span class="keyword">// Avatar (rounded-full)</span>
+&lt;<span class="tag">Image</span> 
+  <span class="keyword">source</span>={avatar}
+  <span class="keyword">className</span>=<span class="string">"w-20 h-20 rounded-full border-4 border-white"</span>
+/&gt;
+
+<span class="keyword">// Bottom border divider</span>
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"border-b border-gray-200 pb-4"</span>&gt;
+  &lt;<span class="tag">Text</span>&gt;Section Content&lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Effects Section -->
+        <section id="effects" class="section" data-category="effects">
+            <div class="section-header">
+                <span class="section-icon">✨</span>
+                <h2 class="section-title">Effects</h2>
+            </div>
+            <p class="section-description">
+                Shadow, opacity, και άλλα visual effects.
+            </p>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Shadow (Elevation)</h3>
+            <div class="warning-box">
+                <strong>⚠️ Platform Difference:</strong> Shadows λειτουργούν διαφορετικά σε iOS και Android!<br>
+                • iOS: shadowColor, shadowOffset, shadowOpacity, shadowRadius<br>
+                • Android: elevation (shadow είναι auto-generated)
+            </div>
+
+            <div class="class-grid">
+                <div class="class-card" style="box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                    <div class="class-name">shadow-sm</div>
+                    <div class="code-block">className="shadow-sm"</div>
+                    <div class="example-output">Small shadow</div>
+                </div>
+
+                <div class="class-card" style="box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);">
+                    <div class="class-name">shadow</div>
+                    <div class="code-block">className="shadow"</div>
+                    <div class="example-output">Default shadow</div>
+                </div>
+
+                <div class="class-card" style="box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);">
+                    <div class="class-name">shadow-md</div>
+                    <div class="code-block">className="shadow-md"</div>
+                    <div class="example-output">Medium shadow</div>
+                </div>
+
+                <div class="class-card" style="box-shadow: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);">
+                    <div class="class-name">shadow-lg</div>
+                    <div class="code-block">className="shadow-lg"</div>
+                    <div class="example-output">Large shadow</div>
+                </div>
+
+                <div class="class-card" style="box-shadow: 0 20px 25px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.04);">
+                    <div class="class-name">shadow-xl</div>
+                    <div class="code-block">className="shadow-xl"</div>
+                    <div class="example-output">Extra large shadow</div>
+                </div>
+
+                <div class="class-card" style="box-shadow: 0 25px 50px rgba(0,0,0,0.25);">
+                    <div class="class-name">shadow-2xl</div>
+                    <div class="code-block">className="shadow-2xl"</div>
+                    <div class="example-output">2XL shadow</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">shadow-none</div>
+                    <div class="code-block">className="shadow-none"</div>
+                    <div class="example-output">No shadow</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Opacity</h3>
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">opacity-{n}</div>
+                    <div class="class-description">Opacity από 0-100</div>
+                    <div class="code-block">className="opacity-0" // invisible<br>className="opacity-50" // 50%<br>className="opacity-100" // fully visible</div>
+                    <div class="example-output">opacity: 0.5</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 Opacity Values:</strong> 0, 5, 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90, 95, 100
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">🎯 Shadow Example: Elevated Card</h3>
+                <div class="pattern-code">
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"bg-white rounded-xl shadow-lg p-6 m-4"</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-2xl font-bold mb-2"</span>&gt;Card Title&lt;/<span class="tag">Text</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-gray-600"</span>&gt;This card has shadow!&lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Platform Differences -->
+        <section id="platforms" class="section" data-category="platforms">
+            <div class="section-header">
+                <span class="section-icon">📱</span>
+                <h2 class="section-title">Platform Differences</h2>
+            </div>
+            <p class="section-description">
+                Διαφορές μεταξύ React Native και Web - τι να προσέξεις!
+            </p>
+
+            <div class="warning-box">
+                <strong>⚠️ Σημαντικές Διαφορές:</strong>
+            </div>
+
+            <div class="quick-ref">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Web Support</th>
+                            <th>React Native Support</th>
+                            <th>Λύση</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Negative Margins</td>
+                            <td>✅ Full support</td>
+                            <td>❌ Not supported</td>
+                            <td>Χρησιμοποίησε padding ή absolute positioning</td>
+                        </tr>
+                        <tr>
+                            <td>Hover States</td>
+                            <td>✅ Works</td>
+                            <td>❌ No hover on mobile</td>
+                            <td>Χρησιμοποίησε Pressable με onPressIn/Out</td>
+                        </tr>
+                        <tr>
+                            <td>Focus States</td>
+                            <td>✅ Works</td>
+                            <td>⚠️ Limited</td>
+                            <td>Manual focus state management</td>
+                        </tr>
+                        <tr>
+                            <td>Shadows</td>
+                            <td>✅ box-shadow</td>
+                            <td>⚠️ Platform specific (iOS vs Android)</td>
+                            <td>Χρησιμοποίησε shadow classes (αυτόματα cross-platform)</td>
+                        </tr>
+                        <tr>
+                            <td>Transform Origin</td>
+                            <td>✅ Full support</td>
+                            <td>❌ Limited</td>
+                            <td>Manual calculation needed</td>
+                        </tr>
+                        <tr>
+                            <td>Z-Index</td>
+                            <td>✅ Works everywhere</td>
+                            <td>⚠️ iOS only (Android uses render order)</td>
+                            <td>Αλλάξε render order για Android</td>
+                        </tr>
+                        <tr>
+                            <td>Percentage Heights</td>
+                            <td>✅ Works</td>
+                            <td>⚠️ Needs parent with defined height</td>
+                            <td>Χρησιμοποίησε flex-1 αντί για h-full</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Best Practices για Cross-Platform</h3>
+
+            <div class="success-box">
+                <strong>✅ Do's:</strong><br>
+                • Χρησιμοποίησε <code>flex-1</code> αντί για percentage heights<br>
+                • Χρησιμοποίησε <code>gap</code> αντί για margins μεταξύ items<br>
+                • Χρησιμοποίησε NativeWind shadow classes (αυτόματα cross-platform)<br>
+                • Test σε πραγματικές συσκευές, όχι μόνο emulator
+            </div>
+
+            <div class="warning-box">
+                <strong>❌ Don'ts:</strong><br>
+                • Μην χρησιμοποιείς negative margins<br>
+                • Μην βασίζεσαι σε hover states για mobile<br>
+                • Μην χρησιμοποιείς web-specific CSS properties<br>
+                • Μην ξεχνάς τα SafeAreaView για notches
+            </div>
+        </section>
+
+        <!-- Common Patterns -->
+        <section id="patterns" class="section" data-category="patterns">
+            <div class="section-header">
+                <span class="section-icon">🎯</span>
+                <h2 class="section-title">Common UI Patterns</h2>
+            </div>
+            <p class="section-description">
+                Ready-to-use patterns που θα χρησιμοποιείς συχνά στις εφαρμογές σου.
+            </p>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">1. Button Component</h3>
+                <div class="pattern-code">
+&lt;<span class="tag">Pressable</span> 
+  <span class="keyword">className</span>=<span class="string">"bg-blue-500 px-6 py-3 rounded-lg active:bg-blue-600"</span>
+  <span class="keyword">onPress</span>={() =&gt; {}}
+&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-white font-bold text-center"</span>&gt;
+    Press Me
+  &lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">Pressable</span>&gt;
+
+<span class="keyword">// Outline button</span>
+&lt;<span class="tag">Pressable</span> 
+  <span class="keyword">className</span>=<span class="string">"border-2 border-blue-500 px-6 py-3 rounded-lg"</span>
+&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-blue-500 font-bold text-center"</span>&gt;
+    Outline
+  &lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">Pressable</span>&gt;
+                </div>
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">2. Card Component</h3>
+                <div class="pattern-code">
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"bg-white rounded-xl shadow-md p-6 m-4"</span>&gt;
+  <span class="keyword">// Header</span>
+  &lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"flex-row items-center justify-between mb-4"</span>&gt;
+    &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-2xl font-bold text-gray-900"</span>&gt;
+      Card Title
+    &lt;/<span class="tag">Text</span>&gt;
+    &lt;<span class="tag">Icon</span> <span class="keyword">name</span>=<span class="string">"more-vertical"</span> /&gt;
+  &lt;/<span class="tag">View</span>&gt;
+
+  <span class="keyword">// Content</span>
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-gray-600 leading-relaxed"</span>&gt;
+    Card content goes here with comfortable line height.
+  &lt;/<span class="tag">Text</span>&gt;
+
+  <span class="keyword">// Footer</span>
+  &lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"flex-row gap-2 mt-4"</span>&gt;
+    &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"</span>&gt;
+      Tag 1
+    &lt;/<span class="tag">Text</span>&gt;
+    &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm"</span>&gt;
+      Tag 2
+    &lt;/<span class="tag">Text</span>&gt;
+  &lt;/<span class="tag">View</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+                </div>
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">3. List Item με Avatar</h3>
+                <div class="pattern-code">
+&lt;<span class="tag">Pressable</span> <span class="keyword">className</span>=<span class="string">"flex-row items-center p-4 border-b border-gray-200"</span>&gt;
+  <span class="keyword">// Avatar</span>
+  &lt;<span class="tag">Image</span> 
+    <span class="keyword">source</span>={avatar}
+    <span class="keyword">className</span>=<span class="string">"w-12 h-12 rounded-full mr-3"</span>
+  /&gt;
+
+  <span class="keyword">// Content</span>
+  &lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"flex-1"</span>&gt;
+    &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-lg font-semibold text-gray-900"</span>&gt;
+      John Doe
+    &lt;/<span class="tag">Text</span>&gt;
+    &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-sm text-gray-500"</span>&gt;
+      Last seen 2 hours ago
+    &lt;/<span class="tag">Text</span>&gt;
+  &lt;/<span class="tag">View</span>&gt;
+
+  <span class="keyword">// Badge/Indicator</span>
+  &lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"w-3 h-3 bg-green-500 rounded-full"</span> /&gt;
+&lt;/<span class="tag">Pressable</span>&gt;
+                </div>
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">4. Input Field</h3>
+                <div class="pattern-code">
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"mb-4"</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-sm font-medium text-gray-700 mb-2"</span>&gt;
+    Email Address
+  &lt;/<span class="tag">Text</span>&gt;
+  &lt;<span class="tag">TextInput</span>
+    <span class="keyword">placeholder</span>=<span class="string">"Enter your email"</span>
+    <span class="keyword">className</span>=<span class="string">"border border-gray-300 rounded-lg px-4 py-3 text-base"</span>
+  /&gt;
+&lt;/<span class="tag">View</span>&gt;
+
+<span class="keyword">// Error state</span>
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"mb-4"</span>&gt;
+  &lt;<span class="tag">TextInput</span>
+    <span class="keyword">className</span>=<span class="string">"border-2 border-red-500 rounded-lg px-4 py-3"</span>
+  /&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-sm text-red-500 mt-1"</span>&gt;
+    This field is required
+  &lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+                </div>
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">5. Badge/Chip</h3>
+                <div class="pattern-code">
+<span class="keyword">// Status badges</span>
+&lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium"</span>&gt;
+  Active
+&lt;/<span class="tag">Text</span>&gt;
+
+&lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium"</span>&gt;
+  Pending
+&lt;/<span class="tag">Text</span>&gt;
+
+&lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium"</span>&gt;
+  Inactive
+&lt;/<span class="tag">Text</span>&gt;
+                </div>
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">6. Alert/Notification Box</h3>
+                <div class="pattern-code">
+<span class="keyword">// Success</span>
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"bg-green-50 border border-green-500 rounded-lg p-4 mb-4"</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-green-800 font-semibold mb-1"</span>&gt;✅ Success&lt;/<span class="tag">Text</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-green-700"</span>&gt;Your changes have been saved.&lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+
+<span class="keyword">// Error</span>
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"bg-red-50 border border-red-500 rounded-lg p-4 mb-4"</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-red-800 font-semibold mb-1"</span>&gt;❌ Error&lt;/<span class="tag">Text</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-red-700"</span>&gt;Something went wrong.&lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+
+<span class="keyword">// Info</span>
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"bg-blue-50 border border-blue-500 rounded-lg p-4"</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-blue-800 font-semibold mb-1"</span>&gt;ℹ️ Info&lt;/<span class="tag">Text</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-blue-700"</span>&gt;Here's some information.&lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+                </div>
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">7. Header με Back Button</h3>
+                <div class="pattern-code">
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"flex-row items-center justify-between px-4 py-3 border-b border-gray-200"</span>&gt;
+  &lt;<span class="tag">Pressable</span> <span class="keyword">className</span>=<span class="string">"p-2"</span> <span class="keyword">onPress</span>={() =&gt; navigation.goBack()}&gt;
+    &lt;<span class="tag">Icon</span> <span class="keyword">name</span>=<span class="string">"arrow-left"</span> <span class="keyword">size</span>={24} /&gt;
+  &lt;/<span class="tag">Pressable</span>&gt;
+
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-xl font-bold"</span>&gt;Page Title&lt;/<span class="tag">Text</span>&gt;
+
+  &lt;<span class="tag">Pressable</span> <span class="keyword">className</span>=<span class="string">"p-2"</span>&gt;
+    &lt;<span class="tag">Icon</span> <span class="keyword">name</span>=<span class="string">"more-vertical"</span> <span class="keyword">size</span>={24} /&gt;
+  &lt;/<span class="tag">Pressable</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+                </div>
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">8. Grid Layout</h3>
+                <div class="pattern-code">
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"flex-row flex-wrap gap-4 p-4"</span>&gt;
+  {items.map((item) =&gt; (
+    &lt;<span class="tag">View</span> 
+      <span class="keyword">key</span>={item.id}
+      <span class="keyword">className</span>=<span class="string">"w-[calc(50%-8px)] bg-white rounded-lg p-4 shadow"</span>
+    &gt;
+      &lt;<span class="tag">Image</span> <span class="keyword">className</span>=<span class="string">"w-full aspect-square rounded-lg mb-2"</span> /&gt;
+      &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"font-semibold"</span>&gt;{item.title}&lt;/<span class="tag">Text</span>&gt;
+    &lt;/<span class="tag">View</span>&gt;
+  ))}
+&lt;/<span class="tag">View</span>&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Custom Values -->
+        <section id="custom" class="section" data-category="custom">
+            <div class="section-header">
+                <span class="section-icon">🛠️</span>
+                <h2 class="section-title">Custom Values & Advanced</h2>
+            </div>
+            <p class="section-description">
+                Πώς να χρησιμοποιείς custom values και advanced features.
+            </p>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Arbitrary Values με []</h3>
+            <div class="success-box">
+                <strong>✅ Custom Values:</strong> Μπορείς να χρησιμοποιείς arbitrary values με <code>[]</code> brackets!
+            </div>
+
+            <div class="class-grid">
+                <div class="class-card">
+                    <div class="class-name">Custom Sizes</div>
+                    <div class="code-block">className="w-[250px]"<br>className="h-[150px]"<br>className="p-[23px]"</div>
+                    <div class="example-output">width: 250, height: 150, padding: 23</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">Custom Colors</div>
+                    <div class="code-block">className="bg-[#1a2b3c]"<br>className="text-[#ff6b6b]"<br>className="border-[rgb(100,200,150)]"</div>
+                    <div class="example-output">backgroundColor: '#1a2b3c'</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">Custom Font Size</div>
+                    <div class="code-block">className="text-[17px]"<br>className="text-[22px]"</div>
+                    <div class="example-output">fontSize: 17</div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-name">Custom Percentages</div>
+                    <div class="code-block">className="w-[85%]"<br>className="h-[45%]"</div>
+                    <div class="example-output">width: '85%'</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Responsive Design</h3>
+            <div class="info-box">
+                <strong>💡 Breakpoints:</strong> NativeWind υποστηρίζει responsive breakpoints όπως στο web!<br>
+                • <code>sm:</code> ≥ 640px<br>
+                • <code>md:</code> ≥ 768px<br>
+                • <code>lg:</code> ≥ 1024px<br>
+                • <code>xl:</code> ≥ 1280px
+            </div>
+
+            <div class="pattern-card">
+                <h3 class="pattern-title">Responsive Example</h3>
+                <div class="pattern-code">
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"p-4 md:p-8 lg:p-12"</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-xl md:text-2xl lg:text-3xl"</span>&gt;
+    Responsive Text
+  &lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+
+<span class="keyword">// Grid που αλλάζει columns</span>
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"flex-row flex-wrap"</span>&gt;
+  &lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"w-full sm:w-1/2 lg:w-1/3 p-2"</span>&gt;
+    <span class="keyword">// 1 column mobile, 2 tablet, 3 desktop</span>
+  &lt;/<span class="tag">View</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Dark Mode</h3>
+            <div class="pattern-card">
+                <h3 class="pattern-title">Dark Mode Support</h3>
+                <div class="pattern-code">
+&lt;<span class="tag">View</span> <span class="keyword">className</span>=<span class="string">"bg-white dark:bg-gray-900"</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-gray-900 dark:text-white"</span>&gt;
+    Adapts to dark mode!
+  &lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+
+<span class="keyword">// Button με dark mode</span>
+&lt;<span class="tag">Pressable</span> <span class="keyword">className</span>=<span class="string">"bg-blue-500 dark:bg-blue-600 px-6 py-3 rounded-lg"</span>&gt;
+  &lt;<span class="tag">Text</span> <span class="keyword">className</span>=<span class="string">"text-white"</span>&gt;Button&lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">Pressable</span>&gt;
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary); margin: 30px 0 20px;">Conditional Styling</h3>
+            <div class="pattern-card">
+                <h3 class="pattern-title">Dynamic Classes</h3>
+                <div class="pattern-code">
+<span class="keyword">import</span> { clsx } <span class="keyword">from</span> <span class="string">'clsx'</span>; <span class="keyword">// ή twMerge</span>
+
+<span class="keyword">// Conditional styling</span>
+&lt;<span class="tag">View</span> 
+  <span class="keyword">className</span>={clsx(
+    <span class="string">"p-4 rounded-lg"</span>,
+    isActive ? <span class="string">"bg-blue-500"</span> : <span class="string">"bg-gray-200"</span>,
+    hasError && <span class="string">"border-2 border-red-500"</span>
+  )}
+&gt;
+  &lt;<span class="tag">Text</span>&gt;Dynamic Styling&lt;/<span class="tag">Text</span>&gt;
+&lt;/<span class="tag">View</span>&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p style="font-size: 1.1rem; margin-bottom: 10px;">
+                🎨 Created with ❤️ for NativeWind Developers
+            </p>
+            <p style="color: var(--text-dim);">
+                Last updated: January 2026 | NativeWind v5
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchBox = document.getElementById('searchBox');
+        const sections = document.querySelectorAll('.section');
+        const filterTags = document.querySelectorAll('.filter-tag');
+        let activeCategory = 'all';
+
+        searchBox.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            filterContent(searchTerm, activeCategory);
+        });
+
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', (e) => {
+                filterTags.forEach(t => t.classList.remove('active'));
+                e.target.classList.add('active');
+                activeCategory = e.target.dataset.category;
+                filterContent(searchBox.value.toLowerCase(), activeCategory);
+            });
+        });
+
+        function filterContent(searchTerm, category) {
+            sections.forEach(section => {
+                const sectionCategory = section.dataset.category;
+                const text = section.textContent.toLowerCase();
+                
+                const matchesSearch = !searchTerm || text.includes(searchTerm);
+                const matchesCategory = category === 'all' || sectionCategory === category;
+
+                if (matchesSearch && matchesCategory) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
+
+        // Smooth scroll for TOC links
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.class-card, .pattern-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

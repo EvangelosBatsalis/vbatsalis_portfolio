@@ -1,0 +1,314 @@
+<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>AZ-104 Ch.07 — ARM &amp; Bicep</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>:root{--bg:#07090f;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--acc:#a78bfa;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--mono:"JetBrains Mono",monospace;--sans:"Inter",sans-serif;--display:"Syne",sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+.hdr{background:linear-gradient(160deg,#040609,#07090f,#07040f);border-bottom:1px solid var(--border);padding:48px 0 40px;position:relative}
+.hdr::before{content:"";position:absolute;top:-60px;right:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(167,139,250,.06),transparent 65%)}
+.hdr-inner{max-width:1100px;margin:0 auto;padding:0 32px}
+.bc{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:14px}.bc a{color:var(--text3);text-decoration:none}
+.cbadge{display:inline-flex;gap:8px;background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.28);border-radius:4px;padding:5px 14px;font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.hdr h1{font-family:var(--display);font-size:clamp(26px,5vw,46px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:10px}.hdr h1 span{color:var(--acc)}
+.hdr-sub{color:var(--text2);font-size:15px;margin-bottom:18px}
+.hdr-meta{display:flex;gap:18px;flex-wrap:wrap}.mp{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text3)}
+.mpd{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green)}.mpd.a{background:var(--acc);box-shadow:0 0 5px var(--acc)}
+.layout{max-width:1100px;margin:0 auto;padding:40px 32px;display:grid;grid-template-columns:268px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.toc-hdr{background:var(--bg3);padding:12px 18px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid var(--border)}
+.toc-body{padding:8px 0}.toc-sec{padding:5px 18px 2px;font-size:9px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:6px}
+.ta{display:flex;align-items:flex-start;gap:8px;padding:6px 18px;font-size:12.5px;color:var(--text2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}
+.ta:hover{color:var(--text);background:var(--card2);border-left-color:var(--acc)}.ta.active{color:var(--acc);background:rgba(167,139,250,.06);border-left-color:var(--acc);font-weight:600}
+.ta .tn{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:3px;flex-shrink:0;width:20px}
+.content{min-width:0}
+.ch-intro{background:linear-gradient(135deg,var(--card),var(--bg3));border:1px solid #1e2d4a;border-radius:10px;padding:26px;margin-bottom:30px}
+.ch-n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--acc);text-transform:uppercase;margin-bottom:6px}
+.ch-t{font-family:var(--display);font-size:22px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.ch-desc{color:var(--text2);font-size:14px;line-height:1.7;margin-bottom:14px}
+.ch-stats{display:flex;gap:12px;flex-wrap:wrap}.stx{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:7px 12px;font-family:var(--mono);font-size:11px}
+.stx .l{color:var(--text3);display:block;margin-bottom:1px}.stx .v{color:var(--text);font-weight:600}
+.section{margin-bottom:46px;scroll-margin-top:24px}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.si{width:36px;height:36px;background:rgba(167,139,250,.09);border:1px solid rgba(167,139,250,.22);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.sn{font-family:var(--mono);font-size:10px;color:var(--text3)}.section h2{font-family:var(--display);font-size:19px;font-weight:700;color:#fff}
+.section h3{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);margin:22px 0 10px}.section h3::before{content:"▸ ";color:var(--acc)}
+.section p{color:var(--text2);margin-bottom:12px;font-size:14px}.section ul,.section ol{color:var(--text2);padding-left:22px;margin-bottom:12px}
+.section li{margin-bottom:6px;font-size:14px}.section li strong,.section p strong{color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:13px}
+.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:8px 12px;border-bottom:1px solid var(--border)}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:12px}.tbl tr:hover td{background:var(--card2)}
+pre{background:#050710;border:1px solid var(--border);border-left:3px solid var(--acc);border-radius:6px;padding:14px 18px;overflow-x:auto;margin-bottom:12px;font-family:var(--mono);font-size:12px;line-height:1.7}
+code{font-family:var(--mono);font-size:12px;color:#c4b5fd;background:rgba(196,181,253,.07);padding:2px 5px;border-radius:3px}pre code{background:none;padding:0;color:inherit}
+.kw{color:#c084fc}.param{color:#86efac}.val{color:#fbbf24}.cmt{color:#3d5068;font-style:italic}.str{color:#f472b6}
+.alert{display:flex;gap:12px;padding:12px 16px;border-radius:6px;margin-bottom:12px;font-size:13.5px}
+.ai{font-size:16px;flex-shrink:0;margin-top:1px}.ab{color:var(--text2);line-height:1.6}.ab strong{color:var(--text)}
+.tip{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18)}.tip .ai{color:#22c55e}
+.exam{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.22)}.exam .ai{color:var(--purple)}
+.info{background:rgba(167,139,250,.05);border:1px solid rgba(167,139,250,.22)}.info .ai{color:var(--acc)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:16px}
+.box.hl{border-color:rgba(167,139,250,.28)}.box-t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.scen{background:var(--card);border:1px solid #1e2d4a;border-radius:8px;overflow:hidden;margin-bottom:20px}
+.sc-hdr{background:linear-gradient(90deg,rgba(167,139,250,.1),transparent);padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.sc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.25);border-radius:3px;padding:2px 8px}
+.sc-title{font-size:13px;font-weight:600;color:var(--text)}.sc-body{padding:14px 18px}
+.sc-body p{color:var(--text2);font-size:13.5px;margin-bottom:10px}.sc-body p:last-child{margin-bottom:0}.sc-body strong{color:var(--text)}
+.steps{list-style:none;padding:0;counter-reset:st}
+.steps li{counter-increment:st;display:flex;gap:10px;margin-bottom:8px;align-items:flex-start;color:var(--text2);font-size:13.5px}
+.steps li::before{content:counter(st);min-width:20px;height:20px;background:rgba(167,139,250,.09);border:1px solid rgba(167,139,250,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--acc);flex-shrink:0;margin-top:2px}
+.badge{display:inline-flex;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:3px;font-weight:600;vertical-align:middle}
+.bg{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)}
+.by{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}
+hr{border:none;border-top:1px solid var(--border);margin:32px 0}
+.quiz{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:8px;padding:16px 20px;margin-bottom:16px}
+.qh{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:10px}
+.qq{font-size:14px;color:var(--text);font-weight:600;margin-bottom:10px}
+.qo{list-style:none;padding:0}.qo li{font-size:13px;color:var(--text2);padding:7px 10px;margin-bottom:4px;cursor:pointer;border-radius:4px;transition:background .15s;border-left:2px solid transparent}
+.qo li:hover{background:rgba(139,92,246,.07)}.qo li.ok{background:rgba(34,197,94,.07);color:#22c55e;border-left-color:#22c55e}.qo li.no{background:rgba(239,68,68,.07);color:#ef4444;border-left-color:#ef4444}
+.qa{display:none;margin-top:10px;padding:11px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:6px;font-size:13px;color:var(--text2)}.qa.show{display:block}
+.qbtn{margin-top:10px;padding:7px 14px;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.3);border-radius:5px;color:var(--purple);font-family:var(--mono);font-size:11px;cursor:pointer}
+.nav{display:flex;justify-content:space-between;margin-top:44px;padding-top:20px;border-top:1px solid var(--border);gap:14px}
+.nb{display:flex;flex-direction:column;gap:4px;padding:12px 18px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-decoration:none;flex:1;transition:all .2s}
+.nb:hover{border-color:var(--acc);background:var(--card2)}.nl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}
+.nt{font-size:13px;color:var(--text);font-weight:600}.nb.next{text-align:right}
+@media(max-width:768px){.layout{grid-template-columns:1fr;padding:20px 16px}.sidebar{position:static}}</style>
+</head><body>
+<header class="hdr"><div class="hdr-inner">
+  <div class="bc"><a href="az104-index.html">AZ-104</a> / Chapter 07</div>
+  <div class="cbadge">Chapter 07 · Sections 12–13</div>
+  <h1>ARM Templates &amp;<br><span>Azure Bicep</span></h1>
+  <p class="hdr-sub">ARM Structure · Parameters · Template Specs · Custom Script Ext · Bicep · Decompile</p>
+  <div class="hdr-meta"><div class="mp"><span class="mpd"></span>Domain 3 — 20–25%</div><div class="mp"><span class="mpd a"></span>Sections 12–13 · Lessons 94–107</div></div>
+</div></header>
+<div class="layout">
+<aside class="sidebar"><div class="toc"><div class="toc-hdr">Chapter 07 — ARM &amp; Bicep</div><div class="toc-body">
+  <div class="toc-sec">Section 12 — ARM</div>
+  <a href="#s1" class="ta active"><span class="tn">12.1</span>What is ARM Template</a>
+  <a href="#s2" class="ta"><span class="tn">12.2</span>Template Structure</a>
+  <a href="#s3" class="ta"><span class="tn">12.3</span>Deploy Templates</a>
+  <a href="#s4" class="ta"><span class="tn">12.4</span>Template Specs</a>
+  <a href="#s5" class="ta"><span class="tn">12.5</span>Custom Script Ext</a>
+  <div class="toc-sec">Section 13 — Bicep</div>
+  <a href="#s6" class="ta"><span class="tn">13.1</span>Azure Bicep</a>
+  <a href="#s7" class="ta"><span class="tn">Q</span>Quiz</a>
+  <div class="toc-sec">Navigation</div>
+  <a href="az104-c06-virtual-machines.html" class="ta">← Ch06</a>
+  <a href="az104-c08-app-service.html" class="ta">Ch08 →</a>
+</div></div></aside>
+<main class="content">
+<div class="ch-intro">
+  <div class="ch-n">Chapter 07 / Sections 12–13</div>
+  <div class="ch-t">ARM Templates &amp; Azure Bicep</div>
+  <p class="ch-desc">Infrastructure as Code (IaC) στο Azure. ARM Templates (JSON) και Azure Bicep (DSL) επιτρέπουν declarative deployment resources. Repeatable, version-controlled, automation-friendly deployments.</p>
+  <div class="ch-stats">
+    <div class="stx"><span class="l">Domain</span><span class="v">Domain 3 (supporting)</span></div>
+    <div class="stx"><span class="l">Lessons</span><span class="v">94–107</span></div>
+    <div class="stx"><span class="l">Exam Relevance</span><span class="v">Medium — read/modify templates</span></div>
+  </div>
+</div>
+
+<section class="section" id="s1">
+  <div class="sh"><div class="si">📄</div><div><div class="sn">Lesson 94 · 12.1</div><h2>What is an ARM Template?</h2></div></div>
+  <p>An <strong>Azure Resource Manager (ARM) Template</strong> is a JSON file that declaratively defines the infrastructure and configuration for Azure resources. You describe WHAT you want, ARM figures out HOW to deploy it.</p>
+  <h3>Benefits</h3>
+  <ul>
+    <li><strong>Declarative:</strong> Describe desired state — no need to write deployment scripts</li>
+    <li><strong>Idempotent:</strong> Deploy same template multiple times = same result</li>
+    <li><strong>Repeatable:</strong> Dev → Test → Prod with same template, different parameters</li>
+    <li><strong>Modular:</strong> Linked templates, template specs</li>
+    <li><strong>Validation:</strong> Pre-flight validation before actual deployment</li>
+  </ul>
+  <div class="alert info"><span class="ai">💡</span><div class="ab"><strong>IaC Comparison:</strong> ARM Templates = Azure-native JSON. Bicep = Azure-native DSL (simpler syntax). Terraform = multi-cloud HCL. For AZ-104 exam: focus on ARM Templates and Bicep basics.</div></div>
+</section><hr>
+
+<section class="section" id="s2">
+  <div class="sh"><div class="si">🏗️</div><div><div class="sn">Lesson 95 · 12.2</div><h2>ARM Template Structure</h2></div></div>
+  <pre><code>{
+  <span class="str">"$schema"</span>: <span class="str">"https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#"</span>,
+  <span class="str">"contentVersion"</span>: <span class="str">"1.0.0.0"</span>,
+  <span class="str">"parameters"</span>: {
+    <span class="str">"vmName"</span>: {
+      <span class="str">"type"</span>: <span class="str">"string"</span>,
+      <span class="str">"defaultValue"</span>: <span class="str">"SRV-APP-GR-01"</span>,
+      <span class="str">"minLength"</span>: <span class="val">1</span>,
+      <span class="str">"maxLength"</span>: <span class="val">15</span>,
+      <span class="str">"metadata"</span>: { <span class="str">"description"</span>: <span class="str">"Name of the virtual machine"</span> }
+    },
+    <span class="str">"adminPassword"</span>: {
+      <span class="str">"type"</span>: <span class="str">"securestring"</span>  <span class="cmt">// Never exposed in output/logs</span>
+    }
+  },
+  <span class="str">"variables"</span>: {
+    <span class="str">"nicName"</span>: <span class="str">"[concat(parameters('vmName'), '-nic')]"</span>
+  },
+  <span class="str">"resources"</span>: [
+    {
+      <span class="str">"type"</span>: <span class="str">"Microsoft.Compute/virtualMachines"</span>,
+      <span class="str">"apiVersion"</span>: <span class="str">"2023-03-01"</span>,
+      <span class="str">"name"</span>: <span class="str">"[parameters('vmName')]"</span>,
+      <span class="str">"location"</span>: <span class="str">"[resourceGroup().location]"</span>,
+      <span class="str">"properties"</span>: { <span class="cmt">/* VM config */</span> }
+    }
+  ],
+  <span class="str">"outputs"</span>: {
+    <span class="str">"vmId"</span>: {
+      <span class="str">"type"</span>: <span class="str">"string"</span>,
+      <span class="str">"value"</span>: <span class="str">"[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"</span>
+    }
+  }
+}</code></pre>
+  <h3>Sections Explained</h3>
+  <table class="tbl"><thead><tr><th>Section</th><th>Required</th><th>Purpose</th></tr></thead><tbody>
+    <tr><td>$schema</td><td>✅</td><td>Validates template version</td></tr>
+    <tr><td>contentVersion</td><td>✅</td><td>Version tracking</td></tr>
+    <tr><td>parameters</td><td>❌</td><td>Input values — allow customization per deployment</td></tr>
+    <tr><td>variables</td><td>❌</td><td>Computed values reused across template</td></tr>
+    <tr><td>resources</td><td>✅</td><td>Azure resources to deploy</td></tr>
+    <tr><td>outputs</td><td>❌</td><td>Return values after deployment</td></tr>
+  </tbody></table>
+</section><hr>
+
+<section class="section" id="s3">
+  <div class="sh"><div class="si">🚀</div><div><div class="sn">Lessons 97–98 · 12.3</div><h2>Deploy ARM Templates</h2></div></div>
+  <pre><code><span class="cmt"># Deploy via Azure CLI</span>
+az deployment group create   --resource-group RG-Servers-GR   --template-file vm-template.json   --parameters vmName=SRV-NEW-01 adminPassword=P@ssw0rd!
+
+<span class="cmt"># Deploy via PowerShell</span>
+New-AzResourceGroupDeployment   -ResourceGroupName "RG-Servers-GR"   -TemplateFile "vm-template.json"   -vmName "SRV-NEW-01"
+
+<span class="cmt"># What-if (preview changes before deploy)</span>
+az deployment group what-if   --resource-group RG-Servers-GR   --template-file vm-template.json
+
+<span class="cmt"># Validate template (syntax check)</span>
+az deployment group validate   --resource-group RG-Servers-GR   --template-file vm-template.json</code></pre>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>What-if vs Validate:</strong> Validate = check template syntax and resource types are valid. What-if = shows EXACT changes that will be made (add/delete/modify resources) without deploying. Both are dry-runs but what-if is more powerful.</div></div>
+</section><hr>
+
+<section class="section" id="s4">
+  <div class="sh"><div class="si">📦</div><div><div class="sn">Lesson 97 · 12.4</div><h2>Template Specs</h2></div></div>
+  <p><strong>Template Specs</strong> = store ARM templates as Azure resources. Version them, share across organization, control access with RBAC.</p>
+  <pre><code><span class="cmt"># Create Template Spec</span>
+az ts create   --name VmTemplate   --resource-group RG-Templates   --location westeurope   --version "1.0"   --template-file vm-template.json
+
+<span class="cmt"># Deploy from Template Spec</span>
+az deployment group create   --resource-group RG-Servers-GR   --template-spec "/subscriptions/.../resourceGroups/RG-Templates/providers/Microsoft.Resources/templateSpecs/VmTemplate/versions/1.0"</code></pre>
+</section><hr>
+
+<section class="section" id="s5">
+  <div class="sh"><div class="si">⚙️</div><div><div class="sn">Lesson 100 · 12.5</div><h2>Custom Script Extensions</h2></div></div>
+  <p><strong>Custom Script Extension</strong> runs a script (PowerShell/bash) on a VM after deployment — used for post-provisioning configuration.</p>
+  <pre><code><span class="cmt"># In ARM template — install IIS after VM deployment</span>
+{
+  <span class="str">"type"</span>: <span class="str">"Microsoft.Compute/virtualMachines/extensions"</span>,
+  <span class="str">"name"</span>: <span class="str">"[concat(parameters('vmName'),'/InstallIIS')]"</span>,
+  <span class="str">"apiVersion"</span>: <span class="str">"2023-03-01"</span>,
+  <span class="str">"properties"</span>: {
+    <span class="str">"publisher"</span>: <span class="str">"Microsoft.Compute"</span>,
+    <span class="str">"type"</span>: <span class="str">"CustomScriptExtension"</span>,
+    <span class="str">"settings"</span>: {
+      <span class="str">"commandToExecute"</span>: <span class="str">"powershell Install-WindowsFeature -Name Web-Server -IncludeManagementTools"</span>
+    }
+  }
+}</code></pre>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Custom Script Extension runs ONCE</strong> after deploy. If you need ongoing configuration management, use DSC (Desired State Configuration) extension instead. CSE = one-shot. DSC = continuous compliance.</div></div>
+</section><hr>
+
+<section class="section" id="s6">
+  <div class="sh"><div class="si">🦾</div><div><div class="sn">Lessons 104–107 · 13</div><h2>Azure Bicep</h2></div></div>
+  <p><strong>Azure Bicep</strong> is a Domain Specific Language (DSL) for Azure infrastructure. Compiles to ARM Templates — same capabilities but cleaner syntax.</p>
+  <h3>Bicep vs ARM JSON</h3>
+  <table class="tbl"><thead><tr><th></th><th>ARM JSON</th><th>Bicep</th></tr></thead><tbody>
+    <tr><td>Syntax</td><td>Verbose JSON</td><td>Clean DSL</td></tr>
+    <tr><td>Compile to</td><td>Itself (JSON)</td><td>ARM Template (JSON)</td></tr>
+    <tr><td>Modules</td><td>Linked templates (complex)</td><td>Native module support</td></tr>
+    <tr><td>Type safety</td><td>Limited</td><td>Full type checking</td></tr>
+    <tr><td>VS Code support</td><td>Basic</td><td>Excellent (IntelliSense)</td></tr>
+  </tbody></table>
+  <h3>Bicep Example — Same VM as ARM above</h3>
+  <pre><code><span class="cmt">// vm.bicep — equivalent to the ARM JSON above</span>
+<span class="kw">param</span> vmName <span class="str">string</span> = <span class="str">'SRV-APP-GR-01'</span>
+<span class="kw">param</span> adminPassword <span class="str">securestring</span>
+<span class="kw">param</span> location <span class="str">string</span> = resourceGroup().location
+
+<span class="kw">var</span> nicName = <span class="str">'${vmName}-nic'</span>
+
+<span class="kw">resource</span> nic <span class="str">'Microsoft.Network/networkInterfaces@2023-04-01'</span> = {
+  name: nicName
+  location: location
+  properties: { <span class="cmt">// NIC config</span> }
+}
+
+<span class="kw">resource</span> vm <span class="str">'Microsoft.Compute/virtualMachines@2023-03-01'</span> = {
+  name: vmName
+  location: location
+  properties: {
+    hardwareProfile: { vmSize: <span class="str">'Standard_D4s_v5'</span> }
+    osProfile: {
+      computerName: vmName
+      adminUsername: <span class="str">'septonaadmin'</span>
+      adminPassword: adminPassword
+    }
+  }
+}
+
+<span class="kw">output</span> vmId <span class="str">string</span> = vm.id</code></pre>
+  <h3>Bicep Commands</h3>
+  <pre><code><span class="cmt"># Install Bicep CLI</span>
+az bicep install
+
+<span class="cmt"># Build Bicep → ARM JSON</span>
+az bicep build --file vm.bicep
+
+<span class="cmt"># Decompile existing ARM JSON → Bicep</span>
+az bicep decompile --file vm-template.json
+
+<span class="cmt"># Deploy Bicep directly (auto-compiles)</span>
+az deployment group create   --resource-group RG-Servers-GR   --template-file vm.bicep   --parameters adminPassword=P@ssw0rd!</code></pre>
+</section><hr>
+
+<section class="section" id="s7">
+  <div class="sh"><div class="si">🧠</div><div><div class="sn">Chapter 07</div><h2>Quiz — ARM &amp; Bicep</h2></div></div>
+  <div class="quiz"><div class="qh">◈ Q01</div>
+    <div class="qq">Θέλεις να δεις ποια resources θα αλλάξουν ΠΡΙΝ deploy ARM template. Ποια command;</div>
+    <ul class="qo" id="q1">
+      <li onclick="ans(&#x27;q1&#x27;,0)">A) az deployment group validate</li>
+      <li onclick="ans(&#x27;q1&#x27;,1)">B) az deployment group what-if</li>
+      <li onclick="ans(&#x27;q1&#x27;,2)">C) az deployment group create --dry-run</li>
+      <li onclick="ans(&#x27;q1&#x27;,3)">D) az template preview</li>
+    </ul>
+    <div class="qa" id="q1-a">✅ <strong>B — what-if.</strong> Shows exact changes (add/modify/delete) that would happen. Validate = syntax check only. --dry-run doesn't exist in ARM CLI. what-if is the correct preview command.</div>
+    <button class="qbtn" onclick="toggle(&#x27;q1-a&#x27;)">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q02</div>
+    <div class="qq">Ποιος τύπος parameter πρέπει να χρησιμοποιείται για passwords σε ARM templates;</div>
+    <ul class="qo" id="q2">
+      <li onclick="ans(&#x27;q2&#x27;,0)">A) string</li>
+      <li onclick="ans(&#x27;q2&#x27;,1)">B) securestring</li>
+      <li onclick="ans(&#x27;q2&#x27;,2)">C) password</li>
+      <li onclick="ans(&#x27;q2&#x27;,3)">D) encrypted</li>
+    </ul>
+    <div class="qa" id="q2-a">✅ <strong>B — securestring.</strong> securestring values are never logged, never shown in deployment history, and never exposed in Azure Monitor. Use securestring for any sensitive value (passwords, connection strings, API keys).</div>
+    <button class="qbtn" onclick="toggle(&#x27;q2-a&#x27;)">Show Answer</button>
+  </div>
+  <div class="box"><div class="box-t">📌 Key Facts — Ch07</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600;width:38%">ARM = declarative</td><td style="padding:6px 10px;color:var(--text2)">Describe desired state. Idempotent deployments.</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">securestring</td><td style="padding:6px 10px;color:var(--text2)">For passwords/secrets — never logged or exposed</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">what-if</td><td style="padding:6px 10px;color:var(--text2)">Preview changes before deploy</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Template Specs</td><td style="padding:6px 10px;color:var(--text2)">Store templates as Azure resources with versioning and RBAC</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Bicep</td><td style="padding:6px 10px;color:var(--text2)">Compiles to ARM JSON. Cleaner syntax. Use decompile to convert ARM→Bicep.</td></tr>
+      <tr><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">CSE runs once</td><td style="padding:6px 10px;color:var(--text2)">Custom Script Extension = one-time post-deploy. Use DSC for ongoing config.</td></tr>
+    </table>
+  </div>
+</section>
+<div class="nav">
+  <a href="az104-c06-virtual-machines.html" class="nb"><span class="nl">← Previous</span><span class="nt">Ch06. Virtual Machines</span></a>
+  <a href="az104-c08-app-service.html" class="nb next"><span class="nl">Next →</span><span class="nt">Ch08. App Service</span></a>
+</div>
+</main></div>
+<script>
+const correct={q1:1,q2:1};
+function ans(id,c){document.querySelectorAll("#"+id+" li").forEach((el,i)=>{el.classList.remove("ok","no");if(i===correct[id])el.classList.add("ok");else if(i===c&&c!==correct[id])el.classList.add("no");});document.getElementById(id+"-a").classList.add("show");}
+function toggle(id){document.getElementById(id).classList.toggle("show")}
+const secs=document.querySelectorAll("section[id]");const links=document.querySelectorAll("a.ta");
+window.addEventListener("scroll",()=>{let cur="";secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+cur));});
+</script>
+</body></html>

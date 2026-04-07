@@ -1,20 +1,14 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Evangelos Batsalis - Personal Portfolio
 
-# Run and deploy your AI Studio app
-
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/e24f15e1-3416-475f-ac52-86e84f8d7789
+This repository contains the source code for my personal portfolio and digital workspace.
+Built with Next.js, React, Tailwind CSS, and Framer Motion.
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
-
+**Prerequisites:** Node.js
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+2. Set the variables in `.env.local` if any functionality requires it
 3. Run the app:
    `npm run dev`
