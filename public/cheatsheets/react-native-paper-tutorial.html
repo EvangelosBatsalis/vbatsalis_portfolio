@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Native Paper με Expo - Complete Tutorial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6200ee 0%, #3700b3 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .nav {
+            background: #f5f5f5;
+            padding: 20px 40px;
+            border-bottom: 2px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav a {
+            color: #6200ee;
+            text-decoration: none;
+            margin-right: 25px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #3700b3;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            color: #6200ee;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #6200ee;
+        }
+
+        .section h3 {
+            color: #3700b3;
+            font-size: 1.6em;
+            margin: 30px 0 15px 0;
+        }
+
+        .section h4 {
+            color: #555;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .code-block .keyword {
+            color: #569cd6;
+        }
+
+        .code-block .string {
+            color: #ce9178;
+        }
+
+        .code-block .function {
+            color: #dcdcaa;
+        }
+
+        .code-block .comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+
+        .code-block .tag {
+            color: #4ec9b0;
+        }
+
+        .code-block .attribute {
+            color: #9cdcfe;
+        }
+
+        .terminal {
+            background: #000;
+            color: #0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .terminal::before {
+            content: '$ ';
+            color: #0f0;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .preview-box {
+            background: #f5f5f5;
+            border: 2px dashed #6200ee;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .component-demo {
+            display: inline-block;
+            background: white;
+            border-radius: 8px;
+            padding: 15px 30px;
+            margin: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-weight: 600;
+            color: white;
+            transition: transform 0.2s;
+        }
+
+        .component-demo:hover {
+            transform: scale(1.05);
+        }
+
+        .component-demo.contained {
+            background: #6200ee;
+        }
+
+        .component-demo.outlined {
+            background: white;
+            border: 2px solid #6200ee;
+            color: #6200ee;
+        }
+
+        .component-demo.text {
+            background: transparent;
+            color: #6200ee;
+        }
+
+        .tip {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .tip::before {
+            content: '💡 ';
+            font-size: 1.2em;
+        }
+
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning::before {
+            content: '⚠️ ';
+            font-size: 1.2em;
+        }
+
+        .success {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success::before {
+            content: '✅ ';
+            font-size: 1.2em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #6200ee 0%, #3700b3 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .feature-card h4 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .mock-screen {
+            background: white;
+            border: 8px solid #333;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .mock-header {
+            background: #6200ee;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mock-input {
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 1em;
+        }
+
+        .mock-button {
+            background: #6200ee;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px;
+            width: 100%;
+            font-size: 1em;
+            font-weight: 600;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .mock-card {
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+
+        .icon-demo {
+            display: inline-block;
+            font-size: 2em;
+            margin: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: #6200ee;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #6200ee;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+
+        .badge.new {
+            background: #4caf50;
+        }
+
+        .badge.important {
+            background: #f44336;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 React Native Paper με Expo</h1>
+            <p>Complete Tutorial - Από το Setup μέχρι Advanced Forms</p>
+        </div>
+
+        <div class="nav">
+            <a href="#intro">Εισαγωγή</a>
+            <a href="#setup">Setup</a>
+            <a href="#components">Components</a>
+            <a href="#forms">Forms</a>
+            <a href="#theming">Theming</a>
+            <a href="#examples">Παραδείγματα</a>
+        </div>
+
+        <div class="content">
+            <!-- INTRO -->
+            <section id="intro" class="section">
+                <h2>📱 Τι είναι το React Native Paper;</h2>
+                
+                <div class="card">
+                    <p>Το <strong>React Native Paper</strong> είναι η καλύτερη Material Design library για React Native. Προσφέρει έτοιμα, όμορφα και customizable components που ακολουθούν τις Material Design guidelines.</p>
+                </div>
+
+                <div class="grid">
+                    <div class="feature-card">
+                        <h4>✨ Material Design 3</h4>
+                        <p>Πλήρης υποστήριξη του νέου Material Design 3 με όλα τα σύγχρονα components</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🎨 Theming</h4>
+                        <p>Εύκολο customization με themes, dark mode, και custom colors</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📱 Cross-Platform</h4>
+                        <p>Δουλεύει τέλεια σε iOS, Android και Web</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>♿ Accessibility</h4>
+                        <p>Built-in accessibility features για όλους τους χρήστες</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SETUP -->
+            <section id="setup" class="section">
+                <h2>🚀 Installation & Setup</h2>
+
+                <h3>Βήμα 1: Δημιουργία Expo Project</h3>
+                <div class="terminal">npx create-expo-app my-paper-app</div>
+                <div class="terminal">cd my-paper-app</div>
+
+                <h3>Βήμα 2: Installation Dependencies</h3>
+                <div class="terminal">npm install react-native-paper</div>
+                <div class="terminal">npx expo install react-native-safe-area-context</div>
+                <div class="terminal">npx expo install @expo/vector-icons</div>
+
+                <div class="success">
+                    Τέλεια! Τώρα έχεις όλα τα packages που χρειάζεσαι για να ξεκινήσεις.
+                </div>
+
+                <h3>Βήμα 3: Basic Configuration - App.js</h3>
+                <div class="code-block"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { Provider <span class="keyword">as</span> PaperProvider } <span class="keyword">from</span> <span class="string">'react-native-paper'</span>;
+<span class="keyword">import</span> { SafeAreaProvider } <span class="keyword">from</span> <span class="string">'react-native-safe-area-context'</span>;
+<span class="keyword">import</span> MainScreen <span class="keyword">from</span> <span class="string">'./screens/MainScreen'</span>;
+
+<span class="keyword">export default function</span> <span class="function">App</span>() {
+  <span class="keyword">return</span> (
+    <span class="tag">&lt;SafeAreaProvider&gt;</span>
+      <span class="tag">&lt;PaperProvider&gt;</span>
+        <span class="tag">&lt;MainScreen /&gt;</span>
+      <span class="tag">&lt;/PaperProvider&gt;</span>
+    <span class="tag">&lt;/SafeAreaProvider&gt;</span>
+  );
+}</div>
+
+                <div class="tip">
+                    <strong>Tip:</strong> Το SafeAreaProvider είναι σημαντικό για να αποφύγεις το notch σε iPhone και άλλα κινητά!
+                </div>
+            </section>
+
+            <!-- COMPONENTS -->
+            <section id="components" class="section">
+                <h2>🧩 Βασικά Components</h2>
+
+                <h3>1. Buttons</h3>
+                <p>Το Paper προσφέρει 3 τύπους buttons:</p>
+                
+                <div class="preview-box">
+                    <div class="component-demo contained">CONTAINED</div>
+                    <div class="component-demo outlined">OUTLINED</div>
+                    <div class="component-demo text">TEXT</div>
+                </div>
+
+                <div class="code-block"><span class="keyword">import</span> { Button } <span class="keyword">from</span> <span class="string">'react-native-paper'</span>;
+
+<span class="comment">// Contained Button (default)</span>
+<span class="tag">&lt;Button</span> <span class="attribute">mode</span>=<span class="string">"contained"</span> <span class="attribute">onPress</span>={() => <span class="function">console.log</span>(<span class="string">'Pressed'</span>)}<span class="tag">&gt;</span>
+  Click Me
+<span class="tag">&lt;/Button&gt;</span>
+
+<span class="comment">// Outlined Button</span>
+<span class="tag">&lt;Button</span> <span class="attribute">mode</span>=<span class="string">"outlined"</span> <span class="attribute">onPress</span>={() => <span class="function">console.log</span>(<span class="string">'Pressed'</span>)}<span class="tag">&gt;</span>
+  Outlined
+<span class="tag">&lt;/Button&gt;</span>
+
+<span class="comment">// Text Button</span>
+<span class="tag">&lt;Button</span> <span class="attribute">mode</span>=<span class="string">"text"</span> <span class="attribute">onPress</span>={() => <span class="function">console.log</span>(<span class="string">'Pressed'</span>)}<span class="tag">&gt;</span>
+  Text Button
+<span class="tag">&lt;/Button&gt;</span>
+
+<span class="comment">// Button με Icon</span>
+<span class="tag">&lt;Button</span> <span class="attribute">mode</span>=<span class="string">"contained"</span> <span class="attribute">icon</span>=<span class="string">"camera"</span><span class="tag">&gt;</span>
+  Take Photo
+<span class="tag">&lt;/Button&gt;</span>
+
+<span class="comment">// Loading State</span>
+<span class="tag">&lt;Button</span> <span class="attribute">mode</span>=<span class="string">"contained"</span> <span class="attribute">loading</span>={<span class="keyword">true</span>}<span class="tag">&gt;</span>
+  Loading...
+<span class="tag">&lt;/Button&gt;</span></div>
+
+                <h3>2. Text Input</h3>
+                
+                <div class="mock-screen">
+                    <div class="mock-input">📧 Email</div>
+                    <div class="mock-input">🔒 Password</div>
+                </div>
+
+                <div class="code-block"><span class="keyword">import</span> { TextInput } <span class="keyword">from</span> <span class="string">'react-native-paper'</span>;
+
+<span class="keyword">const</span> [email, setEmail] = React.<span class="function">useState</span>(<span class="string">''</span>);
+
+<span class="comment">// Outlined Input (default)</span>
+<span class="tag">&lt;TextInput</span>
+  <span class="attribute">label</span>=<span class="string">"Email"</span>
+  <span class="attribute">value</span>={email}
+  <span class="attribute">onChangeText</span>={text => <span class="function">setEmail</span>(text)}
+<span class="tag">/&gt;</span>
+
+<span class="comment">// Flat Input</span>
+<span class="tag">&lt;TextInput</span>
+  <span class="attribute">mode</span>=<span class="string">"flat"</span>
+  <span class="attribute">label</span>=<span class="string">"Password"</span>
+  <span class="attribute">secureTextEntry</span>
+<span class="tag">/&gt;</span>
+
+<span class="comment">// Με Icons</span>
+<span class="tag">&lt;TextInput</span>
+  <span class="attribute">label</span>=<span class="string">"Search"</span>
+  <span class="attribute">left</span>={<span class="tag">&lt;TextInput.Icon</span> <span class="attribute">icon</span>=<span class="string">"magnify"</span> <span class="tag">/&gt;</span>}
+  <span class="attribute">right</span>={<span class="tag">&lt;TextInput.Icon</span> <span class="attribute">icon</span>=<span class="string">"close"</span> <span class="tag">/&gt;</span>}
+<span class="tag">/&gt;</span></div>
+
+                <h3>3. Cards</h3>
+                
+                <div class="mock-screen">
+                    <div class="mock-card">
+                        <div style="background: #ddd; height: 150px; border-radius: 8px; margin-bottom: 10px;"></div>
+                        <h4>Card Title</h4>
+                        <p>Card description goes here...</p>
+                        <div style="margin-top: 15px;">
+                            <button style="padding: 8px 16px; margin-right: 10px;">Cancel</button>
+                            <button style="padding: 8px 16px; background: #6200ee; color: white; border: none; border-radius: 4px;">OK</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-block"><span class="keyword">import</span> { Card, Title, Paragraph } <span class="keyword">from</span> <span class="string">'react-native-paper'</span>;
+
+<span class="tag">&lt;Card&gt;</span>
+  <span class="tag">&lt;Card.Cover</span> <span class="attribute">source</span>={{ <span class="attribute">uri</span>: <span class="string">'https://picsum.photos/700'</span> }} <span class="tag">/&gt;</span>
+  <span class="tag">&lt;Card.Title</span> 
+    <span class="attribute">title</span>=<span class="string">"Card Title"</span> 
+    <span class="attribute">subtitle</span>=<span class="string">"Card Subtitle"</span>
+  <span class="tag">/&gt;</span>
+  <span class="tag">&lt;Card.Content&gt;</span>
+    <span class="tag">&lt;Title&gt;</span>Title<span class="tag">&lt;/Title&gt;</span>
+    <span class="tag">&lt;Paragraph&gt;</span>Content goes here<span class="tag">&lt;/Paragraph&gt;</span>
+  <span class="tag">&lt;/Card.Content&gt;</span>
+  <span class="tag">&lt;Card.Actions&gt;</span>
+    <span class="tag">&lt;Button&gt;</span>Cancel<span class="tag">&lt;/Button&gt;</span>
+    <span class="tag">&lt;Button&gt;</span>Ok<span class="tag">&lt;/Button&gt;</span>
+  <span class="tag">&lt;/Card.Actions&gt;</span>
+<span class="tag">&lt;/Card&gt;</span></div>
+            </section>
+
+            <!-- FORMS -->
+            <section id="forms" class="section">
+                <h2>📝 Forms - Complete Guide</h2>
+
+                <div class="warning">
+                    <strong>Σημαντικό!</strong> Για forms χρειάζεσαι τα εξής imports:
+                </div>
+
+                <div class="code-block"><span class="comment">// Όλα τα imports που χρειάζεσαι για Forms!</span>
+<span class="keyword">import</span> {
+  TextInput,
+  Button,
+  HelperText,
+  Checkbox,
+  RadioButton,
+  Switch,
+  Text
+} <span class="keyword">from</span> <span class="string">'react-native-paper'</span>;</div>
+
+                <h3>Complete Form Example</h3>
+
+                <div class="mock-screen">
+                    <h3 style="text-align: center; margin-bottom: 20px;">Registration Form</h3>
+                    <div class="mock-input">📧 Email</div>
+                    <div class="mock-input">🔒 Password</div>
+                    <div class="mock-input">🔒 Confirm Password</div>
+                    <label style="display: block; margin: 15px 0;">
+                        <input type="checkbox" style="margin-right: 10px;">
+                        I agree to terms
+                    </label>
+                    <div class="mock-button">Register</div>
+                </div>
+
+                <div class="code-block"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { View, ScrollView, StyleSheet } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+<span class="keyword">import</span> {
+  TextInput,
+  Button,
+  HelperText,
+  Checkbox,
+  Text,
+} <span class="keyword">from</span> <span class="string">'react-native-paper'</span>;
+
+<span class="keyword">export default function</span> <span class="function">RegisterForm</span>() {
+  <span class="keyword">const</span> [email, setEmail] = React.<span class="function">useState</span>(<span class="string">''</span>);
+  <span class="keyword">const</span> [password, setPassword] = React.<span class="function">useState</span>(<span class="string">''</span>);
+  <span class="keyword">const</span> [confirmPassword, setConfirmPassword] = React.<span class="function">useState</span>(<span class="string">''</span>);
+  <span class="keyword">const</span> [agreed, setAgreed] = React.<span class="function">useState</span>(<span class="keyword">false</span>);
+
+  <span class="comment">// Validation Functions</span>
+  <span class="keyword">const</span> <span class="function">hasEmailErrors</span> = () => {
+    <span class="keyword">return</span> !email.<span class="function">includes</span>(<span class="string">'@'</span>);
+  };
+
+  <span class="keyword">const</span> <span class="function">hasPasswordErrors</span> = () => {
+    <span class="keyword">return</span> password.length &lt; <span class="string">6</span>;
+  };
+
+  <span class="keyword">const</span> <span class="function">passwordsMatch</span> = () => {
+    <span class="keyword">return</span> password === confirmPassword;
+  };
+
+  <span class="keyword">const</span> <span class="function">handleSubmit</span> = () => {
+    <span class="keyword">if</span> (!<span class="function">hasEmailErrors</span>() && !<span class="function">hasPasswordErrors</span>() && <span class="function">passwordsMatch</span>() && agreed) {
+      <span class="function">console.log</span>(<span class="string">'Form submitted!'</span>, { email, password });
+    }
+  };
+
+  <span class="keyword">return</span> (
+    <span class="tag">&lt;ScrollView</span> <span class="attribute">style</span>={styles.container}<span class="tag">&gt;</span>
+      <span class="comment">{/* Email Input */}</span>
+      <span class="tag">&lt;TextInput</span>
+        <span class="attribute">label</span>=<span class="string">"Email"</span>
+        <span class="attribute">value</span>={email}
+        <span class="attribute">onChangeText</span>={setEmail}
+        <span class="attribute">mode</span>=<span class="string">"outlined"</span>
+        <span class="attribute">keyboardType</span>=<span class="string">"email-address"</span>
+        <span class="attribute">autoCapitalize</span>=<span class="string">"none"</span>
+        <span class="attribute">error</span>={<span class="function">hasEmailErrors</span>()}
+        <span class="attribute">style</span>={styles.input}
+        <span class="attribute">left</span>={<span class="tag">&lt;TextInput.Icon</span> <span class="attribute">icon</span>=<span class="string">"email"</span> <span class="tag">/&gt;</span>}
+      <span class="tag">/&gt;</span>
+      <span class="tag">&lt;HelperText</span> <span class="attribute">type</span>=<span class="string">"error"</span> <span class="attribute">visible</span>={<span class="function">hasEmailErrors</span>()}<span class="tag">&gt;</span>
+        Email address is invalid!
+      <span class="tag">&lt;/HelperText&gt;</span>
+
+      <span class="comment">{/* Password Input */}</span>
+      <span class="tag">&lt;TextInput</span>
+        <span class="attribute">label</span>=<span class="string">"Password"</span>
+        <span class="attribute">value</span>={password}
+        <span class="attribute">onChangeText</span>={setPassword}
+        <span class="attribute">mode</span>=<span class="string">"outlined"</span>
+        <span class="attribute">secureTextEntry</span>
+        <span class="attribute">error</span>={<span class="function">hasPasswordErrors</span>()}
+        <span class="attribute">style</span>={styles.input}
+        <span class="attribute">left</span>={<span class="tag">&lt;TextInput.Icon</span> <span class="attribute">icon</span>=<span class="string">"lock"</span> <span class="tag">/&gt;</span>}
+      <span class="tag">/&gt;</span>
+      <span class="tag">&lt;HelperText</span> <span class="attribute">type</span>=<span class="string">"error"</span> <span class="attribute">visible</span>={<span class="function">hasPasswordErrors</span>()}<span class="tag">&gt;</span>
+        Password must be at least 6 characters!
+      <span class="tag">&lt;/HelperText&gt;</span>
+
+      <span class="comment">{/* Confirm Password */}</span>
+      <span class="tag">&lt;TextInput</span>
+        <span class="attribute">label</span>=<span class="string">"Confirm Password"</span>
+        <span class="attribute">value</span>={confirmPassword}
+        <span class="attribute">onChangeText</span>={setConfirmPassword}
+        <span class="attribute">mode</span>=<span class="string">"outlined"</span>
+        <span class="attribute">secureTextEntry</span>
+        <span class="attribute">error</span>={!<span class="function">passwordsMatch</span>()}
+        <span class="attribute">style</span>={styles.input}
+        <span class="attribute">left</span>={<span class="tag">&lt;TextInput.Icon</span> <span class="attribute">icon</span>=<span class="string">"lock-check"</span> <span class="tag">/&gt;</span>}
+      <span class="tag">/&gt;</span>
+      <span class="tag">&lt;HelperText</span> <span class="attribute">type</span>=<span class="string">"error"</span> <span class="attribute">visible</span>={!<span class="function">passwordsMatch</span>()}<span class="tag">&gt;</span>
+        Passwords don't match!
+      <span class="tag">&lt;/HelperText&gt;</span>
+
+      <span class="comment">{/* Checkbox */}</span>
+      <span class="tag">&lt;View</span> <span class="attribute">style</span>={styles.checkboxContainer}<span class="tag">&gt;</span>
+        <span class="tag">&lt;Checkbox</span>
+          <span class="attribute">status</span>={agreed ? <span class="string">'checked'</span> : <span class="string">'unchecked'</span>}
+          <span class="attribute">onPress</span>={() => <span class="function">setAgreed</span>(!agreed)}
+        <span class="tag">/&gt;</span>
+        <span class="tag">&lt;Text&gt;</span>I agree to terms and conditions<span class="tag">&lt;/Text&gt;</span>
+      <span class="tag">&lt;/View&gt;</span>
+
+      <span class="comment">{/* Submit Button */}</span>
+      <span class="tag">&lt;Button</span>
+        <span class="attribute">mode</span>=<span class="string">"contained"</span>
+        <span class="attribute">onPress</span>={handleSubmit}
+        <span class="attribute">style</span>={styles.button}
+        <span class="attribute">disabled</span>={
+          <span class="function">hasEmailErrors</span>() || 
+          <span class="function">hasPasswordErrors</span>() || 
+          !<span class="function">passwordsMatch</span>() || 
+          !agreed
+        }
+      <span class="tag">&gt;</span>
+        Register
+      <span class="tag">&lt;/Button&gt;</span>
+    <span class="tag">&lt;/ScrollView&gt;</span>
+  );
+}
+
+<span class="keyword">const</span> styles = StyleSheet.<span class="function">create</span>({
+  container: {
+    flex: <span class="string">1</span>,
+    padding: <span class="string">16</span>,
+  },
+  input: {
+    marginBottom: <span class="string">8</span>,
+  },
+  checkboxContainer: {
+    flexDirection: <span class="string">'row'</span>,
+    alignItems: <span class="string">'center'</span>,
+    marginVertical: <span class="string">16</span>,
+  },
+  button: {
+    marginTop: <span class="string">16</span>,
+  },
+});</div>
+
+                <h3>More Form Components</h3>
+
+                <h4>Radio Buttons</h4>
+                <div class="code-block"><span class="keyword">import</span> { RadioButton, Text } <span class="keyword">from</span> <span class="string">'react-native-paper'</span>;
+
+<span class="keyword">const</span> [value, setValue] = React.<span class="function">useState</span>(<span class="string">'first'</span>);
+
+<span class="tag">&lt;RadioButton.Group</span> <span class="attribute">onValueChange</span>={setValue} <span class="attribute">value</span>={value}<span class="tag">&gt;</span>
+  <span class="tag">&lt;View</span> <span class="attribute">style</span>={{ <span class="attribute">flexDirection</span>: <span class="string">'row'</span>, <span class="attribute">alignItems</span>: <span class="string">'center'</span> }}<span class="tag">&gt;</span>
+    <span class="tag">&lt;RadioButton</span> <span class="attribute">value</span>=<span class="string">"first"</span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;Text&gt;</span>First option<span class="tag">&lt;/Text&gt;</span>
+  <span class="tag">&lt;/View&gt;</span>
+  <span class="tag">&lt;View</span> <span class="attribute">style</span>={{ <span class="attribute">flexDirection</span>: <span class="string">'row'</span>, <span class="attribute">alignItems</span>: <span class="string">'center'</span> }}<span class="tag">&gt;</span>
+    <span class="tag">&lt;RadioButton</span> <span class="attribute">value</span>=<span class="string">"second"</span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;Text&gt;</span>Second option<span class="tag">&lt;/Text&gt;</span>
+  <span class="tag">&lt;/View&gt;</span>
+<span class="tag">&lt;/RadioButton.Group&gt;</span></div>
+
+                <h4>Switch</h4>
+                <div class="code-block"><span class="keyword">import</span> { Switch, Text } <span class="keyword">from</span> <span class="string">'react-native-paper'</span>;
+
+<span class="keyword">const</span> [isSwitchOn, setIsSwitchOn] = React.<span class="function">useState</span>(<span class="keyword">false</span>);
+
+<span class="tag">&lt;View</span> <span class="attribute">style</span>={{ <span class="attribute">flexDirection</span>: <span class="string">'row'</span>, <span class="attribute">justifyContent</span>: <span class="string">'space-between'</span> }}<span class="tag">&gt;</span>
+  <span class="tag">&lt;Text&gt;</span>Enable notifications<span class="tag">&lt;/Text&gt;</span>
+  <span class="tag">&lt;Switch</span>
+    <span class="attribute">value</span>={isSwitchOn}
+    <span class="attribute">onValueChange</span>={setIsSwitchOn}
+  <span class="tag">/&gt;</span>
+<span class="tag">&lt;/View&gt;</span></div>
+
+                <div class="tip">
+                    <strong>Pro Tip:</strong> Πάντα χρησιμοποίησε HelperText για validation errors! Δίνει καλύτερο UX στον χρήστη.
+                </div>
+            </section>
+
+            <!-- THEMING -->
+            <section id="theming" class="section">
+                <h2>🎨 Theming & Customization</h2>
+
+                <h3>Custom Theme</h3>
+                <div class="code-block"><span class="keyword">import</span> { MD3LightTheme, MD3DarkTheme } <span class="keyword">from</span> <span class="string">'react-native-paper'</span>;
+
+<span class="keyword">const</span> customTheme = {
+  ...MD3LightTheme,
+  colors: {
+    ...MD3LightTheme.colors,
+    primary: <span class="string">'#6200ee'</span>,
+    secondary: <span class="string">'#03dac6'</span>,
+    tertiary: <span class="string">'#f50057'</span>,
+    error: <span class="string">'#b00020'</span>,
+    background: <span class="string">'#ffffff'</span>,
+    surface: <span class="string">'#ffffff'</span>,
+  },
+};
+
+<span class="comment">// Στο App.js</span>
+<span class="tag">&lt;PaperProvider</span> <span class="attribute">theme</span>={customTheme}<span class="tag">&gt;</span>
+  <span class="tag">&lt;App /&gt;</span>
+<span class="tag">&lt;/PaperProvider&gt;</span></div>
+
+                <h3>Dark Mode Support</h3>
+                <div class="code-block"><span class="keyword">import</span> { useColorScheme } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="keyword">export default function</span> <span class="function">App</span>() {
+  <span class="keyword">const</span> colorScheme = <span class="function">useColorScheme</span>();
+  
+  <span class="keyword">const</span> theme = colorScheme === <span class="string">'dark'</span> ? MD3DarkTheme : MD3LightTheme;
+
+  <span class="keyword">return</span> (
+    <span class="tag">&lt;PaperProvider</span> <span class="attribute">theme</span>={theme}<span class="tag">&gt;</span>
+      <span class="tag">&lt;MainScreen /&gt;</span>
+    <span class="tag">&lt;/PaperProvider&gt;</span>
+  );
+}</div>
+
+                <h3>Using Theme in Components</h3>
+                <div class="code-block"><span class="keyword">import</span> { useTheme } <span class="keyword">from</span> <span class="string">'react-native-paper'</span>;
+
+<span class="keyword">function</span> <span class="function">MyComponent</span>() {
+  <span class="keyword">const</span> theme = <span class="function">useTheme</span>();
+  
+  <span class="keyword">return</span> (
+    <span class="tag">&lt;View</span> <span class="attribute">style</span>={{ <span class="attribute">backgroundColor</span>: theme.colors.background }}<span class="tag">&gt;</span>
+      <span class="tag">&lt;Text</span> <span class="attribute">style</span>={{ <span class="attribute">color</span>: theme.colors.primary }}<span class="tag">&gt;</span>
+        Themed Text
+      <span class="tag">&lt;/Text&gt;</span>
+    <span class="tag">&lt;/View&gt;</span>
+  );
+}</div>
+
+                <h3>Available Theme Colors</h3>
+                <table>
+                    <tr>
+                        <th>Color</th>
+                        <th>Description</th>
+                        <th>Usage</th>
+                    </tr>
+                    <tr>
+                        <td><span class="badge">primary</span></td>
+                        <td>Main brand color</td>
+                        <td>Buttons, headers, main actions</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge">secondary</span></td>
+                        <td>Secondary brand color</td>
+                        <td>FABs, secondary actions</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge">background</span></td>
+                        <td>Screen background</td>
+                        <td>Main app background</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge">surface</span></td>
+                        <td>Component surface</td>
+                        <td>Cards, dialogs, menus</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge important">error</span></td>
+                        <td>Error states</td>
+                        <td>Error messages, validation</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- EXAMPLES -->
+            <section id="examples" class="section">
+                <h2>💡 Complete App Examples</h2>
+
+                <h3>Example 1: Login Screen</h3>
+                <div class="mock-screen">
+                    <div class="mock-header">
+                        <h3 style="margin: 0;">Login</h3>
+                    </div>
+                    <div class="mock-input">📧 Email</div>
+                    <div class="mock-input">🔒 Password</div>
+                    <div class="mock-button">Login</div>
+                    <p style="text-align: center; margin-top: 15px; color: #6200ee;">Forgot Password?</p>
+                </div>
+
+                <div class="code-block"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { View, StyleSheet } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+<span class="keyword">import</span> {
+  TextInput,
+  Button,
+  Appbar,
+  Text,
+  HelperText,
+} <span class="keyword">from</span> <span class="string">'react-native-paper'</span>;
+
+<span class="keyword">export default function</span> <span class="function">LoginScreen</span>() {
+  <span class="keyword">const</span> [email, setEmail] = React.<span class="function">useState</span>(<span class="string">''</span>);
+  <span class="keyword">const</span> [password, setPassword] = React.<span class="function">useState</span>(<span class="string">''</span>);
+  <span class="keyword">const</span> [loading, setLoading] = React.<span class="function">useState</span>(<span class="keyword">false</span>);
+
+  <span class="keyword">const</span> <span class="function">handleLogin</span> = <span class="keyword">async</span> () => {
+    <span class="function">setLoading</span>(<span class="keyword">true</span>);
+    <span class="comment">// Your login logic here</span>
+    <span class="keyword">await</span> <span class="keyword">new</span> <span class="function">Promise</span>(resolve => <span class="function">setTimeout</span>(resolve, <span class="string">2000</span>));
+    <span class="function">setLoading</span>(<span class="keyword">false</span>);
+  };
+
+  <span class="keyword">return</span> (
+    <span class="tag">&lt;View</span> <span class="attribute">style</span>={styles.container}<span class="tag">&gt;</span>
+      <span class="tag">&lt;Appbar.Header&gt;</span>
+        <span class="tag">&lt;Appbar.Content</span> <span class="attribute">title</span>=<span class="string">"Login"</span> <span class="tag">/&gt;</span>
+      <span class="tag">&lt;/Appbar.Header&gt;</span>
+
+      <span class="tag">&lt;View</span> <span class="attribute">style</span>={styles.content}<span class="tag">&gt;</span>
+        <span class="tag">&lt;TextInput</span>
+          <span class="attribute">label</span>=<span class="string">"Email"</span>
+          <span class="attribute">value</span>={email}
+          <span class="attribute">onChangeText</span>={setEmail}
+          <span class="attribute">mode</span>=<span class="string">"outlined"</span>
+          <span class="attribute">keyboardType</span>=<span class="string">"email-address"</span>
+          <span class="attribute">autoCapitalize</span>=<span class="string">"none"</span>
+          <span class="attribute">left</span>={<span class="tag">&lt;TextInput.Icon</span> <span class="attribute">icon</span>=<span class="string">"email"</span> <span class="tag">/&gt;</span>}
+          <span class="attribute">style</span>={styles.input}
+        <span class="tag">/&gt;</span>
+
+        <span class="tag">&lt;TextInput</span>
+          <span class="attribute">label</span>=<span class="string">"Password"</span>
+          <span class="attribute">value</span>={password}
+          <span class="attribute">onChangeText</span>={setPassword}
+          <span class="attribute">mode</span>=<span class="string">"outlined"</span>
+          <span class="attribute">secureTextEntry</span>
+          <span class="attribute">left</span>={<span class="tag">&lt;TextInput.Icon</span> <span class="attribute">icon</span>=<span class="string">"lock"</span> <span class="tag">/&gt;</span>}
+          <span class="attribute">style</span>={styles.input}
+        <span class="tag">/&gt;</span>
+
+        <span class="tag">&lt;Button</span>
+          <span class="attribute">mode</span>=<span class="string">"contained"</span>
+          <span class="attribute">onPress</span>={handleLogin}
+          <span class="attribute">loading</span>={loading}
+          <span class="attribute">style</span>={styles.button}
+        <span class="tag">&gt;</span>
+          Login
+        <span class="tag">&lt;/Button&gt;</span>
+
+        <span class="tag">&lt;Button</span> <span class="attribute">mode</span>=<span class="string">"text"</span> <span class="attribute">onPress</span>={() => {}}<span class="tag">&gt;</span>
+          Forgot Password?
+        <span class="tag">&lt;/Button&gt;</span>
+      <span class="tag">&lt;/View&gt;</span>
+    <span class="tag">&lt;/View&gt;</span>
+  );
+}
+
+<span class="keyword">const</span> styles = StyleSheet.<span class="function">create</span>({
+  container: {
+    flex: <span class="string">1</span>,
+  },
+  content: {
+    padding: <span class="string">20</span>,
+  },
+  input: {
+    marginBottom: <span class="string">16</span>,
+  },
+  button: {
+    marginTop: <span class="string">16</span>,
+    marginBottom: <span class="string">8</span>,
+  },
+});</div>
+
+                <h3>Example 2: Settings Screen με List</h3>
+                <div class="code-block"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { ScrollView } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+<span class="keyword">import</span> {
+  List,
+  Switch,
+  Divider,
+  Appbar,
+} <span class="keyword">from</span> <span class="string">'react-native-paper'</span>;
+
+<span class="keyword">export default function</span> <span class="function">SettingsScreen</span>() {
+  <span class="keyword">const</span> [notifications, setNotifications] = React.<span class="function">useState</span>(<span class="keyword">true</span>);
+  <span class="keyword">const</span> [darkMode, setDarkMode] = React.<span class="function">useState</span>(<span class="keyword">false</span>);
+
+  <span class="keyword">return</span> (
+    <span class="tag">&lt;&gt;</span>
+      <span class="tag">&lt;Appbar.Header&gt;</span>
+        <span class="tag">&lt;Appbar.BackAction</span> <span class="attribute">onPress</span>={() => {}} <span class="tag">/&gt;</span>
+        <span class="tag">&lt;Appbar.Content</span> <span class="attribute">title</span>=<span class="string">"Settings"</span> <span class="tag">/&gt;</span>
+      <span class="tag">&lt;/Appbar.Header&gt;</span>
+
+      <span class="tag">&lt;ScrollView&gt;</span>
+        <span class="tag">&lt;List.Section&gt;</span>
+          <span class="tag">&lt;List.Subheader&gt;</span>Preferences<span class="tag">&lt;/List.Subheader&gt;</span>
+          
+          <span class="tag">&lt;List.Item</span>
+            <span class="attribute">title</span>=<span class="string">"Notifications"</span>
+            <span class="attribute">description</span>=<span class="string">"Enable push notifications"</span>
+            <span class="attribute">left</span>={props => <span class="tag">&lt;List.Icon</span> {...props} <span class="attribute">icon</span>=<span class="string">"bell"</span> <span class="tag">/&gt;</span>}
+            <span class="attribute">right</span>={() => (
+              <span class="tag">&lt;Switch</span>
+                <span class="attribute">value</span>={notifications}
+                <span class="attribute">onValueChange</span>={setNotifications}
+              <span class="tag">/&gt;</span>
+            )}
+          <span class="tag">/&gt;</span>
+          
+          <span class="tag">&lt;Divider /&gt;</span>
+          
+          <span class="tag">&lt;List.Item</span>
+            <span class="attribute">title</span>=<span class="string">"Dark Mode"</span>
+            <span class="attribute">description</span>=<span class="string">"Use dark theme"</span>
+            <span class="attribute">left</span>={props => <span class="tag">&lt;List.Icon</span> {...props} <span class="attribute">icon</span>=<span class="string">"theme-light-dark"</span> <span class="tag">/&gt;</span>}
+            <span class="attribute">right</span>={() => (
+              <span class="tag">&lt;Switch</span>
+                <span class="attribute">value</span>={darkMode}
+                <span class="attribute">onValueChange</span>={setDarkMode}
+              <span class="tag">/&gt;</span>
+            )}
+          <span class="tag">/&gt;</span>
+        <span class="tag">&lt;/List.Section&gt;</span>
+
+        <span class="tag">&lt;List.Section&gt;</span>
+          <span class="tag">&lt;List.Subheader&gt;</span>Account<span class="tag">&lt;/List.Subheader&gt;</span>
+          
+          <span class="tag">&lt;List.Item</span>
+            <span class="attribute">title</span>=<span class="string">"Profile"</span>
+            <span class="attribute">description</span>=<span class="string">"Edit your profile"</span>
+            <span class="attribute">left</span>={props => <span class="tag">&lt;List.Icon</span> {...props} <span class="attribute">icon</span>=<span class="string">"account"</span> <span class="tag">/&gt;</span>}
+            <span class="attribute">right</span>={props => <span class="tag">&lt;List.Icon</span> {...props} <span class="attribute">icon</span>=<span class="string">"chevron-right"</span> <span class="tag">/&gt;</span>}
+            <span class="attribute">onPress</span>={() => {}}
+          <span class="tag">/&gt;</span>
+          
+          <span class="tag">&lt;List.Item</span>
+            <span class="attribute">title</span>=<span class="string">"Privacy"</span>
+            <span class="attribute">description</span>=<span class="string">"Privacy settings"</span>
+            <span class="attribute">left</span>={props => <span class="tag">&lt;List.Icon</span> {...props} <span class="attribute">icon</span>=<span class="string">"shield-account"</span> <span class="tag">/&gt;</span>}
+            <span class="attribute">right</span>={props => <span class="tag">&lt;List.Icon</span> {...props} <span class="attribute">icon</span>=<span class="string">"chevron-right"</span> <span class="tag">/&gt;</span>}
+            <span class="attribute">onPress</span>={() => {}}
+          <span class="tag">/&gt;</span>
+        <span class="tag">&lt;/List.Section&gt;</span>
+      <span class="tag">&lt;/ScrollView&gt;</span>
+    <span class="tag">&lt;/&gt;</span>
+  );
+}</div>
+
+                <div class="success">
+                    Έτοιμο! Τώρα έχεις όλα τα tools για να φτιάξεις όμορφες εφαρμογές με React Native Paper!
+                </div>
+            </section>
+
+            <!-- QUICK REFERENCE -->
+            <section class="section">
+                <h2>📚 Quick Reference - Most Used Components</h2>
+
+                <div class="grid">
+                    <div class="card">
+                        <h4>📱 Input Components</h4>
+                        <ul>
+                            <li>TextInput</li>
+                            <li>Checkbox</li>
+                            <li>RadioButton</li>
+                            <li>Switch</li>
+                            <li>Searchbar</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>🔘 Buttons & Actions</h4>
+                        <ul>
+                            <li>Button</li>
+                            <li>FAB (Floating Action Button)</li>
+                            <li>IconButton</li>
+                            <li>Chip</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>📋 Display Components</h4>
+                        <ul>
+                            <li>Card</li>
+                            <li>List</li>
+                            <li>Avatar</li>
+                            <li>Badge</li>
+                            <li>Banner</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>💬 Feedback</h4>
+                        <ul>
+                            <li>Dialog</li>
+                            <li>Snackbar</li>
+                            <li>HelperText</li>
+                            <li>ProgressBar</li>
+                            <li>ActivityIndicator</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- USEFUL LINKS -->
+            <section class="section">
+                <h2>🔗 Χρήσιμα Links</h2>
+
+                <div class="card">
+                    <h4>📖 Documentation & Resources</h4>
+                    <ul style="line-height: 2;">
+                        <li><strong>Official Docs:</strong> <a href="https://callstack.github.io/react-native-paper/" target="_blank">callstack.github.io/react-native-paper</a></li>
+                        <li><strong>Component Showcase:</strong> <a href="https://callstack.github.io/react-native-paper/showcase.html" target="_blank">Component Examples</a></li>
+                        <li><strong>Icons:</strong> <a href="https://pictogrammers.com/library/mdi/" target="_blank">Material Design Icons</a></li>
+                        <li><strong>Expo Docs:</strong> <a href="https://docs.expo.dev/" target="_blank">docs.expo.dev</a></li>
+                        <li><strong>React Navigation:</strong> <a href="https://reactnavigation.org/" target="_blank">reactnavigation.org</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- TIPS -->
+            <section class="section">
+                <h2>💎 Pro Tips</h2>
+
+                <div class="tip">
+                    <strong>Performance:</strong> Χρησιμοποίησε React.memo() για components που δεν αλλάζουν συχνά
+                </div>
+
+                <div class="tip">
+                    <strong>Icons:</strong> Το Paper χρησιμοποιεί Material Community Icons by default - δες όλα τα icons στο pictogrammers.com
+                </div>
+
+                <div class="tip">
+                    <strong>TypeScript:</strong> Το Paper έχει excellent TypeScript support - highly recommended!
+                </div>
+
+                <div class="tip">
+                    <strong>Testing:</strong> Χρησιμοποίησε React Native Testing Library για testing
+                </div>
+
+                <div class="tip">
+                    <strong>Customization:</strong> Όλα τα components μπορούν να customized με το style prop
+                </div>
+            </section>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #6200ee 0%, #3700b3 100%); color: white; padding: 40px; text-align: center;">
+            <h2 style="margin-bottom: 10px;">🚀 Είσαι έτοιμος!</h2>
+            <p style="font-size: 1.2em;">Τώρα μπορείς να φτιάξεις όμορφες React Native εφαρμογές με Material Design!</p>
+            <p style="margin-top: 20px; opacity: 0.9;">Happy Coding! 💜</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AZ-104 Ch.02 — Microsoft Entra ID | Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07090f;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--border2:#1e2d4a;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--acc:#818cf8;--acc2:#c084fc;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--display:'Syne',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+.hdr{background:linear-gradient(160deg,#040609,#07090f,#0c0a18);border-bottom:1px solid var(--border);padding:52px 0 44px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(129,140,248,.07),transparent 65%);pointer-events:none}
+.hdr-inner{max-width:1100px;margin:0 auto;padding:0 32px}
+.bc{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:16px}
+.bc a{color:var(--text3);text-decoration:none}.bc a:hover{color:var(--text2)}
+.cbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(129,140,248,.08);border:1px solid rgba(129,140,248,.28);border-radius:4px;padding:5px 14px;font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.cbadge::before{content:'◈';font-size:12px}
+.hdr h1{font-family:var(--display);font-size:clamp(26px,5vw,48px);font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px}
+.hdr h1 span{color:var(--acc)}
+.hdr-sub{color:var(--text2);font-size:15px;font-weight:300;margin-bottom:20px}
+.hdr-meta{display:flex;gap:18px;flex-wrap:wrap}
+.mp{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text3)}
+.mpd{width:6px;height:6px;border-radius:50%}
+.mpd.g{background:var(--green);box-shadow:0 0 5px var(--green)}
+.mpd.p{background:var(--acc);box-shadow:0 0 5px var(--acc)}
+.mpd.y{background:var(--yellow);box-shadow:0 0 5px var(--yellow)}
+.layout{max-width:1100px;margin:0 auto;padding:40px 32px;display:grid;grid-template-columns:268px 1fr;gap:40px;align-items:start}
+.sidebar{position:sticky;top:24px}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.toc-hdr{background:var(--bg3);padding:12px 18px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.toc-hdr::before{content:'⬡';font-size:13px}
+.toc-body{padding:8px 0}
+.toc-sec{padding:5px 18px 2px;font-size:9px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:6px}
+.ta{display:flex;align-items:flex-start;gap:8px;padding:6px 18px;font-size:12.5px;color:var(--text2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}
+.ta:hover{color:var(--text);background:var(--card2);border-left-color:var(--acc)}
+.ta.active{color:var(--acc);background:rgba(129,140,248,.07);border-left-color:var(--acc);font-weight:600}
+.ta .tn{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:3px;flex-shrink:0;width:20px}
+.content{min-width:0}
+.ch-intro{background:linear-gradient(135deg,var(--card),var(--bg3));border:1px solid var(--border2);border-radius:10px;padding:28px;margin-bottom:32px;position:relative;overflow:hidden}
+.ch-intro::before{content:'';position:absolute;top:-20px;right:-20px;width:160px;height:160px;background:radial-gradient(circle,rgba(129,140,248,.07),transparent 70%)}
+.ch-n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--acc);text-transform:uppercase;margin-bottom:6px}
+.ch-t{font-family:var(--display);font-size:24px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.ch-desc{color:var(--text2);font-size:14px;line-height:1.7;margin-bottom:16px}
+.ch-stats{display:flex;gap:14px;flex-wrap:wrap}
+.sc{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:7px 13px;font-family:var(--mono);font-size:11px}
+.sc .l{color:var(--text3);display:block;margin-bottom:1px}
+.sc .v{color:var(--text);font-weight:600}
+.section{margin-bottom:50px;scroll-margin-top:24px}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.si{width:36px;height:36px;background:rgba(129,140,248,.09);border:1px solid rgba(129,140,248,.22);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.sn{font-family:var(--mono);font-size:10px;color:var(--text3)}
+.section h2{font-family:var(--display);font-size:20px;font-weight:700;color:#fff}
+.section h3{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);margin:26px 0 10px}
+.section h3::before{content:'▸ ';color:var(--acc)}
+.section p{color:var(--text2);margin-bottom:12px;font-size:14px}
+.section ul,.section ol{color:var(--text2);padding-left:22px;margin-bottom:12px}
+.section li{margin-bottom:6px;font-size:14px}
+.section li strong,.section p strong{color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;margin-bottom:18px;font-size:13px}
+.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:9px 13px;border-bottom:1px solid var(--border)}
+.tbl td{padding:9px 13px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:12px}
+.tbl tr:hover td{background:var(--card2)}
+pre{background:#050710;border:1px solid var(--border);border-left:3px solid var(--acc);border-radius:6px;padding:16px 20px;overflow-x:auto;margin-bottom:14px;font-family:var(--mono);font-size:12.5px;line-height:1.7}
+code{font-family:var(--mono);font-size:12px;color:#a5b4fc;background:rgba(165,180,252,.07);padding:2px 5px;border-radius:3px}
+pre code{background:none;padding:0;color:inherit}
+.kw{color:#c084fc}.cmd{color:#a5b4fc}.param{color:#86efac}.val{color:#fbbf24}.cmt{color:#3d5068;font-style:italic}.str{color:#f472b6}.op{color:#e879f9}
+.alert{display:flex;gap:12px;padding:13px 17px;border-radius:6px;margin-bottom:14px;font-size:13.5px}
+.ai{font-size:16px;flex-shrink:0;margin-top:1px}
+.ab{color:var(--text2);line-height:1.6}.ab strong{color:var(--text)}
+.tip{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18)}.tip .ai{color:#22c55e}
+.warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18)}.warn .ai{color:var(--yellow)}
+.exam{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.22)}.exam .ai{color:var(--purple)}
+.info{background:rgba(129,140,248,.05);border:1px solid rgba(129,140,248,.22)}.info .ai{color:var(--acc)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 22px;margin-bottom:18px}
+.box.hl{border-color:rgba(129,140,248,.28);background:linear-gradient(135deg,var(--card),rgba(129,140,248,.03))}
+.box-t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.scen{background:var(--card);border:1px solid var(--border2);border-radius:8px;overflow:hidden;margin-bottom:22px}
+.sc-hdr{background:linear-gradient(90deg,rgba(129,140,248,.13),rgba(129,140,248,.02));padding:11px 17px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.sc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);background:rgba(129,140,248,.1);border:1px solid rgba(129,140,248,.28);border-radius:3px;padding:2px 8px}
+.sc-title{font-size:13px;font-weight:600;color:var(--text)}
+.sc-body{padding:16px 20px}
+.sc-body p{color:var(--text2);font-size:13.5px;margin-bottom:10px}
+.sc-body p:last-child{margin-bottom:0}
+.sc-body strong{color:var(--text)}
+.steps{list-style:none;padding:0;counter-reset:st}
+.steps li{counter-increment:st;display:flex;gap:12px;margin-bottom:9px;align-items:flex-start;color:var(--text2);font-size:13.5px}
+.steps li::before{content:counter(st);min-width:22px;height:22px;background:rgba(129,140,248,.09);border:1px solid rgba(129,140,248,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--acc);flex-shrink:0;margin-top:2px}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:13px;margin-bottom:18px}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px}
+.cc h4{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.cc ul{list-style:none;padding:0}
+.cc li{font-size:12.5px;color:var(--text2);padding:3px 0 3px 14px;position:relative}
+.cc li::before{content:'→';position:absolute;left:0;color:var(--text3);font-size:10px}
+.badge{display:inline-flex;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:3px;font-weight:600;vertical-align:middle}
+.bg{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)}
+.by{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}
+.br{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25)}
+.bp{background:rgba(129,140,248,.1);color:var(--acc);border:1px solid rgba(129,140,248,.25)}
+.bc2{background:rgba(192,132,252,.1);color:var(--acc2);border:1px solid rgba(192,132,252,.25)}
+hr{border:none;border-top:1px solid var(--border);margin:34px 0}
+.quiz{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:8px;padding:18px 22px;margin-bottom:18px}
+.qh{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:10px}
+.qq{font-size:14px;color:var(--text);font-weight:600;margin-bottom:10px}
+.qo{list-style:none;padding:0}
+.qo li{font-size:13px;color:var(--text2);padding:7px 10px;margin-bottom:4px;cursor:pointer;border-radius:4px;transition:background .15s;border-left:2px solid transparent}
+.qo li:hover{background:rgba(139,92,246,.07)}
+.qo li.ok{background:rgba(34,197,94,.07);color:#22c55e;border-left-color:#22c55e}
+.qo li.no{background:rgba(239,68,68,.07);color:#ef4444;border-left-color:#ef4444}
+.qa{display:none;margin-top:10px;padding:12px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:6px;font-size:13px;color:var(--text2)}
+.qa.show{display:block}
+.qbtn{margin-top:10px;padding:7px 16px;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.3);border-radius:5px;color:var(--purple);font-family:var(--mono);font-size:11px;letter-spacing:.08em;cursor:pointer;transition:all .15s}
+.qbtn:hover{background:rgba(139,92,246,.22)}
+.nav{display:flex;justify-content:space-between;margin-top:48px;padding-top:22px;border-top:1px solid var(--border);gap:16px}
+.nb{display:flex;flex-direction:column;gap:4px;padding:13px 19px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-decoration:none;flex:1;transition:all .2s}
+.nb:hover{border-color:var(--acc);background:var(--card2)}
+.nl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}
+.nt{font-size:13px;color:var(--text);font-weight:600}
+.nb.next{text-align:right}
+/* tier comparison */
+.tier-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.tier-card{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.tier-head{padding:12px 16px;font-family:var(--mono);font-size:11px;font-weight:600;border-bottom:1px solid var(--border)}
+.tier-free .tier-head{background:rgba(34,197,94,.08);color:#22c55e}
+.tier-p1 .tier-head{background:rgba(129,140,248,.08);color:var(--acc)}
+.tier-p2 .tier-head{background:rgba(192,132,252,.1);color:var(--acc2)}
+.tier-body{padding:12px 16px}
+.tier-body li{font-size:12px;color:var(--text2);padding:3px 0 3px 14px;position:relative;list-style:none}
+.tier-body li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:10px}
+@media(max-width:768px){.layout{grid-template-columns:1fr;padding:22px 16px}.sidebar{position:static}.hdr-inner{padding:0 16px}.tier-cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="bc"><a href="az104-index.html">AZ-104</a><span>/</span><span>Chapter 02</span></div>
+    <div class="cbadge">Chapter 02 · Sections 4–5</div>
+    <h1>Microsoft <span>Entra ID</span><br>Users &amp; Groups</h1>
+    <p class="hdr-sub">Entra ID Tiers · Users · Groups · Licenses · Admin Units · SSPR · External Users</p>
+    <div class="hdr-meta">
+      <div class="mp"><span class="mpd g"></span>Domain 1 — 20–25%</div>
+      <div class="mp"><span class="mpd p"></span>Sections 4–5 · Lessons 20–37</div>
+      <div class="mp"><span class="mpd y"></span>~6–8 ερωτήσεις</div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+<aside class="sidebar">
+  <div class="toc">
+    <div class="toc-hdr">Chapter 02 — Entra ID</div>
+    <div class="toc-body">
+      <div class="toc-sec">Section 4 — Entra ID</div>
+      <a href="#s1" class="ta active"><span class="tn">4.1</span>What is Entra ID</a>
+      <a href="#s2" class="ta"><span class="tn">4.2</span>Free vs P1 vs P2</a>
+      <a href="#s3" class="ta"><span class="tn">4.3</span>Multiple Directories</a>
+      <div class="toc-sec">Section 5 — Users &amp; Groups</div>
+      <a href="#s4" class="ta"><span class="tn">5.1</span>Manage Users</a>
+      <a href="#s5" class="ta"><span class="tn">5.2</span>Manage Groups</a>
+      <a href="#s6" class="ta"><span class="tn">5.3</span>Licenses</a>
+      <a href="#s7" class="ta"><span class="tn">5.4</span>Administrative Units</a>
+      <a href="#s8" class="ta"><span class="tn">5.5</span>Manage Devices</a>
+      <a href="#s9" class="ta"><span class="tn">5.6</span>Bulk Operations</a>
+      <a href="#s10" class="ta"><span class="tn">5.7</span>External Users (B2B)</a>
+      <a href="#s11" class="ta"><span class="tn">5.8</span>SSPR</a>
+      <a href="#s12" class="ta"><span class="tn">Q</span>Quiz</a>
+      <div class="toc-sec">Navigation</div>
+      <a href="az104-c01-concepts-cli.html" class="ta">← Ch01</a>
+      <a href="az104-c03-rbac.html" class="ta">Ch03. RBAC →</a>
+    </div>
+  </div>
+</aside>
+<main class="content">
+  <div class="ch-intro">
+    <div class="ch-n">Chapter 02 / Sections 4–5</div>
+    <div class="ch-t">Microsoft Entra ID,<br>Users &amp; Groups</div>
+    <p class="ch-desc">Το Microsoft Entra ID (πρώην Azure Active Directory) είναι το identity foundation του Azure. Κάθε Azure subscription εμπιστεύεται ένα Entra ID tenant. Αυτό το chapter καλύπτει τι είναι το Entra ID, τους τρεις tiers του (Free/P1/P2), τη διαχείριση users/groups/licenses, Administrative Units και Self-Service Password Reset.</p>
+    <div class="ch-stats">
+      <div class="sc"><span class="l">Domain Weight</span><span class="v">20–25%</span></div>
+      <div class="sc"><span class="l">Lessons</span><span class="v">20–37</span></div>
+      <div class="sc"><span class="l">~Questions</span><span class="v">6–8</span></div>
+      <div class="sc"><span class="l">Difficulty</span><span class="v">⭐⭐⭐ Medium</span></div>
+    </div>
+  </div>
+
+  <!-- 4.1 WHAT IS ENTRA ID -->
+  <section class="section" id="s1">
+    <div class="sh"><div class="si">🏢</div><div><div class="sn">Lesson 20 · 4.1</div><h2>What is Microsoft Entra ID</h2></div></div>
+    <p>Το <strong>Microsoft Entra ID</strong> (πρώην Azure Active Directory / AAD) είναι cloud-based Identity and Access Management (IAM) service. <em>Δεν είναι</em> Active Directory Domain Services (ADDS) — είναι fundamentally διαφορετική υπηρεσία.</p>
+    <h3>Entra ID vs Active Directory Domain Services</h3>
+    <table class="tbl">
+      <thead><tr><th></th><th>Entra ID (Cloud)</th><th>Active Directory DS (On-prem)</th></tr></thead>
+      <tbody>
+        <tr><td>Protocol</td><td>OAuth2, OpenID Connect, SAML, WS-Fed</td><td>Kerberos, NTLM, LDAP</td></tr>
+        <tr><td>Structure</td><td>Flat — users, groups, tenants</td><td>Hierarchical — OUs, forests, domains</td></tr>
+        <tr><td>Join type</td><td>Azure AD Join, Hybrid Join, Registration</td><td>Domain Join (scl.local κλπ)</td></tr>
+        <tr><td>Group Policy</td><td>❌ (χρησιμοποιείς Intune MDM/MAM)</td><td>✅ GPO full support</td></tr>
+        <tr><td>Authentication</td><td>Cloud-native, MFA, Conditional Access</td><td>On-premises only (χωρίς ADFS/PTA)</td></tr>
+        <tr><td>Billing</td><td>Free / P1 / P2 per user/month</td><td>Included σε Windows Server license</td></tr>
+      </tbody>
+    </table>
+    <div class="alert info"><span class="ai">ℹ️</span><div class="ab"><strong>Για Septona:</strong> Έχεις on-prem AD (scl.local domain) synced με Azure via <strong>Entra Connect (Azure AD Connect)</strong>. Αυτό λέγεται <strong>Hybrid Identity</strong> — users υπάρχουν on-prem και sync-άρονται στο cloud. Passwords managed on-prem, group policies από AD DS, αλλά cloud apps authenticating μέσω Entra ID.</div></div>
+    <h3>Entra ID Concepts</h3>
+    <ul>
+      <li><strong>Tenant:</strong> Dedicated instance του Entra ID για ένα organization. Κάθε tenant έχει δικό του domain (*.onmicrosoft.com) ή custom domain.</li>
+      <li><strong>Directory:</strong> Το repository των identities — users, groups, apps, devices</li>
+      <li><strong>Subscription trust:</strong> Κάθε Azure subscription "εμπιστεύεται" έναν Entra ID tenant — οι users/groups εκεί μπορούν να λάβουν RBAC roles στο subscription</li>
+      <li><strong>Object:</strong> Κάθε entity στο Entra ID (user, group, device, app, SP) έχει unique Object ID</li>
+    </ul>
+    <pre><code><span class="cmt"># Get current Entra ID tenant info με CLI</span>
+az account show <span class="param">--query</span> <span class="str">"{TenantId:tenantId, SubscriptionId:id}"</span>
+
+<span class="cmt"># List all users στο tenant</span>
+az ad user list <span class="param">--output table</span>
+
+<span class="cmt"># Get tenant details</span>
+az rest <span class="param">--method get --url</span> <span class="str">"https://graph.microsoft.com/v1.0/organization"</span></code></pre>
+  </section>
+
+  <hr>
+
+  <!-- 4.2 FREE vs P1 vs P2 -->
+  <section class="section" id="s2">
+    <div class="sh"><div class="si">💎</div><div><div class="sn">Lesson 21 · 4.2</div><h2>Microsoft Entra ID Free vs P1 vs P2</h2></div></div>
+    <p>Κρίσιμη γνώση για το exam — <strong>πολύ συχνή ερώτηση</strong>. Ποιο feature απαιτεί ποιο license tier;</p>
+    <div class="tier-cards">
+      <div class="tier-card tier-free">
+        <div class="tier-head">Free (included)</div>
+        <ul class="tier-body">
+          <li>User &amp; Group management</li>
+          <li>Basic MFA (per-user)</li>
+          <li>SSO σε Office 365 apps</li>
+          <li>B2B collaboration (guests)</li>
+          <li>Azure AD Connect sync</li>
+          <li>Self-service password change</li>
+          <li>Security reports</li>
+        </ul>
+      </div>
+      <div class="tier-card tier-p1">
+        <div class="tier-head">P1 (~€6/user/month)</div>
+        <ul class="tier-body">
+          <li><strong>Conditional Access</strong></li>
+          <li><strong>Dynamic Groups</strong></li>
+          <li>Hybrid identity (Entra Connect)</li>
+          <li>Azure AD Join + MDM auto-enroll</li>
+          <li>Group-based licensing</li>
+          <li>SSPR (password writeback)</li>
+          <li>Microsoft Identity Manager</li>
+          <li>Cloud App Discovery</li>
+        </ul>
+      </div>
+      <div class="tier-card tier-p2">
+        <div class="tier-head">P2 (~€9/user/month)</div>
+        <ul class="tier-body">
+          <li><strong>PIM (Privileged Identity Mgmt)</strong></li>
+          <li><strong>Identity Protection</strong></li>
+          <li><strong>Access Reviews</strong></li>
+          <li>Entitlement Management</li>
+          <li>Risk-based Conditional Access</li>
+          <li>Risky users/sign-ins detection</li>
+          <li>Includes all P1 features</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert exam"><span class="ai">🎯</span><div class="ab">
+      <strong>Exam Must-Know:</strong><br>
+      • <strong>Conditional Access</strong> → P1 minimum<br>
+      • <strong>Dynamic Groups</strong> → P1 minimum<br>
+      • <strong>PIM (Privileged Identity Management)</strong> → P2 minimum<br>
+      • <strong>Identity Protection</strong> → P2 minimum<br>
+      • <strong>Basic MFA</strong> → Free (per-user legacy) ή Security Defaults (free)<br>
+      • <strong>SSPR με password writeback</strong> → P1 minimum
+    </div></div>
+    <h3>Microsoft 365 License Bundles</h3>
+    <p>Συχνά δεν αγοράζεις Entra P1/P2 ξεχωριστά — περιέχεται σε M365 bundles:</p>
+    <table class="tbl">
+      <thead><tr><th>Bundle</th><th>Entra Tier included</th></tr></thead>
+      <tbody>
+        <tr><td>Microsoft 365 Business Basic / Standard</td><td>Entra ID Free</td></tr>
+        <tr><td>Microsoft 365 Business Premium</td><td>Entra ID P1</td></tr>
+        <tr><td>Microsoft 365 E3</td><td>Entra ID P1</td></tr>
+        <tr><td>Microsoft 365 E5</td><td>Entra ID P2</td></tr>
+        <tr><td>Azure AD Premium P2 standalone</td><td>Entra ID P2</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <hr>
+
+  <!-- 4.3 MULTIPLE DIRECTORIES -->
+  <section class="section" id="s3">
+    <div class="sh"><div class="si">🔀</div><div><div class="sn">Lessons 22–25 · 4.3</div><h2>Managing Multiple Directories &amp; Tenants</h2></div></div>
+    <p>Μια εταιρεία μπορεί να έχει πολλαπλά Entra ID tenants — για λόγους compliance, M&amp;A, ξεχωριστά environments (Dev/Prod).</p>
+    <h3>Switch Between Tenants</h3>
+    <ul>
+      <li>Portal: Πάνω δεξιά → Settings (γρανάζι) → Directories → Switch directory</li>
+      <li>Κάθε tenant έχει το δικό του <strong>Tenant ID</strong> (GUID)</li>
+      <li>Ο ίδιος user account μπορεί να έχει access σε πολλαπλά tenants ως <strong>Guest</strong></li>
+    </ul>
+    <div class="alert info"><span class="ai">ℹ️</span><div class="ab"><strong>Septona Multi-Tenant:</strong> GR tenant (septona.gr) και BG tenant (septona.bg) είναι δύο ξεχωριστοί Entra ID tenants. Για cross-tenant access, χρησιμοποιείς B2B (external users) ή Azure Lighthouse (service provider scenarios).</div></div>
+    <h3>Custom Domains</h3>
+    <p>Κάθε tenant έρχεται με <code>company.onmicrosoft.com</code>. Μπορείς να προσθέσεις custom domain (π.χ. <code>septona.gr</code>):</p>
+    <ol>
+      <li>Entra ID → Custom domain names → Add custom domain</li>
+      <li>Azure σου δίνει TXT record να βάλεις στο DNS</li>
+      <li>Verify → domain γίνεται "Verified"</li>
+      <li>Τώρα users μπορούν να έχουν UPN <code>user@septona.gr</code></li>
+    </ol>
+  </section>
+
+  <hr>
+
+  <!-- 5.1 MANAGE USERS -->
+  <section class="section" id="s4">
+    <div class="sh"><div class="si">👤</div><div><div class="sn">Lesson 30 · 5.1</div><h2>Manage Users</h2></div></div>
+    <p>Τρεις κατηγορίες users στο Entra ID — σημαντικό να ξέρεις τη διαφορά για το exam:</p>
+    <h3>User Types</h3>
+    <table class="tbl">
+      <thead><tr><th>Type</th><th>Source</th><th>Managed</th><th>UPN Example</th></tr></thead>
+      <tbody>
+        <tr><td>Cloud User <span class="badge bg">Cloud-only</span></td><td>Δημιουργείται απευθείας στο Entra ID</td><td>Entra ID portal / PowerShell / CLI</td><td>john@septona.gr</td></tr>
+        <tr><td>Synced User <span class="badge bp">Hybrid</span></td><td>On-premises AD, synced via Entra Connect</td><td>On-prem AD (changes sync-άρονται)</td><td>john@septona.gr (same)</td></tr>
+        <tr><td>Guest User (B2B) <span class="badge by">External</span></td><td>External organization / personal email</td><td>Invited user manages own password</td><td>john_contoso.com#EXT#@septona.gr</td></tr>
+      </tbody>
+    </table>
+    <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Synced Users:</strong> Δεν μπορείς να αλλάξεις password ή certain attributes για synced users απευθείας στο Entra ID portal — εμφανίζεται greyed out. Πρέπει να αλλάξεις on-premises στο AD, και η αλλαγή sync-άρεται μέσω Entra Connect (default: κάθε 30 λεπτά).</div></div>
+    <h3>User Attributes</h3>
+    <ul>
+      <li><strong>UPN (User Principal Name):</strong> Login identity — <code>user@domain.com</code></li>
+      <li><strong>Display Name:</strong> Εμφανιζόμενο όνομα</li>
+      <li><strong>Object ID:</strong> Unique GUID — χρησιμοποιείται σε RBAC, scripts</li>
+      <li><strong>Job Title, Department:</strong> Attributes — χρησιμοποιούνται σε dynamic group rules</li>
+      <li><strong>Usage Location:</strong> <strong>Απαιτείται</strong> για license assignment</li>
+      <li><strong>Account enabled:</strong> Enable/disable login χωρίς διαγραφή</li>
+    </ul>
+    <h3>Create User — CLI</h3>
+    <pre><code><span class="cmt"># Create cloud user</span>
+az ad user create \
+  <span class="param">--display-name</span> <span class="str">"Kostas Papadopoulos"</span> \
+  <span class="param">--user-principal-name</span> <span class="str">"kpapadopoulos@septona.gr"</span> \
+  <span class="param">--password</span> <span class="str">"TempPass#2026!"</span> \
+  <span class="param">--force-change-password-next-sign-in</span> <span class="str">true</span>
+
+<span class="cmt"># Get user info</span>
+az ad user show <span class="param">--id</span> <span class="str">"kpapadopoulos@septona.gr"</span>
+
+<span class="cmt"># Update user (e.g. job title)</span>
+az ad user update \
+  <span class="param">--id</span> <span class="str">"kpapadopoulos@septona.gr"</span> \
+  <span class="param">--job-title</span> <span class="str">"IT Support Specialist"</span>
+
+<span class="cmt"># Disable user account</span>
+az ad user update \
+  <span class="param">--id</span> <span class="str">"kpapadopoulos@septona.gr"</span> \
+  <span class="param">--account-enabled</span> <span class="str">false</span></code></pre>
+    <div class="scen">
+      <div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">New Employee Onboarding — Septona</span></div>
+      <div class="sc-body">
+        <p><strong>Κατάσταση:</strong> Νέος υπάλληλος ξεκινά στο BG site (Sofia). Χρειάζεται M365 account, access σε SharePoint, Microsoft Teams, και VPN για Azure resources.</p>
+        <ol class="steps">
+          <li>Δημιουργία user στο Entra ID: <code>employee@septona.bg</code>, Usage Location: BG</li>
+          <li>Assign license: Microsoft 365 Business Premium (includes Teams, Exchange, Entra P1)</li>
+          <li>Add σε groups: <code>GRP-AllEmployees</code>, <code>GRP-BG-Office</code></li>
+          <li>Assign Azure RBAC role αν χρειάζεται Azure portal access (Ch03)</li>
+          <li>Enable MFA (Security Defaults ή Conditional Access policy)</li>
+          <li>Send Temporary Access Pass (TAP) για passwordless first login</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- 5.2 MANAGE GROUPS -->
+  <section class="section" id="s5">
+    <div class="sh"><div class="si">👥</div><div><div class="sn">Lesson 31 · 5.2</div><h2>Manage Groups</h2></div></div>
+    <p>Groups χρησιμοποιούνται για bulk license assignment, RBAC, app access, Conditional Access. Δύο κύριοι τύποι:</p>
+    <h3>Group Types</h3>
+    <div class="cg">
+      <div class="cc">
+        <h4>Security Group</h4>
+        <ul>
+          <li>Για RBAC resource access</li>
+          <li>Για Conditional Access</li>
+          <li>Για license assignment</li>
+          <li>Members: users, devices, service principals, other groups</li>
+        </ul>
+      </div>
+      <div class="cc">
+        <h4>Microsoft 365 Group</h4>
+        <ul>
+          <li>Για collaboration</li>
+          <li>Έχει mailbox, SharePoint, Teams</li>
+          <li>Members: users only</li>
+          <li>External members allowed</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Membership Types</h3>
+    <table class="tbl">
+      <thead><tr><th>Type</th><th>Πώς λειτουργεί</th><th>License</th></tr></thead>
+      <tbody>
+        <tr><td>Assigned <span class="badge bg">Default</span></td><td>Admin προσθέτει/αφαιρεί members manually</td><td>Free</td></tr>
+        <tr><td>Dynamic User <span class="badge bp">P1 Required</span></td><td>Αυτόματη προσθήκη/αφαίρεση βάσει user attribute rules</td><td>P1 minimum</td></tr>
+        <tr><td>Dynamic Device <span class="badge bp">P1 Required</span></td><td>Αυτόματη προσθήκη devices βάσει device attributes</td><td>P1 minimum</td></tr>
+      </tbody>
+    </table>
+    <h3>Dynamic Group Rules</h3>
+    <p>Dynamic groups χρησιμοποιούν <strong>membership rule syntax</strong> — query language βασισμένο σε user/device attributes:</p>
+    <pre><code><span class="cmt"># Dynamic rule: όλοι οι users του IT department στη Ελλάδα</span>
+(user.department <span class="op">-eq</span> <span class="str">"IT"</span>) <span class="op">-and</span> (user.country <span class="op">-eq</span> <span class="str">"GR"</span>)
+
+<span class="cmt"># Dynamic rule: όλοι οι full-time employees (not contractors)</span>
+(user.employeeType <span class="op">-eq</span> <span class="str">"Employee"</span>)
+
+<span class="cmt"># Dynamic rule: users με specific license</span>
+(user.assignedPlans <span class="op">-any</span> assignedPlan.servicePlanId <span class="op">-eq</span> <span class="str">"EXCHANGE_S_STANDARD"</span>)
+
+<span class="cmt"># Create dynamic group με CLI</span>
+az ad group create \
+  <span class="param">--display-name</span> <span class="str">"DYN-IT-Greece"</span> \
+  <span class="param">--mail-nickname</span> <span class="str">"DYN-IT-Greece"</span>
+<span class="cmt"># Membership rule set via portal ή MS Graph API</span></code></pre>
+    <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Dynamic Groups Delay:</strong> Όταν user attribute αλλάζει (π.χ. department), δεν προστίθεται άμεσα στο dynamic group. Ο sync μπορεί να πάρει <strong>έως 24 ώρες</strong>. Αν χρειάζεσαι instant membership, χρησιμοποίησε Assigned groups.</div></div>
+  </section>
+
+  <hr>
+
+  <!-- 5.3 LICENSES -->
+  <section class="section" id="s6">
+    <div class="sh"><div class="si">🪪</div><div><div class="sn">Lesson 32 · 5.3</div><h2>Manage Licenses</h2></div></div>
+    <p>License assignment μπορεί να γίνει <strong>per user</strong> ή μέσω <strong>Group-based licensing</strong> (P1 required).</p>
+    <h3>License Assignment Methods</h3>
+    <table class="tbl">
+      <thead><tr><th>Method</th><th>Πώς</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td>Direct Assignment</td><td>Ένας user την φορά — portal ή PowerShell</td><td>Λίγοι users, exceptions</td></tr>
+        <tr><td>Group-based <span class="badge bp">P1</span></td><td>Assign license σε group → όλα τα members παίρνουν license</td><td>Large scale, automation</td></tr>
+        <tr><td>PowerShell / CLI</td><td>Bulk assignment μέσω scripts</td><td>Migrations, bulk changes</td></tr>
+      </tbody>
+    </table>
+    <div class="alert warn"><span class="ai">⚠️</span><div class="ab"><strong>Usage Location:</strong> Πριν assign license, ο user <strong>πρέπει</strong> να έχει Usage Location set. Αν δεν έχει, το license assignment αποτυγχάνει. Αυτό είναι πολύ συχνό πρόβλημα στο onboarding.</div></div>
+    <pre><code><span class="cmt"># PowerShell — Assign M365 Business Premium license σε user</span>
+<span class="kw">$user</span> = <span class="cmd">Get-AzureADUser</span> <span class="param">-ObjectId</span> <span class="str">"user@septona.gr"</span>
+
+<span class="cmt"># Set usage location πρώτα</span>
+<span class="cmd">Set-AzureADUser</span> <span class="param">-ObjectId</span> <span class="kw">$user</span>.ObjectId <span class="param">-UsageLocation</span> <span class="str">"GR"</span>
+
+<span class="cmt"># Get available license SKUs</span>
+<span class="cmd">Get-AzureADSubscribedSku</span> | <span class="cmd">Select-Object</span> SkuPartNumber, ConsumedUnits</code></pre>
+  </section>
+
+  <hr>
+
+  <!-- 5.4 ADMINISTRATIVE UNITS -->
+  <section class="section" id="s7">
+    <div class="sh"><div class="si">🏗️</div><div><div class="sn">Lesson 33 · 5.4</div><h2>Administrative Units (AUs)</h2></div></div>
+    <p>Τα <strong>Administrative Units</strong> επιτρέπουν να περιορίσεις το scope ενός admin role. Αντί ένας Helpdesk admin να έχει reset password για ΟΛΟΥΣ τους users, μπορεί να έχει scope μόνο στο AU "Greece-Office".</p>
+    <div class="box hl">
+      <div class="box-t">Administrative Units — Use Case</div>
+      <p style="font-family:var(--mono);font-size:12.5px;line-height:2;color:var(--text2);margin:0">
+        Tenant (septona.gr)<br>
+        &nbsp;&nbsp;├── AU: <span style="color:#a5b4fc">Greece-Office</span><br>
+        &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;├── Users: GR employees<br>
+        &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;└── Admin: <span style="color:#86efac">help_gr@septona.gr</span> (User Administrator — scoped)<br>
+        &nbsp;&nbsp;└── AU: <span style="color:#a5b4fc">Bulgaria-Office</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Users: BG employees<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Admin: <span style="color:#86efac">help_bg@septona.gr</span> (User Administrator — scoped)
+      </p>
+    </div>
+    <ul>
+      <li>Κάθε AU μπορεί να περιέχει users, groups, devices</li>
+      <li>Εκχωρείς admin roles σε AU scope (όχι tenant-wide)</li>
+      <li>AUs <strong>δεν κληρονομούνται</strong> — δεν υπάρχουν nested AUs</li>
+      <li>Requires <strong>Entra ID P1 ή P2</strong></li>
+    </ul>
+  </section>
+
+  <hr>
+
+  <!-- 5.5 DEVICES -->
+  <section class="section" id="s8">
+    <div class="sh"><div class="si">💻</div><div><div class="sn">Lesson 34 · 5.5</div><h2>Manage Devices</h2></div></div>
+    <p>Τρεις τρόποι να "εγγράψεις" device στο Entra ID — ο τρόπος καθορίζει πόσο control έχει το org:</p>
+    <table class="tbl">
+      <thead><tr><th>Method</th><th>OS</th><th>Ownership</th><th>MDM Enroll</th><th>Use Case</th></tr></thead>
+      <tbody>
+        <tr><td>Azure AD Registered</td><td>Win 10/11, iOS, Android, macOS</td><td>Personal (BYOD)</td><td>Optional</td><td>Personal device, access company apps</td></tr>
+        <tr><td>Azure AD Joined <span class="badge bp">P1</span></td><td>Windows 10/11 only</td><td>Corporate</td><td>Auto (with Intune)</td><td>Cloud-first corporate laptops</td></tr>
+        <tr><td>Hybrid Azure AD Joined</td><td>Windows 10/11</td><td>Corporate (domain-joined)</td><td>Optional</td><td>Existing on-prem domain joined devices</td></tr>
+      </tbody>
+    </table>
+    <div class="alert info"><span class="ai">ℹ️</span><div class="ab"><strong>Septona context:</strong> Τα workstations στο scl.local domain είναι <strong>Hybrid Azure AD Joined</strong> — domain joined on-prem ΚΑΙ registered στο Entra ID. Αυτό επιτρέπει SSO σε M365 apps χωρίς re-login και Conditional Access να αναγνωρίζει τα devices ως "compliant".</div></div>
+  </section>
+
+  <hr>
+
+  <!-- 5.6 BULK OPERATIONS -->
+  <section class="section" id="s9">
+    <div class="sh"><div class="si">📋</div><div><div class="sn">Lesson 35 · 5.6</div><h2>Bulk Operations</h2></div></div>
+    <p>Για μαζικές δημιουργίες/αλλαγές users, το Entra ID υποστηρίζει CSV-based bulk operations μέσω portal ή PowerShell.</p>
+    <h3>Portal Bulk Operations</h3>
+    <ul>
+      <li><strong>Bulk create users:</strong> Upload CSV με columns: Name, User name, Initial password, Block sign in</li>
+      <li><strong>Bulk invite users:</strong> CSV με email addresses για B2B invitations</li>
+      <li><strong>Bulk delete users:</strong> CSV με Object IDs ή UPNs</li>
+    </ul>
+    <h3>PowerShell Bulk Import</h3>
+    <pre><code><span class="cmt"># Bulk user creation από CSV</span>
+<span class="kw">$users</span> = <span class="cmd">Import-Csv</span> <span class="str">"new-employees.csv"</span>
+
+<span class="kw">foreach</span> (<span class="kw">$u</span> <span class="kw">in</span> <span class="kw">$users</span>) {
+  <span class="cmd">New-MgUser</span> `
+    <span class="param">-DisplayName</span> <span class="kw">$u</span>.DisplayName `
+    <span class="param">-UserPrincipalName</span> <span class="kw">$u</span>.UPN `
+    <span class="param">-PasswordProfile</span> @{
+      Password = <span class="kw">$u</span>.TempPassword
+      ForceChangePasswordNextSignIn = <span class="kw">$true</span>
+    } `
+    <span class="param">-AccountEnabled</span> <span class="kw">$true</span> `
+    <span class="param">-UsageLocation</span> <span class="kw">$u</span>.Country
+    
+  <span class="cmd">Write-Host</span> <span class="str">"Created: $($u.UPN)"</span>
+}</code></pre>
+  </section>
+
+  <hr>
+
+  <!-- 5.7 EXTERNAL USERS -->
+  <section class="section" id="s10">
+    <div class="sh"><div class="si">🌍</div><div><div class="sn">Lesson 36 · 5.7</div><h2>External Users (B2B Collaboration)</h2></div></div>
+    <p>Το <strong>Azure AD B2B</strong> (Business-to-Business) επιτρέπει σε external users να κάνουν access σε resources του tenant σου χρησιμοποιώντας τα δικά τους credentials.</p>
+    <h3>B2B Invitation Flow</h3>
+    <ol class="steps">
+      <li>Admin στο Septona tenant invites <code>partner@externalcompany.com</code></li>
+      <li>External user λαμβάνει email invitation</li>
+      <li>User κάνει accept — δημιουργείται Guest object στο Septona tenant</li>
+      <li>Guest user μπορεί να access Azure resources (βάσει RBAC) ή M365 apps (βάσει licenses)</li>
+      <li>User authenticates με <em>δικά του credentials</em> (external IdP ή Microsoft account)</li>
+    </ol>
+    <table class="tbl">
+      <thead><tr><th>Χαρακτηριστικό</th><th>Guest User</th><th>Member User</th></tr></thead>
+      <tbody>
+        <tr><td>UPN format</td><td>email_domain#EXT#@yourtenant.onmicrosoft.com</td><td>user@yourdomain.com</td></tr>
+        <tr><td>Password managed by</td><td>External IdP (δικός τους)</td><td>Your tenant</td></tr>
+        <tr><td>License required</td><td>Free (B2B up to 5× your paid users)</td><td>Paid license per user</td></tr>
+        <tr><td>Default permissions</td><td>Restricted (cannot read all directory)</td><td>Full member access to directory</td></tr>
+      </tbody>
+    </table>
+    <pre><code><span class="cmt"># Invite external user</span>
+az ad invitation create \
+  <span class="param">--invited-user-email-address</span> <span class="str">"partner@cosmoprof.com"</span> \
+  <span class="param">--invite-redirect-url</span> <span class="str">"https://myapps.microsoft.com"</span> \
+  <span class="param">--send-invitation-message</span> <span class="str">true</span></code></pre>
+  </section>
+
+  <hr>
+
+  <!-- 5.8 SSPR -->
+  <section class="section" id="s11">
+    <div class="sh"><div class="si">🔑</div><div><div class="sn">Lesson 37 · 5.8</div><h2>Self-Service Password Reset (SSPR)</h2></div></div>
+    <p>Το <strong>SSPR</strong> επιτρέπει σε users να reset-άρουν το password χωρίς να χρειαστούν helpdesk. Μειώνει δραματικά το support ticket volume.</p>
+    <h3>SSPR Configuration</h3>
+    <table class="tbl">
+      <thead><tr><th>Setting</th><th>Options</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Enabled for</td><td>None / Selected (group) / All</td><td>Best practice: pilot σε group πρώτα</td></tr>
+        <tr><td>Authentication methods</td><td>Mobile app notification, Email, Phone, Security questions</td><td>Minimum 1 method required</td></tr>
+        <tr><td>Number of methods required</td><td>1 ή 2</td><td>2 methods = more secure</td></tr>
+        <tr><td>Password writeback <span class="badge bp">P1</span></td><td>Enabled / Disabled</td><td>Syncs reset password back to on-prem AD</td></tr>
+        <tr><td>Registration</td><td>Require at login / Combined registration</td><td>Πρέπει users να κάνουν register methods πρώτα</td></tr>
+      </tbody>
+    </table>
+    <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>SSPR &amp; Password Writeback:</strong> Αν έχεις hybrid users (synced από on-prem AD), και user κάνει SSPR στο cloud, το νέο password πρέπει να γραφεί πίσω στο on-prem AD. Αυτό λέγεται <strong>Password Writeback</strong> και απαιτεί <strong>Entra ID P1</strong>. Χωρίς writeback, synced users δεν μπορούν να χρησιμοποιήσουν SSPR.</div></div>
+    <div class="scen">
+      <div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">SSPR Rollout — Septona MFA Project</span></div>
+      <div class="sc-body">
+        <p><strong>Κατάσταση:</strong> Πρόβλημα: Helpdesk δέχεται 15–20 password reset requests/εβδομάδα. Θέλουμε να μειώσουμε αυτό στο μηδέν. Έχουμε M365 Business Premium (Entra P1).</p>
+        <ol class="steps">
+          <li>Entra ID → Password reset → Properties → Enable for: <strong>Selected group</strong> → <code>GRP-SSPR-Pilot</code> (20 users αρχικά)</li>
+          <li>Authentication methods: Email + Mobile app code (2 methods required)</li>
+          <li>Enable <strong>Password Writeback</strong> (Entra P1 ✓)</li>
+          <li>Require registration at next login για members του pilot group</li>
+          <li>Monitor: Admin → SSPR Usage report — 2 εβδομάδες pilot</li>
+          <li>Αν OK → change SSPR to <strong>All</strong> users</li>
+        </ol>
+        <p>Αποτέλεσμα: Users reset passwords μόνοι τους 24/7, helpdesk tickets μειώνονται 85%.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- QUIZ -->
+  <section class="section" id="s12">
+    <div class="sh"><div class="si">🧠</div><div><div class="sn">Chapter 02</div><h2>Quiz — Entra ID, Users &amp; Groups</h2></div></div>
+
+    <div class="quiz">
+      <div class="qh">◈ Question 01</div>
+      <div class="qq">Θέλεις να δημιουργήσεις group που να προσθέτει αυτόματα users όταν το job title γίνει "Manager". Ποιο feature χρειάζεσαι;</div>
+      <ul class="qo" id="q1">
+        <li onclick="ans('q1',0)">A) Assigned Group — Free tier</li>
+        <li onclick="ans('q1',1)">B) Dynamic User Group — Entra P1</li>
+        <li onclick="ans('q1',2)">C) Dynamic Device Group — Entra P1</li>
+        <li onclick="ans('q1',3)">D) Microsoft 365 Group — Free tier</li>
+      </ul>
+      <div class="qa" id="q1-a">✅ <strong>B — Dynamic User Group, Entra P1.</strong> Dynamic groups βασίζονται σε user attributes (job title, department, κλπ). Απαιτούν Entra P1 minimum. Assigned Group = manual management. Dynamic Device = για devices, όχι users.</div>
+      <button class="qbtn" onclick="toggle('q1-a')">Show Answer</button>
+    </div>
+
+    <div class="quiz">
+      <div class="qh">◈ Question 02</div>
+      <div class="qq">Προσπαθείς να αλλάξεις το password ενός user απευθείας από το Entra ID portal αλλά το option είναι greyed out. Ποια η πιθανότερη αιτία;</div>
+      <ul class="qo" id="q2">
+        <li onclick="ans('q2',0)">A) Ο user έχει MFA enabled</li>
+        <li onclick="ans('q2',1)">B) Δεν έχεις Global Administrator role</li>
+        <li onclick="ans('q2',2)">C) Ο user είναι synced από on-premises AD</li>
+        <li onclick="ans('q2',3)">D) Ο user account είναι disabled</li>
+      </ul>
+      <div class="qa" id="q2-a">✅ <strong>C — Synced user.</strong> Synced users διαχειρίζονται on-premises. Password changes και certain attributes πρέπει να γίνουν στο on-prem AD. Το Entra ID portal τα εμφανίζει ως read-only για synced attributes.</div>
+      <button class="qbtn" onclick="toggle('q2-a')">Show Answer</button>
+    </div>
+
+    <div class="quiz">
+      <div class="qh">◈ Question 03</div>
+      <div class="qq">Ποιο minimum Entra ID tier απαιτείται για Conditional Access policies;</div>
+      <ul class="qo" id="q3">
+        <li onclick="ans('q3',0)">A) Entra ID Free</li>
+        <li onclick="ans('q3',1)">B) Entra ID P1</li>
+        <li onclick="ans('q3',2)">C) Entra ID P2</li>
+        <li onclick="ans('q3',3)">D) Microsoft 365 E5</li>
+      </ul>
+      <div class="qa" id="q3-a">✅ <strong>B — Entra ID P1.</strong> Conditional Access ξεκινά από P1. PIM και Identity Protection απαιτούν P2. Free tier έχει Security Defaults (predefined policies) αλλά όχι customizable Conditional Access.</div>
+      <button class="qbtn" onclick="toggle('q3-a')">Show Answer</button>
+    </div>
+
+    <div class="quiz">
+      <div class="qh">◈ Question 04</div>
+      <div class="qq">Hybrid user (synced από on-prem AD) κάνει SSPR στο cloud αλλά δεν μπορεί να κάνει login on-premises με το νέο password. Τι λείπει;</div>
+      <ul class="qo" id="q4">
+        <li onclick="ans('q4',0)">A) Δεν έχει Entra P2 license</li>
+        <li onclick="ans('q4',1)">B) Password Writeback δεν είναι enabled στο Entra Connect</li>
+        <li onclick="ans('q4',2)">C) Ο user δεν έχει registered SSPR methods</li>
+        <li onclick="ans('q4',3)">D) Το on-prem AD δεν υποστηρίζει SSPR</li>
+      </ul>
+      <div class="qa" id="q4-a">✅ <strong>B — Password Writeback.</strong> Χωρίς password writeback, νέο password από cloud SSPR δεν γράφεται πίσω στο on-prem AD. Απαιτεί Entra P1 (όχι P2) και να είναι configured στο Entra Connect. Ο user μπορεί να κάνει login cloud apps αλλά όχι on-prem.</div>
+      <button class="qbtn" onclick="toggle('q4-a')">Show Answer</button>
+    </div>
+
+    <div class="quiz">
+      <div class="qh">◈ Question 05</div>
+      <div class="qq">Θέλεις Helpdesk admin να μπορεί να reset passwords ΜΟΝΟ για users του Greece office, όχι για όλο τον tenant. Ποια feature χρησιμοποιείς;</div>
+      <ul class="qo" id="q5">
+        <li onclick="ans('q5',0)">A) Custom RBAC role με scope στο Resource Group</li>
+        <li onclick="ans('q5',1)">B) Administrative Unit με scoped User Administrator role</li>
+        <li onclick="ans('q5',2)">C) Conditional Access policy</li>
+        <li onclick="ans('q5',3)">D) Dynamic group με Greece users</li>
+      </ul>
+      <div class="qa" id="q5-a">✅ <strong>B — Administrative Unit.</strong> AUs επιτρέπουν να scope-άρεις Entra ID admin roles (όπως User Administrator) σε subset των users/groups. Helpdesk admin μπορεί να reset passwords μόνο για users που ανήκουν στο AU "Greece". RBAC είναι για Azure resources, όχι Entra ID user management.</div>
+      <button class="qbtn" onclick="toggle('q5-a')">Show Answer</button>
+    </div>
+
+    <h3>Key Facts — Chapter 02</h3>
+    <div class="box">
+      <div class="box-t">📌 Flashcard Summary</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600;width:38%">P1 features</td><td style="padding:6px 10px;color:var(--text2)">Conditional Access, Dynamic Groups, Password Writeback</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">P2 features</td><td style="padding:6px 10px;color:var(--text2)">PIM, Identity Protection, Access Reviews</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Synced users</td><td style="padding:6px 10px;color:var(--text2)">Managed on-prem. Portal attributes greyed out.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Dynamic groups</td><td style="padding:6px 10px;color:var(--text2)">Auto-membership by attribute rules. Up to 24h delay.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Usage Location</td><td style="padding:6px 10px;color:var(--text2)">Required before license assignment. Country code (GR, BG)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Admin Units</td><td style="padding:6px 10px;color:var(--text2)">Scope Entra admin roles to subset of users/devices</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">B2B guests</td><td style="padding:6px 10px;color:var(--text2)">Use own credentials. UPN = email_domain#EXT#@tenant</td></tr>
+        <tr><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">SSPR writeback</td><td style="padding:6px 10px;color:var(--text2)">P1 required. Writes cloud password reset back to on-prem AD.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <div class="nav">
+    <a href="az104-c01-concepts-cli.html" class="nb"><span class="nl">← Previous</span><span class="nt">Ch01. Azure Concepts &amp; CLI</span></a>
+    <a href="az104-c03-rbac.html" class="nb next"><span class="nl">Next →</span><span class="nt">Ch03. RBAC</span></a>
+  </div>
+</main>
+</div>
+<script>
+const correct={q1:1,q2:2,q3:1,q4:1,q5:1};
+function ans(id,chosen){
+  document.querySelectorAll('#'+id+' li').forEach((el,i)=>{
+    el.classList.remove('ok','no');
+    if(i===correct[id])el.classList.add('ok');
+    else if(i===chosen&&chosen!==correct[id])el.classList.add('no');
+  });
+  document.getElementById(id+'-a').classList.add('show');
+}
+function toggle(id){document.getElementById(id).classList.toggle('show')}
+const secs=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('a.ta');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});
+  links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+});
+</script>
+</body>
+</html>

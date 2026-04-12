@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AZ-104 Ch.09</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+--acc-color:#22d3ee;
+
+:root{--bg:#07090f;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--mono:"JetBrains Mono",monospace;--sans:"Inter",sans-serif;--display:"Syne",sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+.layout{max-width:1100px;margin:0 auto;padding:40px 32px;display:grid;grid-template-columns:260px 1fr;gap:38px;align-items:start}
+.sidebar{position:sticky;top:24px}.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.toc-hdr{background:var(--bg3);padding:11px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.toc-body{padding:6px 0}.toc-sec{padding:5px 16px 2px;font-size:9px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:5px}
+.ta{display:flex;align-items:flex-start;gap:8px;padding:5px 16px;font-size:12px;color:var(--text2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}
+.ta:hover{color:var(--text);background:var(--card2)}.ta.active{font-weight:600}
+.ta .tn{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:2px;flex-shrink:0;width:18px}
+.content{min-width:0}.ch-intro{background:linear-gradient(135deg,var(--card),var(--bg3));border:1px solid #1e2d4a;border-radius:10px;padding:24px;margin-bottom:28px}
+.ch-n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:5px}
+.ch-t{font-family:var(--display);font-size:21px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.ch-desc{color:var(--text2);font-size:13.5px;line-height:1.7;margin-bottom:14px}
+.ch-stats{display:flex;gap:12px;flex-wrap:wrap}.stx{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-family:var(--mono);font-size:11px}
+.stx .l{color:var(--text3);display:block;margin-bottom:1px}.stx .v{color:var(--text);font-weight:600}
+.section{margin-bottom:42px;scroll-margin-top:24px}
+.sh{display:flex;align-items:center;gap:11px;margin-bottom:15px;padding-bottom:11px;border-bottom:1px solid var(--border)}
+.si{width:34px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.sn{font-family:var(--mono);font-size:10px;color:var(--text3)}.section h2{font-family:var(--display);font-size:18px;font-weight:700;color:#fff}
+.section h3{font-family:var(--display);font-size:14px;font-weight:700;color:var(--text);margin:20px 0 9px}.section h3::before{content:"▸ "}
+.section p{color:var(--text2);margin-bottom:11px;font-size:14px}.section ul,.section ol{color:var(--text2);padding-left:20px;margin-bottom:11px}
+.section li{margin-bottom:5px;font-size:14px}.section li strong,.section p strong{color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;margin-bottom:15px;font-size:13px}
+.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:8px 11px;border-bottom:1px solid var(--border)}
+.tbl td{padding:8px 11px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:12px}.tbl tr:hover td{background:var(--card2)}
+pre{background:#050710;border:1px solid var(--border);border-left:3px solid;border-radius:6px;padding:13px 16px;overflow-x:auto;margin-bottom:11px;font-family:var(--mono);font-size:12px;line-height:1.7}
+code{font-family:var(--mono);font-size:12px;background:rgba(200,200,200,.07);padding:2px 5px;border-radius:3px}pre code{background:none;padding:0}
+.cmt{color:#3d5068;font-style:italic}.str{color:#f472b6}.param{color:#86efac}.val{color:#fbbf24}
+.alert{display:flex;gap:11px;padding:11px 15px;border-radius:6px;margin-bottom:11px;font-size:13px}
+.ai{font-size:15px;flex-shrink:0;margin-top:1px}.ab{color:var(--text2);line-height:1.6}.ab strong{color:var(--text)}
+.tip{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18)}.tip .ai{color:#22c55e}
+.warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18)}.warn .ai{color:var(--yellow)}
+.exam{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.22)}.exam .ai{color:var(--purple)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:15px 18px;margin-bottom:15px}
+.box-t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px}
+.scen{background:var(--card);border:1px solid #1e2d4a;border-radius:8px;overflow:hidden;margin-bottom:18px}
+.sc-hdr{padding:10px 15px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--border)}
+.sc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;border-radius:3px;padding:2px 7px}
+.sc-title{font-size:13px;font-weight:600;color:var(--text)}.sc-body{padding:13px 16px}
+.sc-body p{color:var(--text2);font-size:13px;margin-bottom:9px}.sc-body p:last-child{margin-bottom:0}.sc-body strong{color:var(--text)}
+.steps{list-style:none;padding:0;counter-reset:st}.steps li{counter-increment:st;display:flex;gap:9px;margin-bottom:7px;align-items:flex-start;color:var(--text2);font-size:13px}
+.steps li::before{content:counter(st);min-width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;flex-shrink:0;margin-top:2px}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:11px;margin-bottom:15px}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:13px}
+.cc h4{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.cc ul{list-style:none;padding:0}.cc li{font-size:12px;color:var(--text2);padding:3px 0 3px 13px;position:relative}
+.cc li::before{content:"→";position:absolute;left:0;color:var(--text3);font-size:10px}
+.badge{display:inline-flex;font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:3px;font-weight:600;vertical-align:middle}
+.bg{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)}
+.by{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}
+.br{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25)}
+hr{border:none;border-top:1px solid var(--border);margin:30px 0}
+.quiz{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:7px;padding:15px 18px;margin-bottom:15px}
+.qh{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:9px}
+.qq{font-size:14px;color:var(--text);font-weight:600;margin-bottom:9px}
+.qo{list-style:none;padding:0}.qo li{font-size:13px;color:var(--text2);padding:6px 9px;margin-bottom:3px;cursor:pointer;border-radius:4px;transition:background .15s;border-left:2px solid transparent}
+.qo li:hover{background:rgba(139,92,246,.07)}.qo li.ok{background:rgba(34,197,94,.07);color:#22c55e;border-left-color:#22c55e}
+.qo li.no{background:rgba(239,68,68,.07);color:#ef4444;border-left-color:#ef4444}
+.qa{display:none;margin-top:9px;padding:10px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:5px;font-size:13px;color:var(--text2)}.qa.show{display:block}
+.qbtn{margin-top:9px;padding:6px 13px;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.3);border-radius:4px;color:var(--purple);font-family:var(--mono);font-size:11px;cursor:pointer}
+.nav{display:flex;justify-content:space-between;margin-top:40px;padding-top:18px;border-top:1px solid var(--border);gap:13px}
+.nb{display:flex;flex-direction:column;gap:3px;padding:11px 16px;background:var(--card);border:1px solid var(--border);border-radius:7px;text-decoration:none;flex:1;transition:all .2s}
+.nb:hover{background:var(--card2)}.nl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}
+.nt{font-size:13px;color:var(--text);font-weight:600}.nb.next{text-align:right}
+@media(max-width:768px){.layout{grid-template-columns:1fr;padding:18px 14px}.sidebar{position:static}}
+
+.hdr{background:linear-gradient(160deg,#040609,#07090f,#030f10);border-bottom:1px solid var(--border);padding:48px 0 40px;position:relative;overflow:hidden}
+.hdr::before{content:"";position:absolute;top:-60px;right:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(34,211,238,.06),transparent 65%)}
+.hdr-inner{max-width:1100px;margin:0 auto;padding:0 32px}.bc{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:13px}.bc a{color:var(--text3);text-decoration:none}
+.cbadge{display:inline-flex;gap:7px;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.28);border-radius:4px;padding:5px 13px;font-family:var(--mono);font-size:11px;color:#22d3ee;letter-spacing:.1em;text-transform:uppercase;margin-bottom:13px}
+.hdr h1{font-family:var(--display);font-size:clamp(24px,5vw,44px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:10px}.hdr h1 span{color:#22d3ee}
+.hdr-sub{color:var(--text2);font-size:14px;margin-bottom:17px}.hdr-meta{display:flex;gap:16px;flex-wrap:wrap}.mp{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text3)}
+.mpd{width:5px;height:5px;border-radius:50%;background:#22d3ee;box-shadow:0 0 5px #22d3ee}
+.toc-hdr{color:#22d3ee!important}.ta:hover{border-left-color:#22d3ee!important}.ta.active{color:#22d3ee!important;background:rgba(34,211,238,.06)!important;border-left-color:#22d3ee!important}
+.ch-n{color:#22d3ee}.section h3::before{color:#22d3ee}
+.si{background:rgba(34,211,238,.09)!important;border:1px solid rgba(34,211,238,.22)!important}
+pre{border-left-color:#22d3ee!important}
+code{color:#22d3ee;background:rgba(34,211,238,.07)}
+.info{background:rgba(34,211,238,.05)!important;border:1px solid rgba(34,211,238,.22)!important}.info .ai{color:#22d3ee!important}
+.box-t{color:#22d3ee!important}.sc-tag{color:#22d3ee!important;background:rgba(34,211,238,.08)!important;border:1px solid rgba(34,211,238,.25)!important}
+.sc-hdr{background:linear-gradient(90deg,rgba(34,211,238,.1),transparent)!important}
+.steps li::before{background:rgba(34,211,238,.09)!important;border:1px solid rgba(34,211,238,.3)!important;color:#22d3ee!important}
+.cc h4{color:#22d3ee!important}.nb:hover{border-color:#22d3ee!important}
+.ba{background:rgba(34,211,238,.1);color:#22d3ee;border:1px solid rgba(34,211,238,.25)}
+</style></head><body>
+<header class="hdr"><div class="hdr-inner">
+  <div class="bc"><a href="az104-index.html">AZ-104</a> / Chapter 09</div>
+  <div class="cbadge">Chapter 09 · Sections 16</div>
+  <h1>Containers:<br><span>ACI, Container Apps &amp; ACR</span></h1>
+  <p class="hdr-sub">ACI · Container Groups · Azure Container Apps · ACR · Docker Push/Pull</p>
+  <div class="hdr-meta"><div class="mp"><span class="mpd"></span>Sections 16</div><div class="mp"><span class="mpd"></span>Lessons 122–129</div></div>
+</div></header>
+<div class="layout">
+<aside class="sidebar"><div class="toc"><div class="toc-hdr">Chapter 09</div><div class="toc-body">
+  <div class="toc-sec">Section 16</div>
+<a href="#s1" class="ta active"><span class="tn">16.1</span>Container Intro</a>
+<a href="#s2" class="ta"><span class="tn">16.2</span>ACI</a>
+<a href="#s3" class="ta"><span class="tn">16.3</span>Container Groups</a>
+<a href="#s4" class="ta"><span class="tn">16.4</span>Container Apps</a>
+<a href="#s5" class="ta"><span class="tn">16.5</span>ACR</a>
+<a href="#q" class="ta"><span class="tn">Q</span>Quiz</a>
+  <div class="toc-sec">Navigation</div>
+  <a href="az104-c08-app-service.html" class="ta">← Ch08. App Service</a>
+  <a href="az104-c10-vnet-nsg.html" class="ta">Ch10. VNets & NSG →</a>
+</div></div></aside>
+<main class="content">
+<div class="ch-intro">
+  <div class="ch-n">Chapter 09 / Section 16</div>
+  <div class="ch-t">Containers:<br>ACI, Container Apps &amp; ACR</div>
+  <p class="ch-desc">Container fundamentals in Azure. Azure Container Instances (ACI) for simple workloads, Azure Container Apps for microservices, Azure Container Registry (ACR) for private image storage. Docker push/pull workflows.</p>
+  <div class="ch-stats"><div class="stx"><span class="l">Domain</span><span class="v">Domain 3</span></div><div class="stx"><span class="l">Lessons</span><span class="v">122–129</span></div></div>
+</div>
+
+<section class="section" id="s1">
+  <div class="sh"><div class="si">📦</div><div><div class="sn">Lesson 122 · 16.1</div><h2>Container Fundamentals</h2></div></div>
+  <p>Containers = lightweight, portable runtime environments. Same image runs identically everywhere. Faster than VMs (no OS overhead).</p>
+  <table class="tbl"><thead><tr><th>Service</th><th>Description</th><th>Use Case</th></tr></thead><tbody>
+    <tr><td>ACI</td><td>Serverless containers — no infrastructure management</td><td>Simple tasks, burst, dev/test</td></tr>
+    <tr><td>Azure Container Apps</td><td>Managed platform (on K8s) with KEDA autoscaling</td><td>Microservices, event-driven</td></tr>
+    <tr><td>AKS</td><td>Full managed Kubernetes</td><td>Complex production orchestration</td></tr>
+    <tr><td>App Service (Containers)</td><td>PaaS web hosting for containers</td><td>Web apps in containers</td></tr>
+    <tr><td>ACR</td><td>Private Docker registry</td><td>Store and manage container images</td></tr>
+  </tbody></table>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Quick Decision:</strong> Simple task / burst = ACI. Microservices with scale-to-zero = Container Apps. Full Kubernetes control = AKS. Web app = App Service.</div></div>
+</section><hr>
+
+<section class="section" id="s2">
+  <div class="sh"><div class="si">🚀</div><div><div class="sn">Lessons 123–124 · 16.2</div><h2>Azure Container Instances (ACI)</h2></div></div>
+  <p>Fastest way to run containers in Azure. Serverless — pay per second. No node/cluster management.</p>
+  <table class="tbl"><thead><tr><th>Feature</th><th>Detail</th></tr></thead><tbody>
+    <tr><td>Startup time</td><td>Seconds</td></tr>
+    <tr><td>OS support</td><td>Linux and Windows containers</td></tr>
+    <tr><td>Public access</td><td>Optional public IP + DNS label</td></tr>
+    <tr><td>VNet</td><td>VNet injection (private deployment)</td></tr>
+    <tr><td>Storage</td><td>Azure Files mount for persistence</td></tr>
+    <tr><td>Restart policy</td><td>Always / OnFailure / Never</td></tr>
+    <tr><td>Billing</td><td>Per vCPU/GB per second</td></tr>
+  </tbody></table>
+  <pre><code><span class="cmt"># Deploy ACI from ACR image</span>
+az container create   --resource-group RG-Apps-GR   --name myapp-aci   --image septonaacr.azurecr.io/myapp:v1.0   --cpu 1 --memory 1.5   --dns-name-label septona-app-gr   --ports 80   --registry-login-server septonaacr.azurecr.io   --assign-identity  <span class="cmt"># use managed identity for ACR auth</span>
+
+<span class="cmt"># Check logs</span>
+az container logs --resource-group RG-Apps-GR --name myapp-aci</code></pre>
+</section><hr>
+
+<section class="section" id="s3">
+  <div class="sh"><div class="si">🔗</div><div><div class="sn">Lesson 125 · 16.3</div><h2>Container Groups</h2></div></div>
+  <p><strong>Container Groups</strong> = multiple containers that share a lifecycle, network (same IP), and storage. Like a Kubernetes Pod.</p>
+  <ul>
+    <li>All containers share the same public IP and can communicate via localhost</li>
+    <li>Can have multiple ports exposed</li>
+    <li>Sidecar pattern: main app + logging sidecar + proxy container</li>
+    <li>Deploy via ARM template or YAML file</li>
+  </ul>
+  <pre><code><span class="cmt"># Deploy container group with YAML</span>
+az container create   --resource-group RG-Apps-GR   --file container-group.yaml</code></pre>
+</section><hr>
+
+<section class="section" id="s4">
+  <div class="sh"><div class="si">⚡</div><div><div class="sn">Lesson 126 · 16.4</div><h2>Azure Container Apps</h2></div></div>
+  <p>Managed serverless container platform built on Kubernetes. Handles orchestration transparently. Features KEDA-based autoscaling including scale-to-zero.</p>
+  <div class="cg">
+    <div class="cc"><h4>ACI</h4><ul>
+      <li>Simple, single containers</li>
+      <li>Manual scaling</li>
+      <li>No service discovery</li>
+      <li>Cheapest for burst</li>
+    </ul></div>
+    <div class="cc"><h4>Container Apps</h4><ul>
+      <li>Microservices focus</li>
+      <li>KEDA autoscale (to zero)</li>
+      <li>Dapr integration</li>
+      <li>Ingress built-in</li>
+    </ul></div>
+    <div class="cc"><h4>AKS</h4><ul>
+      <li>Full Kubernetes control</li>
+      <li>Any K8s workload</li>
+      <li>Complex networking</li>
+      <li>Most operational work</li>
+    </ul></div>
+  </div>
+</section><hr>
+
+<section class="section" id="s5">
+  <div class="sh"><div class="si">🗃️</div><div><div class="sn">Lessons 127–129 · 16.5</div><h2>Azure Container Registry (ACR)</h2></div></div>
+  <p>Private Docker registry in Azure. Store, manage, and replicate container images.</p>
+  <table class="tbl"><thead><tr><th>SKU</th><th>Features</th></tr></thead><tbody>
+    <tr><td>Basic</td><td>Dev/test. 10GB storage. No geo-replication.</td></tr>
+    <tr><td>Standard</td><td>Production. 100GB. Webhooks.</td></tr>
+    <tr><td>Premium</td><td>Geo-replication, Private Link, token auth, 500GB.</td></tr>
+  </tbody></table>
+  <pre><code><span class="cmt"># Create ACR</span>
+az acr create   --name septonaacr   --resource-group RG-DevOps-GR   --sku Basic
+
+<span class="cmt"># Build image directly in ACR (no local Docker needed)</span>
+az acr build   --registry septonaacr   --image myapp:v1.0   .  <span class="cmt"># current directory with Dockerfile</span>
+
+<span class="cmt"># Push local image to ACR</span>
+az acr login --name septonaacr
+docker tag myapp:latest septonaacr.azurecr.io/myapp:v1.0
+docker push septonaacr.azurecr.io/myapp:v1.0
+
+<span class="cmt"># Grant ACI/AKS access to ACR via managed identity</span>
+az role assignment create   --assignee MANAGED_IDENTITY_ID   --role AcrPull   --scope /subscriptions/.../registries/septonaacr</code></pre>
+</section><hr>
+
+<section class="section" id="q">
+  <div class="sh"><div class="si">🧠</div><div><div class="sn">Chapter 09</div><h2>Quiz</h2></div></div>
+  <div class="quiz"><div class="qh">◈ Q01</div>
+    <div class="qq">Workload: batch job που τρέχει 10 λεπτά, μία φορά τη μέρα. Δεν χρειάζεται orchestration. Ποιο service;</div>
+    <ul class="qo" id="q1"><li onclick="ans('q1',0)">A) AKS</li><li onclick="ans('q1',1)">B) Azure Container Instances (ACI)</li><li onclick="ans('q1',2)">C) App Service</li><li onclick="ans('q1',3)">D) Virtual Machine</li></ul>
+    <div class="qa" id="q1-a">✅ <strong>B — ACI.</strong> Short-lived, no orchestration needed, pay per second = ACI. AKS = complex orchestration. App Service = web hosting. VM = overkill for 10-minute batch.</div>
+    <button class="qbtn" onclick="toggle('q1-a')">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q02</div>
+    <div class="qq">Πώς grants access στο ACI να pull images από private ACR χωρίς credentials στον κώδικα;</div>
+    <ul class="qo" id="q2"><li onclick="ans('q2',0)">A) Username/password στο container create command</li><li onclick="ans('q2',1)">B) Managed Identity + AcrPull role assignment</li><li onclick="ans('q2',2)">C) ACR admin account enabled</li><li onclick="ans('q2',3)">D) Public ACR registry</li></ul>
+    <div class="qa" id="q2-a">✅ <strong>B — Managed Identity + AcrPull.</strong> Enable managed identity on ACI, assign AcrPull role to that identity on the ACR. No credentials needed. ACR admin account = not recommended (shared secret).</div>
+    <button class="qbtn" onclick="toggle('q2-a')">Show Answer</button>
+  </div>
+  <div class="box"><div class="box-t">📌 Key Facts — Ch09</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600;width:38%">ACI</td><td style="padding:6px 9px;color:var(--text2)">Serverless containers. Pay per second. No orchestration. Short-lived tasks.</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">Container Apps</td><td style="padding:6px 9px;color:var(--text2)">KEDA autoscale, Dapr, scale-to-zero. Between ACI and AKS.</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">AKS</td><td style="padding:6px 9px;color:var(--text2)">Full Kubernetes. Control plane is FREE. Pay for worker node VMs.</td></tr>
+      <tr><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">ACR + AcrPull</td><td style="padding:6px 9px;color:var(--text2)">Grant managed identity AcrPull role for secure no-credential image pull.</td></tr>
+    </table>
+  </div>
+</section>
+<div class="nav">
+  <a href="az104-c08-app-service.html" class="nb"><span class="nl">← Previous</span><span class="nt">Ch08. App Service</span></a>
+  <a href="az104-c10-vnet-nsg.html" class="nb next"><span class="nl">Next →</span><span class="nt">Ch10. VNets & NSG</span></a>
+</div>
+</main></div>
+<script>
+const correct={"q1":1,"q2":1};
+function ans(id,c){document.querySelectorAll("#"+id+" li").forEach((el,i)=>{el.classList.remove("ok","no");if(i===correct[id])el.classList.add("ok");else if(i===c&&c!==correct[id])el.classList.add("no");});document.getElementById(id+"-a").classList.add("show");}
+function toggle(id){document.getElementById(id).classList.toggle("show")}
+const secs=document.querySelectorAll("section[id]");const links=document.querySelectorAll("a.ta");
+window.addEventListener("scroll",()=>{let cur="";secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+cur));});
+</script></body></html>

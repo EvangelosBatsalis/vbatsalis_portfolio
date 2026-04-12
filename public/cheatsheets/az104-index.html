@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AZ-104 Microsoft Azure Administrator — Complete Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07090f;--bg2:#0a0e1a;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--border2:#1e2d4a;--azure:#0078d4;--ab:#2196f3;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--teal:#14b8a6;--orange:#f97316;--lime:#84cc16;--pink:#ec4899;--cyan:#06b6d4;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--display:'Syne',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+.hero{background:linear-gradient(160deg,#040609,#07090f,#08101e);border-bottom:1px solid var(--border);padding:90px 0 70px;position:relative;overflow:hidden;text-align:center}
+.hero::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:500px;background:radial-gradient(ellipse,rgba(33,150,243,.06),transparent 65%);pointer-events:none}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(33,150,243,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(33,150,243,.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.hero-inner{max-width:860px;margin:0 auto;padding:0 32px;position:relative;z-index:1}
+.cert-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(33,150,243,.08);border:1px solid rgba(33,150,243,.25);border-radius:100px;padding:8px 22px;font-family:var(--mono);font-size:11px;color:var(--ab);letter-spacing:.12em;margin-bottom:32px}
+.live{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:var(--display);font-size:clamp(40px,8vw,76px);font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1;margin-bottom:18px}
+.hero h1 .g{background:linear-gradient(135deg,#60a5fa,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{color:var(--text2);font-size:17px;font-weight:300;margin-bottom:36px;line-height:1.6}
+.chips{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:44px}
+.chip{background:var(--card2);border:1px solid var(--border2);border-radius:6px;padding:7px 15px;font-family:var(--mono);font-size:11px;color:var(--text2)}
+.chip b{color:var(--text)}
+.stats{display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-n{font-family:var(--display);font-size:38px;font-weight:800;color:#fff;line-height:1}
+.stat-l{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--text3);text-transform:uppercase;margin-top:4px}
+.wrap{max-width:1060px;margin:0 auto;padding:64px 32px}
+.sec-hdr{display:flex;align-items:center;gap:14px;margin-bottom:26px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.sec-ico{width:38px;height:38px;background:var(--card2);border:1px solid var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sec-meta{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;margin-bottom:2px}
+.sec-title{font-family:var(--display);font-size:20px;font-weight:700;color:#fff}
+.grp{margin-bottom:52px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;text-decoration:none;display:block;transition:all .2s;position:relative}
+.cc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transition:height .2s}
+.cc:hover{border-color:var(--border2);background:var(--card2);transform:translateY(-2px);box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.cc:hover::before{height:3px}
+.g1::before{background:linear-gradient(90deg,var(--ab),var(--cyan))}
+.g2::before{background:linear-gradient(90deg,var(--purple),#818cf8)}
+.g3::before{background:linear-gradient(90deg,var(--teal),#34d399)}
+.g4::before{background:linear-gradient(90deg,var(--orange),#fb923c)}
+.g5::before{background:linear-gradient(90deg,var(--lime),#a3e635)}
+.g6::before{background:linear-gradient(90deg,var(--pink),#f472b6)}
+.cc-in{padding:20px 22px 18px}
+.cc-n{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.cc-t{font-family:var(--display);font-size:16px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.3}
+.cc-d{font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.pills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.pill{font-family:var(--mono);font-size:9.5px;padding:2px 7px;border-radius:3px;background:var(--bg3);border:1px solid var(--border);color:var(--text3)}
+.cc-ft{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--border)}
+.st{font-family:var(--mono);font-size:10px;display:flex;align-items:center;gap:6px}
+.dot{width:6px;height:6px;border-radius:50%}
+.s-ready{color:var(--green)}.s-ready .dot{background:var(--green);box-shadow:0 0 5px var(--green)}
+.s-next{color:var(--ab)}.s-next .dot{background:var(--ab);box-shadow:0 0 5px var(--ab);animation:blink 1.5s infinite}
+.s-pending{color:var(--text3)}.s-pending .dot{background:var(--text3)}
+.arr{color:var(--text3);font-size:14px;transition:transform .2s}
+.cc:hover .arr{transform:translateX(4px)}
+.prog-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:28px 32px;margin-bottom:48px}
+.prog-title{font-family:var(--display);font-size:16px;font-weight:700;color:#fff;margin-bottom:20px}
+.dr{display:flex;align-items:center;gap:16px;margin-bottom:12px}
+.dn{font-size:12.5px;color:var(--text2);width:230px;flex-shrink:0}
+.db{flex:1;background:var(--bg3);border-radius:100px;height:5px;overflow:hidden}
+.df{height:100%;border-radius:100px}
+.dp{font-family:var(--mono);font-size:11px;color:var(--text3);width:45px;text-align:right}
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:9px 14px;border-bottom:1px solid var(--border)}
+.tbl td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:11.5px;white-space:nowrap}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--card2)}
+.i2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:48px}
+.ic{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px}
+.ic h3{font-family:var(--display);font-size:15px;font-weight:700;color:#fff;margin-bottom:14px}
+.ic ul{list-style:none;padding:0}
+.ic li{font-size:13px;color:var(--text2);padding:5px 0 5px 16px;position:relative;border-bottom:1px solid var(--border)}
+.ic li:last-child{border-bottom:none}
+.ic li::before{content:'▸';position:absolute;left:0;color:var(--text3);font-size:10px;top:8px}
+.ft{border-top:1px solid var(--border);padding:36px 32px;text-align:center}
+.ft p{color:var(--text3);font-family:var(--mono);font-size:11px;letter-spacing:.08em}
+@media(max-width:768px){.wrap{padding:40px 16px}.hero-inner{padding:0 16px}.grid{grid-template-columns:1fr}.i2{grid-template-columns:1fr}.dn{width:140px;font-size:11px}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-inner">
+    <div class="cert-badge"><span class="live"></span>Microsoft Azure Administrator · AZ-104 · Study Guide</div>
+    <h1>Azure Administrator<br><span class="g">AZ-104</span></h1>
+    <p class="hero-sub">Πλήρης οδηγός — 14 chapters βασισμένα ακριβώς στο επίσημο curriculum.<br>Real IT scenarios, interactive quizzes, CLI examples.</p>
+    <div class="chips">
+      <div class="chip"><b>14</b> Chapters</div>
+      <div class="chip"><b>25</b> Curriculum Sections</div>
+      <div class="chip"><b>177</b> Lessons Covered</div>
+      <div class="chip"><b>40+</b> Quiz Questions</div>
+      <div class="chip">Pass Score: <b>700/1000</b></div>
+      <div class="chip">Exam: <b>~120 min</b></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-n">14</div><div class="stat-l">Chapters</div></div>
+      <div class="stat"><div class="stat-n">5</div><div class="stat-l">Domains</div></div>
+      <div class="stat"><div class="stat-n">700</div><div class="stat-l">Pass Score</div></div>
+      <div class="stat"><div class="stat-n">4w</div><div class="stat-l">Study Plan</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PROGRESS -->
+  <div class="prog-box">
+    <div class="prog-title">📊 Exam Domain Weights</div>
+    <div class="dr"><span class="dn">Manage Azure Identities &amp; Governance</span><div class="db"><div class="df" style="width:22%;background:linear-gradient(90deg,#818cf8,#c084fc)"></div></div><span class="dp">20–25%</span></div>
+    <div class="dr"><span class="dn">Implement &amp; Manage Storage</span><div class="db"><div class="df" style="width:17%;background:linear-gradient(90deg,#14b8a6,#34d399)"></div></div><span class="dp">15–20%</span></div>
+    <div class="dr"><span class="dn">Deploy &amp; Manage Compute Resources</span><div class="db"><div class="df" style="width:22%;background:linear-gradient(90deg,#f97316,#fb923c)"></div></div><span class="dp">20–25%</span></div>
+    <div class="dr"><span class="dn">Implement &amp; Manage Virtual Networking ⭐</span><div class="db"><div class="df" style="width:27%;background:linear-gradient(90deg,#84cc16,#a3e635)"></div></div><span class="dp">25–30%</span></div>
+    <div class="dr"><span class="dn">Monitor &amp; Maintain Azure Resources</span><div class="db"><div class="df" style="width:12%;background:linear-gradient(90deg,#ec4899,#f472b6)"></div></div><span class="dp">10–15%</span></div>
+  </div>
+
+  <!-- GROUP 1: FOUNDATIONS -->
+  <div class="grp">
+    <div class="sec-hdr"><div class="sec-ico">🧱</div><div><div class="sec-meta">Group 01 · Sections 1–3 · Foundations</div><div class="sec-title">Azure Concepts, CLI &amp; PowerShell</div></div></div>
+    <div class="grid">
+      <a href="az104-c01-concepts-cli.html" class="cc g1">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 01 · Sections 2–3</div>
+          <div class="cc-t">Azure Concepts &amp; CLI / PowerShell</div>
+          <div class="cc-d">Επισκόπηση Azure services (VM, App Service, Storage, Networking, Microservices). PowerShell Az module και Azure CLI — syntax, best practices, switch subscriptions, Cloud Shell.</div>
+          <div class="pills"><span class="pill">Azure Overview</span><span class="pill">PowerShell Az</span><span class="pill">Azure CLI</span><span class="pill">Cloud Shell</span><span class="pill">Switch Subscription</span></div>
+          <div class="cc-ft"><div class="st s-next"><span class="dot"></span>ΕΠΟΜΕΝΟ</div><span class="arr">→</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- GROUP 2: IDENTITY -->
+  <div class="grp">
+    <div class="sec-hdr"><div class="sec-ico">🔐</div><div><div class="sec-meta">Group 02 · Sections 4–7 · Domain 1 · 20–25%</div><div class="sec-title">Manage Azure Identities &amp; Governance</div></div></div>
+    <div class="grid">
+
+      <a href="az104-c02-entra-id.html" class="cc g2">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 02 · Sections 4–5</div>
+          <div class="cc-t">Microsoft Entra ID, Users &amp; Groups</div>
+          <div class="cc-d">Entra ID Free vs P1 vs P2. Cloud/synced/guest users. Assigned &amp; dynamic groups. Licenses. Administrative Units. SSPR. Bulk operations. External users (B2B).</div>
+          <div class="pills"><span class="pill">Entra ID Tiers</span><span class="pill">Users</span><span class="pill">Dynamic Groups</span><span class="pill">Admin Units</span><span class="pill">SSPR</span><span class="pill">B2B</span></div>
+          <div class="cc-ft"><div class="st s-pending"><span class="dot"></span>PENDING</div><span class="arr">→</span></div>
+        </div>
+      </a>
+
+      <a href="az104-c03-rbac.html" class="cc g2">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 03 · Section 6</div>
+          <div class="cc-t">Role-Based Access Control (RBAC)</div>
+          <div class="cc-d">Security principals, role definitions, assignment scopes. Built-in roles. Custom roles με JSON. Managed Identity. Storage Account: Access Keys vs RBAC. Deny assignments.</div>
+          <div class="pills"><span class="pill">RBAC Model</span><span class="pill">Built-in Roles</span><span class="pill">Custom Roles</span><span class="pill">Managed Identity</span><span class="pill">Scope</span></div>
+          <div class="cc-ft"><div class="st s-pending"><span class="dot"></span>PENDING</div><span class="arr">→</span></div>
+        </div>
+      </a>
+
+      <a href="az104-c04-governance.html" class="cc g2">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 04 · Section 7</div>
+          <div class="cc-t">Subscriptions &amp; Governance</div>
+          <div class="cc-d">Management Groups hierarchy. Subscriptions. Resource Locks (ReadOnly/Delete). Azure Policy (effects, initiatives, remediation tasks). Tags. Cost Management, Budgets, Advisor. Move resources.</div>
+          <div class="pills"><span class="pill">Mgmt Groups</span><span class="pill">Resource Locks</span><span class="pill">Azure Policy</span><span class="pill">Tags</span><span class="pill">Budgets</span><span class="pill">Move Resources</span></div>
+          <div class="cc-ft"><div class="st s-pending"><span class="dot"></span>PENDING</div><span class="arr">→</span></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- GROUP 3: STORAGE -->
+  <div class="grp">
+    <div class="sec-hdr"><div class="sec-ico">🗄️</div><div><div class="sec-meta">Group 03 · Sections 8–10 · Domain 2 · 15–20%</div><div class="sec-title">Implement &amp; Manage Storage</div></div></div>
+    <div class="grid">
+
+      <a href="az104-c05-storage.html" class="cc g3">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 05 · Sections 8–10</div>
+          <div class="cc-t">Storage Accounts, Blob, Files &amp; Security</div>
+          <div class="cc-d">Storage Account types, redundancy (LRS/ZRS/GRS/GZRS/RA-GRS). Advanced options. Blob access tiers (Hot/Cool/Cold/Archive). Data protection, encryption. Access Keys, SAS tokens, Stored Access Policies, Entra ID access. Azure Files &amp; Snapshots. Lifecycle, Object Replication, AzCopy.</div>
+          <div class="pills"><span class="pill">GPv2 / Premium</span><span class="pill">Redundancy</span><span class="pill">Blob Tiers</span><span class="pill">SAS Tokens</span><span class="pill">Azure Files</span><span class="pill">AzCopy</span><span class="pill">Lifecycle</span></div>
+          <div class="cc-ft"><div class="st s-pending"><span class="dot"></span>PENDING</div><span class="arr">→</span></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- GROUP 4: COMPUTE -->
+  <div class="grp">
+    <div class="sec-hdr"><div class="sec-ico">🖥️</div><div><div class="sec-meta">Group 04 · Sections 11–16 · Domain 3 · 20–25%</div><div class="sec-title">Deploy &amp; Manage Compute Resources</div></div></div>
+    <div class="grid">
+
+      <a href="az104-c06-virtual-machines.html" class="cc g4">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 06 · Sections 11 &amp; 14</div>
+          <div class="cc-t">Azure Virtual Machines &amp; Disk Encryption</div>
+          <div class="cc-d">VM series, sizes, creation. Disk options (managed disks, types). Networking options. Availability Sets vs Zones. Resize VM. Additional disks. Bastion Service. VM Scale Sets (manual &amp; auto). SSE vs ADE encryption.</div>
+          <div class="pills"><span class="pill">VM Series/Sizes</span><span class="pill">Managed Disks</span><span class="pill">Availability</span><span class="pill">Bastion</span><span class="pill">VMSS</span><span class="pill">SSE</span><span class="pill">ADE</span></div>
+          <div class="cc-ft"><div class="st s-pending"><span class="dot"></span>PENDING</div><span class="arr">→</span></div>
+        </div>
+      </a>
+
+      <a href="az104-c07-arm-bicep.html" class="cc g4">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 07 · Sections 12–13</div>
+          <div class="cc-t">ARM Templates &amp; Azure Bicep</div>
+          <div class="cc-d">ARM Template structure (schema, contentVersion, parameters, variables, resources, outputs). Read/modify/deploy templates. Template Specs. Deploy via PowerShell &amp; CLI. Custom Script Extensions. ARM για existing VHD. Bicep syntax, VS Code, decompile ARM→Bicep.</div>
+          <div class="pills"><span class="pill">ARM Structure</span><span class="pill">Parameters</span><span class="pill">Template Specs</span><span class="pill">Custom Script Ext</span><span class="pill">Bicep</span><span class="pill">Decompile</span></div>
+          <div class="cc-ft"><div class="st s-pending"><span class="dot"></span>PENDING</div><span class="arr">→</span></div>
+        </div>
+      </a>
+
+      <a href="az104-c08-app-service.html" class="cc g4">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 08 · Section 15</div>
+          <div class="cc-t">Azure App Service</div>
+          <div class="cc-d">App Service Plans (Free→Isolated). Create Web App. GitHub Actions CI/CD. Deployment options. Settings. Scale up &amp; scale out (manual/auto). Deployment Slots &amp; swap. Backup. App Service Networking. Custom DNS &amp; TLS certificates.</div>
+          <div class="pills"><span class="pill">App Service Plans</span><span class="pill">GitHub Actions</span><span class="pill">Deploy Slots</span><span class="pill">Auto-scale</span><span class="pill">Custom Domain</span><span class="pill">TLS/SSL</span></div>
+          <div class="cc-ft"><div class="st s-pending"><span class="dot"></span>PENDING</div><span class="arr">→</span></div>
+        </div>
+      </a>
+
+      <a href="az104-c09-containers.html" class="cc g4">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 09 · Section 16</div>
+          <div class="cc-t">Containers: ACI, Container Apps &amp; ACR</div>
+          <div class="cc-d">Container fundamentals. ACI — create, scale, container groups (multi-container). Azure Container Apps vs ACI. ACR — create registry, docker build/push/pull. Real CI/CD container workflow.</div>
+          <div class="pills"><span class="pill">ACI</span><span class="pill">Container Groups</span><span class="pill">Container Apps</span><span class="pill">ACR</span><span class="pill">Docker Push/Pull</span></div>
+          <div class="cc-ft"><div class="st s-pending"><span class="dot"></span>PENDING</div><span class="arr">→</span></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- GROUP 5: NETWORKING -->
+  <div class="grp">
+    <div class="sec-hdr"><div class="sec-ico">🌐</div><div><div class="sec-meta">Group 05 · Sections 17–22 · Domain 4 · 25–30% ⭐ BIGGEST</div><div class="sec-title">Implement &amp; Manage Virtual Networking</div></div></div>
+    <div class="grid">
+
+      <a href="az104-c10-vnet-nsg.html" class="cc g5">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 10 · Sections 17–20</div>
+          <div class="cc-t">VNets, Peering, DNS &amp; NSG</div>
+          <div class="cc-d">VNet creation, subnets, reserved IPs, service/private endpoints. Public IPs &amp; NICs. VNet Peering (local &amp; global). VNet Gateway (Azure-to-Azure). Private DNS zones, Public DNS zones, App Service custom domain. NSG rules, effective rules, ASG. Network troubleshooting.</div>
+          <div class="pills"><span class="pill">VNets/Subnets</span><span class="pill">Public IPs</span><span class="pill">VNet Peering</span><span class="pill">VNet Gateway</span><span class="pill">DNS Private/Public</span><span class="pill">NSG</span><span class="pill">ASG</span></div>
+          <div class="cc-ft"><div class="st s-pending"><span class="dot"></span>PENDING</div><span class="arr">→</span></div>
+        </div>
+      </a>
+
+      <a href="az104-c11-load-balancing.html" class="cc g5">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 11 · Section 21</div>
+          <div class="cc-t">Configure Load Balancing</div>
+          <div class="cc-d">Load Balancer types (Basic vs Standard). Setup: frontend IP, backend pool, health probes, LB rules, NAT rules. Add VM to backend pool. Troubleshoot LB. Application Gateway (L7, URL routing, WAF). Σύγκριση LB vs AppGW vs Traffic Manager vs Front Door.</div>
+          <div class="pills"><span class="pill">Basic vs Standard LB</span><span class="pill">Backend Pool</span><span class="pill">Health Probes</span><span class="pill">LB Rules</span><span class="pill">App Gateway</span><span class="pill">WAF</span></div>
+          <div class="cc-ft"><div class="st s-pending"><span class="dot"></span>PENDING</div><span class="arr">→</span></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- GROUP 6: MONITOR & BACKUP -->
+  <div class="grp">
+    <div class="sec-hdr"><div class="sec-ico">📊</div><div><div class="sec-meta">Group 06 · Sections 22–24 · Domain 5 · 10–15%</div><div class="sec-title">Monitor, Backup &amp; Recovery</div></div></div>
+    <div class="grid">
+
+      <a href="az104-c12-network-monitor.html" class="cc g6">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 12 · Section 22</div>
+          <div class="cc-t">Monitor &amp; Troubleshoot Networking</div>
+          <div class="cc-d">Network Watcher: IP Flow Verify, Next Hop, Connection Troubleshoot, Packet Capture (.pcap), VPN Diagnostics. Network Diagnostic Logs. NSG Flow Logs. Connection Monitor (continuous testing).</div>
+          <div class="pills"><span class="pill">Network Watcher</span><span class="pill">IP Flow Verify</span><span class="pill">Next Hop</span><span class="pill">Packet Capture</span><span class="pill">NSG Flow Logs</span></div>
+          <div class="cc-ft"><div class="st s-pending"><span class="dot"></span>PENDING</div><span class="arr">→</span></div>
+        </div>
+      </a>
+
+      <a href="az104-c13-azure-monitor.html" class="cc g6">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 13 · Section 23</div>
+          <div class="cc-t">Azure Monitor, Diagnostics &amp; KQL</div>
+          <div class="cc-d">Azure Monitor overview (metrics vs logs). Enable Diagnostics Settings για resources. VM Insights. Log Analytics Workspace. KQL queries (where, project, summarize, extend, render). Alerts &amp; Action Groups. Load Balancer &amp; AppGW traffic management lab.</div>
+          <div class="pills"><span class="pill">Azure Monitor</span><span class="pill">Diagnostic Settings</span><span class="pill">VM Insights</span><span class="pill">Log Analytics</span><span class="pill">KQL</span><span class="pill">Alerts</span></div>
+          <div class="cc-ft"><div class="st s-pending"><span class="dot"></span>PENDING</div><span class="arr">→</span></div>
+        </div>
+      </a>
+
+      <a href="az104-c14-backup-recovery.html" class="cc g6">
+        <div class="cc-in">
+          <div class="cc-n">Chapter 14 · Section 24</div>
+          <div class="cc-t">Backup &amp; Azure Site Recovery</div>
+          <div class="cc-d">Recovery Services Vault. Azure Backup για VMs — manual backup, scheduled policy. File recovery από VM backup. Full VM restore. On-premises backup (MARS agent). Backup reports &amp; logs. Soft Delete. ASR — S2S replication, test failover, failover, failback.</div>
+          <div class="pills"><span class="pill">RSV</span><span class="pill">VM Backup</span><span class="pill">File Recovery</span><span class="pill">MARS Agent</span><span class="pill">Soft Delete</span><span class="pill">ASR</span><span class="pill">Failover</span></div>
+          <div class="cc-ft"><div class="st s-pending"><span class="dot"></span>PENDING</div><span class="arr">→</span></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- QUICK REF -->
+  <div class="sec-hdr">
+    <div class="sec-ico">⚡</div>
+    <div><div class="sec-meta">Reference</div><div class="sec-title">Top 20 Must-Know Facts</div></div>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:48px">
+    <table class="tbl">
+      <thead><tr><th>Topic</th><th>Key Fact</th></tr></thead>
+      <tbody>
+        <tr><td>P1 License</td><td>Conditional Access, Dynamic Groups, Hybrid Azure AD Join</td></tr>
+        <tr><td>P2 License</td><td>PIM (Privileged Identity Management), Identity Protection, Access Reviews</td></tr>
+        <tr><td>ReadOnly Lock</td><td>Blocks all POST operations → cannot list storage keys, cannot restart VM</td></tr>
+        <tr><td>Delete Lock</td><td>Prevents deletion but allows read and modify operations</td></tr>
+        <tr><td>Tags</td><td>Do NOT inherit from RG to resources. Use Azure Policy to enforce tagging.</td></tr>
+        <tr><td>RBAC Deny</td><td>Explicit Deny wins over any Allow. RBAC is additive otherwise.</td></tr>
+        <tr><td>Archive Rehydration</td><td>Standard priority: up to 15 hours. High priority: up to 1 hour.</td></tr>
+        <tr><td>Premium Storage</td><td>Supports LRS and ZRS only — no GRS/GZRS geo-replication</td></tr>
+        <tr><td>Temp Disk</td><td>Non-persistent. Lost on VM resize/redeploy/stop-deallocate. Never store important data.</td></tr>
+        <tr><td>Availability Set SLA</td><td>99.95% — same datacenter, different fault/update domains</td></tr>
+        <tr><td>Availability Zone SLA</td><td>99.99% — physically separate datacenters in same region</td></tr>
+        <tr><td>Deployment Slots</td><td>App Service Standard tier and above. Swap = zero downtime release.</td></tr>
+        <tr><td>/29 Subnet</td><td>8 IPs total − 5 Azure reserved = 3 usable for VMs</td></tr>
+        <tr><td>VNet Peering</td><td>Non-transitive. Both directions required. No overlapping address spaces.</td></tr>
+        <tr><td>NSG Dual-level</td><td>AND logic — both Subnet AND NIC NSG must allow for traffic to pass</td></tr>
+        <tr><td>Standard LB</td><td>Closed by default. NSG rule required for inbound traffic.</td></tr>
+        <tr><td>App Gateway vs LB</td><td>AppGW = L7 (URL routing, WAF, SSL termination) | LB = L4 (TCP/UDP only)</td></tr>
+        <tr><td>Activity Log</td><td>Control-plane events (WHO did WHAT WHEN). 90-day retention.</td></tr>
+        <tr><td>Soft Delete (Backup)</td><td>14-day recovery window after backup data is deleted</td></tr>
+        <tr><td>ASR vs Backup</td><td>ASR = Disaster Recovery (RPO minutes) | Backup = restore past data (RPO hours)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- INFO GRID -->
+  <div class="i2">
+    <div class="ic">
+      <h3>📅 4-Week Study Plan</h3>
+      <ul>
+        <li><b>Week 1:</b> Ch01–04 — Concepts, CLI, Entra ID, RBAC, Governance</li>
+        <li><b>Week 2:</b> Ch05–07 — Storage, Virtual Machines, ARM/Bicep</li>
+        <li><b>Week 3:</b> Ch08–11 — App Service, Containers, Networking (×2)</li>
+        <li><b>Week 4:</b> Ch12–14 — Monitor, Backup + 2 full practice tests</li>
+      </ul>
+    </div>
+    <div class="ic">
+      <h3>🎯 Exam Day Tips</h3>
+      <ul>
+        <li>Networking = 25–30% — δώσε έμφαση εδώ πάνω από όλα</li>
+        <li>Διάβασε scenarios αργά — keywords ορίζουν την απάντηση</li>
+        <li>Mark uncertain ερωτήσεις, τελείωσε πρώτα τις σίγουρες</li>
+        <li>180 λεπτά / ~60 ερωτήσεις = 3 λεπτά ανά ερώτηση</li>
+        <li>Case studies: διάβασε ΟΛΟ το scenario πριν απαντήσεις</li>
+        <li>Passing score 700 — δεν χρειάζεσαι 100%</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="ft">
+  <p>AZ-104 MICROSOFT AZURE ADMINISTRATOR · STUDY GUIDE · SEPTONA IT · 2026</p>
+</div>
+
+</body>
+</html>

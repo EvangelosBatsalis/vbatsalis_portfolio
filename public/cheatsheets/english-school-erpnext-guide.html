@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERPNext για Φροντιστήριο Αγγλικών - Πλήρης Οδηγός</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        .nav {
+            background: #2d3748;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav a:hover {
+            background: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #667eea;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.8em;
+            margin: 30px 0 20px 0;
+        }
+
+        .section h4 {
+            color: #2d3748;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #f59e0b;
+        }
+
+        .success-box {
+            background: #d1fae5;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #10b981;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 2px solid #e2e8f0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .card h4 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:hover {
+            background: #f7fafc;
+        }
+
+        .step {
+            background: #f8fafc;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        ul, ol {
+            margin-left: 40px;
+            margin-top: 15px;
+        }
+
+        li {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .example-section {
+            background: #f0f9ff;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border: 2px dashed #0ea5e9;
+        }
+
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            margin: 10px 5px;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .doctype-visual {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .field-item {
+            background: #f8fafc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .field-type {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .nav ul {
+                flex-direction: column;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 ERPNext για Φροντιστήριο Αγγλικών</h1>
+            <p>Πλήρης οδηγός για τη δημιουργία συστήματος διαχείρισης με υπηρεσίες και τιμολόγηση</p>
+        </div>
+
+        <nav class="nav">
+            <ul>
+                <li><a href="#intro">Εισαγωγή</a></li>
+                <li><a href="#doctype">Τι είναι DocType</a></li>
+                <li><a href="#setup">Αρχική Ρύθμιση</a></li>
+                <li><a href="#items">Υπηρεσίες/Items</a></li>
+                <li><a href="#customers">Μαθητές/Πελάτες</a></li>
+                <li><a href="#invoicing">Τιμολόγηση</a></li>
+                <li><a href="#custom">Προσαρμογές</a></li>
+                <li><a href="#examples">Παραδείγματα</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <!-- Εισαγωγή -->
+            <section id="intro" class="section">
+                <h2>📚 Εισαγωγή στο ERPNext για Φροντιστήρια</h2>
+                
+                <div class="info-box">
+                    <h3>Τι είναι το ERPNext;</h3>
+                    <p>Το <strong>ERPNext</strong> είναι ένα ανοιχτού κώδικα (open-source) σύστημα ERP (Enterprise Resource Planning) που σου επιτρέπει να διαχειριστείς όλες τις πτυχές της επιχείρησής σου - από τους πελάτες και τις πωλήσεις μέχρι την τιμολόγηση και την λογιστική.</p>
+                </div>
+
+                <h3>Γιατί ERPNext για το Φροντιστήριό σου;</h3>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>💰 Δωρεάν & Ανοιχτός Κώδικας</h4>
+                        <p>Δεν χρειάζεται να πληρώσεις για λογισμικό. Μπορείς να το εγκαταστήσεις στο δικό σου server ή να χρησιμοποιήσεις cloud hosting.</p>
+                    </div>
+                    <div class="card">
+                        <h4>📊 Ολοκληρωμένη Λύση</h4>
+                        <p>Διαχείριση μαθητών, μαθημάτων, τιμολογίων, πληρωμών, και αναφορών από ένα σημείο.</p>
+                    </div>
+                    <div class="card">
+                        <h4>🔧 Προσαρμόσιμο</h4>
+                        <p>Μπορείς να το προσαρμόσεις στις ανάγκες του φροντιστηρίου σου χωρίς να γράψεις κώδικα!</p>
+                    </div>
+                    <div class="card">
+                        <h4>📱 Web-Based</h4>
+                        <p>Λειτουργεί από οποιοδήποτε browser - υπολογιστή, tablet, ή κινητό.</p>
+                    </div>
+                </div>
+
+                <h3>Τι θα μάθεις σε αυτό το Guide;</h3>
+                <ul>
+                    <li>Τι είναι τα <strong>DocTypes</strong> και πώς λειτουργούν στο ERPNext</li>
+                    <li>Πώς να δημιουργήσεις <strong>Υπηρεσίες</strong> (π.χ. μαθήματα αγγλικών)</li>
+                    <li>Πώς να καταχωρήσεις <strong>Μαθητές</strong> ως Customers</li>
+                    <li>Πώς να δημιουργήσεις <strong>Τιμολόγια</strong> για τα μαθήματα</li>
+                    <li>Πώς να προσαρμόσεις το σύστημα για τις ανάγκες του φροντιστηρίου σου</li>
+                    <li>Πρακτικά παραδείγματα και workflows</li>
+                </ul>
+            </section>
+
+            <!-- DocType Explanation -->
+            <section id="doctype" class="section">
+                <h2>🔍 Τι είναι το DocType στο ERPNext;</h2>
+                
+                <div class="info-box">
+                    <h3>Βασική Εξήγηση</h3>
+                    <p>Το <strong>DocType</strong> (Document Type) είναι το βασικό δομικό στοιχείο του ERPNext. Σκέψου το ως ένα "τύπο εγγράφου" ή "entity" που αντιπροσωπεύει κάτι στην επιχείρησή σου.</p>
+                </div>
+
+                <h3>Αναλογία με Βάσεις Δεδομένων</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Βάση Δεδομένων</th>
+                            <th>ERPNext</th>
+                            <th>Παράδειγμα</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Table</strong></td>
+                            <td><strong>DocType</strong></td>
+                            <td>Customer, Item, Sales Invoice</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Column</strong></td>
+                            <td><strong>Field</strong></td>
+                            <td>Customer Name, Email, Phone</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Row</strong></td>
+                            <td><strong>Document (Doc)</strong></td>
+                            <td>Ένας συγκεκριμένος πελάτης</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Βασικά DocTypes που θα Χρησιμοποιήσεις</h3>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>📦 Item (Προϊόν/Υπηρεσία)</h4>
+                        <p>Εδώ θα καταχωρήσεις τις υπηρεσίες του φροντιστηρίου σου, όπως:</p>
+                        <ul>
+                            <li>Μάθημα Αγγλικών A1 (1 ώρα)</li>
+                            <li>Μάθημα Αγγλικών B2 (1 ώρα)</li>
+                            <li>Private Lesson (1 ώρα)</li>
+                            <li>Εξετάσεις Cambridge</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>👤 Customer (Πελάτης)</h4>
+                        <p>Εδώ θα καταχωρήσεις τους μαθητές σου:</p>
+                        <ul>
+                            <li>Όνομα μαθητή</li>
+                            <li>Στοιχεία επικοινωνίας</li>
+                            <li>Γονέας/Κηδεμόνας</li>
+                            <li>Ιστορικό πληρωμών</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>📄 Sales Invoice (Τιμολόγιο Πώλησης)</h4>
+                        <p>Για την τιμολόγηση των μαθημάτων:</p>
+                        <ul>
+                            <li>Ποιος μαθητής</li>
+                            <li>Ποιο μάθημα</li>
+                            <li>Πόσες ώρες</li>
+                            <li>Συνολικό κόστος</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>💳 Payment Entry (Καταχώρηση Πληρωμής)</h4>
+                        <p>Για την καταγραφή πληρωμών:</p>
+                        <ul>
+                            <li>Ποιος πλήρωσε</li>
+                            <li>Πόσα</li>
+                            <li>Πότε</li>
+                            <li>Τρόπος πληρωμής</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="example-section">
+                    <h3>🎯 Παράδειγμα: DocType "Item" για Μάθημα</h3>
+                    <p>Ας δούμε πώς φαίνεται ένα DocType για ένα μάθημα αγγλικών:</p>
+                    
+                    <div class="doctype-visual">
+                        <h4>DocType: Item (Μάθημα Αγγλικών B1)</h4>
+                        <div class="field-item">
+                            <span><strong>Item Code:</strong> ENG-B1-1HR</span>
+                            <span class="field-type">Data</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Item Name:</strong> Μάθημα Αγγλικών B1 (1 ώρα)</span>
+                            <span class="field-type">Data</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Item Group:</strong> Services</span>
+                            <span class="field-type">Link</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Is Service Item:</strong> ✓ Yes</span>
+                            <span class="field-type">Check</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Standard Rate:</strong> €25.00</span>
+                            <span class="field-type">Currency</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>UOM:</strong> Hour</span>
+                            <span class="field-type">Link</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Description:</strong> Ατομικό μάθημα αγγλικών επιπέδου B1, διάρκειας 1 ώρας</span>
+                            <span class="field-type">Text Editor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ Σημαντικό να Καταλάβεις</h4>
+                    <p><strong>DocType = Η Δομή (Template)</strong></p>
+                    <p><strong>Document = Η Συγκεκριμένη Εγγραφή (Instance)</strong></p>
+                    <p>Για παράδειγμα: Το DocType "Customer" ορίζει τα πεδία που έχει κάθε πελάτης. Ο "Γιάννης Παπαδόπουλος" είναι ένα συγκεκριμένο Document (εγγραφή) του DocType "Customer".</p>
+                </div>
+            </section>
+
+            <!-- Αρχική Ρύθμιση -->
+            <section id="setup" class="section">
+                <h2>⚙️ Αρχική Ρύθμιση του ERPNext</h2>
+                
+                <h3>Βήμα προς Βήμα Setup</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Εγκατάσταση ERPNext</strong>
+                    <p>Μπορείς να επιλέξεις:</p>
+                    <ul>
+                        <li><strong>Frappe Cloud:</strong> Hosted λύση (πληρωμένη, αλλά εύκολη)</li>
+                        <li><strong>Self-Hosted:</strong> Δωρεάν αλλά χρειάζεται server (Ubuntu/Debian)</li>
+                        <li><strong>Docker:</strong> Για τοπική εγκατάσταση και testing</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Setup Wizard</strong>
+                    <p>Όταν ανοίξεις το ERPNext για πρώτη φορά, θα σε καθοδηγήσει το Setup Wizard:</p>
+                    <ul>
+                        <li>Γλώσσα: <strong>Ελληνικά</strong></li>
+                        <li>Χώρα: <strong>Greece</strong></li>
+                        <li>Νόμισμα: <strong>EUR (€)</strong></li>
+                        <li>Όνομα Εταιρείας: <strong>English Academy</strong> (ή το όνομα του φροντιστηρίου σου)</li>
+                        <li>Domain: <strong>Education</strong></li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Ρυθμίσεις Εταιρείας</strong>
+                    <p>Πήγαινε στο: <span class="highlight">Settings → Company</span></p>
+                    <ul>
+                        <li>Συμπλήρωσε τα στοιχεία της εταιρείας σου (ΑΦΜ, ΔΟΥ, Διεύθυνση)</li>
+                        <li>Ανέβασε το λογότυπο του φροντιστηρίου</li>
+                        <li>Ρύθμισε το Default Income Account</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Chart of Accounts (Λογιστικό Σχέδιο)</strong>
+                    <p>Το ERPNext θα δημιουργήσει αυτόματα το λογιστικό σχέδιο για την Ελλάδα. Βεβαιώσου ότι έχεις:</p>
+                    <ul>
+                        <li><strong>Income Accounts</strong> (Λογαριασμοί Εσόδων) - για τα έσοδα από μαθήματα</li>
+                        <li><strong>Expense Accounts</strong> (Λογαριασμοί Εξόδων) - για τα έξοδα του φροντιστηρίου</li>
+                        <li><strong>Asset Accounts</strong> (Περιουσιακά Στοιχεία) - για ταμείο, τράπεζα</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h4>✅ Τώρα είσαι έτοιμος!</h4>
+                    <p>Με την αρχική ρύθμιση ολοκληρωμένη, μπορείς να αρχίσεις να καταχωρείς τα μαθήματα και τους μαθητές σου!</p>
+                </div>
+            </section>
+
+            <!-- Items/Services -->
+            <section id="items" class="section">
+                <h2>📦 Δημιουργία Υπηρεσιών (Items) για τα Μαθήματα</h2>
+                
+                <div class="info-box">
+                    <h3>Τι είναι τα Items;</h3>
+                    <p>Στο ERPNext, οι υπηρεσίες (services) που προσφέρει το φροντιστήριό σου καταχωρούνται ως <strong>"Items"</strong>. Κάθε τύπος μαθήματος είναι ένα διαφορετικό Item.</p>
+                </div>
+
+                <h3>Πώς να Δημιουργήσεις ένα Item</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Πήγαινε στο Item List</strong>
+                    <p>Από το μενού: <span class="highlight">Buying → Item → New</span><br>
+                    Ή απευθείας στο home screen: <span class="highlight">Create an Item</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Συμπλήρωσε τα Βασικά Στοιχεία</strong>
+                    <div class="code-block">
+Item Code: ENG-A1-1HR
+Item Name: Μάθημα Αγγλικών A1 (1 ώρα)
+Item Group: Services
+Default Unit of Measure (UOM): Hour
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Επίλεξε "Is Service Item"</strong>
+                    <p>Βάλε tick στο checkbox: <span class="highlight">☑ Is Service Item</span></p>
+                    <p>Αυτό ενημερώνει το σύστημα ότι πρόκειται για υπηρεσία και όχι για φυσικό προϊόν.</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Όρισε την Τιμή</strong>
+                    <p>Στο section <span class="highlight">"Sales Details"</span>:</p>
+                    <div class="code-block">
+Standard Selling Rate: 25.00 EUR
+Income Account: Sales - EA (English Academy)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Πρόσθεσε Περιγραφή</strong>
+                    <p>Στο πεδίο <span class="highlight">Description</span>, γράψε μια σαφή περιγραφή:</p>
+                    <div class="code-block">
+Ατομικό μάθημα αγγλικών επιπέδου A1 για αρχάριους.
+Διάρκεια: 60 λεπτά
+Περιλαμβάνει: Βιβλίο μαθητή, ασκήσεις, online υποστήριξη
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">6</span>
+                    <strong>Αποθήκευση</strong>
+                    <p>Πάτα <span class="highlight">Save</span> για να αποθηκεύσεις το Item!</p>
+                </div>
+
+                <h3>Παραδείγματα Items για Φροντιστήριο</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item Code</th>
+                            <th>Item Name</th>
+                            <th>Επίπεδο</th>
+                            <th>Τιμή/Ώρα</th>
+                            <th>Περιγραφή</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ENG-A1-1HR</strong></td>
+                            <td>Μάθημα A1</td>
+                            <td>Beginner</td>
+                            <td>€20</td>
+                            <td>Ατομικό μάθημα για αρχάριους</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ENG-A2-1HR</strong></td>
+                            <td>Μάθημα A2</td>
+                            <td>Elementary</td>
+                            <td>€22</td>
+                            <td>Ατομικό μάθημα στοιχειώδους επιπέδου</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ENG-B1-1HR</strong></td>
+                            <td>Μάθημα B1</td>
+                            <td>Intermediate</td>
+                            <td>€25</td>
+                            <td>Ατομικό μάθημα μεσαίου επιπέδου</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ENG-B2-1HR</strong></td>
+                            <td>Μάθημα B2</td>
+                            <td>Upper-Intermediate</td>
+                            <td>€28</td>
+                            <td>Ατομικό μάθημα προχωρημένου επιπέδου</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ENG-C1-1HR</strong></td>
+                            <td>Μάθημα C1</td>
+                            <td>Advanced</td>
+                            <td>€30</td>
+                            <td>Προχωρημένο επίπεδο για πιστοποίηση</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ENG-PRV-1HR</strong></td>
+                            <td>Private Lesson</td>
+                            <td>Any Level</td>
+                            <td>€35</td>
+                            <td>Ιδιαίτερο μάθημα 1-προς-1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ENG-GROUP-1HR</strong></td>
+                            <td>Group Lesson (4-6 άτομα)</td>
+                            <td>Any Level</td>
+                            <td>€15</td>
+                            <td>Ομαδικό μάθημα με 4-6 μαθητές</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ENG-CAMBRIDGE</strong></td>
+                            <td>Cambridge Exam Preparation</td>
+                            <td>B2/C1/C2</td>
+                            <td>€40</td>
+                            <td>Προετοιμασία για εξετάσεις Cambridge</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ENG-IELTS</strong></td>
+                            <td>IELTS Preparation</td>
+                            <td>B2+</td>
+                            <td>€40</td>
+                            <td>Προετοιμασία για IELTS</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ENG-BOOK-A1</strong></td>
+                            <td>Βιβλίο Επιπέδου A1</td>
+                            <td>-</td>
+                            <td>€30</td>
+                            <td>Εκπαιδευτικό υλικό επιπέδου A1</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <h4>💡 Συμβουλές για Items</h4>
+                    <ul>
+                        <li><strong>Χρησιμοποίησε συνεπή Item Codes:</strong> Όλα τα μαθήματα να αρχίζουν με "ENG-", τα βιβλία με "BOOK-", κλπ.</li>
+                        <li><strong>Ξεχώρισε ατομικά από ομαδικά:</strong> Διαφορετικά Items για διαφορετικούς τύπους μαθημάτων</li>
+                        <li><strong>Πρόσθεσε λεπτομερείς περιγραφές:</strong> Θα βοηθήσουν στα τιμολόγια και τις αναφορές</li>
+                        <li><strong>Ενημέρωσε τις τιμές τακτικά:</strong> Μπορείς να αλλάξεις την Standard Rate οποτεδήποτε</li>
+                    </ul>
+                </div>
+
+                <h3>Item Groups (Κατηγορίες Items)</h3>
+                <p>Μπορείς να οργανώσεις τα Items σε groups για καλύτερη διαχείριση:</p>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Services → English Lessons</h4>
+                        <ul>
+                            <li>Individual Lessons</li>
+                            <li>Group Lessons</li>
+                            <li>Exam Preparation</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Products → Educational Materials</h4>
+                        <ul>
+                            <li>Textbooks</li>
+                            <li>Workbooks</li>
+                            <li>Online Access Codes</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customers/Students -->
+            <section id="customers" class="section">
+                <h2>👥 Καταχώρηση Μαθητών ως Customers</h2>
+                
+                <div class="info-box">
+                    <h3>Γιατί Customers;</h3>
+                    <p>Στο ERPNext, οι μαθητές σου καταχωρούνται ως <strong>"Customers"</strong> (Πελάτες). Αυτό σου επιτρέπει να τους συνδέσεις με τιμολόγια, πληρωμές, και να κρατάς ιστορικό.</p>
+                </div>
+
+                <h3>Πώς να Δημιουργήσεις έναν Customer</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Άνοιγμα Customer List</strong>
+                    <p>Από το μενού: <span class="highlight">Selling → Customer → New</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Βασικές Πληροφορίες</strong>
+                    <div class="code-block">
+Customer Name: Παπαδόπουλος Γιάννης
+Customer Type: Individual
+Customer Group: Individual
+Territory: Greece
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Στοιχεία Επικοινωνίας</strong>
+                    <p>Στο section <span class="highlight">"Contact Details"</span>, πρόσθεσε:</p>
+                    <div class="code-block">
+Primary Contact:
+  - Contact Name: Παπαδόπουλος Γιάννης
+  - Email: giannis.papa@example.com
+  - Mobile: +30 693 1234567
+
+Secondary Contact (Γονέας/Κηδεμόνας):
+  - Contact Name: Παπαδοπούλου Μαρία (Μητέρα)
+  - Email: maria.papa@example.com
+  - Mobile: +30 694 7654321
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Διεύθυνση</strong>
+                    <p>Στο section <span class="highlight">"Address"</span>:</p>
+                    <div class="code-block">
+Address Line 1: Οδός Πανεπιστημίου 45
+City: Αθήνα
+State: Αττική
+Postal Code: 10679
+Country: Greece
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Πρόσθετες Πληροφορίες (Optional)</strong>
+                    <p>Μπορείς να προσθέσεις custom fields για:</p>
+                    <ul>
+                        <li>Ηλικία Μαθητή</li>
+                        <li>Επίπεδο Αγγλικών</li>
+                        <li>Ημερομηνία Εγγραφής</li>
+                        <li>Σχολείο/Τάξη</li>
+                        <li>Σημειώσεις (π.χ. "Προτιμά απογευματινά μαθήματα")</li>
+                    </ul>
+                </div>
+
+                <h3>Customer Groups για Φροντιστήριο</h3>
+                <p>Δημιούργησε διαφορετικά groups για να οργανώσεις τους μαθητές:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer Group</th>
+                            <th>Περιγραφή</th>
+                            <th>Παραδείγματα</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Junior Students</strong></td>
+                            <td>Μαθητές 6-12 ετών</td>
+                            <td>Δημοτικό</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Teen Students</strong></td>
+                            <td>Μαθητές 13-18 ετών</td>
+                            <td>Γυμνάσιο, Λύκειο</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adult Students</strong></td>
+                            <td>Ενήλικες 18+</td>
+                            <td>Φοιτητές, Επαγγελματίες</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Corporate Clients</strong></td>
+                            <td>Εταιρείες</td>
+                            <td>Εταιρικά προγράμματα</td>
+                        </tr>
+                        <tr>
+                            <td><strong>VIP Students</strong></td>
+                            <td>Premium μαθητές</td>
+                            <td>Private lessons, εντατικά προγράμματα</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-section">
+                    <h3>🎯 Παράδειγμα: Πλήρης Καταχώρηση Μαθητή</h3>
+                    <div class="doctype-visual">
+                        <h4>Customer: Ιωάννου Ελένη</h4>
+                        <div class="field-item">
+                            <span><strong>Customer ID:</strong> CUST-00145</span>
+                            <span class="field-type">Auto-generated</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Customer Name:</strong> Ιωάννου Ελένη</span>
+                            <span class="field-type">Data</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Customer Group:</strong> Teen Students</span>
+                            <span class="field-type">Link</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Email:</strong> eleni.ioannou@gmail.com</span>
+                            <span class="field-type">Data</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Mobile:</strong> +30 697 9876543</span>
+                            <span class="field-type">Data</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Ηλικία:</strong> 15 ετών</span>
+                            <span class="field-type">Int (Custom Field)</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Επίπεδο:</strong> B1</span>
+                            <span class="field-type">Select (Custom Field)</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Σχολείο:</strong> 2ο Γυμνάσιο Αθηνών</span>
+                            <span class="field-type">Data (Custom Field)</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Γονέας:</strong> Ιωάννου Νίκος (Πατέρας) - +30 694 1234567</span>
+                            <span class="field-type">Data (Custom Field)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <h4>✅ Πλεονεκτήματα Οργανωμένων Customers</h4>
+                    <ul>
+                        <li>Αυτόματη σύνδεση με τιμολόγια και πληρωμές</li>
+                        <li>Ιστορικό μαθημάτων και οφειλών</li>
+                        <li>Εύκολη επικοινωνία (email, SMS)</li>
+                        <li>Αναφορές ανά Customer Group</li>
+                        <li>Customer Statements για παρακολούθηση πληρωμών</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Invoicing -->
+            <section id="invoicing" class="section">
+                <h2>💰 Δημιουργία Τιμολογίων (Sales Invoice)</h2>
+                
+                <div class="info-box">
+                    <h3>Τι είναι το Sales Invoice;</h3>
+                    <p>Το <strong>Sales Invoice</strong> είναι το τιμολόγιο που εκδίδεις στους μαθητές σου για τα μαθήματα τους. Συνδέει τον Customer (μαθητή) με τα Items (μαθήματα) και υπολογίζει το συνολικό κόστος.</p>
+                </div>
+
+                <h3>Πώς να Δημιουργήσεις ένα Sales Invoice</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Άνοιγμα Sales Invoice</strong>
+                    <p>Από το μενού: <span class="highlight">Selling → Sales Invoice → New</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Επιλογή Customer</strong>
+                    <div class="code-block">
+Customer: Παπαδόπουλος Γιάννης
+Posting Date: 2026-01-28 (σημερινή ημερομηνία)
+Due Date: 2026-02-28 (1 μήνας μετά)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Προσθήκη Items (Μαθημάτων)</strong>
+                    <p>Στον πίνακα <span class="highlight">"Items"</span>, πρόσθεσε τα μαθήματα:</p>
+                    <div class="code-block">
+Row 1:
+  Item Code: ENG-B1-1HR
+  Item Name: Μάθημα Αγγλικών B1 (1 ώρα)
+  Quantity: 8 (8 μαθήματα)
+  Rate: €25.00
+  Amount: €200.00
+
+Row 2:
+  Item Code: ENG-BOOK-B1
+  Item Name: Βιβλίο Επιπέδου B1
+  Quantity: 1
+  Rate: €30.00
+  Amount: €30.00
+                    </div>
+                    <p><strong>Total Amount: €230.00</strong></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Πρόσθεσε ΦΠΑ (αν απαιτείται)</strong>
+                    <p>Στο section <span class="highlight">"Taxes and Charges"</span>:</p>
+                    <div class="code-block">
+Sales Taxes and Charges Template: Greece VAT 24%
+  - Tax Type: VAT 24%
+  - Account Head: VAT - EA
+  - Rate: 24%
+  - Tax Amount: €55.20
+
+Grand Total: €285.20
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Ρυθμίσεις Πληρωμής</strong>
+                    <div class="code-block">
+Payment Terms: Net 30 (πληρωμή εντός 30 ημερών)
+Write Off Account: (αν χρειάζεται)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">6</span>
+                    <strong>Submit Invoice</strong>
+                    <p>Πάτα <span class="highlight">Submit</span> για να οριστικοποιήσεις το τιμολόγιο!</p>
+                    <p>Το invoice θα πάρει ένα unique number (π.χ. <strong>INV-2026-00023</strong>)</p>
+                </div>
+
+                <h3>Τύποι Invoices για Φροντιστήριο</h3>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>📅 Monthly Invoice (Μηνιαίο)</h4>
+                        <p>Για μαθητές με τακτικά εβδομαδιαία μαθήματα:</p>
+                        <ul>
+                            <li>8 μαθήματα x €25 = €200</li>
+                            <li>Τιμολόγηση στις 30 κάθε μήνα</li>
+                            <li>Due Date: 30 ημέρες μετά</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>📦 Package Invoice (Πακέτο)</h4>
+                        <p>Για πώληση πακέτων μαθημάτων:</p>
+                        <ul>
+                            <li>20 μαθήματα x €23 = €460 (έκπτωση)</li>
+                            <li>Προπληρωμή</li>
+                            <li>Ισχύει για 3 μήνες</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🎓 Exam Preparation</h4>
+                        <p>Ειδικά προγράμματα προετοιμασίας:</p>
+                        <ul>
+                            <li>12 μαθήματα Cambridge B2</li>
+                            <li>Εκπαιδευτικό υλικό</li>
+                            <li>Mock exams</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🏢 Corporate Invoice</h4>
+                        <p>Για εταιρικούς πελάτες:</p>
+                        <ul>
+                            <li>Group lessons</li>
+                            <li>Ειδική τιμολόγηση</li>
+                            <li>Μηνιαία συμφωνία</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Workflow: Από Invoice σε Payment</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Δημιουργία Invoice</strong>
+                    <p>Status: <span class="highlight">Unpaid</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Αποστολή στον Μαθητή</strong>
+                    <p>Πάτα <span class="highlight">Print/Email</span> για να στείλεις το invoice</p>
+                    <p>Επιλογές: Email, PDF, Print</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Είσπραξη Πληρωμής</strong>
+                    <p>Όταν ο μαθητής πληρώσει, δημιούργησε <span class="highlight">Payment Entry</span>:</p>
+                    <div class="code-block">
+Payment Type: Receive
+Party: Παπαδόπουλος Γιάννης
+Paid Amount: €285.20
+Payment Mode: Cash / Bank Transfer / Card
+Reference No: TRX123456 (αν είναι τραπεζική)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Σύνδεση Payment με Invoice</strong>
+                    <p>Το ERPNext θα συνδέσει αυτόματα το payment με το invoice</p>
+                    <p>Status: <span class="highlight">Paid</span> ✅</p>
+                </div>
+
+                <div class="example-section">
+                    <h3>🎯 Παράδειγμα: Πλήρες Τιμολόγιο</h3>
+                    <div class="doctype-visual">
+                        <h4>Sales Invoice: INV-2026-00023</h4>
+                        <div class="field-item">
+                            <span><strong>Customer:</strong> Παπαδόπουλος Γιάννης</span>
+                            <span class="field-type">Link</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Date:</strong> 28-01-2026</span>
+                            <span class="field-type">Date</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>Due Date:</strong> 28-02-2026</span>
+                            <span class="field-type">Date</span>
+                        </div>
+                        <hr style="margin: 15px 0; border: none; border-top: 2px solid #e2e8f0;">
+                        <h4 style="margin-top: 20px;">Items:</h4>
+                        <div class="field-item">
+                            <span>ENG-B1-1HR | Μάθημα B1 | Qty: 8</span>
+                            <span style="font-weight: bold;">€200.00</span>
+                        </div>
+                        <div class="field-item">
+                            <span>ENG-BOOK-B1 | Βιβλίο B1 | Qty: 1</span>
+                            <span style="font-weight: bold;">€30.00</span>
+                        </div>
+                        <hr style="margin: 15px 0; border: none; border-top: 2px solid #e2e8f0;">
+                        <div class="field-item">
+                            <span><strong>Subtotal:</strong></span>
+                            <span style="font-weight: bold;">€230.00</span>
+                        </div>
+                        <div class="field-item">
+                            <span><strong>VAT 24%:</strong></span>
+                            <span style="font-weight: bold;">€55.20</span>
+                        </div>
+                        <div class="field-item" style="background: #667eea; color: white; font-size: 1.2em;">
+                            <span><strong>GRAND TOTAL:</strong></span>
+                            <span style="font-weight: bold;">€285.20</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <h4>💡 Συμβουλές για Invoicing</h4>
+                    <ul>
+                        <li><strong>Set Default Payment Terms:</strong> Ορίστε τα standard payment terms (π.χ. Net 30) για αυτόματη συμπλήρωση</li>
+                        <li><strong>Use Recurring Invoices:</strong> Για μαθητές με μηνιαία συνδρομή, ενεργοποιήστε auto-recurring</li>
+                        <li><strong>Track Outstanding Amounts:</strong> Χρησιμοποιείτε το "Accounts Receivable" report για να βλέπετε ποιος οφείλει</li>
+                        <li><strong>Send Reminders:</strong> Ρυθμίστε automatic email reminders για unpaid invoices</li>
+                        <li><strong>Early Payment Discounts:</strong> Προσφέρετε έκπτωση για προπληρωμή</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Custom DocTypes -->
+            <section id="custom" class="section">
+                <h2>🛠️ Προσαρμογές για το Φροντιστήριό σου</h2>
+                
+                <div class="info-box">
+                    <h3>Γιατί Custom DocTypes;</h3>
+                    <p>Το ERPNext είναι πολύ ευέλικτο! Μπορείς να δημιουργήσεις δικά σου DocTypes για να προσαρμόσεις το σύστημα στις ανάγκες του φροντιστηρίου σου.</p>
+                </div>
+
+                <h3>Custom Fields σε Υπάρχοντα DocTypes</h3>
+                <p>Μπορείς να προσθέσεις custom fields στα υπάρχοντα DocTypes χωρίς να γράψεις κώδικα!</p>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Customer (Μαθητής)</h4>
+                        <p>Πρόσθεσε fields:</p>
+                        <ul>
+                            <li>Student Age (Int)</li>
+                            <li>English Level (Select: A1, A2, B1, B2, C1, C2)</li>
+                            <li>School (Data)</li>
+                            <li>Grade (Data)</li>
+                            <li>Enrollment Date (Date)</li>
+                            <li>Parent Name (Data)</li>
+                            <li>Parent Mobile (Phone)</li>
+                            <li>Preferred Time Slot (Select: Morning, Afternoon, Evening)</li>
+                            <li>Notes (Text Editor)</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Item (Μάθημα)</h4>
+                        <p>Πρόσθεσε fields:</p>
+                        <ul>
+                            <li>Course Duration (Int) - σε ώρες</li>
+                            <li>Course Level (Select)</li>
+                            <li>Max Students (Int) - για group lessons</li>
+                            <li>Teacher Assigned (Link: Employee)</li>
+                            <li>Course Material Included (Check)</li>
+                            <li>Certificate Provided (Check)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Πώς να Προσθέσεις Custom Field</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Πήγαινε στο Customize Form</strong>
+                    <p><span class="highlight">Setup → Customize → Customize Form</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Επίλεξε το DocType</strong>
+                    <p>Στο πεδίο "Enter Form Type": <span class="highlight">Customer</span></p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Προσθήκη Field</strong>
+                    <p>Κάνε scroll μέχρι το section <span class="highlight">"Fields"</span> και πάτα <span class="highlight">Add Row</span>:</p>
+                    <div class="code-block">
+Label: Student Age
+Field Type: Int
+Insert After: customer_name (επίλεξε πού θα εμφανιστεί)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Update</strong>
+                    <p>Πάτα <span class="highlight">Update</span> για να αποθηκεύσεις!</p>
+                </div>
+
+                <h3>Δημιουργία Νέου Custom DocType</h3>
+                <p>Για πιο σύνθετες ανάγκες, δημιούργησε εντελώς νέα DocTypes:</p>
+
+                <div class="example-section">
+                    <h3>🎯 Παράδειγμα: DocType "Class Schedule"</h3>
+                    <p>Για να οργανώσεις το πρόγραμμα των μαθημάτων:</p>
+                    
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Δημιουργία DocType</strong>
+                        <p><span class="highlight">Setup → Customize → DocType → New</span></p>
+                        <div class="code-block">
+DocType Name: Class Schedule
+Module: Education
+Is Submittable: No
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Προσθήκη Fields</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Field Label</th>
+                                    <th>Field Type</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Student</td>
+                                    <td>Link</td>
+                                    <td>Customer</td>
+                                </tr>
+                                <tr>
+                                    <td>Course</td>
+                                    <td>Link</td>
+                                    <td>Item</td>
+                                </tr>
+                                <tr>
+                                    <td>Teacher</td>
+                                    <td>Link</td>
+                                    <td>Employee</td>
+                                </tr>
+                                <tr>
+                                    <td>Day of Week</td>
+                                    <td>Select</td>
+                                    <td>Monday, Tuesday, Wednesday, ...</td>
+                                </tr>
+                                <tr>
+                                    <td>Start Time</td>
+                                    <td>Time</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>End Time</td>
+                                    <td>Time</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Room</td>
+                                    <td>Data</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td>Select</td>
+                                    <td>Scheduled, Completed, Cancelled</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Save</strong>
+                        <p>Το νέο DocType θα εμφανιστεί στο μενού!</p>
+                    </div>
+                </div>
+
+                <h3>Άλλα Χρήσιμα Custom DocTypes</h3>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>📚 Study Material</h4>
+                        <p>Για την οργάνωση εκπαιδευτικού υλικού:</p>
+                        <ul>
+                            <li>Material Name</li>
+                            <li>Course Level</li>
+                            <li>File/URL</li>
+                            <li>Description</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>📝 Assignment</h4>
+                        <p>Για ασκήσεις και εργασίες:</p>
+                        <ul>
+                            <li>Student</li>
+                            <li>Course</li>
+                            <li>Assignment Title</li>
+                            <li>Due Date</li>
+                            <li>Status</li>
+                            <li>Grade</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>📊 Progress Report</h4>
+                        <p>Για παρακολούθηση προόδου:</p>
+                        <ul>
+                            <li>Student</li>
+                            <li>Course</li>
+                            <li>Assessment Date</li>
+                            <li>Reading Score</li>
+                            <li>Writing Score</li>
+                            <li>Speaking Score</li>
+                            <li>Listening Score</li>
+                            <li>Overall Grade</li>
+                            <li>Comments</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>📆 Attendance</h4>
+                        <p>Για καταγραφή παρουσιών:</p>
+                        <ul>
+                            <li>Student</li>
+                            <li>Course</li>
+                            <li>Date</li>
+                            <li>Status (Present/Absent/Late)</li>
+                            <li>Notes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <h4>✅ Οφέλη Custom DocTypes</h4>
+                    <ul>
+                        <li><strong>Ακριβής προσαρμογή:</strong> Φτιάξε το σύστημα ακριβώς όπως το χρειάζεσαι</li>
+                        <li><strong>Καλύτερη οργάνωση:</strong> Όλες οι πληροφορίες σε ένα μέρος</li>
+                        <li><strong>Αυτοματοποίηση:</strong> Workflows, validations, auto-assignments</li>
+                        <li><strong>Αναφορές:</strong> Custom reports για την πρόοδο μαθητών</li>
+                        <li><strong>Permissions:</strong> Ποιος βλέπει τι (π.χ. καθηγητές, γραμματεία)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Examples -->
+            <section id="examples" class="section">
+                <h2>📖 Πρακτικά Παραδείγματα & Workflows</h2>
+                
+                <h3>Σενάριο 1: Εγγραφή Νέου Μαθητή</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Πρώτη Επαφή</strong>
+                    <p>Ο γονέας επικοινωνεί για εγγραφή του παιδιού (Γιάννης, 14 ετών, Γυμνάσιο)</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Δημιουργία Customer</strong>
+                    <p><span class="highlight">Selling → Customer → New</span></p>
+                    <div class="code-block">
+Customer Name: Παπαδόπουλος Γιάννης
+Customer Group: Teen Students
+Email: giannis.papa@example.com
+Parent: Παπαδοπούλου Μαρία
+Parent Mobile: +30 694 1234567
+Student Age: 14
+English Level: A2 (από placement test)
+School: 2ο Γυμνάσιο Αθηνών
+Preferred Time: Afternoon
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Δημιουργία Class Schedule</strong>
+                    <p><span class="highlight">Education → Class Schedule → New</span></p>
+                    <div class="code-block">
+Student: Παπαδόπουλος Γιάννης
+Course: ENG-A2-1HR
+Teacher: Ιωαννίδου Ελένη
+Day: Wednesday
+Start Time: 17:00
+End Time: 18:00
+Room: B2
+Status: Scheduled
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Δημιουργία Πρώτου Invoice</strong>
+                    <p><span class="highlight">Selling → Sales Invoice → New</span></p>
+                    <div class="code-block">
+Customer: Παπαδόπουλος Γιάννης
+Items:
+  - ENG-A2-1HR x 8 μαθήματα = €176.00
+  - ENG-BOOK-A2 x 1 = €30.00
+Subtotal: €206.00
+VAT 24%: €49.44
+Total: €255.44
+Payment Terms: Net 15 (έως 15/02/2026)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Αποστολή Welcome Email</strong>
+                    <p>Στείλε το invoice με welcome message και οδηγίες για την πρώτη μέρα!</p>
+                </div>
+
+                <h3>Σενάριο 2: Μηνιαίος Τιμολόγηση Υπάρχοντος Μαθητή</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Τέλος Μήνα</strong>
+                    <p>Φτιάξε invoice για όλα τα μαθήματα του μήνα</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Sales Invoice από Template</strong>
+                    <p>Αν έχεις recurring invoice setup, θα δημιουργηθεί αυτόματα!</p>
+                    <div class="code-block">
+Customer: Ιωάννου Ελένη
+Course: ENG-B1-1HR
+Quantity: 8 (2 μαθήματα x 4 εβδομάδες)
+Amount: €200.00
+VAT: €48.00
+Total: €248.00
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Email Notification</strong>
+                    <p>Το σύστημα στέλνει αυτόματα email με το invoice στον γονέα</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Payment Tracking</strong>
+                    <p>Όταν λάβεις την πληρωμή, δημιούργησε Payment Entry</p>
+                </div>
+
+                <h3>Σενάριο 3: Πώληση Πακέτου Μαθημάτων</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Δημιουργία Package Item</strong>
+                    <p><span class="highlight">Stock → Item → New</span></p>
+                    <div class="code-block">
+Item Code: ENG-PKG-20HR
+Item Name: Πακέτο 20 Μαθημάτων Β1
+Item Group: Services
+Is Service: Yes
+Standard Rate: €460.00 (€23/ώρα - 8% έκπτωση)
+Valid For: 3 μήνες
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Πώληση Πακέτου</strong>
+                    <p>Δημιούργησε Sales Invoice με το package item</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Tracking Χρήσης</strong>
+                    <p>Δημιούργησε custom DocType "Package Usage" για να παρακολουθείς πόσα μαθήματα έχουν χρησιμοποιηθεί</p>
+                </div>
+
+                <h3>Σενάριο 4: Corporate Client (Εταιρικός Πελάτης)</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Δημιουργία Corporate Customer</strong>
+                    <div class="code-block">
+Customer Name: TechCorp SA
+Customer Type: Company
+Customer Group: Corporate Clients
+Contact Person: Κωνσταντίνου Άννα (HR Manager)
+Email: anna.k@techcorp.gr
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Custom Rate Agreement</strong>
+                    <p>Φτιάξε ειδική τιμή για την εταιρεία:</p>
+                    <div class="code-block">
+Item: ENG-GROUP-1HR
+Normal Rate: €15/hour
+Corporate Rate: €12/hour (discount για μεγάλο volume)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Μηνιαίο Invoice</strong>
+                    <p>Στείλε consolidated invoice στο τέλος του μήνα με όλα τα group lessons</p>
+                </div>
+
+                <h3>Reports που θα Χρησιμοποιείς</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Report</th>
+                            <th>Χρήση</th>
+                            <th>Path</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Accounts Receivable</strong></td>
+                            <td>Ποιος οφείλει πόσα</td>
+                            <td>Accounting → Accounts Receivable</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sales Analytics</strong></td>
+                            <td>Έσοδα ανά μήνα/μάθημα</td>
+                            <td>Selling → Sales Analytics</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Customer Ledger</strong></td>
+                            <td>Ιστορικό συναλλαγών μαθητή</td>
+                            <td>Accounting → General Ledger → Customer Ledger</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Item-wise Sales</strong></td>
+                            <td>Ποια μαθήματα πουλάνε περισσότερο</td>
+                            <td>Selling → Item-wise Sales Register</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Payment Entry Report</strong></td>
+                            <td>Πληρωμές ανά περίοδο</td>
+                            <td>Accounting → Payment Entry Report</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <h4>💡 Pro Tips</h4>
+                    <ul>
+                        <li><strong>Backups:</strong> Κάνε τακτικά backups του ERPNext!</li>
+                        <li><strong>User Roles:</strong> Ορίστε διαφορετικά permissions για γραμματεία vs καθηγητές</li>
+                        <li><strong>Email Templates:</strong> Φτιάξε templates για welcome emails, invoice reminders, κλπ</li>
+                        <li><strong>Dashboard:</strong> Προσαρμόστε το dashboard για να δείτε τα σημαντικά KPIs με μια ματιά</li>
+                        <li><strong>Mobile App:</strong> Το ERPNext έχει mobile app για on-the-go πρόσβαση!</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Advanced Tips -->
+            <section id="advanced" class="section">
+                <h2>🚀 Προχωρημένα Tips & Τεχνικές</h2>
+                
+                <h3>Αυτοματοποιήσεις</h3>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>📧 Auto Email Reminders</h4>
+                        <p>Στείλε αυτόματα reminders για unpaid invoices:</p>
+                        <ul>
+                            <li>3 μέρες πριν τη due date</li>
+                            <li>Την ημέρα της due date</li>
+                            <li>7 μέρες μετά την due date</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🔁 Recurring Invoices</h4>
+                        <p>Για μαθητές με μηνιαία συνδρομή:</p>
+                        <ul>
+                            <li>Set frequency: Monthly</li>
+                            <li>Auto-create invoice στις 25 κάθε μήνα</li>
+                            <li>Auto-email to customer</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>📊 Auto Reports</h4>
+                        <p>Email reports αυτόματα:</p>
+                        <ul>
+                            <li>Weekly sales summary</li>
+                            <li>Monthly revenue report</li>
+                            <li>Outstanding invoices report</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🔔 Notifications</h4>
+                        <p>Ειδοποιήσεις για:</p>
+                        <ul>
+                            <li>Νέος μαθητής</li>
+                            <li>Payment received</li>
+                            <li>Overdue invoice</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Integrations</h3>
+                <div class="info-box">
+                    <h4>Τι μπορείς να συνδέσεις;</h4>
+                    <ul>
+                        <li><strong>Zoom:</strong> Για online μαθήματα - αυτόματη δημιουργία links</li>
+                        <li><strong>Google Calendar:</strong> Συγχρονισμός του class schedule</li>
+                        <li><strong>PayPal/Stripe:</strong> Online πληρωμές</li>
+                        <li><strong>Mailchimp:</strong> Email marketing campaigns</li>
+                        <li><strong>WhatsApp:</strong> Αυτόματα μηνύματα στους γονείς</li>
+                        <li><strong>Google Sheets:</strong> Export δεδομένων για analysis</li>
+                    </ul>
+                </div>
+
+                <h3>Security & Permissions</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Δικαιώματα</th>
+                            <th>Χρήση</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>System Manager</strong></td>
+                            <td>Πλήρη πρόσβαση</td>
+                            <td>Owner/Διευθυντής</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Accounts Manager</strong></td>
+                            <td>Invoices, Payments, Reports</td>
+                            <td>Λογιστής/Γραμματεία</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sales User</strong></td>
+                            <td>Customers, Items, Invoices (create only)</td>
+                            <td>Γραμματεία/Reception</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Employee</strong></td>
+                            <td>Class Schedule, Attendance (own classes only)</td>
+                            <td>Καθηγητές</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Customer</strong></td>
+                            <td>Portal access (own invoices, payments)</td>
+                            <td>Μαθητές/Γονείς</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Performance Optimization</h3>
+                <div class="success-box">
+                    <h4>✅ Best Practices</h4>
+                    <ul>
+                        <li><strong>Archive old data:</strong> Μετακίνησε παλιά records σε archive</li>
+                        <li><strong>Optimize database:</strong> Regular maintenance tasks</li>
+                        <li><strong>Use filters:</strong> Στα lists για ταχύτερη αναζήτηση</li>
+                        <li><strong>Limit custom scripts:</strong> Μόνο όταν χρειάζεται πραγματικά</li>
+                        <li><strong>Cache management:</strong> Clear cache τακτικά</li>
+                    </ul>
+                </div>
+
+                <h3>Disaster Recovery</h3>
+                <div class="warning-box">
+                    <h4>⚠️ Πολύ Σημαντικό!</h4>
+                    <ul>
+                        <li><strong>Daily Backups:</strong> Αυτόματα backups κάθε μέρα</li>
+                        <li><strong>Off-site Storage:</strong> Κράτα backups σε διαφορετικό server/cloud</li>
+                        <li><strong>Test Restore:</strong> Δοκίμασε restore process μία φορά τον μήνα</li>
+                        <li><strong>Documentation:</strong> Κράτα documentation για το setup σου</li>
+                        <li><strong>Multiple Admins:</strong> Δώσε System Manager access σε 2+ άτομα</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Resources -->
+            <section id="resources" class="section">
+                <h2>📚 Πηγές & Βοήθεια</h2>
+                
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>📖 Επίσημο Documentation</h4>
+                        <ul>
+                            <li><a href="https://docs.erpnext.com" target="_blank">ERPNext User Manual</a></li>
+                            <li><a href="https://frappeframework.com/docs" target="_blank">Frappe Framework Docs</a></li>
+                            <li><a href="https://discuss.erpnext.com" target="_blank">Community Forum</a></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🎥 Video Tutorials</h4>
+                        <ul>
+                            <li>ERPNext YouTube Channel</li>
+                            <li>Getting Started Series</li>
+                            <li>Advanced Customization</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>💬 Ελληνική Κοινότητα</h4>
+                        <ul>
+                            <li>ERPNext Greece Facebook Group</li>
+                            <li>Slack Channel (Frappe.io)</li>
+                            <li>Local Meetups</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🛠️ Development Tools</h4>
+                        <ul>
+                            <li>Frappe Cloud (hosting)</li>
+                            <li>VS Code with Frappe extension</li>
+                            <li>Git για version control</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Χρήσιμα Links</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Resource</th>
+                            <th>URL</th>
+                            <th>Περιγραφή</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ERPNext</strong></td>
+                            <td>https://erpnext.com</td>
+                            <td>Επίσημο site</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Frappe Cloud</strong></td>
+                            <td>https://frappecloud.com</td>
+                            <td>Managed hosting</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GitHub</strong></td>
+                            <td>https://github.com/frappe/erpnext</td>
+                            <td>Source code</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Forum</strong></td>
+                            <td>https://discuss.erpnext.com</td>
+                            <td>Community support</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Marketplace</strong></td>
+                            <td>https://erpnext.com/marketplace</td>
+                            <td>Apps & plugins</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <h4>💼 Επαγγελματική Βοήθεια</h4>
+                    <p>Αν χρειάζεσαι επαγγελματική υποστήριξη για:</p>
+                    <ul>
+                        <li>Custom development</li>
+                        <li>System setup & configuration</li>
+                        <li>Training για το προσωπικό</li>
+                        <li>Migration από άλλο σύστημα</li>
+                        <li>Integration με άλλα systems</li>
+                    </ul>
+                    <p>Μπορείς να βρεις πιστοποιημένους ERPNext partners στην Ελλάδα μέσω του επίσημου site.</p>
+                </div>
+            </section>
+        </div>
+
+        <div class="footer">
+            <h3>🎓 English Academy ERPNext Guide</h3>
+            <p>Comprehensive tutorial για τη δημιουργία συστήματος διαχείρισης φροντιστηρίου</p>
+            <p style="margin-top: 20px; opacity: 0.8;">Created with ❤️ for language schools</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <strong>Επόμενα Βήματα:</strong>
+                <br>
+                1. Εγκατάστησε το ERPNext<br>
+                2. Ακολούθησε το Setup Guide<br>
+                3. Δημιούργησε τα Items & Customers σου<br>
+                4. Ξεκίνα να τιμολογείς!<br>
+                5. Προσάρμοσε το σύστημα στις ανάγκες σου
+            </p>
+        </div>
+    </div>
+</body>
+</html>

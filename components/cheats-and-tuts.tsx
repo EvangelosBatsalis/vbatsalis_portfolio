@@ -40,6 +40,69 @@ const cheatsheets = [
     category: "Tutorial",
     date: "2026-04",
     link: "/cheatsheets/NativeWind-Complete-Tutorial.html"
+  },
+  {
+    title: "Azure AZ-104 Study Guide",
+    description: "Πλήρης οδηγός (14 chapters) βάσει του επίσημου curriculum. Real IT scenarios, KQL & CLI.",
+    category: "Azure",
+    date: "2026-04",
+    link: "/cheatsheets/az104-index.html"
+  },
+  {
+    title: "M365 Tenant Migration V2",
+    description: "Assessment & Planning guide for migrating M365 tenants efficiently.",
+    category: "DevOps",
+    date: "2026-04",
+    link: "/cheatsheets/tenant-migration-assessment-tutorial.html"
+  },
+  {
+    title: "Winget Complete Tutorial",
+    description: "Automate Windows setups and package installations seamlessly with Winget.",
+    category: "SysAdmin",
+    date: "2026-04",
+    link: "/cheatsheets/winget-tutorial.html"
+  },
+  {
+    title: "ERPNext English School guide",
+    description: "A complete guide on configuring and using ERPNext for an English School.",
+    category: "ERP",
+    date: "2026-04",
+    link: "/cheatsheets/english-school-erpnext-guide.html"
+  },
+  {
+    title: "ERPNext V15 & MyDATA",
+    description: "Comprehensive tutorial on connecting ERPNext V15 to Greek MyDATA.",
+    category: "ERP",
+    date: "2026-04",
+    link: "/cheatsheets/erpnext-v15-mydata-tutorial.html"
+  },
+  {
+    title: "Ελληνικά Παραστατικά & MyDATA",
+    description: "Οδηγός διαχείρισης παραστατικών και διαβίβασης MyDATA στο ERPNext.",
+    category: "ERP",
+    date: "2026-04",
+    link: "/cheatsheets/parastika-mydata-guide.html"
+  },
+  {
+    title: "Formik & Yup in React Native",
+    description: "The ultimate combo for building and validating forms in mobile apps.",
+    category: "Mobile Dev",
+    date: "2026-04",
+    link: "/cheatsheets/formik-yup-tutorial.html"
+  },
+  {
+    title: "React Native Paper Guide",
+    description: "Building beautiful Material Design UIs in React Native with React Native Paper.",
+    category: "Mobile Dev",
+    date: "2026-04",
+    link: "/cheatsheets/react-native-paper-tutorial.html"
+  },
+  {
+    title: "ERPNext MyDATA Guide",
+    description: "Οδηγός διασύνδεσης και ρυθμίσεων για το MyDATA στο παλαιότερου τύπου ERPNext.",
+    category: "ERP",
+    date: "2026-04",
+    link: "/cheatsheets/erpnext-mydata-tutorial.html"
   }
 ];
 
@@ -117,7 +180,7 @@ export function CheatsAndTuts() {
                 ))}
               </motion.div>
 
-              <div className="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory hide-scrollbar relative">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-6 w-full">
                 <AnimatePresence mode="popLayout">
                   {filteredSheets.map((sheet, idx) => (
                     <motion.div
@@ -127,7 +190,7 @@ export function CheatsAndTuts() {
                       animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                       exit={{ opacity: 0, scale: 0.9, filter: "blur(4px)" }}
                       transition={{ duration: 0.3, delay: idx * 0.05 }}
-                      className="snap-center shrink-0 w-[300px] sm:w-[350px]"
+                      className="w-full h-full"
                     >
                       <Link href={sheet.link} target="_blank" rel="noopener noreferrer" className="block h-full cursor-pointer">
                         <div className="h-full flex flex-col justify-between p-6 bg-[#0a0a0a] border border-white/5 rounded-2xl hover:border-yellow-500/50 hover:bg-white/[0.02] transition-colors relative overflow-hidden group">
@@ -161,16 +224,6 @@ export function CheatsAndTuts() {
                 </AnimatePresence>
               </div>
             </div>
-            
-            <style jsx global>{`
-              .hide-scrollbar::-webkit-scrollbar {
-                display: none;
-              }
-              .hide-scrollbar {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-              }
-            `}</style>
           </motion.div>
         )}
       </AnimatePresence>

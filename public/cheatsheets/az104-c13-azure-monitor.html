@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>AZ-104 Ch.13 — Azure Monitor</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>:root{--bg:#07090f;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--acc:#fb7185;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--display:'Syne',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+.hdr{background:linear-gradient(160deg,#040609,#07090f,#100204);border-bottom:1px solid var(--border);padding:46px 0 38px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:380px;height:380px;background:radial-gradient(circle,rgba(251,113,133,.05),transparent 65%)}
+.hdr-inner{max-width:1100px;margin:0 auto;padding:0 32px}
+.bc{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:12px}.bc a{color:var(--text3);text-decoration:none}
+.cbadge{display:inline-flex;gap:7px;background:rgba(251,113,133,.08);border:1px solid rgba(251,113,133,.28);border-radius:4px;padding:4px 12px;font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+.hdr h1{font-family:var(--display);font-size:clamp(22px,5vw,42px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:9px}.hdr h1 span{color:var(--acc)}
+.hdr-sub{color:var(--text2);font-size:14px;margin-bottom:15px}.hdr-meta{display:flex;gap:14px;flex-wrap:wrap}
+.mp{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;color:var(--text3)}.mpd{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 4px var(--green)}.mpd.a{background:var(--acc);box-shadow:0 0 4px var(--acc)}
+.layout{max-width:1100px;margin:0 auto;padding:38px 30px;display:grid;grid-template-columns:256px 1fr;gap:36px;align-items:start}
+.sidebar{position:sticky;top:22px}.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.toc-hdr{background:var(--bg3);padding:11px 15px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid var(--border)}
+.toc-body{padding:6px 0}.toc-sec{padding:4px 15px 1px;font-size:9px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:4px}
+.ta{display:flex;align-items:flex-start;gap:7px;padding:5px 15px;font-size:12px;color:var(--text2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}
+.ta:hover{color:var(--text);background:var(--card2);border-left-color:var(--acc)}.ta.active{color:var(--acc);background:rgba(251,113,133,.06);border-left-color:var(--acc);font-weight:600}
+.ta .tn{font-family:var(--mono);font-size:9px;color:var(--text3);flex-shrink:0;width:17px}
+.content{min-width:0}.ch-intro{background:linear-gradient(135deg,var(--card),var(--bg3));border:1px solid #1e2d4a;border-radius:9px;padding:22px;margin-bottom:26px}
+.ch-n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--acc);text-transform:uppercase;margin-bottom:5px}
+.ch-t{font-family:var(--display);font-size:20px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:9px}
+.ch-desc{color:var(--text2);font-size:13.5px;line-height:1.7;margin-bottom:12px}
+.ch-stats{display:flex;gap:11px;flex-wrap:wrap}.stx{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:6px 11px;font-family:var(--mono);font-size:11px}
+.stx .l{color:var(--text3);display:block;margin-bottom:1px}.stx .v{color:var(--text);font-weight:600}
+.section{margin-bottom:40px;scroll-margin-top:22px}
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.si{width:33px;height:33px;background:rgba(251,113,133,.09);border:1px solid rgba(251,113,133,.22);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.sn{font-family:var(--mono);font-size:10px;color:var(--text3)}.section h2{font-family:var(--display);font-size:18px;font-weight:700;color:#fff}
+.section h3{font-family:var(--display);font-size:14px;font-weight:700;color:var(--text);margin:19px 0 8px}.section h3::before{content:'▸ ';color:var(--acc)}
+.section p{color:var(--text2);margin-bottom:10px;font-size:14px}.section ul,.section ol{color:var(--text2);padding-left:19px;margin-bottom:10px}
+.section li{margin-bottom:5px;font-size:14px}.section li strong,.section p strong{color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:13px}
+.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:7px 11px;border-bottom:1px solid var(--border)}
+.tbl td{padding:7px 11px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:12px}.tbl tr:hover td{background:var(--card2)}
+pre{background:#050710;border:1px solid var(--border);border-left:3px solid var(--acc);border-radius:6px;padding:12px 15px;overflow-x:auto;margin-bottom:10px;font-family:var(--mono);font-size:12px;line-height:1.7}
+code{font-family:var(--mono);font-size:12px;color:#fda4af;background:rgba(253,164,175,.07);padding:2px 5px;border-radius:3px}pre code{background:none;padding:0;color:inherit}
+.cmt{color:#3d5068;font-style:italic}.str{color:#f472b6}.param{color:#86efac}.val{color:#fbbf24}
+.alert{display:flex;gap:10px;padding:10px 14px;border-radius:6px;margin-bottom:10px;font-size:13px}
+.ai{font-size:14px;flex-shrink:0;margin-top:1px}.ab{color:var(--text2);line-height:1.6}.ab strong{color:var(--text)}
+.tip{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18)}.tip .ai{color:#22c55e}
+.warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18)}.warn .ai{color:var(--yellow)}
+.exam{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.22)}.exam .ai{color:var(--purple)}
+.info{background:rgba(251,113,133,.05);border:1px solid rgba(251,113,133,.22)}.info .ai{color:var(--acc)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:14px 17px;margin-bottom:14px}
+.box-t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.scen{background:var(--card);border:1px solid #1e2d4a;border-radius:7px;overflow:hidden;margin-bottom:16px}
+.sc-hdr{background:linear-gradient(90deg,rgba(251,113,133,.1),transparent);padding:9px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.sc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);background:rgba(251,113,133,.08);border:1px solid rgba(251,113,133,.25);border-radius:3px;padding:2px 7px}
+.sc-title{font-size:13px;font-weight:600;color:var(--text)}.sc-body{padding:12px 15px}
+.sc-body p{color:var(--text2);font-size:13px;margin-bottom:8px}.sc-body p:last-child{margin-bottom:0}.sc-body strong{color:var(--text)}
+.steps{list-style:none;padding:0;counter-reset:st}.steps li{counter-increment:st;display:flex;gap:8px;margin-bottom:6px;align-items:flex-start;color:var(--text2);font-size:13px}
+.steps li::before{content:counter(st);min-width:18px;height:18px;background:rgba(251,113,133,.09);border:1px solid rgba(251,113,133,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--acc);flex-shrink:0;margin-top:2px}
+.badge{display:inline-flex;font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:3px;font-weight:600;vertical-align:middle}
+.bg{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)}
+.by{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}
+hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.quiz{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:7px;padding:14px 17px;margin-bottom:14px}
+.qh{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:8px}
+.qq{font-size:14px;color:var(--text);font-weight:600;margin-bottom:8px}
+.qo{list-style:none;padding:0}.qo li{font-size:13px;color:var(--text2);padding:6px 9px;margin-bottom:3px;cursor:pointer;border-radius:3px;transition:background .15s;border-left:2px solid transparent}
+.qo li:hover{background:rgba(139,92,246,.07)}.qo li.ok{background:rgba(34,197,94,.07);color:#22c55e;border-left-color:#22c55e}
+.qo li.no{background:rgba(239,68,68,.07);color:#ef4444;border-left-color:#ef4444}
+.qa{display:none;margin-top:8px;padding:9px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:5px;font-size:13px;color:var(--text2)}.qa.show{display:block}
+.qbtn{margin-top:8px;padding:5px 12px;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.3);border-radius:4px;color:var(--purple);font-family:var(--mono);font-size:11px;cursor:pointer}
+.nav{display:flex;justify-content:space-between;margin-top:38px;padding-top:17px;border-top:1px solid var(--border);gap:12px}
+.nb{display:flex;flex-direction:column;gap:3px;padding:11px 15px;background:var(--card);border:1px solid var(--border);border-radius:7px;text-decoration:none;flex:1;transition:all .2s}
+.nb:hover{border-color:var(--acc);background:var(--card2)}.nl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}
+.nt{font-size:13px;color:var(--text);font-weight:600}.nb.next{text-align:right}
+.kql-bg{background:#02080e;border:1px solid rgba(251,113,133,.2);border-radius:6px;padding:14px 16px;margin-bottom:12px;font-family:var(--mono);font-size:12.5px;line-height:1.8}
+.kw2{color:#fb7185}.fn{color:#fbbf24}.op2{color:#86efac}.str2{color:#f472b6}.cm{color:#3d5068;font-style:italic}
+@media(max-width:768px){.layout{grid-template-columns:1fr;padding:18px 14px}.sidebar{position:static}}</style>
+</head><body>
+<header class="hdr"><div class="hdr-inner">
+  <div class="bc"><a href="az104-index.html">AZ-104</a> / Chapter 13</div>
+  <div class="cbadge">Chapter 13 · Section 23</div>
+  <h1>Azure Monitor,<br><span>Diagnostics &amp; KQL</span></h1>
+  <p class="hdr-sub">Azure Monitor · Diagnostic Settings · VM Insights · Log Analytics · KQL · Alerts</p>
+  <div class="hdr-meta"><div class="mp"><span class="mpd"></span>Domain 5 — 10–15%</div><div class="mp"><span class="mpd a"></span>Section 23 · Lessons 161–165</div></div>
+</div></header>
+<div class="layout">
+<aside class="sidebar"><div class="toc"><div class="toc-hdr">Chapter 13 — Azure Monitor</div><div class="toc-body">
+  <div class="toc-sec">Section 23</div>
+  <a href="#s1" class="ta active"><span class="tn">23.1</span>Azure Monitor Overview</a>
+  <a href="#s2" class="ta"><span class="tn">23.2</span>Diagnostic Settings</a>
+  <a href="#s3" class="ta"><span class="tn">23.3</span>VM Insights</a>
+  <a href="#s4" class="ta"><span class="tn">23.4</span>Log Analytics &amp; KQL</a>
+  <a href="#s5" class="ta"><span class="tn">23.5</span>Alerts &amp; Action Groups</a>
+  <a href="#q" class="ta"><span class="tn">Q</span>Quiz</a>
+  <div class="toc-sec">Navigation</div>
+  <a href="az104-c12-network-monitor.html" class="ta">← Ch12</a>
+  <a href="az104-c14-backup-recovery.html" class="ta">Ch14 →</a>
+</div></div></aside>
+<main class="content">
+<div class="ch-intro">
+  <div class="ch-n">Chapter 13 / Section 23</div>
+  <div class="ch-t">Azure Monitor, Diagnostics &amp; KQL</div>
+  <p class="ch-desc">Azure Monitor collects and analyzes metrics and logs from all Azure resources. Key concepts: Metrics vs Logs, Diagnostic Settings, Log Analytics Workspace, KQL queries, and Alerts with Action Groups.</p>
+  <div class="ch-stats">
+    <div class="stx"><span class="l">Domain</span><span class="v">Domain 5 — 10–15%</span></div>
+    <div class="stx"><span class="l">Lessons</span><span class="v">161–165</span></div>
+  </div>
+</div>
+
+<section class="section" id="s1">
+  <div class="sh"><div class="si">📊</div><div><div class="sn">Lesson 161 · 23.1</div><h2>Azure Monitor Overview</h2></div></div>
+  <h3>Metrics vs Logs</h3>
+  <table class="tbl"><thead><tr><th></th><th>Metrics</th><th>Logs</th></tr></thead><tbody>
+    <tr><td>Type</td><td>Numerical time-series</td><td>Structured/unstructured records</td></tr>
+    <tr><td>Collection</td><td>Automatic (most resources)</td><td>Requires Diagnostic Settings / agent</td></tr>
+    <tr><td>Retention</td><td>93 days default</td><td>Configurable (30–730 days in LAW)</td></tr>
+    <tr><td>Query</td><td>Metrics Explorer</td><td>Log Analytics (KQL)</td></tr>
+    <tr><td>Examples</td><td>CPU%, Disk IOPS, HTTP requests/s</td><td>Activity log, VM events, App traces</td></tr>
+    <tr><td>Alerting</td><td>Metric alerts (near real-time)</td><td>Log query alerts (scheduled)</td></tr>
+  </tbody></table>
+  <h3>Azure Monitor Data Sources</h3>
+  <ul>
+    <li><strong>Activity Log:</strong> Control-plane events (WHO did WHAT WHEN). Subscription-level. 90-day retention. Free.</li>
+    <li><strong>Resource Logs (Diagnostics):</strong> Data-plane operations. Must enable via Diagnostic Settings.</li>
+    <li><strong>VM Guest Metrics:</strong> Requires Azure Monitor Agent (AMA) or Log Analytics agent.</li>
+    <li><strong>Application Insights:</strong> APM — application traces, requests, exceptions, dependencies.</li>
+  </ul>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Activity Log:</strong> Free, 90 days, cannot disable. Shows control-plane (management) operations: "Who deleted this VM? Who changed this NSG rule?" For data-plane events (what happened INSIDE the resource), use Diagnostic Settings.</div></div>
+</section><hr>
+
+<section class="section" id="s2">
+  <div class="sh"><div class="si">⚙️</div><div><div class="sn">Lesson 162 · 23.2</div><h2>Diagnostic Settings</h2></div></div>
+  <p>Diagnostic Settings = enable collection of resource logs and metrics, and route them to destinations.</p>
+  <h3>Destinations</h3>
+  <ul>
+    <li><strong>Log Analytics Workspace:</strong> Query with KQL. Best for analysis and alerting.</li>
+    <li><strong>Storage Account:</strong> Long-term archival. Cost-effective for compliance.</li>
+    <li><strong>Event Hub:</strong> Stream to SIEM (Splunk, Microsoft Sentinel).</li>
+    <li><strong>Partner Solutions:</strong> Datadog, Elastic, etc.</li>
+  </ul>
+  <pre><code><span class="cmt"># Enable diagnostic settings for VM — send to Log Analytics</span>
+az monitor diagnostic-settings create \
+  --name VMDiagnostics \
+  --resource /subscriptions/.../VMs/SRV-APP-GR-01 \
+  --workspace /subscriptions/.../workspaces/LAW-Septona \
+  --logs '[{"category":"Administrative","enabled":true}]' \
+  --metrics '[{"category":"AllMetrics","enabled":true}]'</code></pre>
+  <div class="alert info"><span class="ai">💡</span><div class="ab"><strong>Not automatic:</strong> Resource logs require Diagnostic Settings to be explicitly enabled. Each resource has its own settings. Azure Policy can enforce "DeployIfNotExists" to auto-configure Diagnostic Settings on new resources.</div></div>
+</section><hr>
+
+<section class="section" id="s3">
+  <div class="sh"><div class="si">🖥️</div><div><div class="sn">Lesson 163 · 23.3</div><h2>VM Insights</h2></div></div>
+  <p><strong>VM Insights</strong> = pre-packaged monitoring for VMs. Provides Performance and Map views. Requires Azure Monitor Agent (AMA) on the VM.</p>
+  <ul>
+    <li><strong>Performance tab:</strong> CPU, memory, disk, network charts over time</li>
+    <li><strong>Map tab:</strong> Visual dependency map — shows what processes/ports the VM uses and what it connects to</li>
+    <li>Enables via: VM → Insights → Enable (installs AMA + DCR)</li>
+    <li>Data goes to Log Analytics Workspace</li>
+  </ul>
+  <div class="alert tip"><span class="ai">✅</span><div class="ab"><strong>AMA vs Legacy MMA:</strong> Azure Monitor Agent (AMA) is the current agent — replaces the legacy Log Analytics agent (MMA/OMS). AMA uses Data Collection Rules (DCR). For AZ-104 exam: AMA is the recommended approach.</div></div>
+</section><hr>
+
+<section class="section" id="s4">
+  <div class="sh"><div class="si">🔍</div><div><div class="sn">Lesson 164 · 23.4</div><h2>Log Analytics &amp; KQL</h2></div></div>
+  <p><strong>Log Analytics Workspace (LAW)</strong> = central repository for log data. Query with <strong>KQL (Kusto Query Language)</strong>.</p>
+  <h3>Essential KQL Operators</h3>
+  <div class="kql-bg">
+<span class="cm">// Filter records</span>
+<span class="kw2">Heartbeat</span>
+| <span class="fn">where</span> TimeGenerated <span class="op2">></span> ago(1h)
+| <span class="fn">where</span> Computer <span class="op2">contains</span> <span class="str2">"SRV-APP"</span>
+
+<span class="cm">// Count VMs by OS</span>
+<span class="kw2">Heartbeat</span>
+| <span class="fn">summarize</span> <span class="fn">count</span>() by OSType
+
+<span class="cm">// Top 10 VMs by CPU</span>
+<span class="kw2">Perf</span>
+| <span class="fn">where</span> CounterName <span class="op2">==</span> <span class="str2">"% Processor Time"</span>
+| <span class="fn">summarize</span> avg_cpu=<span class="fn">avg</span>(CounterValue) by Computer
+| <span class="fn">top</span> 10 by avg_cpu <span class="fn">desc</span>
+
+<span class="cm">// Failed logins last 24h</span>
+<span class="kw2">SecurityEvent</span>
+| <span class="fn">where</span> TimeGenerated <span class="op2">></span> ago(24h)
+| <span class="fn">where</span> EventID <span class="op2">==</span> 4625  <span class="cm">// Failed logon</span>
+| <span class="fn">project</span> TimeGenerated, Computer, Account, IpAddress
+| <span class="fn">order</span> by TimeGenerated <span class="fn">desc</span>
+
+<span class="cm">// Chart - render as timechart</span>
+<span class="kw2">Perf</span>
+| <span class="fn">where</span> CounterName <span class="op2">==</span> <span class="str2">"% Processor Time"</span>
+| <span class="fn">summarize</span> <span class="fn">avg</span>(CounterValue) by bin(TimeGenerated, 5m), Computer
+| <span class="fn">render</span> timechart
+  </div>
+  <h3>Key KQL Operators for Exam</h3>
+  <table class="tbl"><thead><tr><th>Operator</th><th>Purpose</th><th>Example</th></tr></thead><tbody>
+    <tr><td>where</td><td>Filter rows</td><td><code>where CPU > 80</code></td></tr>
+    <tr><td>project</td><td>Select columns</td><td><code>project Time, Computer, CPU</code></td></tr>
+    <tr><td>summarize</td><td>Aggregate</td><td><code>summarize avg(CPU) by Computer</code></td></tr>
+    <tr><td>extend</td><td>Add computed column</td><td><code>extend CPUPercent = CPU/100</code></td></tr>
+    <tr><td>top</td><td>Top N results</td><td><code>top 5 by CPU desc</code></td></tr>
+    <tr><td>order by</td><td>Sort results</td><td><code>order by TimeGenerated desc</code></td></tr>
+    <tr><td>render</td><td>Visualize</td><td><code>render timechart</code></td></tr>
+    <tr><td>ago()</td><td>Time function</td><td><code>where TimeGenerated > ago(1h)</code></td></tr>
+  </tbody></table>
+</section><hr>
+
+<section class="section" id="s5">
+  <div class="sh"><div class="si">🔔</div><div><div class="sn">23.5</div><h2>Alerts &amp; Action Groups</h2></div></div>
+  <h3>Alert Components</h3>
+  <ul>
+    <li><strong>Scope:</strong> What to monitor (subscription, RG, specific resource)</li>
+    <li><strong>Condition:</strong> When to fire (metric threshold, log query result, activity log event)</li>
+    <li><strong>Action Group:</strong> What to do when fired</li>
+    <li><strong>Severity:</strong> 0 (Critical) to 4 (Verbose)</li>
+  </ul>
+  <h3>Action Group Actions</h3>
+  <ul>
+    <li><strong>Email/SMS/Push/Voice:</strong> Notify people</li>
+    <li><strong>Azure Function:</strong> Auto-remediation</li>
+    <li><strong>Logic App:</strong> Complex workflows</li>
+    <li><strong>Webhook:</strong> Call external systems (PagerDuty, ServiceNow)</li>
+    <li><strong>ITSM:</strong> Create tickets in ServiceNow, etc.</li>
+  </ul>
+  <pre><code><span class="cmt"># Create metric alert — CPU > 80% for 5min</span>
+az monitor metrics alert create \
+  --name Alert-HighCPU-SRV-APP \
+  --resource-group RG-Servers-GR \
+  --scopes /subscriptions/.../VMs/SRV-APP-GR-01 \
+  --condition "avg Percentage CPU > 80" \
+  --window-size 5m \
+  --evaluation-frequency 1m \
+  --severity 2 \
+  --action /subscriptions/.../actionGroups/IT-Alerts</code></pre>
+  <div class="scen">
+    <div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">Septona IT Monitoring Setup</span></div>
+    <div class="sc-body">
+      <p><strong>Goal:</strong> Alert IT team when production VMs have high CPU, disk full, or service failure.</p>
+      <ol class="steps">
+        <li>Create Log Analytics Workspace: LAW-Septona-Production</li>
+        <li>Enable VM Insights on all production VMs (installs AMA)</li>
+        <li>Diagnostic Settings: Activity Log → LAW-Septona</li>
+        <li>Create Action Group: AG-IT-Alerts → Email: vag@septona.gr, SMS: +30...</li>
+        <li>Alert 1: CPU > 90% for 10 min → Severity 1 → AG-IT-Alerts</li>
+        <li>Alert 2: Disk free < 10% → Severity 2 → AG-IT-Alerts</li>
+        <li>KQL scheduled alert: Failed logins > 10 in 1h → Severity 0 (Critical)</li>
+      </ol>
+    </div>
+  </div>
+</section><hr>
+
+<section class="section" id="q">
+  <div class="sh"><div class="si">🧠</div><div><div class="sn">Chapter 13</div><h2>Quiz</h2></div></div>
+  <div class="quiz"><div class="qh">◈ Q01</div>
+    <div class="qq">Θέλεις να δεις ποιος admin διέγραψε ένα Resource Group χθες. Που το βρίσκεις;</div>
+    <ul class="qo" id="q1">
+      <li onclick="ans('q1',0)">A) Azure Monitor Metrics</li>
+      <li onclick="ans('q1',1)">B) Activity Log</li>
+      <li onclick="ans('q1',2)">C) VM Insights</li>
+      <li onclick="ans('q1',3)">D) Resource Logs</li>
+    </ul>
+    <div class="qa" id="q1-a">✅ <strong>B — Activity Log.</strong> Activity Log = control-plane events (WHO did WHAT WHEN). WHO deleted resource group = control-plane action. Free, 90-day retention. Resource Logs = data-plane. Metrics = numbers, not events.</div>
+    <button class="qbtn" onclick="toggle('q1-a')">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q02</div>
+    <div class="qq">KQL query: θέλεις average CPU για κάθε VM τελευταία ώρα. Ποιο operator aggregates;</div>
+    <ul class="qo" id="q2">
+      <li onclick="ans('q2',0)">A) where</li>
+      <li onclick="ans('q2',1)">B) project</li>
+      <li onclick="ans('q2',2)">C) summarize</li>
+      <li onclick="ans('q2',3)">D) extend</li>
+    </ul>
+    <div class="qa" id="q2-a">✅ <strong>C — summarize.</strong> <code>summarize avg(CounterValue) by Computer</code> — summarize performs aggregations (avg, count, sum, max, min). where = filter. project = select columns. extend = add column.</div>
+    <button class="qbtn" onclick="toggle('q2-a')">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q03</div>
+    <div class="qq">Resource Logs (Diagnostics) από VM αποστέλλονται αυτόματα στο Log Analytics;</div>
+    <ul class="qo" id="q3">
+      <li onclick="ans('q3',0)">A) Ναι — αυτόματα για όλα τα resources</li>
+      <li onclick="ans('q3',1)">B) Ναι — μόνο για VMs</li>
+      <li onclick="ans('q3',2)">C) Όχι — απαιτείται Diagnostic Settings configuration</li>
+      <li onclick="ans('q3',3)">D) Ναι — αν VM Insights είναι enabled</li>
+    </ul>
+    <div class="qa" id="q3-a">✅ <strong>C — Requires Diagnostic Settings.</strong> Resource logs are NOT collected automatically. You must explicitly configure Diagnostic Settings for each resource (or use Azure Policy to auto-deploy). Only Activity Log and basic Metrics are collected automatically.</div>
+    <button class="qbtn" onclick="toggle('q3-a')">Show Answer</button>
+  </div>
+  <div class="box"><div class="box-t">📌 Key Facts — Ch13</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600;width:40%">Activity Log</td><td style="padding:6px 9px;color:var(--text2)">Control-plane. WHO did WHAT. Free. 90 days. Auto-collected.</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">Resource Logs</td><td style="padding:6px 9px;color:var(--text2)">Data-plane. Must enable via Diagnostic Settings.</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">Metrics</td><td style="padding:6px 9px;color:var(--text2)">Numeric time-series. 93 days. Metrics Explorer.</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">KQL summarize</td><td style="padding:6px 9px;color:var(--text2)">Aggregate data. <code>summarize avg(CPU) by Computer</code></td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">Action Groups</td><td style="padding:6px 9px;color:var(--text2)">What to do when alert fires: Email, SMS, Function, Webhook</td></tr>
+      <tr><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">VM Insights</td><td style="padding:6px 9px;color:var(--text2)">Requires AMA. Performance + Map views. Data → LAW.</td></tr>
+    </table>
+  </div>
+</section>
+<div class="nav">
+  <a href="az104-c12-network-monitor.html" class="nb"><span class="nl">← Previous</span><span class="nt">Ch12. Network Monitor</span></a>
+  <a href="az104-c14-backup-recovery.html" class="nb next"><span class="nl">Next →</span><span class="nt">Ch14. Backup &amp; Recovery</span></a>
+</div>
+</main></div>
+<script>
+const correct={q1:1,q2:2,q3:2};
+function ans(id,c){document.querySelectorAll('#'+id+' li').forEach((el,i)=>{el.classList.remove('ok','no');if(i===correct[id])el.classList.add('ok');else if(i===c&&c!==correct[id])el.classList.add('no');});document.getElementById(id+'-a').classList.add('show');}
+function toggle(id){document.getElementById(id).classList.toggle('show')}
+const secs=document.querySelectorAll('section[id]');const links=document.querySelectorAll('a.ta');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));});
+</script>
+</body></html>

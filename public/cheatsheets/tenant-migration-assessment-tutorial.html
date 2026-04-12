@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenant Migration Assessment V2 - Complete Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #0078d4, #00bcf2);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        h2 {
+            color: #0078d4;
+            margin: 35px 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 4px solid #00bcf2;
+            font-size: 2em;
+        }
+        
+        h3 {
+            color: #667eea;
+            margin: 25px 0 15px 0;
+            font-size: 1.5em;
+        }
+        
+        h4 {
+            color: #555;
+            margin: 15px 0 10px 0;
+            font-size: 1.2em;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 5px solid #0078d4;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        
+        .info-box strong {
+            color: #0078d4;
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1.15em;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        
+        .danger-box {
+            background: #ffebee;
+            border-left: 5px solid #f44336;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        
+        .success-box {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95em;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        
+        .code-block code {
+            display: block;
+            white-space: pre;
+        }
+        
+        .command {
+            color: #9cdcfe;
+        }
+        
+        .parameter {
+            color: #ce9178;
+        }
+        
+        .comment {
+            color: #6a9955;
+        }
+        
+        .variable {
+            color: #4fc3f7;
+        }
+        
+        .string {
+            color: #ce9178;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+            font-size: 0.95em;
+        }
+        
+        th {
+            background: #0078d4;
+            color: white;
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .example-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .tip {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 18px;
+            margin: 18px 0;
+            border-radius: 6px;
+        }
+        
+        .tip::before {
+            content: "💡 ";
+            font-size: 1.3em;
+        }
+        
+        .pro-tip {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-left: 5px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        
+        .pro-tip::before {
+            content: "⭐ PRO TIP: ";
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        ul, ol {
+            margin-left: 30px;
+            margin-top: 12px;
+            margin-bottom: 18px;
+        }
+        
+        li {
+            margin: 10px 0;
+        }
+        
+        .step {
+            background: white;
+            border: 2px solid #0078d4;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .step-number {
+            background: #0078d4;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 1.1em;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #0078d4;
+        }
+        
+        .feature-card h4 {
+            color: #0078d4;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border: 2px solid #0078d4;
+        }
+        
+        .toc h3 {
+            color: #0078d4;
+            margin-bottom: 15px;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .toc li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .toc li:last-child {
+            border-bottom: none;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin: 5px 5px 5px 0;
+        }
+        
+        .badge-required {
+            background: #f44336;
+            color: white;
+        }
+        
+        .badge-optional {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .badge-advanced {
+            background: #ff9800;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>☁️ Tenant Migration Assessment V2</h1>
+            <p>Comprehensive Microsoft 365 Tenant Analysis & Migration Planning Tool</p>
+        </header>
+
+        <div class="content">
+            <div class="toc">
+                <h3>📋 Περιεχόμενα</h3>
+                <ul>
+                    <li>Τι είναι το Tenant Migration Assessment</li>
+                    <li>Τι κάνει & Γιατί είναι Χρήσιμο</li>
+                    <li>Προαπαιτούμενα</li>
+                    <li>Azure App Registration Setup</li>
+                    <li>Certificate Configuration</li>
+                    <li>Εγκατάσταση & Configuration</li>
+                    <li>Παράμετροι Script</li>
+                    <li>Εκτέλεση Assessment</li>
+                    <li>Ανάλυση Outputs</li>
+                    <li>Advanced Scenarios</li>
+                    <li>Troubleshooting</li>
+                </ul>
+            </div>
+
+            <h2>🎯 Τι είναι το Tenant Migration Assessment V2;</h2>
+            <div class="info-box">
+                <strong>Tenant Migration Assessment V2</strong>
+                Είναι ένα προηγμένο PowerShell script που αναλύει και καταγράφει ολόκληρο το Microsoft 365 tenant σου. Δημιουργεί αναλυτικές αναφορές σε HTML format για:
+                <ul>
+                    <li>Users & Licenses</li>
+                    <li>Groups & Memberships</li>
+                    <li>Mailboxes & Permissions</li>
+                    <li>SharePoint Sites & Document Libraries</li>
+                    <li>OneDrive Usage</li>
+                    <li>Teams & Channels</li>
+                    <li>Service Plans & Subscriptions</li>
+                </ul>
+            </div>
+
+            <h2>💼 Γιατί είναι Τρομερό Εργαλείο;</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📊 Complete Visibility</h4>
+                    <p>Πλήρης εικόνα του M365 tenant σε ένα comprehensive HTML report</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔄 Migration Planning</h4>
+                    <p>Ιδανικό για tenant-to-tenant migrations - ξέρεις τι θα μεταφέρεις πριν ξεκινήσεις</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📈 Audit & Compliance</h4>
+                    <p>Καταγράφει permissions, access rights, και configuration για audits</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💰 License Optimization</h4>
+                    <p>Βλέπεις ακριβώς ποιες licenses χρησιμοποιούνται και από ποιους</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔍 Security Analysis</h4>
+                    <p>Ανίχνευση mailbox delegations, shared permissions, και access rights</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📝 Documentation</h4>
+                    <p>Auto-generated documentation για το tenant configuration</p>
+                </div>
+            </div>
+
+            <h2>⚙️ Προαπαιτούμενα</h2>
+
+            <h3>1. PowerShell & Modules</h3>
+            <div class="code-block">
+<code><span class="comment"># PowerShell 7.x (recommended)</span>
+<span class="command">winget install</span> <span class="parameter">Microsoft.PowerShell</span>
+
+<span class="comment"># Required PowerShell Modules</span>
+<span class="command">Install-Module</span> <span class="parameter">Microsoft.Graph</span> <span class="command">-Scope CurrentUser -Force</span>
+<span class="command">Install-Module</span> <span class="parameter">ExchangeOnlineManagement</span> <span class="command">-Scope CurrentUser -Force</span>
+<span class="command">Install-Module</span> <span class="parameter">Microsoft.Online.SharePoint.PowerShell</span> <span class="command">-Scope CurrentUser -Force</span>
+<span class="command">Install-Module</span> <span class="parameter">PnP.PowerShell</span> <span class="command">-Scope CurrentUser -Force</span></code>
+            </div>
+
+            <h3>2. Azure AD Permissions</h3>
+            <div class="warning-box">
+                <strong>⚠️ Απαιτούνται Admin Rights:</strong>
+                <ul>
+                    <li>Global Administrator (για πλήρη analysis)</li>
+                    <li>ή Helpdesk Administrator + SharePoint Administrator + Exchange Administrator</li>
+                </ul>
+            </div>
+
+            <h3>3. Azure App Registration (Certificate-Based Auth)</h3>
+            <div class="info-box">
+                <strong>Γιατί Certificate-Based Authentication;</strong>
+                <ul>
+                    <li>✅ Πιο ασφαλές από passwords</li>
+                    <li>✅ Ιδανικό για automation & scheduled tasks</li>
+                    <li>✅ Δεν εξαρτάται από user credentials</li>
+                    <li>✅ Δεν απαιτεί MFA bypass</li>
+                </ul>
+            </div>
+
+            <h2>🔐 Azure App Registration - Step by Step</h2>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <h4>Δημιουργία App Registration</h4>
+                <ol>
+                    <li>Πήγαινε στο Azure Portal: https://portal.azure.com</li>
+                    <li>Azure Active Directory → App registrations → New registration</li>
+                    <li>Όνομα: "TenantMigrationAssessment" (ή όπως θες)</li>
+                    <li>Supported account types: Single tenant</li>
+                    <li>Redirect URI: Άφησέ το κενό</li>
+                    <li>Κλικ Register</li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <h4>Καταγραφή Application (client) ID & Tenant ID</h4>
+                <div class="code-block">
+<code><span class="comment"># Θα τα βρεις στο Overview page</span>
+<span class="variable">Application (client) ID:</span> <span class="string">12345678-1234-1234-1234-123456789012</span>
+<span class="variable">Directory (tenant) ID:</span> <span class="string">87654321-4321-4321-4321-210987654321</span></code>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <h4>API Permissions - Πολύ Σημαντικό!</h4>
+                <ol>
+                    <li>API permissions → Add a permission → Microsoft Graph</li>
+                    <li>Application permissions (ΟΧΙ Delegated)</li>
+                    <li>Πρόσθεσε τα παρακάτω permissions:</li>
+                </ol>
+                
+                <table>
+                    <tr>
+                        <th>Permission</th>
+                        <th>Γιατί το χρειάζεται</th>
+                    </tr>
+                    <tr>
+                        <td><code>User.Read.All</code></td>
+                        <td>Ανάγνωση user profiles & properties</td>
+                    </tr>
+                    <tr>
+                        <td><code>Group.Read.All</code></td>
+                        <td>Ανάγνωση groups & memberships</td>
+                    </tr>
+                    <tr>
+                        <td><code>Directory.Read.All</code></td>
+                        <td>Ανάγνωση directory objects</td>
+                    </tr>
+                    <tr>
+                        <td><code>Organization.Read.All</code></td>
+                        <td>Ανάγνωση tenant information</td>
+                    </tr>
+                    <tr>
+                        <td><code>Sites.Read.All</code></td>
+                        <td>Ανάγνωση SharePoint sites</td>
+                    </tr>
+                    <tr>
+                        <td><code>Files.Read.All</code></td>
+                        <td>Ανάγνωση OneDrive & SharePoint files</td>
+                    </tr>
+                    <tr>
+                        <td><code>Mail.Read</code></td>
+                        <td>Ανάγνωση mailbox information</td>
+                    </tr>
+                    <tr>
+                        <td><code>MailboxSettings.Read</code></td>
+                        <td>Ανάγνωση mailbox settings</td>
+                    </tr>
+                    <tr>
+                        <td><code>Reports.Read.All</code></td>
+                        <td>Ανάγνωση usage reports</td>
+                    </tr>
+                </table>
+                
+                <div class="warning-box">
+                    <strong>⚠️ ΚΡΙΣΙΜΟ:</strong> Μετά την προσθήκη των permissions, πρέπει να κάνεις<br>
+                    <strong>"Grant admin consent for [Your Organization]"</strong><br>
+                    Αλλιώς το script ΔΕΝ θα τρέξει!
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <h4>Δημιουργία Self-Signed Certificate</h4>
+                <div class="code-block">
+<code><span class="comment"># PowerShell - Run as Administrator</span>
+<span class="variable">$certName</span> = <span class="string">"TenantMigrationCert"</span>
+<span class="variable">$cert</span> = <span class="command">New-SelfSignedCertificate</span> `
+    <span class="parameter">-Subject</span> <span class="string">"CN=$certName"</span> `
+    <span class="parameter">-CertStoreLocation</span> <span class="string">"Cert:\CurrentUser\My"</span> `
+    <span class="parameter">-KeyExportPolicy</span> <span class="parameter">Exportable</span> `
+    <span class="parameter">-KeySpec</span> <span class="parameter">Signature</span> `
+    <span class="parameter">-KeyLength</span> <span class="parameter">2048</span> `
+    <span class="parameter">-KeyAlgorithm</span> <span class="parameter">RSA</span> `
+    <span class="parameter">-HashAlgorithm</span> <span class="parameter">SHA256</span> `
+    <span class="parameter">-NotAfter</span> (<span class="command">Get-Date</span>).<span class="command">AddYears</span>(<span class="parameter">2</span>)
+
+<span class="comment"># Εμφάνιση Thumbprint (θα το χρειαστείς!)</span>
+<span class="variable">$cert</span>.<span class="parameter">Thumbprint</span>
+
+<span class="comment"># Export σε .cer file για upload στο Azure</span>
+<span class="variable">$certPath</span> = <span class="string">"C:\Temp\TenantMigrationCert.cer"</span>
+<span class="command">Export-Certificate</span> <span class="parameter">-Cert</span> <span class="variable">$cert</span> <span class="parameter">-FilePath</span> <span class="variable">$certPath</span>
+
+<span class="command">Write-Host</span> <span class="string">"Certificate Thumbprint: $($cert.Thumbprint)"</span> <span class="parameter">-ForegroundColor Green</span>
+<span class="command">Write-Host</span> <span class="string">"Certificate exported to: $certPath"</span> <span class="parameter">-ForegroundColor Green</span></code>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                <h4>Upload Certificate στο App Registration</h4>
+                <ol>
+                    <li>Azure Portal → App registrations → Το App σου</li>
+                    <li>Certificates & secrets → Certificates → Upload certificate</li>
+                    <li>Διάλεξε το .cer file που έφτιαξες</li>
+                    <li>Κλικ Add</li>
+                </ol>
+            </div>
+
+            <h2>📥 Εγκατάσταση Script</h2>
+
+            <div class="code-block">
+<code><span class="comment"># Clone το repository</span>
+<span class="command">git clone</span> <span class="parameter">https://github.com/smcavinue/Tenant-Migration-Assessment-V2.git</span>
+
+<span class="comment"># Ή download το ZIP</span>
+<span class="comment"># https://github.com/smcavinue/Tenant-Migration-Assessment-V2/archive/refs/heads/main.zip</span>
+
+<span class="comment"># Navigate στο folder</span>
+<span class="command">cd</span> <span class="parameter">Tenant-Migration-Assessment-V2</span></code>
+            </div>
+
+            <h2>🚀 Παράμετροι Script</h2>
+
+            <table>
+                <tr>
+                    <th>Παράμετρος</th>
+                    <th>Τύπος</th>
+                    <th>Περιγραφή</th>
+                </tr>
+                <tr>
+                    <td><code>-clientId</code><span class="badge badge-required">REQUIRED</span></td>
+                    <td>String</td>
+                    <td>Application (client) ID από το App Registration</td>
+                </tr>
+                <tr>
+                    <td><code>-tenantId</code><span class="badge badge-required">REQUIRED</span></td>
+                    <td>String</td>
+                    <td>Directory (tenant) ID από το Azure AD</td>
+                </tr>
+                <tr>
+                    <td><code>-certificateThumbprint</code><span class="badge badge-required">REQUIRED</span></td>
+                    <td>String</td>
+                    <td>Thumbprint του certificate που δημιούργησες</td>
+                </tr>
+                <tr>
+                    <td><code>-IncludePlans</code><span class="badge badge-optional">OPTIONAL</span></td>
+                    <td>Switch</td>
+                    <td>Συμπεριλαμβάνει service plans & subscriptions</td>
+                </tr>
+                <tr>
+                    <td><code>-IncludeGroupMembership</code><span class="badge badge-optional">OPTIONAL</span></td>
+                    <td>Switch</td>
+                    <td>Συμπεριλαμβάνει group members</td>
+                </tr>
+                <tr>
+                    <td><code>-IncludeMailboxPermissions</code><span class="badge badge-optional">OPTIONAL</span></td>
+                    <td>Switch</td>
+                    <td>Συμπεριλαμβάνει mailbox permissions & delegations</td>
+                </tr>
+                <tr>
+                    <td><code>-IncludeDocumentLibraries</code><span class="badge badge-optional">OPTIONAL</span></td>
+                    <td>Switch</td>
+                    <td>Συμπεριλαμβάνει SharePoint document libraries</td>
+                </tr>
+                <tr>
+                    <td><code>-IncludeLists</code><span class="badge badge-optional">OPTIONAL</span></td>
+                    <td>Switch</td>
+                    <td>Συμπεριλαμβάνει SharePoint lists</td>
+                </tr>
+                <tr>
+                    <td><code>-IncludeOneDrive</code><span class="badge badge-optional">OPTIONAL</span></td>
+                    <td>Switch</td>
+                    <td>Συμπεριλαμβάνει OneDrive usage & files</td>
+                </tr>
+                <tr>
+                    <td><code>-IncludeTeams</code><span class="badge badge-optional">OPTIONAL</span></td>
+                    <td>Switch</td>
+                    <td>Συμπεριλαμβάνει Teams & channels</td>
+                </tr>
+            </table>
+
+            <h2>▶️ Εκτέλεση Assessment</h2>
+
+            <h3>Βασική Εκτέλεση</h3>
+            <div class="code-block">
+<code><span class="comment"># Set variables</span>
+<span class="variable">$clientid</span> = <span class="string">"12345678-1234-1234-1234-123456789012"</span>
+<span class="variable">$tenantID</span> = <span class="string">"87654321-4321-4321-4321-210987654321"</span>
+<span class="variable">$Thumbprint</span> = <span class="string">"ABC123DEF456GHI789JKL012MNO345PQR678STU"</span>
+
+<span class="comment"># Run basic assessment</span>
+<span class="command">.\Perform-TenantAssessment.ps1</span> `
+    <span class="parameter">-clientId</span> <span class="variable">$clientid</span> `
+    <span class="parameter">-tenantId</span> <span class="variable">$tenantID</span> `
+    <span class="parameter">-certificateThumbprint</span> <span class="variable">$Thumbprint</span></code>
+            </div>
+
+            <h3>Πλήρης Εκτέλεση (Recommended για πρώτη φορά)</h3>
+            <div class="code-block">
+<code><span class="comment"># Comprehensive assessment με όλες τις επιλογές</span>
+<span class="command">.\Perform-TenantAssessment.ps1</span> `
+    <span class="parameter">-clientId</span> <span class="variable">$clientid</span> `
+    <span class="parameter">-tenantId</span> <span class="variable">$tenantID</span> `
+    <span class="parameter">-certificateThumbprint</span> <span class="variable">$Thumbprint</span> `
+    <span class="parameter">-IncludePlans</span> `
+    <span class="parameter">-IncludeGroupMembership</span> `
+    <span class="parameter">-IncludeMailboxPermissions</span> `
+    <span class="parameter">-IncludeDocumentLibraries</span> `
+    <span class="parameter">-IncludeLists</span> `
+    <span class="parameter">-IncludeOneDrive</span> `
+    <span class="parameter">-IncludeTeams</span></code>
+            </div>
+
+            <div class="pro-tip">
+                Η πρώτη εκτέλεση μπορεί να πάρει από 10 λεπτά έως 2+ ώρες ανάλογα με το μέγεθος του tenant!
+            </div>
+
+            <h3>Targeted Assessment (Για συγκεκριμένα data)</h3>
+            <div class="example-section">
+                <h4>Μόνο Mailbox Permissions & Groups</h4>
+                <div class="code-block">
+<code><span class="command">.\Perform-TenantAssessment.ps1</span> `
+    <span class="parameter">-clientId</span> <span class="variable">$clientid</span> `
+    <span class="parameter">-tenantId</span> <span class="variable">$tenantID</span> `
+    <span class="parameter">-certificateThumbprint</span> <span class="variable">$Thumbprint</span> `
+    <span class="parameter">-IncludeGroupMembership</span> `
+    <span class="parameter">-IncludeMailboxPermissions</span></code>
+                </div>
+
+                <h4>Μόνο SharePoint & Teams</h4>
+                <div class="code-block">
+<code><span class="command">.\Perform-TenantAssessment.ps1</span> `
+    <span class="parameter">-clientId</span> <span class="variable">$clientid</span> `
+    <span class="parameter">-tenantId</span> <span class="variable">$tenantID</span> `
+    <span class="parameter">-certificateThumbprint</span> <span class="variable">$Thumbprint</span> `
+    <span class="parameter">-IncludeDocumentLibraries</span> `
+    <span class="parameter">-IncludeLists</span> `
+    <span class="parameter">-IncludeTeams</span></code>
+                </div>
+            </div>
+
+            <h2>📊 Output Files & Ανάλυση</h2>
+
+            <div class="info-box">
+                <strong>Το script δημιουργεί τα εξής outputs:</strong>
+                <ul>
+                    <li>📄 <strong>HTML Report</strong> - Comprehensive visual report</li>
+                    <li>📋 <strong>CSV Files</strong> - Raw data για further analysis</li>
+                    <li>📝 <strong>Log Files</strong> - Execution logs & errors</li>
+                </ul>
+                <br>
+                <strong>Default Output Location:</strong> <code>.\AssessmentResults\[TenantName]_[Timestamp]</code>
+            </div>
+
+            <h3>Τι Περιλαμβάνει το HTML Report</h3>
+            <table>
+                <tr>
+                    <th>Section</th>
+                    <th>Περιεχόμενο</th>
+                </tr>
+                <tr>
+                    <td><strong>Executive Summary</strong></td>
+                    <td>Tenant overview, user counts, license summary</td>
+                </tr>
+                <tr>
+                    <td><strong>Users & Licenses</strong></td>
+                    <td>Λίστα όλων των users με assigned licenses</td>
+                </tr>
+                <tr>
+                    <td><strong>Groups</strong></td>
+                    <td>M365 Groups, Security Groups, Distribution Lists</td>
+                </tr>
+                <tr>
+                    <td><strong>Group Memberships</strong></td>
+                    <td>Ποιοι users ανήκουν σε ποια groups</td>
+                </tr>
+                <tr>
+                    <td><strong>Mailbox Permissions</strong></td>
+                    <td>Full Access, Send As, Send On Behalf permissions</td>
+                </tr>
+                <tr>
+                    <td><strong>SharePoint Sites</strong></td>
+                    <td>Site collections, storage usage, permissions</td>
+                </tr>
+                <tr>
+                    <td><strong>Document Libraries</strong></td>
+                    <td>Λίστα όλων των document libraries</td>
+                </tr>
+                <tr>
+                    <td><strong>OneDrive</strong></td>
+                    <td>Usage statistics, storage per user</td>
+                </tr>
+                <tr>
+                    <td><strong>Teams</strong></td>
+                    <td>Teams, channels, members, settings</td>
+                </tr>
+                <tr>
+                    <td><strong>Service Plans</strong></td>
+                    <td>Λεπτομερής κατανομή service plans</td>
+                </tr>
+            </table>
+
+            <h2>🎨 Use Cases & Scenarios</h2>
+
+            <div class="example-section">
+                <h3>Σενάριο 1: Pre-Migration Assessment</h3>
+                <p><strong>Στόχος:</strong> Πλήρης εικόνα του source tenant πριν migration</p>
+                <div class="code-block">
+<code><span class="comment"># Comprehensive assessment με όλα τα data</span>
+<span class="command">.\Perform-TenantAssessment.ps1</span> `
+    <span class="parameter">-clientId</span> <span class="variable">$clientid</span> `
+    <span class="parameter">-tenantId</span> <span class="variable">$tenantID</span> `
+    <span class="parameter">-certificateThumbprint</span> <span class="variable">$Thumbprint</span> `
+    <span class="parameter">-IncludePlans</span> `
+    <span class="parameter">-IncludeGroupMembership</span> `
+    <span class="parameter">-IncludeMailboxPermissions</span> `
+    <span class="parameter">-IncludeDocumentLibraries</span> `
+    <span class="parameter">-IncludeLists</span> `
+    <span class="parameter">-IncludeOneDrive</span> `
+    <span class="parameter">-IncludeTeams</span></code>
+                </div>
+                <div class="success-box">
+                    <strong>Αποτέλεσμα:</strong> Έχεις detailed inventory όλων των data που θα μεταφερθούν
+                </div>
+            </div>
+
+            <div class="example-section">
+                <h3>Σενάριο 2: License Audit</h3>
+                <p><strong>Στόχος:</strong> Έλεγχος χρήσης licenses & optimization</p>
+                <div class="code-block">
+<code><span class="command">.\Perform-TenantAssessment.ps1</span> `
+    <span class="parameter">-clientId</span> <span class="variable">$clientid</span> `
+    <span class="parameter">-tenantId</span> <span class="variable">$tenantID</span> `
+    <span class="parameter">-certificateThumbprint</span> <span class="variable">$Thumbprint</span> `
+    <span class="parameter">-IncludePlans</span></code>
+                </div>
+                <div class="success-box">
+                    <strong>Αποτέλεσμα:</strong> Βλέπεις ποιες licenses χρησιμοποιούνται και ποιες πατάνε
+                </div>
+            </div>
+
+            <div class="example-section">
+                <h3>Σενάριο 3: Security Audit</h3>
+                <p><strong>Στόχος:</strong> Έλεγχος permissions & access rights</p>
+                <div class="code-block">
+<code><span class="command">.\Perform-TenantAssessment.ps1</span> `
+    <span class="parameter">-clientId</span> <span class="variable">$clientid</span> `
+    <span class="parameter">-tenantId</span> <span class="variable">$tenantID</span> `
+    <span class="parameter">-certificateThumbprint</span> <span class="variable">$Thumbprint</span> `
+    <span class="parameter">-IncludeGroupMembership</span> `
+    <span class="parameter">-IncludeMailboxPermissions</span></code>
+                </div>
+                <div class="success-box">
+                    <strong>Αποτέλεσμα:</strong> Comprehensive view των permissions σε mailboxes & groups
+                </div>
+            </div>
+
+            <div class="example-section">
+                <h3>Σενάριο 4: SharePoint Inventory</h3>
+                <p><strong>Στόχος:</strong> Καταγραφή όλων των SharePoint sites & content</p>
+                <div class="code-block">
+<code><span class="command">.\Perform-TenantAssessment.ps1</span> `
+    <span class="parameter">-clientId</span> <span class="variable">$clientid</span> `
+    <span class="parameter">-tenantId</span> <span class="variable">$tenantID</span> `
+    <span class="parameter">-certificateThumbprint</span> <span class="variable">$Thumbprint</span> `
+    <span class="parameter">-IncludeDocumentLibraries</span> `
+    <span class="parameter">-IncludeLists</span></code>
+                </div>
+                <div class="success-box">
+                    <strong>Αποτέλεσμα:</strong> Detailed SharePoint structure & content inventory
+                </div>
+            </div>
+
+            <h2>🔧 Advanced Configuration</h2>
+
+            <h3>Scheduled Assessment (Task Scheduler)</h3>
+            <div class="code-block">
+<code><span class="comment"># Create scheduled task για monthly assessment</span>
+<span class="variable">$action</span> = <span class="command">New-ScheduledTaskAction</span> `
+    <span class="parameter">-Execute</span> <span class="string">"PowerShell.exe"</span> `
+    <span class="parameter">-Argument</span> <span class="string">"-File C:\Scripts\Perform-TenantAssessment.ps1 -clientId $clientid -tenantId $tenantID -certificateThumbprint $Thumbprint -IncludePlans"</span>
+
+<span class="variable">$trigger</span> = <span class="command">New-ScheduledTaskTrigger</span> `
+    <span class="parameter">-Monthly</span> `
+    <span class="parameter">-At</span> <span class="string">"02:00AM"</span> `
+    <span class="parameter">-DaysOfMonth</span> <span class="parameter">1</span>
+
+<span class="command">Register-ScheduledTask</span> `
+    <span class="parameter">-TaskName</span> <span class="string">"TenantAssessment-Monthly"</span> `
+    <span class="parameter">-Action</span> <span class="variable">$action</span> `
+    <span class="parameter">-Trigger</span> <span class="variable">$trigger</span> `
+    <span class="parameter">-User</span> <span class="string">"SYSTEM"</span> `
+    <span class="parameter">-RunLevel</span> <span class="parameter">Highest</span></code>
+            </div>
+
+            <h3>Custom Output Location</h3>
+            <div class="code-block">
+<code><span class="comment"># Modify το script για custom output path</span>
+<span class="comment"># Άνοιξε το Perform-TenantAssessment.ps1 και βρες:</span>
+<span class="variable">$OutputPath</span> = <span class="string">".\AssessmentResults"</span>
+
+<span class="comment"># Άλλαξε σε:</span>
+<span class="variable">$OutputPath</span> = <span class="string">"D:\TenantReports\$((Get-Date).ToString('yyyy-MM'))"</span></code>
+            </div>
+
+            <h3>Email Report Automation</h3>
+            <div class="code-block">
+<code><span class="comment"># Πρόσθεσε στο τέλος του script</span>
+<span class="variable">$reportPath</span> = <span class="command">Get-ChildItem</span> <span class="parameter">-Path</span> <span class="string">".\AssessmentResults"</span> <span class="parameter">-Filter</span> <span class="string">"*.html"</span> <span class="parameter">-Recurse</span> | 
+    <span class="command">Sort-Object</span> <span class="parameter">LastWriteTime</span> <span class="parameter">-Descending</span> | 
+    <span class="command">Select-Object</span> <span class="parameter">-First</span> <span class="parameter">1</span>
+
+<span class="command">Send-MailMessage</span> `
+    <span class="parameter">-To</span> <span class="string">"admin@yourdomain.com"</span> `
+    <span class="parameter">-From</span> <span class="string">"reports@yourdomain.com"</span> `
+    <span class="parameter">-Subject</span> <span class="string">"Tenant Assessment - $(Get-Date -Format 'yyyy-MM-dd')"</span> `
+    <span class="parameter">-Body</span> <span class="string">"Tenant assessment completed. Report attached."</span> `
+    <span class="parameter">-Attachments</span> <span class="variable">$reportPath.FullName</span> `
+    <span class="parameter">-SmtpServer</span> <span class="string">"smtp.office365.com"</span> `
+    <span class="parameter">-Port</span> <span class="parameter">587</span> `
+    <span class="parameter">-UseSsl</span></code>
+            </div>
+
+            <h2>🚨 Troubleshooting</h2>
+
+            <div class="danger-box">
+                <h4>❌ Error: "The term 'Connect-MgGraph' is not recognized"</h4>
+                <strong>Λύση:</strong>
+                <div class="code-block">
+<code><span class="command">Install-Module</span> <span class="parameter">Microsoft.Graph</span> <span class="command">-Force -Scope CurrentUser</span>
+<span class="command">Import-Module</span> <span class="parameter">Microsoft.Graph</span></code>
+                </div>
+            </div>
+
+            <div class="danger-box">
+                <h4>❌ Error: "Insufficient privileges to complete the operation"</h4>
+                <strong>Λύση:</strong>
+                <ul>
+                    <li>Έλεγξε ότι έχεις κάνει "Grant admin consent" στο App Registration</li>
+                    <li>Βεβαιώσου ότι το App έχει όλα τα απαραίτητα API permissions</li>
+                    <li>Περίμενε 5-10 λεπτά μετά το admin consent για propagation</li>
+                </ul>
+            </div>
+
+            <div class="danger-box">
+                <h4>❌ Error: "Certificate with thumbprint [X] not found"</h4>
+                <strong>Λύση:</strong>
+                <div class="code-block">
+<code><span class="comment"># Έλεγξε αν το certificate υπάρχει</span>
+<span class="command">Get-ChildItem</span> <span class="parameter">Cert:\CurrentUser\My</span> | <span class="command">Where-Object</span> {<span class="variable">$_</span>.<span class="parameter">Subject</span> <span class="parameter">-like</span> <span class="string">"*TenantMigration*"</span>}
+
+<span class="comment"># Αν δεν υπάρχει, ξαναδημιούργησέ το</span></code>
+                </div>
+            </div>
+
+            <div class="danger-box">
+                <h4>❌ Script τρέχει πολύ αργά</h4>
+                <strong>Tips για optimization:</strong>
+                <ul>
+                    <li>Μην χρησιμοποιείς όλες τις παραμέτρους αν δεν χρειάζεται</li>
+                    <li>Το <code>-IncludeDocumentLibraries</code> είναι πολύ resource-intensive</li>
+                    <li>Τρέξε το assessment εκτός business hours</li>
+                    <li>Χρησιμοποίησε filtering αν είναι διαθέσιμο</li>
+                </ul>
+            </div>
+
+            <div class="danger-box">
+                <h4>❌ Out of Memory Errors</h4>
+                <strong>Λύση:</strong>
+                <ul>
+                    <li>Τρέξε το script σε chunks (κάνε assessments σε specific groups/sites)</li>
+                    <li>Κλείσε άλλες εφαρμογές για να ελευθερώσεις RAM</li>
+                    <li>Upgrade σε μηχάνημα με περισσότερη μνήμη για μεγάλα tenants</li>
+                </ul>
+            </div>
+
+            <h2>💡 Best Practices</h2>
+
+            <ul>
+                <li>✅ <strong>Test σε Test Tenant πρώτα:</strong> Δοκίμασε το script σε test environment</li>
+                <li>✅ <strong>Scheduled Regular Assessments:</strong> Τρέξε monthly assessments για tracking changes</li>
+                <li>✅ <strong>Version Control Reports:</strong> Κράτα historical reports για comparison</li>
+                <li>✅ <strong>Document Findings:</strong> Σημείωσε important findings από κάθε assessment</li>
+                <li>✅ <strong>Certificate Expiration:</strong> Set reminder για certificate renewal (πριν τα 2 χρόνια)</li>
+                <li>✅ <strong>Backup Outputs:</strong> Αντίγραψε τα reports σε secure location</li>
+                <li>✅ <strong>Review Permissions Regularly:</strong> Audit mailbox & SharePoint permissions</li>
+                <li>✅ <strong>License Optimization:</strong> Χρησιμοποίησε τα reports για license cleanup</li>
+            </ul>
+
+            <h2>📈 Reporting Tips</h2>
+
+            <div class="tip">
+                <strong>Δημιούργησε Executive Summary Document:</strong>
+                <ul>
+                    <li>Total users & licenses</li>
+                    <li>Storage usage trends</li>
+                    <li>Critical findings (over-privileged accounts, unused licenses)</li>
+                    <li>Recommendations για optimization</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>Compare Reports Over Time:</strong>
+                <ul>
+                    <li>Τρέξε το script μηνιαία</li>
+                    <li>Track license usage changes</li>
+                    <li>Monitor storage growth</li>
+                    <li>Identify permission changes</li>
+                </ul>
+            </div>
+
+            <h2>🔗 Χρήσιμα Resources</h2>
+
+            <ul>
+                <li><strong>GitHub Repository:</strong> https://github.com/smcavinue/Tenant-Migration-Assessment-V2</li>
+                <li><strong>Microsoft Graph Permissions:</strong> https://learn.microsoft.com/graph/permissions-reference</li>
+                <li><strong>Certificate-Based Auth:</strong> https://learn.microsoft.com/graph/auth-register-app-v2</li>
+                <li><strong>Exchange Online PowerShell:</strong> https://learn.microsoft.com/powershell/exchange/</li>
+                <li><strong>PnP PowerShell:</strong> https://pnp.github.io/powershell/</li>
+            </ul>
+
+            <h2>🎯 Quick Reference Cheat Sheet</h2>
+
+            <div class="example-section">
+                <h4>Βασικά Commands</h4>
+                <div class="code-block">
+<code><span class="comment"># Install modules</span>
+<span class="command">Install-Module</span> <span class="parameter">Microsoft.Graph, ExchangeOnlineManagement, PnP.PowerShell -Force</span>
+
+<span class="comment"># Create certificate</span>
+<span class="command">New-SelfSignedCertificate</span> <span class="parameter">-Subject "CN=TenantMigrationCert"</span> <span class="parameter">-CertStoreLocation "Cert:\CurrentUser\My"</span>
+
+<span class="comment"># Basic assessment</span>
+<span class="command">.\Perform-TenantAssessment.ps1</span> <span class="parameter">-clientId $id -tenantId $tenant -certificateThumbprint $thumb</span>
+
+<span class="comment"># Full assessment</span>
+<span class="command">.\Perform-TenantAssessment.ps1</span> <span class="parameter">-clientId $id -tenantId $tenant -certificateThumbprint $thumb</span> `
+    <span class="parameter">-IncludePlans -IncludeGroupMembership -IncludeMailboxPermissions</span> `
+    <span class="parameter">-IncludeDocumentLibraries -IncludeLists -IncludeOneDrive -IncludeTeams</span></code>
+                </div>
+            </div>
+
+            <div class="pro-tip">
+                <strong>Pro Tip για Migrations:</strong> Τρέξε το assessment 2 φορές:
+                <ol>
+                    <li>Πριν το migration planning (για να δεις τι υπάρχει)</li>
+                    <li>Αμέσως πριν το migration (για τελικό validation)</li>
+                    <li>Μετά το migration (για post-migration verification)</li>
+                </ol>
+            </div>
+
+            <h2>🎓 Τι Έμαθες</h2>
+
+            <div class="success-box">
+                <strong>Συγχαρητήρια! Τώρα ξέρεις:</strong>
+                <ul>
+                    <li>✅ Πώς να στήνεις Azure App Registration με certificate authentication</li>
+                    <li>✅ Πώς να τρέχεις comprehensive M365 tenant assessments</li>
+                    <li>✅ Πώς να αναλύεις users, licenses, permissions, και content</li>
+                    <li>✅ Πώς να χρησιμοποιείς τα reports για migration planning</li>
+                    <li>✅ Πώς να αυτοματοποιείς tenant assessments</li>
+                    <li>✅ Best practices για M365 tenant management</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <strong>Επόμενα Βήματα:</strong>
+                <ol>
+                    <li>Τρέξε το πρώτο σου assessment σε test tenant</li>
+                    <li>Review το HTML report και familiarize yourself με τα sections</li>
+                    <li>Setup scheduled assessments για production tenant</li>
+                    <li>Δημιούργησε documentation process για findings</li>
+                    <li>Explore advanced scenarios & customizations</li>
+                </ol>
+            </div>
+        </div>
+
+        <footer>
+            <p>Created with ❤️ for Vag | Tenant Migration Assessment Tutorial 2025</p>
+            <p>Happy Assessing! ☁️🚀</p>
+        </footer>
+    </div>
+</body>
+</html>

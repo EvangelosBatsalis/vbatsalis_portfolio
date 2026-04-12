@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AZ-104 Ch.08</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+--acc-color:#f472b6;
+
+:root{--bg:#07090f;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--mono:"JetBrains Mono",monospace;--sans:"Inter",sans-serif;--display:"Syne",sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+.layout{max-width:1100px;margin:0 auto;padding:40px 32px;display:grid;grid-template-columns:260px 1fr;gap:38px;align-items:start}
+.sidebar{position:sticky;top:24px}.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.toc-hdr{background:var(--bg3);padding:11px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.toc-body{padding:6px 0}.toc-sec{padding:5px 16px 2px;font-size:9px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:5px}
+.ta{display:flex;align-items:flex-start;gap:8px;padding:5px 16px;font-size:12px;color:var(--text2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}
+.ta:hover{color:var(--text);background:var(--card2)}.ta.active{font-weight:600}
+.ta .tn{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:2px;flex-shrink:0;width:18px}
+.content{min-width:0}.ch-intro{background:linear-gradient(135deg,var(--card),var(--bg3));border:1px solid #1e2d4a;border-radius:10px;padding:24px;margin-bottom:28px}
+.ch-n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:5px}
+.ch-t{font-family:var(--display);font-size:21px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.ch-desc{color:var(--text2);font-size:13.5px;line-height:1.7;margin-bottom:14px}
+.ch-stats{display:flex;gap:12px;flex-wrap:wrap}.stx{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-family:var(--mono);font-size:11px}
+.stx .l{color:var(--text3);display:block;margin-bottom:1px}.stx .v{color:var(--text);font-weight:600}
+.section{margin-bottom:42px;scroll-margin-top:24px}
+.sh{display:flex;align-items:center;gap:11px;margin-bottom:15px;padding-bottom:11px;border-bottom:1px solid var(--border)}
+.si{width:34px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.sn{font-family:var(--mono);font-size:10px;color:var(--text3)}.section h2{font-family:var(--display);font-size:18px;font-weight:700;color:#fff}
+.section h3{font-family:var(--display);font-size:14px;font-weight:700;color:var(--text);margin:20px 0 9px}.section h3::before{content:"▸ "}
+.section p{color:var(--text2);margin-bottom:11px;font-size:14px}.section ul,.section ol{color:var(--text2);padding-left:20px;margin-bottom:11px}
+.section li{margin-bottom:5px;font-size:14px}.section li strong,.section p strong{color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;margin-bottom:15px;font-size:13px}
+.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:8px 11px;border-bottom:1px solid var(--border)}
+.tbl td{padding:8px 11px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:12px}.tbl tr:hover td{background:var(--card2)}
+pre{background:#050710;border:1px solid var(--border);border-left:3px solid;border-radius:6px;padding:13px 16px;overflow-x:auto;margin-bottom:11px;font-family:var(--mono);font-size:12px;line-height:1.7}
+code{font-family:var(--mono);font-size:12px;background:rgba(200,200,200,.07);padding:2px 5px;border-radius:3px}pre code{background:none;padding:0}
+.cmt{color:#3d5068;font-style:italic}.str{color:#f472b6}.param{color:#86efac}.val{color:#fbbf24}
+.alert{display:flex;gap:11px;padding:11px 15px;border-radius:6px;margin-bottom:11px;font-size:13px}
+.ai{font-size:15px;flex-shrink:0;margin-top:1px}.ab{color:var(--text2);line-height:1.6}.ab strong{color:var(--text)}
+.tip{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18)}.tip .ai{color:#22c55e}
+.warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18)}.warn .ai{color:var(--yellow)}
+.exam{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.22)}.exam .ai{color:var(--purple)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:15px 18px;margin-bottom:15px}
+.box-t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px}
+.scen{background:var(--card);border:1px solid #1e2d4a;border-radius:8px;overflow:hidden;margin-bottom:18px}
+.sc-hdr{padding:10px 15px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--border)}
+.sc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;border-radius:3px;padding:2px 7px}
+.sc-title{font-size:13px;font-weight:600;color:var(--text)}.sc-body{padding:13px 16px}
+.sc-body p{color:var(--text2);font-size:13px;margin-bottom:9px}.sc-body p:last-child{margin-bottom:0}.sc-body strong{color:var(--text)}
+.steps{list-style:none;padding:0;counter-reset:st}.steps li{counter-increment:st;display:flex;gap:9px;margin-bottom:7px;align-items:flex-start;color:var(--text2);font-size:13px}
+.steps li::before{content:counter(st);min-width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;flex-shrink:0;margin-top:2px}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:11px;margin-bottom:15px}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:13px}
+.cc h4{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.cc ul{list-style:none;padding:0}.cc li{font-size:12px;color:var(--text2);padding:3px 0 3px 13px;position:relative}
+.cc li::before{content:"→";position:absolute;left:0;color:var(--text3);font-size:10px}
+.badge{display:inline-flex;font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:3px;font-weight:600;vertical-align:middle}
+.bg{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)}
+.by{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}
+.br{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25)}
+hr{border:none;border-top:1px solid var(--border);margin:30px 0}
+.quiz{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:7px;padding:15px 18px;margin-bottom:15px}
+.qh{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:9px}
+.qq{font-size:14px;color:var(--text);font-weight:600;margin-bottom:9px}
+.qo{list-style:none;padding:0}.qo li{font-size:13px;color:var(--text2);padding:6px 9px;margin-bottom:3px;cursor:pointer;border-radius:4px;transition:background .15s;border-left:2px solid transparent}
+.qo li:hover{background:rgba(139,92,246,.07)}.qo li.ok{background:rgba(34,197,94,.07);color:#22c55e;border-left-color:#22c55e}
+.qo li.no{background:rgba(239,68,68,.07);color:#ef4444;border-left-color:#ef4444}
+.qa{display:none;margin-top:9px;padding:10px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:5px;font-size:13px;color:var(--text2)}.qa.show{display:block}
+.qbtn{margin-top:9px;padding:6px 13px;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.3);border-radius:4px;color:var(--purple);font-family:var(--mono);font-size:11px;cursor:pointer}
+.nav{display:flex;justify-content:space-between;margin-top:40px;padding-top:18px;border-top:1px solid var(--border);gap:13px}
+.nb{display:flex;flex-direction:column;gap:3px;padding:11px 16px;background:var(--card);border:1px solid var(--border);border-radius:7px;text-decoration:none;flex:1;transition:all .2s}
+.nb:hover{background:var(--card2)}.nl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}
+.nt{font-size:13px;color:var(--text);font-weight:600}.nb.next{text-align:right}
+@media(max-width:768px){.layout{grid-template-columns:1fr;padding:18px 14px}.sidebar{position:static}}
+
+.hdr{background:linear-gradient(160deg,#040609,#07090f,#100309);border-bottom:1px solid var(--border);padding:48px 0 40px;position:relative;overflow:hidden}
+.hdr::before{content:"";position:absolute;top:-60px;right:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(244,114,182,.06),transparent 65%)}
+.hdr-inner{max-width:1100px;margin:0 auto;padding:0 32px}.bc{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:13px}.bc a{color:var(--text3);text-decoration:none}
+.cbadge{display:inline-flex;gap:7px;background:rgba(244,114,182,.08);border:1px solid rgba(244,114,182,.28);border-radius:4px;padding:5px 13px;font-family:var(--mono);font-size:11px;color:#f472b6;letter-spacing:.1em;text-transform:uppercase;margin-bottom:13px}
+.hdr h1{font-family:var(--display);font-size:clamp(24px,5vw,44px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:10px}.hdr h1 span{color:#f472b6}
+.hdr-sub{color:var(--text2);font-size:14px;margin-bottom:17px}.hdr-meta{display:flex;gap:16px;flex-wrap:wrap}.mp{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text3)}
+.mpd{width:5px;height:5px;border-radius:50%;background:#f472b6;box-shadow:0 0 5px #f472b6}
+.toc-hdr{color:#f472b6!important}.ta:hover{border-left-color:#f472b6!important}.ta.active{color:#f472b6!important;background:rgba(244,114,182,.06)!important;border-left-color:#f472b6!important}
+.ch-n{color:#f472b6}.section h3::before{color:#f472b6}
+.si{background:rgba(244,114,182,.09)!important;border:1px solid rgba(244,114,182,.22)!important}
+pre{border-left-color:#f472b6!important}
+code{color:#f472b6;background:rgba(244,114,182,.07)}
+.info{background:rgba(244,114,182,.05)!important;border:1px solid rgba(244,114,182,.22)!important}.info .ai{color:#f472b6!important}
+.box-t{color:#f472b6!important}.sc-tag{color:#f472b6!important;background:rgba(244,114,182,.08)!important;border:1px solid rgba(244,114,182,.25)!important}
+.sc-hdr{background:linear-gradient(90deg,rgba(244,114,182,.1),transparent)!important}
+.steps li::before{background:rgba(244,114,182,.09)!important;border:1px solid rgba(244,114,182,.3)!important;color:#f472b6!important}
+.cc h4{color:#f472b6!important}.nb:hover{border-color:#f472b6!important}
+.ba{background:rgba(244,114,182,.1);color:#f472b6;border:1px solid rgba(244,114,182,.25)}
+</style></head><body>
+<header class="hdr"><div class="hdr-inner">
+  <div class="bc"><a href="az104-index.html">AZ-104</a> / Chapter 08</div>
+  <div class="cbadge">Chapter 08 · Sections 15</div>
+  <h1>Azure<br><span>App Service</span></h1>
+  <p class="hdr-sub">App Service Plans · GitHub Actions · Deployment Slots · Scaling · Custom DNS · TLS</p>
+  <div class="hdr-meta"><div class="mp"><span class="mpd"></span>Sections 15</div><div class="mp"><span class="mpd"></span>Lessons 110–121</div></div>
+</div></header>
+<div class="layout">
+<aside class="sidebar"><div class="toc"><div class="toc-hdr">Chapter 08</div><div class="toc-body">
+  <div class="toc-sec">Section 15</div>
+<a href="#s1" class="ta active"><span class="tn">15.1</span>App Service Plans</a>
+<a href="#s2" class="ta"><span class="tn">15.2</span>Create Web App</a>
+<a href="#s3" class="ta"><span class="tn">15.3</span>Deployment Options</a>
+<a href="#s4" class="ta"><span class="tn">15.4</span>Deployment Slots</a>
+<a href="#s5" class="ta"><span class="tn">15.5</span>Scaling</a>
+<a href="#s6" class="ta"><span class="tn">15.6</span>Custom Domain &amp; TLS</a>
+<a href="#s7" class="ta"><span class="tn">15.7</span>App Service Networking</a>
+<a href="#q" class="ta"><span class="tn">Q</span>Quiz</a>
+  <div class="toc-sec">Navigation</div>
+  <a href="az104-c07-arm-bicep.html" class="ta">← Ch07. ARM & Bicep</a>
+  <a href="az104-c09-containers.html" class="ta">Ch09. Containers →</a>
+</div></div></aside>
+<main class="content">
+<div class="ch-intro">
+  <div class="ch-n">Chapter 08 / Section 15</div>
+  <div class="ch-t">Azure App Service</div>
+  <p class="ch-desc">PaaS platform για hosting web apps, REST APIs, mobile backends. No OS management. Supports .NET, Node.js, Python, PHP, Java, Ruby, Docker. Built-in scaling, CI/CD, slots.</p>
+  <div class="ch-stats"><div class="stx"><span class="l">Domain</span><span class="v">Domain 3 — 20–25%</span></div><div class="stx"><span class="l">Lessons</span><span class="v">110–121</span></div></div>
+</div>
+
+<section class="section" id="s1">
+  <div class="sh"><div class="si">📋</div><div><div class="sn">15.1</div><h2>App Service Plans</h2></div></div>
+  <table class="tbl"><thead><tr><th>Tier</th><th>Features</th><th>Scaling</th><th>Slots</th></tr></thead><tbody>
+    <tr><td>Free (F1)</td><td>60min CPU/day, no custom domain</td><td>None</td><td>0</td></tr>
+    <tr><td>Shared (D1)</td><td>Custom domain, shared infra</td><td>None</td><td>0</td></tr>
+    <tr><td>Basic (B1-B3)</td><td>Custom domain + SSL, manual scale</td><td>Manual (1-3)</td><td>0</td></tr>
+    <tr><td>Standard (S1-S3)</td><td>Auto-scale, Traffic Manager, backups</td><td>Auto (1-10)</td><td>5</td></tr>
+    <tr><td>Premium (P1v3-P3v3)</td><td>VNet integration, 30 slots, zone redundancy</td><td>Auto (1-30)</td><td>20</td></tr>
+    <tr><td>Isolated (I1v2-I3v2)</td><td>Dedicated VNet, max security</td><td>Auto (1-100)</td><td>20</td></tr>
+  </tbody></table>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Deployment Slots start at Standard tier.</strong> Free and Basic = no slots. Standard = 5 slots. Premium = 20 slots. Always On (prevent idle timeout) requires Basic+.</div></div>
+</section><hr>
+
+<section class="section" id="s2">
+  <div class="sh"><div class="si">🌐</div><div><div class="sn">Lesson 111 · 15.2</div><h2>Create a Web App</h2></div></div>
+  <p>Key settings when creating App Service:</p>
+  <ul>
+    <li><strong>Runtime stack:</strong> .NET 8, Node 20, Python 3.12, PHP 8.3, Java 17, Ruby, Docker</li>
+    <li><strong>OS:</strong> Windows or Linux (affects available runtimes)</li>
+    <li><strong>Region:</strong> Same as App Service Plan</li>
+    <li><strong>App Service Plan:</strong> Choose existing or create new</li>
+    <li><strong>Default URL:</strong> <code>appname.azurewebsites.net</code></li>
+  </ul>
+  <pre><code><span class="cmt"># Create App Service Plan + Web App</span>
+az appservice plan create   --name ASP-Septona-Production   --resource-group RG-Web-GR   --sku S2 --is-linux
+
+az webapp create   --name septona-portal   --resource-group RG-Web-GR   --plan ASP-Septona-Production   --runtime "NODE:20-lts"</code></pre>
+</section><hr>
+
+<section class="section" id="s3">
+  <div class="sh"><div class="si">🚀</div><div><div class="sn">Lessons 112–113 · 15.3</div><h2>Deployment Options</h2></div></div>
+  <table class="tbl"><thead><tr><th>Method</th><th>How</th><th>Use Case</th></tr></thead><tbody>
+    <tr><td>GitHub Actions</td><td>Workflow auto-deploys on push</td><td>CI/CD για production</td></tr>
+    <tr><td>Azure DevOps Pipelines</td><td>Enterprise CI/CD</td><td>Enterprise teams</td></tr>
+    <tr><td>ZIP Deploy</td><td>Upload ZIP via CLI/API</td><td>Simple deployments</td></tr>
+    <tr><td>FTP/FTPS</td><td>Direct file upload</td><td>Legacy, simple apps</td></tr>
+    <tr><td>Run from Package</td><td>App runs from ZIP package</td><td>Faster cold starts</td></tr>
+    <tr><td>Container Registry</td><td>Pull from ACR/Docker Hub</td><td>Containerized apps</td></tr>
+  </tbody></table>
+  <pre><code><span class="cmt"># Deploy ZIP file</span>
+az webapp deploy   --resource-group RG-Web-GR   --name septona-portal   --src-path ./dist.zip   --type zip</code></pre>
+</section><hr>
+
+<section class="section" id="s4">
+  <div class="sh"><div class="si">🔄</div><div><div class="sn">15.4</div><h2>Deployment Slots &amp; Swap</h2></div></div>
+  <p>Deployment slots = separate environments (staging, testing) with their own hostname and settings. <strong>Requires Standard+ tier.</strong></p>
+  <ul>
+    <li>Each slot: unique URL <code>appname-slotname.azurewebsites.net</code></li>
+    <li><strong>Swap:</strong> Exchange slots instantly — zero downtime release</li>
+    <li><strong>Sticky settings:</strong> "Slot settings" stay with slot during swap (e.g. ENVIRONMENT variable)</li>
+    <li><strong>Auto-swap:</strong> Auto-swap staging → production on deploy (for CD)</li>
+    <li>Swap warms up new version in staging before routing traffic</li>
+  </ul>
+  <pre><code><span class="cmt"># Create staging slot</span>
+az webapp deployment slot create   --name septona-portal   --resource-group RG-Web-GR   --slot staging
+
+<span class="cmt"># Swap staging → production</span>
+az webapp deployment slot swap   --name septona-portal   --resource-group RG-Web-GR   --slot staging   --target-slot production</code></pre>
+  <div class="scen">
+    <div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">Zero-Downtime Release — Septona Portal</span></div>
+    <div class="sc-body">
+      <p><strong>Flow:</strong> Dev deploys to staging slot → QA tests at staging URL → If OK, swap to production (instant, zero downtime). If problem → swap back.</p>
+      <ol class="steps">
+        <li>Deploy v2.0 to <code>septona-portal-staging.azurewebsites.net</code></li>
+        <li>QA team validates — all tests pass</li>
+        <li>Swap slots → staging becomes production instantly</li>
+        <li>Old production is now in staging slot — easy rollback if needed</li>
+      </ol>
+    </div>
+  </div>
+</section><hr>
+
+<section class="section" id="s5">
+  <div class="sh"><div class="si">📈</div><div><div class="sn">Lessons 115–116 · 15.5</div><h2>Scaling</h2></div></div>
+  <div class="cg">
+    <div class="cc"><h4>Scale Up (Vertical)</h4><ul>
+      <li>Change App Service Plan tier</li>
+      <li>More CPU, RAM, disk</li>
+      <li>Requires brief restart</li>
+      <li>Single instance</li>
+    </ul></div>
+    <div class="cc"><h4>Scale Out (Horizontal)</h4><ul>
+      <li>Add more instances (copies)</li>
+      <li>Manual or Auto</li>
+      <li>No restart</li>
+      <li>Load balanced automatically</li>
+    </ul></div>
+    <div class="cc"><h4>Auto Scale Rules</h4><ul>
+      <li>Based on CPU, memory, HTTP queue</li>
+      <li>Schedule-based</li>
+      <li>Min/Max instance count</li>
+      <li>Standard+ only</li>
+    </ul></div>
+  </div>
+</section><hr>
+
+<section class="section" id="s6">
+  <div class="sh"><div class="si">🔒</div><div><div class="sn">Lessons 119–120 · 15.6</div><h2>Custom Domain &amp; TLS</h2></div></div>
+  <h3>Custom Domain Setup</h3>
+  <ol>
+    <li>Buy domain or use existing (e.g. portal.septona.gr)</li>
+    <li>Add CNAME: <code>portal → septona-portal.azurewebsites.net</code> (or A record with public IP)</li>
+    <li>App Service → Custom Domains → Add custom domain → Verify DNS ownership (TXT record)</li>
+    <li>Bind SSL certificate (managed free certificate or bring your own)</li>
+  </ol>
+  <pre><code><span class="cmt"># Add custom domain</span>
+az webapp config hostname add   --webapp-name septona-portal   --resource-group RG-Web-GR   --hostname portal.septona.gr
+
+<span class="cmt"># Create free managed certificate</span>
+az webapp config ssl create   --name septona-portal   --resource-group RG-Web-GR   --hostname portal.septona.gr</code></pre>
+</section><hr>
+
+<section class="section" id="s7">
+  <div class="sh"><div class="si">🌐</div><div><div class="sn">Lesson 118 · 15.7</div><h2>App Service Networking</h2></div></div>
+  <table class="tbl"><thead><tr><th>Feature</th><th>Direction</th><th>Purpose</th><th>Tier</th></tr></thead><tbody>
+    <tr><td>Access Restrictions</td><td>Inbound</td><td>IP-based allow/deny rules</td><td>All</td></tr>
+    <tr><td>Service Endpoints</td><td>Inbound</td><td>Restrict to VNet subnet</td><td>Standard+</td></tr>
+    <tr><td>Private Endpoint</td><td>Inbound</td><td>App gets private IP in VNet</td><td>Standard+</td></tr>
+    <tr><td>VNet Integration</td><td>Outbound</td><td>App connects to VNet resources</td><td>Standard+</td></tr>
+    <tr><td>Hybrid Connections</td><td>Outbound</td><td>Connect to on-premises resources</td><td>Basic+</td></tr>
+  </tbody></table>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>VNet Integration vs Private Endpoint:</strong> VNet Integration = app can REACH OUT to private resources. Private Endpoint = app is ACCESSED via private IP. Both needed for full private setup.</div></div>
+</section><hr>
+
+<section class="section" id="q">
+  <div class="sh"><div class="si">🧠</div><div><div class="sn">Chapter 08</div><h2>Quiz</h2></div></div>
+  <div class="quiz"><div class="qh">◈ Q01</div>
+    <div class="qq">Minimum App Service Plan tier για Deployment Slots;</div>
+    <ul class="qo" id="q1"><li onclick="ans('q1',0)">A) Free (F1)</li><li onclick="ans('q1',1)">B) Basic (B1)</li><li onclick="ans('q1',2)">C) Standard (S1)</li><li onclick="ans('q1',3)">D) Premium (P1v3)</li></ul>
+    <div class="qa" id="q1-a">✅ <strong>C — Standard (S1).</strong> Deployment Slots available from Standard tier. Free/Basic = no slots.</div>
+    <button class="qbtn" onclick="toggle('q1-a')">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q02</div>
+    <div class="qq">Κάνεις swap staging→production. Η ENVIRONMENT variable (sticky setting) πρέπει να παραμείνει "Staging" στο staging slot. Τι κάνεις;</div>
+    <ul class="qo" id="q2"><li onclick="ans('q2',0)">A) Τίποτα — variables πάντα swap-άρονται</li><li onclick="ans('q2',1)">B) Ορίζεις ENVIRONMENT ως "Slot setting" — δεν swap-άρεται</li><li onclick="ans('q2',2)">C) Χρησιμοποιείς app.config file</li><li onclick="ans('q2',3)">D) Πρέπει να το αλλάξεις χειροκίνητα μετά το swap</li></ul>
+    <div class="qa" id="q2-a">✅ <strong>B — Slot setting.</strong> Variables marked as "Slot setting" stay with the slot during swap. Non-sticky settings swap with the app. Use sticky settings for environment-specific values like connection strings, API endpoints.</div>
+    <button class="qbtn" onclick="toggle('q2-a')">Show Answer</button>
+  </div>
+  <div class="box"><div class="box-t">📌 Key Facts — Ch08</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600;width:40%">Deployment Slots</td><td style="padding:6px 9px;color:var(--text2)">Standard+ tier. Swap = zero downtime. Sticky settings stay with slot.</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">Always On</td><td style="padding:6px 9px;color:var(--text2)">Prevents idle timeout. Requires Basic+.</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">VNet Integration</td><td style="padding:6px 9px;color:var(--text2)">Outbound — app connects to private resources. Standard+.</td></tr>
+      <tr><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">Scale Out vs Up</td><td style="padding:6px 9px;color:var(--text2)">Up = bigger instance (restart). Out = more instances (no restart).</td></tr>
+    </table>
+  </div>
+</section>
+<div class="nav">
+  <a href="az104-c07-arm-bicep.html" class="nb"><span class="nl">← Previous</span><span class="nt">Ch07. ARM & Bicep</span></a>
+  <a href="az104-c09-containers.html" class="nb next"><span class="nl">Next →</span><span class="nt">Ch09. Containers</span></a>
+</div>
+</main></div>
+<script>
+const correct={"q1":2,"q2":1};
+function ans(id,c){document.querySelectorAll("#"+id+" li").forEach((el,i)=>{el.classList.remove("ok","no");if(i===correct[id])el.classList.add("ok");else if(i===c&&c!==correct[id])el.classList.add("no");});document.getElementById(id+"-a").classList.add("show");}
+function toggle(id){document.getElementById(id).classList.toggle("show")}
+const secs=document.querySelectorAll("section[id]");const links=document.querySelectorAll("a.ta");
+window.addEventListener("scroll",()=>{let cur="";secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+cur));});
+</script></body></html>

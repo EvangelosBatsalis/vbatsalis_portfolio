@@ -1,0 +1,308 @@
+<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>AZ-104 Ch.06 — Virtual Machines</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>:root{--bg:#07090f;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--acc:#fb923c;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--display:'Syne',sans-serif}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}.hdr{background:linear-gradient(160deg,#040609,#07090f,#100703);border-bottom:1px solid var(--border);padding:48px 0 40px;position:relative;overflow:hidden}.hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(251,146,60,.06),transparent 65%)}.hdr-inner{max-width:1100px;margin:0 auto;padding:0 32px}.bc{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:14px}.bc a{color:var(--text3);text-decoration:none}.cbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.28);border-radius:4px;padding:5px 14px;font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}.cbadge::before{content:'◈'}.hdr h1{font-family:var(--display);font-size:clamp(26px,5vw,46px);font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px}.hdr h1 span{color:var(--acc)}.hdr-sub{color:var(--text2);font-size:15px;font-weight:300;margin-bottom:18px}.hdr-meta{display:flex;gap:18px;flex-wrap:wrap}.mp{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text3)}.mpd{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green)}.mpd.a{background:var(--acc);box-shadow:0 0 5px var(--acc)}.layout{max-width:1100px;margin:0 auto;padding:40px 32px;display:grid;grid-template-columns:268px 1fr;gap:40px;align-items:start}.sidebar{position:sticky;top:24px}.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}.toc-hdr{background:var(--bg3);padding:12px 18px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid var(--border)}.toc-body{padding:8px 0}.toc-sec{padding:5px 18px 2px;font-size:9px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:6px}.ta{display:flex;align-items:flex-start;gap:8px;padding:6px 18px;font-size:12.5px;color:var(--text2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}.ta:hover{color:var(--text);background:var(--card2);border-left-color:var(--acc)}.ta.active{color:var(--acc);background:rgba(251,146,60,.06);border-left-color:var(--acc);font-weight:600}.ta .tn{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:3px;flex-shrink:0;width:20px}.content{min-width:0}.ch-intro{background:linear-gradient(135deg,var(--card),var(--bg3));border:1px solid #1e2d4a;border-radius:10px;padding:26px;margin-bottom:30px}.ch-n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--acc);text-transform:uppercase;margin-bottom:6px}.ch-t{font-family:var(--display);font-size:22px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}.ch-desc{color:var(--text2);font-size:14px;line-height:1.7;margin-bottom:14px}.ch-stats{display:flex;gap:12px;flex-wrap:wrap}.stx{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:7px 12px;font-family:var(--mono);font-size:11px}.stx .l{color:var(--text3);display:block;margin-bottom:1px}.stx .v{color:var(--text);font-weight:600}.section{margin-bottom:46px;scroll-margin-top:24px}.sh{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}.si{width:36px;height:36px;background:rgba(251,146,60,.09);border:1px solid rgba(251,146,60,.22);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}.sn{font-family:var(--mono);font-size:10px;color:var(--text3)}.section h2{font-family:var(--display);font-size:19px;font-weight:700;color:#fff}.section h3{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);margin:22px 0 10px}.section h3::before{content:'▸ ';color:var(--acc)}.section p{color:var(--text2);margin-bottom:12px;font-size:14px}.section ul,.section ol{color:var(--text2);padding-left:22px;margin-bottom:12px}.section li{margin-bottom:6px;font-size:14px}.section li strong,.section p strong{color:var(--text)}.tbl{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:13px}.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:8px 12px;border-bottom:1px solid var(--border)}.tbl td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}.tbl tr:last-child td{border-bottom:none}.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:12px}.tbl tr:hover td{background:var(--card2)}pre{background:#050710;border:1px solid var(--border);border-left:3px solid var(--acc);border-radius:6px;padding:14px 18px;overflow-x:auto;margin-bottom:12px;font-family:var(--mono);font-size:12px;line-height:1.7}code{font-family:var(--mono);font-size:12px;color:#fdba74;background:rgba(251,186,116,.07);padding:2px 5px;border-radius:3px}pre code{background:none;padding:0;color:inherit}.kw{color:#c084fc}.param{color:#86efac}.val{color:#fbbf24}.cmt{color:#3d5068;font-style:italic}.str{color:#f472b6}.alert{display:flex;gap:12px;padding:12px 16px;border-radius:6px;margin-bottom:12px;font-size:13.5px}.ai{font-size:16px;flex-shrink:0;margin-top:1px}.ab{color:var(--text2);line-height:1.6}.ab strong{color:var(--text)}.tip{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18)}.tip .ai{color:#22c55e}.warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18)}.warn .ai{color:var(--yellow)}.exam{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.22)}.exam .ai{color:var(--purple)}.info{background:rgba(251,146,60,.05);border:1px solid rgba(251,146,60,.22)}.info .ai{color:var(--acc)}.box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:16px}.box.hl{border-color:rgba(251,146,60,.28)}.box-t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}.scen{background:var(--card);border:1px solid #1e2d4a;border-radius:8px;overflow:hidden;margin-bottom:20px}.sc-hdr{background:linear-gradient(90deg,rgba(251,146,60,.1),transparent);padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}.sc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.25);border-radius:3px;padding:2px 8px}.sc-title{font-size:13px;font-weight:600;color:var(--text)}.sc-body{padding:14px 18px}.sc-body p{color:var(--text2);font-size:13.5px;margin-bottom:10px}.sc-body p:last-child{margin-bottom:0}.sc-body strong{color:var(--text)}.steps{list-style:none;padding:0;counter-reset:st}.steps li{counter-increment:st;display:flex;gap:10px;margin-bottom:8px;align-items:flex-start;color:var(--text2);font-size:13.5px}.steps li::before{content:counter(st);min-width:20px;height:20px;background:rgba(251,146,60,.09);border:1px solid rgba(251,146,60,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--acc);flex-shrink:0;margin-top:2px}.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:16px}.cc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px}.cc h4{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--border)}.cc ul{list-style:none;padding:0}.cc li{font-size:12.5px;color:var(--text2);padding:3px 0 3px 14px;position:relative}.cc li::before{content:'→';position:absolute;left:0;color:var(--text3);font-size:10px}.badge{display:inline-flex;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:3px;font-weight:600;vertical-align:middle}.bg{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)}.by{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}.br{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25)}.ba{background:rgba(251,146,60,.1);color:var(--acc);border:1px solid rgba(251,146,60,.25)}hr{border:none;border-top:1px solid var(--border);margin:32px 0}.quiz{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:8px;padding:16px 20px;margin-bottom:16px}.qh{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:10px}.qq{font-size:14px;color:var(--text);font-weight:600;margin-bottom:10px}.qo{list-style:none;padding:0}.qo li{font-size:13px;color:var(--text2);padding:7px 10px;margin-bottom:4px;cursor:pointer;border-radius:4px;transition:background .15s;border-left:2px solid transparent}.qo li:hover{background:rgba(139,92,246,.07)}.qo li.ok{background:rgba(34,197,94,.07);color:#22c55e;border-left-color:#22c55e}.qo li.no{background:rgba(239,68,68,.07);color:#ef4444;border-left-color:#ef4444}.qa{display:none;margin-top:10px;padding:11px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:6px;font-size:13px;color:var(--text2)}.qa.show{display:block}.qbtn{margin-top:10px;padding:7px 14px;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.3);border-radius:5px;color:var(--purple);font-family:var(--mono);font-size:11px;cursor:pointer}.nav{display:flex;justify-content:space-between;margin-top:44px;padding-top:20px;border-top:1px solid var(--border);gap:14px}.nb{display:flex;flex-direction:column;gap:4px;padding:12px 18px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-decoration:none;flex:1;transition:all .2s}.nb:hover{border-color:var(--acc);background:var(--card2)}.nl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}.nt{font-size:13px;color:var(--text);font-weight:600}.nb.next{text-align:right}.sla-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}.sla-c{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}.sla-name{font-family:var(--mono);font-size:11px;color:var(--acc);margin-bottom:4px}.sla-val{font-family:var(--display);font-size:22px;font-weight:800;color:#fff;margin-bottom:4px}.sla-desc{font-size:11px;color:var(--text3)}@media(max-width:768px){.layout{grid-template-columns:1fr;padding:20px 16px}.sidebar{position:static}.sla-cards{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<header class="hdr"><div class="hdr-inner">
+  <div class="bc"><a href="az104-index.html">AZ-104</a> / <span>Chapter 06</span></div>
+  <div class="cbadge">Chapter 06 · Sections 11 &amp; 14</div>
+  <h1>Azure Virtual Machines<br><span>&amp; Disk Encryption</span></h1>
+  <p class="hdr-sub">VM Series · Disks · Availability Sets/Zones · VMSS · Bastion · SSE vs ADE</p>
+  <div class="hdr-meta"><div class="mp"><span class="mpd"></span>Domain 3 — 20–25%</div><div class="mp"><span class="mpd a"></span>Sections 11 &amp; 14 · Lessons 79–93, 108–109</div></div>
+</div></header>
+<div class="layout">
+<aside class="sidebar"><div class="toc"><div class="toc-hdr">Chapter 06 — VMs</div><div class="toc-body">
+  <div class="toc-sec">Section 11</div>
+  <a href="#s1" class="ta active"><span class="tn">11.1</span>VM Creation</a>
+  <a href="#s2" class="ta"><span class="tn">11.2</span>Disk Options</a>
+  <a href="#s3" class="ta"><span class="tn">11.3</span>VM Networking</a>
+  <a href="#s4" class="ta"><span class="tn">11.4</span>Connect (RDP/SSH/Bastion)</a>
+  <a href="#s5" class="ta"><span class="tn">11.5</span>VM Availability</a>
+  <a href="#s6" class="ta"><span class="tn">11.6</span>Resize &amp; Disks</a>
+  <a href="#s7" class="ta"><span class="tn">11.7</span>VM Scale Sets</a>
+  <div class="toc-sec">Section 14</div>
+  <a href="#s8" class="ta"><span class="tn">14</span>Disk Encryption SSE/ADE</a>
+  <a href="#s9" class="ta"><span class="tn">Q</span>Quiz</a>
+  <div class="toc-sec">Navigation</div>
+  <a href="az104-c05-storage.html" class="ta">← Ch05</a>
+  <a href="az104-c07-arm-bicep.html" class="ta">Ch07 →</a>
+</div></div></aside>
+<main class="content">
+<div class="ch-intro">
+  <div class="ch-n">Chapter 06 / Sections 11 &amp; 14</div>
+  <div class="ch-t">Azure Virtual Machines &amp; Disk Encryption</div>
+  <p class="ch-desc">Covers VM creation components, disk types, networking options, access methods (RDP/SSH/Bastion), availability (Sets vs Zones), resize, VM Scale Sets with autoscaling, and disk encryption (SSE vs ADE).</p>
+  <div class="ch-stats">
+    <div class="stx"><span class="l">Domain</span><span class="v">Domain 3 — 20–25%</span></div>
+    <div class="stx"><span class="l">Lessons</span><span class="v">79–93, 108–109</span></div>
+    <div class="stx"><span class="l">Difficulty</span><span class="v">⭐⭐⭐⭐ High</span></div>
+  </div>
+</div>
+
+<section class="section" id="s1">
+  <div class="sh"><div class="si">🖥️</div><div><div class="sn">Lesson 79 · 11.1</div><h2>Creating a Virtual Machine</h2></div></div>
+  <h3>VM Series</h3>
+  <table class="tbl"><thead><tr><th>Series</th><th>Χαρακτηριστικά</th><th>Use Case</th></tr></thead><tbody>
+    <tr><td>B-series <span class="badge bg">Burstable</span></td><td>Low baseline CPU, burst credits</td><td>Dev/test, web servers light load</td></tr>
+    <tr><td>D-series</td><td>Balanced CPU/RAM</td><td>General purpose, ERP, web apps</td></tr>
+    <tr><td>E-series</td><td>High memory ratio</td><td>SAP HANA, in-memory databases</td></tr>
+    <tr><td>F-series</td><td>High CPU, lower RAM</td><td>Batch processing, gaming</td></tr>
+    <tr><td>N-series</td><td>NVIDIA GPU</td><td>ML training, rendering</td></tr>
+    <tr><td>L-series</td><td>High storage IOPS</td><td>NoSQL, SQL, data warehousing</td></tr>
+  </tbody></table>
+  <h3>VM Size Naming</h3>
+  <div class="box hl"><div class="box-t">Size Format</div>
+    <p style="font-family:var(--mono);font-size:13px;color:var(--text2)"><span style="color:var(--acc)">Standard_D4s_v5</span><br>
+    Standard = tier | D = General purpose | 4 = 4 vCPUs | s = premium storage | v5 = 5th gen</p>
+  </div>
+  <h3>Key VM Creation Components</h3>
+  <ul>
+    <li><strong>Region:</strong> Affects latency, compliance, pricing</li>
+    <li><strong>Availability option:</strong> None, Availability Set, Availability Zone, VMSS</li>
+    <li><strong>Image:</strong> Windows Server, Ubuntu, RHEL, or custom</li>
+    <li><strong>Size:</strong> Series + vCPUs + RAM</li>
+    <li><strong>Authentication:</strong> Password or SSH key (Linux)</li>
+    <li><strong>Inbound ports:</strong> NSG rules (RDP 3389, SSH 22, HTTP 80)</li>
+    <li><strong>OS Disk:</strong> Managed disk type</li>
+    <li><strong>VNet/Subnet:</strong> Network placement</li>
+  </ul>
+  <pre><code><span class="cmt"># Create VM με CLI</span>
+az vm create \
+  --resource-group RG-Servers-GR \
+  --name SRV-APP-GR-01 \
+  --image Win2022Datacenter \
+  --size Standard_D4s_v5 \
+  --admin-username septonaadmin \
+  --vnet-name VNet-Production-GR \
+  --subnet Subnet-Servers \
+  --zone 1 \
+  --no-wait
+
+<span class="cmt"># Custom Script Extension — run PS after deploy</span>
+az vm extension set \
+  --resource-group RG-Servers-GR \
+  --vm-name SRV-APP-GR-01 \
+  --name CustomScriptExtension \
+  --publisher Microsoft.Compute \
+  --settings '{"commandToExecute":"powershell Install-WindowsFeature -Name Web-Server"}'</code></pre>
+</section><hr>
+
+<section class="section" id="s2">
+  <div class="sh"><div class="si">💾</div><div><div class="sn">Lesson 80 · 11.2</div><h2>Azure VM Disk Options</h2></div></div>
+  <h3>Managed Disk Types</h3>
+  <table class="tbl"><thead><tr><th>Type</th><th>Max IOPS</th><th>Latency</th><th>Use Case</th></tr></thead><tbody>
+    <tr><td>Ultra Disk</td><td>160,000</td><td>Sub-ms</td><td>SAP HANA, tier-1 DB</td></tr>
+    <tr><td>Premium SSD v2</td><td>80,000</td><td>Sub-ms</td><td>Production DB, ERP</td></tr>
+    <tr><td>Premium SSD <span class="badge bg">Common</span></td><td>20,000</td><td>Single-digit ms</td><td>Production workloads, OS disk</td></tr>
+    <tr><td>Standard SSD</td><td>6,000</td><td>Low-ms</td><td>Web servers, dev/test</td></tr>
+    <tr><td>Standard HDD</td><td>2,000</td><td>High-ms</td><td>Backup, archival</td></tr>
+  </tbody></table>
+  <h3>Disk Roles</h3>
+  <ul>
+    <li><strong>OS Disk:</strong> Every VM has one. Contains OS. Max 4 TiB.</li>
+    <li><strong>Data Disk:</strong> Additional storage. Count depends on VM size. Max 32 TiB each.</li>
+    <li><strong>Temporary Disk:</strong> <span style="color:#ef4444;font-weight:600">NON-PERSISTENT</span> — D: (Windows) or /dev/sdb (Linux). Lost on resize/redeploy/stop-deallocate. Only for pagefile/swap!</li>
+  </ul>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Temp disk data loss</strong> is expected behavior, NOT a bug. If exam asks "data in temp disk lost after resize" — that's correct. Never store important data on temp disk.</div></div>
+</section><hr>
+
+<section class="section" id="s3">
+  <div class="sh"><div class="si">🌐</div><div><div class="sn">Lesson 81 · 11.3</div><h2>VM Networking Options</h2></div></div>
+  <ul>
+    <li><strong>NIC (Network Interface Card):</strong> VM can have multiple NICs (depends on size)</li>
+    <li><strong>Public IP:</strong> Optional — for internet access. Static or Dynamic.</li>
+    <li><strong>Private IP:</strong> Always assigned from subnet. Static or Dynamic (DHCP).</li>
+    <li><strong>NSG:</strong> Can be associated with NIC or subnet</li>
+    <li><strong>Accelerated Networking:</strong> Hardware-accelerated, lower latency (supported on certain sizes)</li>
+    <li><strong>IP forwarding:</strong> Enable for network virtual appliances (NVA)</li>
+  </ul>
+  <div class="alert info"><span class="ai">💡</span><div class="ab"><strong>Best Practice:</strong> Avoid public IPs on VMs. Use Azure Bastion for management access. If internet-facing, put behind Load Balancer or Application Gateway.</div></div>
+</section><hr>
+
+<section class="section" id="s4">
+  <div class="sh"><div class="si">🔌</div><div><div class="sn">Lessons 83, 87 · 11.4</div><h2>Connect to a Virtual Machine</h2></div></div>
+  <table class="tbl"><thead><tr><th>Method</th><th>Protocol</th><th>Recommendation</th></tr></thead><tbody>
+    <tr><td>RDP</td><td>TCP 3389</td><td>⚠️ Never open 3389 to internet. Use Bastion or VPN.</td></tr>
+    <tr><td>SSH</td><td>TCP 22</td><td>⚠️ Use key auth, non-standard port, or Bastion.</td></tr>
+    <tr><td>Azure Bastion <span class="badge bg">Recommended</span></td><td>HTTPS 443</td><td>Browser-based RDP/SSH without public IP. Requires AzureBastionSubnet (/26 min).</td></tr>
+    <tr><td>Just-in-Time (JIT)</td><td>Configurable</td><td>Opens port ONLY on request, for specific time &amp; IP. Requires Defender for Cloud.</td></tr>
+    <tr><td>Run Command</td><td>Azure Agent</td><td>Execute scripts on VM via portal/CLI without network access.</td></tr>
+  </tbody></table>
+  <pre><code><span class="cmt"># Enable JIT access via CLI</span>
+az security jit-policy create \
+  --resource-group RG-Servers-GR \
+  --location westeurope \
+  --name JIT-Policy \
+  --virtual-machines '[{"id":"/subscriptions/.../VMs/SRV-APP-GR-01","ports":[{"number":3389,"protocol":"TCP","allowedSourceAddressPrefix":"MyIP","maxRequestAccessDuration":"PT3H"}]}]'</code></pre>
+</section><hr>
+
+<section class="section" id="s5">
+  <div class="sh"><div class="si">⚡</div><div><div class="sn">Lesson 84 · 11.5</div><h2>VM Availability</h2></div></div>
+  <div class="sla-cards">
+    <div class="sla-c"><div class="sla-name">Single VM (Premium SSD)</div><div class="sla-val">99.9%</div><div class="sla-desc">No HA configuration</div></div>
+    <div class="sla-c"><div class="sla-name">Availability Set</div><div class="sla-val">99.95%</div><div class="sla-desc">Same datacenter<br>Diff FD &amp; UD</div></div>
+    <div class="sla-c"><div class="sla-name">Availability Zone</div><div class="sla-val">99.99%</div><div class="sla-desc">Different physical<br>datacenters in region</div></div>
+  </div>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab">
+    <strong>Critical Differences:</strong><br>
+    • <strong>Availability Set:</strong> Same datacenter, different Fault Domains (power/network) and Update Domains. Protects from hardware failure and planned maintenance.<br>
+    • <strong>Availability Zone:</strong> Different physical buildings in same region. Protects from datacenter failure.<br>
+    • <strong>Cannot combine</strong> Availability Set + Availability Zone for same VM.<br>
+    • Cannot change availability option after VM creation — must recreate.
+  </div></div>
+  <pre><code><span class="cmt"># Create VM in Availability Zone 1</span>
+az vm create --zone 1 --name SRV-WEB-01 ...
+
+<span class="cmt"># Create Availability Set</span>
+az vm availability-set create \
+  --name AS-WebServers \
+  --resource-group RG-Servers-GR \
+  --platform-fault-domain-count 2 \
+  --platform-update-domain-count 5</code></pre>
+</section><hr>
+
+<section class="section" id="s6">
+  <div class="sh"><div class="si">📏</div><div><div class="sn">Lessons 85–86 · 11.6</div><h2>Resize VM &amp; Additional Disks</h2></div></div>
+  <h3>Resize VM</h3>
+  <ul>
+    <li>Resize = αλλαγή VM size (more CPU/RAM)</li>
+    <li>Αν νέο size διαθέσιμο στο cluster → resize χωρίς downtime (live migration)</li>
+    <li>Αν ΔΕΝ διαθέσιμο → VM deallocates, moves to different cluster, restarts</li>
+    <li><strong>Temp disk data ΧΑΝΕΤΑΙ</strong> κατά resize (always!)</li>
+  </ul>
+  <h3>Attach Data Disk</h3>
+  <pre><code><span class="cmt"># Attach new managed data disk</span>
+az vm disk attach \
+  --resource-group RG-Servers-GR \
+  --vm-name SRV-APP-GR-01 \
+  --name DataDisk-SQL-01 \
+  --size-gb 512 \
+  --sku Premium_LRS \
+  --new
+
+<span class="cmt"># After attach: initialize disk in OS (Windows)</span>
+<span class="cmt"># Disk Management → Initialize → New Simple Volume</span></code></pre>
+</section><hr>
+
+<section class="section" id="s7">
+  <div class="sh"><div class="si">📈</div><div><div class="sn">Lessons 88–90 · 11.7</div><h2>VM Scale Sets (VMSS)</h2></div></div>
+  <p><strong>VM Scale Sets</strong> = deploy και manage identical VMs με auto-scaling. Ιδανικά για stateless workloads.</p>
+  <div class="cg">
+    <div class="cc"><h4>Uniform VMSS</h4><ul>
+      <li>Identical VMs, same image</li>
+      <li>Max 1000 instances</li>
+      <li>Simple autoscale</li>
+      <li>Stateless workloads</li>
+    </ul></div>
+    <div class="cc"><h4>Flexible VMSS <span class="badge bg">Recommended</span></h4><ul>
+      <li>Mix VM sizes possible</li>
+      <li>Availability Zone support</li>
+      <li>Better HA</li>
+      <li>Max 1000 instances</li>
+    </ul></div>
+  </div>
+  <h3>Autoscale Rules</h3>
+  <ul>
+    <li>Scale out (add VMs): when CPU > 80% for 10 minutes → add 2 VMs</li>
+    <li>Scale in (remove VMs): when CPU &lt; 30% for 10 minutes → remove 1 VM</li>
+    <li><strong>Cooldown period:</strong> Wait after scale event before next evaluation (default: 5 min)</li>
+    <li><strong>Schedule-based scaling:</strong> Scale up Friday evening, scale down Monday morning</li>
+    <li>Min/Max instance count prevents runaway scaling</li>
+  </ul>
+</section><hr>
+
+<section class="section" id="s8">
+  <div class="sh"><div class="si">🔐</div><div><div class="sn">Lessons 108–109 · 14</div><h2>Disk Encryption: SSE vs ADE</h2></div></div>
+  <table class="tbl"><thead><tr><th></th><th>SSE (Server-Side Encryption)</th><th>ADE (Azure Disk Encryption)</th></tr></thead><tbody>
+    <tr><td>What encrypts</td><td>Azure infrastructure (automatic)</td><td>OS-level (BitLocker/DM-Crypt)</td></tr>
+    <tr><td>When</td><td>At rest in Azure storage</td><td>In-use (while VM is running)</td></tr>
+    <tr><td>Default</td><td>✅ Always on — cannot disable</td><td>❌ Must explicitly enable</td></tr>
+    <tr><td>Key management</td><td>MMK or CMK (Key Vault)</td><td>Key Vault required</td></tr>
+    <tr><td>OS visibility</td><td>Transparent to OS</td><td>OS sees encrypted disk</td></tr>
+    <tr><td>Use case</td><td>Standard protection (everyone)</td><td>Compliance requiring in-use encryption</td></tr>
+  </tbody></table>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>SSE vs ADE for exam:</strong> SSE = automatic, always on, protects at rest in Azure. ADE = you enable it, uses BitLocker (Windows) or DM-Crypt (Linux), encrypts the disk at the OS level so even Azure cannot read the disk content. ADE requires Azure Key Vault for key management.</div></div>
+  <pre><code><span class="cmt"># Enable ADE on existing VM</span>
+az vm encryption enable \
+  --resource-group RG-Servers-GR \
+  --name SRV-APP-GR-01 \
+  --disk-encryption-keyvault KeyVault-Septona-GR \
+  --volume-type All
+
+<span class="cmt"># Check encryption status</span>
+az vm encryption show \
+  --resource-group RG-Servers-GR \
+  --name SRV-APP-GR-01</code></pre>
+</section><hr>
+
+<section class="section" id="s9">
+  <div class="sh"><div class="si">🧠</div><div><div class="sn">Chapter 06</div><h2>Quiz — Virtual Machines</h2></div></div>
+  <div class="quiz"><div class="qh">◈ Q01</div>
+    <div class="qq">VM data που ήταν στο temporary disk εξαφανίστηκε μετά από resize. Τι έγινε;</div>
+    <ul class="qo" id="q1">
+      <li onclick="ans('q1',0)">A) Bug — άνοιξε support ticket</li>
+      <li onclick="ans('q1',1)">B) Expected — temp disk είναι non-persistent</li>
+      <li onclick="ans('q1',2)">C) OS corruption — restore from backup</li>
+      <li onclick="ans('q1',3)">D) Storage account sync failure</li>
+    </ul>
+    <div class="qa" id="q1-a">✅ <strong>B — Expected behavior.</strong> Temporary disk (D: on Windows, /dev/sdb on Linux) is non-persistent by design. Data is lost on resize, redeploy, or stop-deallocate. Only use it for pagefile/temp files.</div>
+    <button class="qbtn" onclick="toggle('q1-a')">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q02</div>
+    <div class="qq">Availability Set vs Availability Zone — ποιο SLA δίνει 99.99%;</div>
+    <ul class="qo" id="q2">
+      <li onclick="ans('q2',0)">A) Availability Set</li>
+      <li onclick="ans('q2',1)">B) Availability Zone</li>
+      <li onclick="ans('q2',2)">C) Και τα δύο</li>
+      <li onclick="ans('q2',3)">D) Single VM με Premium SSD</li>
+    </ul>
+    <div class="qa" id="q2-a">✅ <strong>B — Availability Zone.</strong> AZ = 99.99% SLA (different physical datacenters). AS = 99.95% (same datacenter, different FD/UD). Single VM Premium SSD = 99.9%.</div>
+    <button class="qbtn" onclick="toggle('q2-a')">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q03</div>
+    <div class="qq">Ποια method επιτρέπει RDP access σε VM χωρίς public IP και χωρίς open port 3389;</div>
+    <ul class="qo" id="q3">
+      <li onclick="ans('q3',0)">A) VPN + NSG rule για port 3389</li>
+      <li onclick="ans('q3',1)">B) Azure Bastion</li>
+      <li onclick="ans('q3',2)">C) Public IP + firewall</li>
+      <li onclick="ans('q3',3)">D) Run Command extension</li>
+    </ul>
+    <div class="qa" id="q3-a">✅ <strong>B — Azure Bastion.</strong> Bastion provides browser-based RDP/SSH over HTTPS (443) without public IP on the VM or open RDP/SSH ports. Requires AzureBastionSubnet (/26 min) in the VNet.</div>
+    <button class="qbtn" onclick="toggle('q3-a')">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q04</div>
+    <div class="qq">Compliance απαιτεί encryption of VM disks at the OS level (in-use). Ποιο feature;</div>
+    <ul class="qo" id="q4">
+      <li onclick="ans('q4',0)">A) SSE με MMK</li>
+      <li onclick="ans('q4',1)">B) SSE με CMK</li>
+      <li onclick="ans('q4',2)">C) Azure Disk Encryption (ADE)</li>
+      <li onclick="ans('q4',3)">D) Storage Account encryption</li>
+    </ul>
+    <div class="qa" id="q4-a">✅ <strong>C — ADE.</strong> Azure Disk Encryption uses BitLocker (Windows) or DM-Crypt (Linux) to encrypt at the OS level while the VM is running. SSE only encrypts data at rest in Azure storage — transparent to OS. ADE requires Key Vault.</div>
+    <button class="qbtn" onclick="toggle('q4-a')">Show Answer</button>
+  </div>
+  <div class="box"><div class="box-t">📌 Key Facts — Ch06</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600;width:38%">Temp disk</td><td style="padding:6px 10px;color:var(--text2)">Non-persistent. Lost on resize/redeploy. D: (Win), /dev/sdb (Linux).</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Avail Set SLA</td><td style="padding:6px 10px;color:var(--text2)">99.95% — same datacenter, different FD/UD</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Avail Zone SLA</td><td style="padding:6px 10px;color:var(--text2)">99.99% — different physical datacenters in region</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Cannot combine</td><td style="padding:6px 10px;color:var(--text2)">AS + AZ not allowed for same VM</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">Azure Bastion</td><td style="padding:6px 10px;color:var(--text2)">Browser RDP/SSH via HTTPS. No public IP needed. AzureBastionSubnet /26.</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">SSE</td><td style="padding:6px 10px;color:var(--text2)">Always on, at-rest only, transparent to OS</td></tr>
+      <tr><td style="padding:6px 10px;color:var(--text);font-family:var(--mono);font-weight:600">ADE</td><td style="padding:6px 10px;color:var(--text2)">BitLocker/DM-Crypt, in-use encryption, requires Key Vault</td></tr>
+    </table>
+  </div>
+</section>
+<div class="nav">
+  <a href="az104-c05-storage.html" class="nb"><span class="nl">← Previous</span><span class="nt">Ch05. Storage</span></a>
+  <a href="az104-c07-arm-bicep.html" class="nb next"><span class="nl">Next →</span><span class="nt">Ch07. ARM &amp; Bicep</span></a>
+</div>
+</main></div>
+<script>
+const correct={q1:1,q2:1,q3:1,q4:2};
+function ans(id,c){document.querySelectorAll('#'+id+' li').forEach((el,i)=>{el.classList.remove('ok','no');if(i===correct[id])el.classList.add('ok');else if(i===c&&c!==correct[id])el.classList.add('no');});document.getElementById(id+'-a').classList.add('show');}
+function toggle(id){document.getElementById(id).classList.toggle('show')}
+const secs=document.querySelectorAll('section[id]');const links=document.querySelectorAll('a.ta');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));});
+</script>
+</body></html>

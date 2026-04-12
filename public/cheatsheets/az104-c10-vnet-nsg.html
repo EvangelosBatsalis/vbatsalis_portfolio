@@ -1,0 +1,431 @@
+<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>AZ-104 Ch.10 — VNets, DNS & NSG</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>:root{--bg:#07090f;--bg3:#0f1525;--card:#0d1120;--card2:#111827;--border:#1a2540;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--acc:#a3e635;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--display:'Syne',sans-serif}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7}
+.hdr{background:linear-gradient(160deg,#040609,#07090f,#060f02);border-bottom:1px solid var(--border);padding:48px 0 40px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(163,230,53,.06),transparent 65%)}
+.hdr-inner{max-width:1100px;margin:0 auto;padding:0 32px}.bc{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:13px}.bc a{color:var(--text3);text-decoration:none}
+.cbadge{display:inline-flex;gap:7px;background:rgba(163,230,53,.08);border:1px solid rgba(163,230,53,.28);border-radius:4px;padding:5px 13px;font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:.1em;text-transform:uppercase;margin-bottom:13px}
+.hdr h1{font-family:var(--display);font-size:clamp(24px,5vw,44px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:10px}.hdr h1 span{color:var(--acc)}
+.hdr-sub{color:var(--text2);font-size:14px;margin-bottom:17px}.hdr-meta{display:flex;gap:16px;flex-wrap:wrap}.mp{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text3)}.mpd{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green)}.mpd.a{background:var(--acc);box-shadow:0 0 5px var(--acc)}
+.layout{max-width:1100px;margin:0 auto;padding:40px 32px;display:grid;grid-template-columns:260px 1fr;gap:38px;align-items:start}
+.sidebar{position:sticky;top:24px}.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.toc-hdr{background:var(--bg3);padding:11px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid var(--border)}
+.toc-body{padding:6px 0}.toc-sec{padding:5px 16px 2px;font-size:9px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:5px}
+.ta{display:flex;align-items:flex-start;gap:8px;padding:5px 16px;font-size:12px;color:var(--text2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}
+.ta:hover{color:var(--text);background:var(--card2);border-left-color:var(--acc)}.ta.active{color:var(--acc);background:rgba(163,230,53,.06);border-left-color:var(--acc);font-weight:600}
+.ta .tn{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:2px;flex-shrink:0;width:18px}
+.content{min-width:0}.ch-intro{background:linear-gradient(135deg,var(--card),var(--bg3));border:1px solid #1e2d4a;border-radius:10px;padding:24px;margin-bottom:28px}
+.ch-n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--acc);text-transform:uppercase;margin-bottom:5px}
+.ch-t{font-family:var(--display);font-size:21px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:9px}
+.ch-desc{color:var(--text2);font-size:13.5px;line-height:1.7;margin-bottom:13px}
+.ch-stats{display:flex;gap:11px;flex-wrap:wrap}.stx{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:6px 11px;font-family:var(--mono);font-size:11px}
+.stx .l{color:var(--text3);display:block;margin-bottom:1px}.stx .v{color:var(--text);font-weight:600}
+.section{margin-bottom:42px;scroll-margin-top:24px}
+.sh{display:flex;align-items:center;gap:11px;margin-bottom:15px;padding-bottom:11px;border-bottom:1px solid var(--border)}
+.si{width:34px;height:34px;background:rgba(163,230,53,.09);border:1px solid rgba(163,230,53,.22);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.sn{font-family:var(--mono);font-size:10px;color:var(--text3)}.section h2{font-family:var(--display);font-size:18px;font-weight:700;color:#fff}
+.section h3{font-family:var(--display);font-size:14px;font-weight:700;color:var(--text);margin:20px 0 9px}.section h3::before{content:'▸ ';color:var(--acc)}
+.section p{color:var(--text2);margin-bottom:11px;font-size:14px}.section ul,.section ol{color:var(--text2);padding-left:20px;margin-bottom:11px}
+.section li{margin-bottom:5px;font-size:14px}.section li strong,.section p strong{color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;margin-bottom:15px;font-size:13px}
+.tbl th{background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:8px 11px;border-bottom:1px solid var(--border)}
+.tbl td{padding:8px 11px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{font-family:var(--mono);color:var(--text);font-weight:600;font-size:12px}.tbl tr:hover td{background:var(--card2)}
+pre{background:#050710;border:1px solid var(--border);border-left:3px solid var(--acc);border-radius:6px;padding:13px 16px;overflow-x:auto;margin-bottom:11px;font-family:var(--mono);font-size:12px;line-height:1.7}
+code{font-family:var(--mono);font-size:12px;color:#bef264;background:rgba(190,242,100,.07);padding:2px 5px;border-radius:3px}pre code{background:none;padding:0;color:inherit}
+.cmt{color:#3d5068;font-style:italic}.str{color:#f472b6}.param{color:#86efac}.val{color:#fbbf24}
+.alert{display:flex;gap:11px;padding:11px 15px;border-radius:6px;margin-bottom:11px;font-size:13px}
+.ai{font-size:15px;flex-shrink:0;margin-top:1px}.ab{color:var(--text2);line-height:1.6}.ab strong{color:var(--text)}
+.tip{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18)}.tip .ai{color:#22c55e}
+.warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18)}.warn .ai{color:var(--yellow)}
+.exam{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.22)}.exam .ai{color:var(--purple)}
+.info{background:rgba(163,230,53,.05);border:1px solid rgba(163,230,53,.22)}.info .ai{color:var(--acc)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:15px 18px;margin-bottom:15px}
+.box.hl{border-color:rgba(163,230,53,.28)}.box-t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:9px}
+.scen{background:var(--card);border:1px solid #1e2d4a;border-radius:8px;overflow:hidden;margin-bottom:18px}
+.sc-hdr{background:linear-gradient(90deg,rgba(163,230,53,.1),transparent);padding:10px 15px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--border)}
+.sc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);background:rgba(163,230,53,.08);border:1px solid rgba(163,230,53,.25);border-radius:3px;padding:2px 7px}
+.sc-title{font-size:13px;font-weight:600;color:var(--text)}.sc-body{padding:13px 16px}
+.sc-body p{color:var(--text2);font-size:13px;margin-bottom:9px}.sc-body p:last-child{margin-bottom:0}.sc-body strong{color:var(--text)}
+.steps{list-style:none;padding:0;counter-reset:st}.steps li{counter-increment:st;display:flex;gap:9px;margin-bottom:7px;align-items:flex-start;color:var(--text2);font-size:13px}
+.steps li::before{content:counter(st);min-width:19px;height:19px;background:rgba(163,230,53,.09);border:1px solid rgba(163,230,53,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--acc);flex-shrink:0;margin-top:2px}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:11px;margin-bottom:15px}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:13px}
+.cc h4{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:7px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.cc ul{list-style:none;padding:0}.cc li{font-size:12px;color:var(--text2);padding:3px 0 3px 13px;position:relative}
+.cc li::before{content:'→';position:absolute;left:0;color:var(--text3);font-size:10px}
+.badge{display:inline-flex;font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:3px;font-weight:600;vertical-align:middle}
+.bg{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)}
+.by{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}
+.br{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25)}
+.ba{background:rgba(163,230,53,.1);color:var(--acc);border:1px solid rgba(163,230,53,.25)}
+hr{border:none;border-top:1px solid var(--border);margin:30px 0}
+.quiz{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.22);border-radius:7px;padding:15px 18px;margin-bottom:15px}
+.qh{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:9px}
+.qq{font-size:14px;color:var(--text);font-weight:600;margin-bottom:9px}
+.qo{list-style:none;padding:0}.qo li{font-size:13px;color:var(--text2);padding:6px 9px;margin-bottom:3px;cursor:pointer;border-radius:4px;transition:background .15s;border-left:2px solid transparent}
+.qo li:hover{background:rgba(139,92,246,.07)}.qo li.ok{background:rgba(34,197,94,.07);color:#22c55e;border-left-color:#22c55e}
+.qo li.no{background:rgba(239,68,68,.07);color:#ef4444;border-left-color:#ef4444}
+.qa{display:none;margin-top:9px;padding:10px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:5px;font-size:13px;color:var(--text2)}.qa.show{display:block}
+.qbtn{margin-top:9px;padding:6px 13px;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.3);border-radius:4px;color:var(--purple);font-family:var(--mono);font-size:11px;cursor:pointer}
+.nav{display:flex;justify-content:space-between;margin-top:40px;padding-top:18px;border-top:1px solid var(--border);gap:13px}
+.nb{display:flex;flex-direction:column;gap:3px;padding:11px 16px;background:var(--card);border:1px solid var(--border);border-radius:7px;text-decoration:none;flex:1;transition:all .2s}
+.nb:hover{border-color:var(--acc);background:var(--card2)}.nl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}
+.nt{font-size:13px;color:var(--text);font-weight:600}.nb.next{text-align:right}
+.subnet-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px}
+.sn2{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:12px;text-align:center}
+.sn2-name{font-family:var(--mono);font-size:10px;color:var(--acc);margin-bottom:3px}.sn2-ip{font-size:18px;font-weight:800;color:#fff;font-family:var(--display)}
+.sn2-info{font-size:10px;color:var(--text3);margin-top:3px}
+@media(max-width:768px){.layout{grid-template-columns:1fr;padding:18px 14px}.sidebar{position:static}.subnet-row{grid-template-columns:1fr 1fr}}</style>
+</head><body>
+<header class="hdr"><div class="hdr-inner">
+  <div class="bc"><a href="az104-index.html">AZ-104</a> / Chapter 10</div>
+  <div class="cbadge">Chapter 10 · Sections 17–20 · ⭐ BIGGEST DOMAIN</div>
+  <h1>VNets, Peering,<br><span>DNS &amp; NSG</span></h1>
+  <p class="hdr-sub">VNets · Subnets · Public IPs · VNet Peering · VPN Gateway · DNS · NSG · ASG</p>
+  <div class="hdr-meta"><div class="mp"><span class="mpd"></span>Domain 4 — 25–30%</div><div class="mp"><span class="mpd a"></span>Sections 17–20 · Lessons 130–150</div></div>
+</div></header>
+<div class="layout">
+<aside class="sidebar"><div class="toc"><div class="toc-hdr">Chapter 10 — VNets &amp; NSG</div><div class="toc-body">
+  <div class="toc-sec">Section 17 — VNets</div>
+  <a href="#s1" class="ta active"><span class="tn">17.1</span>Virtual Networks</a>
+  <a href="#s2" class="ta"><span class="tn">17.2</span>Subnets &amp; Reserved IPs</a>
+  <a href="#s3" class="ta"><span class="tn">17.3</span>Public IP Addresses</a>
+  <div class="toc-sec">Section 18 — Peering</div>
+  <a href="#s4" class="ta"><span class="tn">18.1</span>VNet Peering</a>
+  <a href="#s5" class="ta"><span class="tn">18.2</span>VNet Gateway</a>
+  <div class="toc-sec">Section 19 — DNS</div>
+  <a href="#s6" class="ta"><span class="tn">19.1</span>Azure DNS</a>
+  <a href="#s7" class="ta"><span class="tn">19.2</span>Private DNS Zones</a>
+  <div class="toc-sec">Section 20 — NSG &amp; ASG</div>
+  <a href="#s8" class="ta"><span class="tn">20.1</span>NSG Rules</a>
+  <a href="#s9" class="ta"><span class="tn">20.2</span>ASG</a>
+  <a href="#s10" class="ta"><span class="tn">Q</span>Quiz</a>
+  <div class="toc-sec">Navigation</div>
+  <a href="az104-c09-containers.html" class="ta">← Ch09</a>
+  <a href="az104-c11-load-balancing.html" class="ta">Ch11 →</a>
+</div></div></aside>
+<main class="content">
+<div class="ch-intro">
+  <div class="ch-n">Chapter 10 / Sections 17–20 · ⭐ BIGGEST DOMAIN 25–30%</div>
+  <div class="ch-t">VNets, Peering, DNS &amp; NSG</div>
+  <p class="ch-desc">Networking is the BIGGEST AZ-104 domain. Master: VNet creation and subnetting, VNet Peering (non-transitive), VPN Gateway for Azure-to-Azure connectivity, Azure DNS (public + private zones), NSG rules (dual-level AND logic), and Application Security Groups.</p>
+  <div class="ch-stats">
+    <div class="stx"><span class="l">Domain Weight</span><span class="v">25–30% ⭐</span></div>
+    <div class="stx"><span class="l">Sections</span><span class="v">17–20 · Lessons 130–150</span></div>
+    <div class="stx"><span class="l">Difficulty</span><span class="v">⭐⭐⭐⭐⭐ Hardest</span></div>
+  </div>
+</div>
+
+<section class="section" id="s1">
+  <div class="sh"><div class="si">🌐</div><div><div class="sn">Lesson 130 · 17.1</div><h2>Virtual Networks (VNets)</h2></div></div>
+  <p>A <strong>Virtual Network (VNet)</strong> is your isolated private network in Azure — equivalent to an on-premises network segment. Resources in the same VNet can communicate by default.</p>
+  <ul>
+    <li><strong>Address space:</strong> One or more CIDR ranges (e.g., 10.10.0.0/16)</li>
+    <li><strong>Region-bound:</strong> VNet belongs to one region — resources in same VNet must be in same region</li>
+    <li><strong>Subnets:</strong> VNet divided into subnets — each subnet is a range within VNet address space</li>
+    <li><strong>No overlapping:</strong> Peered VNets cannot have overlapping address spaces</li>
+    <li><strong>VNet-to-VNet:</strong> By default, VNets are isolated — use Peering or VPN Gateway to connect</li>
+  </ul>
+  <pre><code><span class="cmt"># Create VNet with two subnets</span>
+az network vnet create \
+  --name VNet-Production-GR \
+  --resource-group RG-Network-GR \
+  --location westeurope \
+  --address-prefix 10.10.0.0/16 \
+  --subnet-name Subnet-Servers \
+  --subnet-prefix 10.10.1.0/24
+
+az network vnet subnet create \
+  --name Subnet-DMZ \
+  --resource-group RG-Network-GR \
+  --vnet-name VNet-Production-GR \
+  --address-prefix 10.10.2.0/24</code></pre>
+  <div class="scen">
+    <div class="sc-hdr"><span class="sc-tag">Realistic Scenario</span><span class="sc-title">Septona Azure Network Architecture</span></div>
+    <div class="sc-body">
+      <p><strong>VNet-Production-GR: 10.10.0.0/16</strong><br>
+      ├── Subnet-Servers: 10.10.1.0/24 (VMs, app servers)<br>
+      ├── Subnet-DB: 10.10.2.0/24 (Azure SQL, no public internet)<br>
+      ├── Subnet-Management: 10.10.3.0/24 (Bastion, jump hosts)<br>
+      ├── AzureBastionSubnet: 10.10.255.0/26 (required name, /26 min)<br>
+      └── GatewaySubnet: 10.10.254.0/27 (required name for VPN GW)</p>
+      <p>Αυτό αντιστοιχεί στο FortiGate VLAN setup που χρησιμοποιείς στο Septona on-prem!</p>
+    </div>
+  </div>
+</section><hr>
+
+<section class="section" id="s2">
+  <div class="sh"><div class="si">📐</div><div><div class="sn">Lessons 131–132 · 17.2</div><h2>Subnets &amp; Reserved IPs</h2></div></div>
+  <h3>Azure Reserved IPs per Subnet</h3>
+  <p>Azure reserves <strong>5 IP addresses</strong> in every subnet:</p>
+  <div class="subnet-row">
+    <div class="sn2"><div class="sn2-name">.0</div><div class="sn2-ip">Net</div><div class="sn2-info">Network address</div></div>
+    <div class="sn2"><div class="sn2-name">.1</div><div class="sn2-ip">GW</div><div class="sn2-info">Default gateway</div></div>
+    <div class="sn2"><div class="sn2-name">.2-.3</div><div class="sn2-ip">DNS</div><div class="sn2-info">Azure DNS</div></div>
+    <div class="sn2"><div class="sn2-name">.255</div><div class="sn2-ip">Bcast</div><div class="sn2-info">Broadcast</div></div>
+  </div>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab">
+    <strong>/29 subnet calculation:</strong> 2^3 = 8 IPs total − 5 reserved = <strong>3 usable for VMs</strong><br>
+    <strong>/28 subnet:</strong> 16 − 5 = <strong>11 usable</strong><br>
+    <strong>/27 subnet:</strong> 32 − 5 = <strong>27 usable</strong> (minimum for GatewaySubnet)<br>
+    <strong>GatewaySubnet MUST be named exactly "GatewaySubnet"</strong> — any other name and VPN GW won't deploy.
+  </div></div>
+  <h3>Special Subnets</h3>
+  <table class="tbl"><thead><tr><th>Subnet Name</th><th>Purpose</th><th>Min Size</th><th>Rules</th></tr></thead><tbody>
+    <tr><td>GatewaySubnet</td><td>VPN Gateway deployment</td><td>/27</td><td>Exact name required. No other resources.</td></tr>
+    <tr><td>AzureBastionSubnet</td><td>Azure Bastion deployment</td><td>/26</td><td>Exact name required. Dedicated.</td></tr>
+    <tr><td>AzureFirewallSubnet</td><td>Azure Firewall</td><td>/26</td><td>Exact name required.</td></tr>
+  </tbody></table>
+</section><hr>
+
+<section class="section" id="s3">
+  <div class="sh"><div class="si">🌍</div><div><div class="sn">Lessons 133–135 · 17.3</div><h2>Public IP Addresses</h2></div></div>
+  <table class="tbl"><thead><tr><th></th><th>Dynamic</th><th>Static</th></tr></thead><tbody>
+    <tr><td>Allocation</td><td>Assigned at start, released on stop</td><td>Fixed — never changes</td></tr>
+    <tr><td>Changes on deallocate</td><td>✅ Yes — different IP on restart</td><td>❌ No — same always</td></tr>
+    <tr><td>SKU: Basic</td><td>Available (legacy)</td><td>Available (legacy)</td></tr>
+    <tr><td>SKU: Standard <span class="badge bg">Current</span></td><td>N/A — always static</td><td>✅ Zone redundant</td></tr>
+    <tr><td>Use case</td><td>Dev/test, temporary</td><td>DNS, firewall rules, VPN</td></tr>
+  </tbody></table>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Standard LB requires Standard Public IP.</strong> Cannot mix Basic and Standard SKUs. Standard IPs are closed by default — need NSG to allow inbound traffic.</div></div>
+</section><hr>
+
+<section class="section" id="s4">
+  <div class="sh"><div class="si">🔗</div><div><div class="sn">Lessons 136–137 · 18.1</div><h2>VNet Peering</h2></div></div>
+  <p><strong>VNet Peering</strong> connects two VNets — traffic flows via Azure backbone (not internet). Low latency, high bandwidth.</p>
+  <div class="cg">
+    <div class="cc"><h4>Local Peering</h4><ul>
+      <li>Same region</li>
+      <li>Very low latency</li>
+      <li>No gateway required</li>
+      <li>Free data transfer</li>
+    </ul></div>
+    <div class="cc"><h4>Global Peering</h4><ul>
+      <li>Different regions</li>
+      <li>Low latency</li>
+      <li>Cross-region charges</li>
+      <li>No gateway required</li>
+    </ul></div>
+  </div>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab">
+    <strong>Peering is NON-TRANSITIVE:</strong><br>
+    VNet-A peered with VNet-B. VNet-B peered with VNet-C.<br>
+    VNet-A CANNOT reach VNet-C automatically!<br>
+    Need: A↔C direct peering OR hub-spoke topology with gateway transit.<br><br>
+    <strong>Peering requirements:</strong> No overlapping address spaces. Both directions must be configured.
+  </div></div>
+  <pre><code><span class="cmt"># Peer VNet-GR ↔ VNet-BG (must create both directions)</span>
+az network vnet peering create \
+  --name GR-to-BG \
+  --resource-group RG-Network-GR \
+  --vnet-name VNet-Production-GR \
+  --remote-vnet /subscriptions/BG-SUB-ID/resourceGroups/RG-Network-BG/providers/Microsoft.Network/virtualNetworks/VNet-Production-BG \
+  --allow-vnet-access
+
+az network vnet peering create \
+  --name BG-to-GR \
+  --resource-group RG-Network-BG \
+  --vnet-name VNet-Production-BG \
+  --remote-vnet /subscriptions/GR-SUB-ID/.../VNet-Production-GR \
+  --allow-vnet-access</code></pre>
+</section><hr>
+
+<section class="section" id="s5">
+  <div class="sh"><div class="si">🔌</div><div><div class="sn">Lessons 138–139 · 18.2</div><h2>VNet Gateway (Azure-to-Azure)</h2></div></div>
+  <p><strong>VNet Gateway</strong> provides encrypted connectivity between VNets or between Azure and on-premises via IPSec/IKE tunnels.</p>
+  <table class="tbl"><thead><tr><th>Type</th><th>Purpose</th><th>Protocol</th></tr></thead><tbody>
+    <tr><td>VPN Gateway</td><td>Encrypted tunnel via internet</td><td>IPSec/IKE</td></tr>
+    <tr><td>ExpressRoute GW</td><td>Private dedicated connection</td><td>BGP (no internet)</td></tr>
+  </tbody></table>
+  <h3>VPN Gateway vs VNet Peering</h3>
+  <table class="tbl"><thead><tr><th></th><th>VNet Peering</th><th>VPN Gateway</th></tr></thead><tbody>
+    <tr><td>Latency</td><td>Lower</td><td>Higher (encryption overhead)</td></tr>
+    <tr><td>Bandwidth</td><td>Higher</td><td>Lower (GW dependent)</td></tr>
+    <tr><td>Cost</td><td>Cheaper (data transfer)</td><td>GW hourly + data</td></tr>
+    <tr><td>Transitive</td><td>❌ No</td><td>✅ Yes (gateway transit)</td></tr>
+    <tr><td>Cross-subscription</td><td>✅ Yes</td><td>✅ Yes</td></tr>
+    <tr><td>On-premises</td><td>❌ No</td><td>✅ Yes (S2S VPN)</td></tr>
+  </tbody></table>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab"><strong>Gateway Transit:</strong> Hub-spoke topology. Hub VNet has VPN GW. Spoke VNets peer with hub and enable "Use Remote Gateway" — spokes can reach on-premises through hub's gateway. This IS transitive via gateway.</div></div>
+</section><hr>
+
+<section class="section" id="s6">
+  <div class="sh"><div class="si">🔤</div><div><div class="sn">Lessons 141–143 · 19.1</div><h2>Azure DNS</h2></div></div>
+  <h3>Public DNS Zones</h3>
+  <ul>
+    <li>Host your domain's DNS records in Azure (NS records at registrar)</li>
+    <li>Create: Portal → DNS Zones → Create → enter domain name (e.g., septona.gr)</li>
+    <li>Azure gives you 4 name servers — update at domain registrar</li>
+    <li>Add A, CNAME, MX, TXT records as needed</li>
+  </ul>
+  <h3>Azure-Provided DNS</h3>
+  <p>By default, VNet uses Azure DNS (168.63.129.16) which resolves:</p>
+  <ul>
+    <li>Public DNS (internet names)</li>
+    <li>VM hostnames within same VNet (FQDN: <code>vmname.internal.cloudapp.net</code>)</li>
+    <li><strong>NOT</strong> across peered VNets unless using Private DNS Zones</li>
+  </ul>
+</section><hr>
+
+<section class="section" id="s7">
+  <div class="sh"><div class="si">🔒</div><div><div class="sn">Lesson 142 · 19.2</div><h2>Private DNS Zones</h2></div></div>
+  <p><strong>Private DNS Zones</strong> allow custom DNS name resolution within VNets without exposing to internet.</p>
+  <pre><code><span class="cmt"># Create private DNS zone</span>
+az network private-dns zone create \
+  --resource-group RG-Network-GR \
+  --name septona.internal
+
+<span class="cmt"># Link to VNet (enable auto-registration)</span>
+az network private-dns link vnet create \
+  --resource-group RG-Network-GR \
+  --zone-name septona.internal \
+  --name Link-VNet-Production-GR \
+  --virtual-network VNet-Production-GR \
+  --registration-enabled true
+
+<span class="cmt"># With registration=true, VMs in VNet auto-register their hostnames</span>
+<span class="cmt"># SRV-APP-GR-01 → srv-app-gr-01.septona.internal</span></code></pre>
+  <div class="alert info"><span class="ai">💡</span><div class="ab"><strong>Auto-registration:</strong> Enable on at most 1 VNet per private zone. Can LINK (without registration) to up to 1000 VNets. VMs auto-register A and PTR records when auto-registration enabled.</div></div>
+</section><hr>
+
+<section class="section" id="s8">
+  <div class="sh"><div class="si">🛡️</div><div><div class="sn">Lessons 146–148 · 20.1</div><h2>Network Security Groups (NSG)</h2></div></div>
+  <p>NSGs contain <strong>security rules</strong> that allow or deny inbound/outbound network traffic. Applied at subnet or NIC level.</p>
+  <h3>NSG Rule Properties</h3>
+  <table class="tbl"><thead><tr><th>Property</th><th>Options</th></tr></thead><tbody>
+    <tr><td>Priority</td><td>100–4096 — lower number = processed first</td></tr>
+    <tr><td>Source/Destination</td><td>Any, IP/CIDR, Service Tag, ASG</td></tr>
+    <tr><td>Protocol</td><td>Any, TCP, UDP, ICMP</td></tr>
+    <tr><td>Port</td><td>Single, range (80-443), * for any</td></tr>
+    <tr><td>Action</td><td>Allow or Deny</td></tr>
+    <tr><td>Direction</td><td>Inbound or Outbound</td></tr>
+  </tbody></table>
+  <h3>Default Rules (cannot delete)</h3>
+  <table class="tbl"><thead><tr><th>Rule</th><th>Direction</th><th>What it does</th></tr></thead><tbody>
+    <tr><td>AllowVnetInBound (65000)</td><td>Inbound</td><td>Allow traffic from VNet</td></tr>
+    <tr><td>AllowAzureLoadBalancerInBound (65001)</td><td>Inbound</td><td>Allow from Azure LB health probes</td></tr>
+    <tr><td>DenyAllInBound (65500)</td><td>Inbound</td><td>Deny all other inbound</td></tr>
+    <tr><td>AllowVnetOutBound (65000)</td><td>Outbound</td><td>Allow to VNet</td></tr>
+    <tr><td>AllowInternetOutBound (65001)</td><td>Outbound</td><td>Allow to internet</td></tr>
+    <tr><td>DenyAllOutBound (65500)</td><td>Outbound</td><td>Deny all other outbound</td></tr>
+  </tbody></table>
+  <div class="alert exam"><span class="ai">🎯</span><div class="ab">
+    <strong>NSG Dual-Level = AND Logic:</strong><br>
+    NSG on Subnet AND NSG on NIC = BOTH must allow traffic for it to pass.<br>
+    If Subnet NSG allows port 443 but NIC NSG denies it → traffic is DENIED.<br><br>
+    <strong>Standard LB:</strong> Closed by default. Must add NSG rule to allow inbound.<br>
+    <strong>Basic LB:</strong> Open by default.
+  </div></div>
+  <h3>Service Tags</h3>
+  <p>Pre-defined groups of IP ranges maintained by Microsoft — simplify rules:</p>
+  <ul>
+    <li><code>Internet</code> — all public IP space</li>
+    <li><code>VirtualNetwork</code> — VNet + peered VNets address space</li>
+    <li><code>AzureLoadBalancer</code> — LB health probe IPs</li>
+    <li><code>Storage</code> — Azure Storage service IPs (region-specific: Storage.WestEurope)</li>
+    <li><code>Sql</code> — Azure SQL IPs</li>
+    <li><code>AppService</code> — App Service outbound IPs</li>
+  </ul>
+  <pre><code><span class="cmt"># Allow HTTPS from internet to web servers</span>
+az network nsg rule create \
+  --resource-group RG-Network-GR \
+  --nsg-name NSG-WebServers \
+  --name Allow-HTTPS-Inbound \
+  --priority 100 \
+  --direction Inbound \
+  --source-address-prefixes Internet \
+  --destination-port-ranges 443 \
+  --protocol Tcp \
+  --access Allow
+
+<span class="cmt"># Deny all from internet to DB subnet</span>
+az network nsg rule create \
+  --resource-group RG-Network-GR \
+  --nsg-name NSG-Database \
+  --name Deny-Internet-Inbound \
+  --priority 200 \
+  --direction Inbound \
+  --source-address-prefixes Internet \
+  --destination-port-ranges '*' \
+  --access Deny</code></pre>
+</section><hr>
+
+<section class="section" id="s9">
+  <div class="sh"><div class="si">🏷️</div><div><div class="sn">Lesson 148 · 20.2</div><h2>Application Security Groups (ASG)</h2></div></div>
+  <p><strong>ASGs</strong> let you group VMs by application role and use those groups in NSG rules — instead of managing IP addresses.</p>
+  <pre><code><span class="cmt"># Create ASGs for application roles</span>
+az network asg create --name ASG-WebServers --resource-group RG-Network-GR
+az network asg create --name ASG-DatabaseServers --resource-group RG-Network-GR
+
+<span class="cmt"># Associate VM NIC with ASG</span>
+az network nic ip-config update \
+  --resource-group RG-Network-GR \
+  --nic-name SRV-WEB-01-NIC \
+  --name ipconfig1 \
+  --application-security-groups ASG-WebServers
+
+<span class="cmt"># NSG rule using ASG (instead of IP addresses)</span>
+az network nsg rule create \
+  --resource-group RG-Network-GR \
+  --nsg-name NSG-Production \
+  --name WebToDb \
+  --priority 100 \
+  --source-asgs ASG-WebServers \
+  --destination-asgs ASG-DatabaseServers \
+  --destination-port-ranges 1433 \
+  --access Allow</code></pre>
+  <div class="alert tip"><span class="ai">✅</span><div class="ab"><strong>ASG benefit:</strong> When you add a new web server VM, just associate its NIC with ASG-WebServers — automatically inherits all NSG rules. No IP changes needed in rules. Scales cleanly to 100s of VMs.</div></div>
+</section><hr>
+
+<section class="section" id="s10">
+  <div class="sh"><div class="si">🧠</div><div><div class="sn">Chapter 10</div><h2>Quiz — VNets, DNS &amp; NSG</h2></div></div>
+  <div class="quiz"><div class="qh">◈ Q01</div>
+    <div class="qq">VNet-A peered με VNet-B. VNet-B peered με VNet-C. Μπορεί το VNet-A να communicate με VNet-C;</div>
+    <ul class="qo" id="q1"><li onclick="ans('q1',0)">A) Ναι — peering is transitive</li><li onclick="ans('q1',1)">B) Όχι — peering is non-transitive</li><li onclick="ans('q1',2)">C) Ναι, αλλά μόνο σε same region</li><li onclick="ans('q1',3)">D) Εξαρτάται από NSG rules</li></ul>
+    <div class="qa" id="q1-a">✅ <strong>B — Non-transitive.</strong> VNet Peering is NOT transitive. A↔B and B↔C does NOT give A↔C. You need direct A↔C peering OR gateway transit through a hub VNet.</div>
+    <button class="qbtn" onclick="toggle('q1-a')">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q02</div>
+    <div class="qq">/29 subnet — πόσα IPs μπορούν να χρησιμοποιηθούν για VMs;</div>
+    <ul class="qo" id="q2"><li onclick="ans('q2',0)">A) 8</li><li onclick="ans('q2',1)">B) 5</li><li onclick="ans('q2',2)">C) 3</li><li onclick="ans('q2',3)">D) 6</li></ul>
+    <div class="qa" id="q2-a">✅ <strong>C — 3 usable.</strong> /29 = 8 total IPs − 5 Azure reserved (.0 network, .1 gateway, .2-.3 DNS, .255 broadcast) = 3 usable for VMs.</div>
+    <button class="qbtn" onclick="toggle('q2-a')">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q03</div>
+    <div class="qq">Traffic ΔΕΝ φτάνει σε VM. Subnet NSG allows port 443. NIC NSG: no rule for 443. Τι γίνεται;</div>
+    <ul class="qo" id="q3"><li onclick="ans('q3',0)">A) Traffic allowed — Subnet NSG αρκεί</li><li onclick="ans('q3',1)">B) Traffic denied — NIC NSG default deny applies</li><li onclick="ans('q3',2)">C) Traffic allowed — inbound VNet rule allows it</li><li onclick="ans('q3',3)">D) Εξαρτάται από priority</li></ul>
+    <div class="qa" id="q3-a">✅ <strong>B — Denied.</strong> Dual-level NSG = AND logic. Subnet NSG allows 443, but NIC NSG has no allow rule → default deny applies at NIC level → traffic denied. Both levels must allow for traffic to reach the VM.</div>
+    <button class="qbtn" onclick="toggle('q3-a')">Show Answer</button>
+  </div>
+  <div class="quiz"><div class="qh">◈ Q04</div>
+    <div class="qq">Ποιο subnet name είναι ΑΠΑΙΤΗΤΟ για deployment Azure VPN Gateway;</div>
+    <ul class="qo" id="q4"><li onclick="ans('q4',0)">A) VPNGatewaySubnet</li><li onclick="ans('q4',1)">B) AzureVPNSubnet</li><li onclick="ans('q4',2)">C) GatewaySubnet</li><li onclick="ans('q4',3)">D) AzureGateway</li></ul>
+    <div class="qa" id="q4-a">✅ <strong>C — GatewaySubnet.</strong> Exact name "GatewaySubnet" is required. Minimum /27 size. Cannot deploy VPN Gateway to any other subnet name. Similarly, AzureBastionSubnet is required for Bastion.</div>
+    <button class="qbtn" onclick="toggle('q4-a')">Show Answer</button>
+  </div>
+  <div class="box"><div class="box-t">📌 Key Facts — Ch10</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600;width:40%">VNet Peering</td><td style="padding:6px 9px;color:var(--text2)">Non-transitive. Both directions needed. No overlapping IPs.</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">/29 subnet</td><td style="padding:6px 9px;color:var(--text2)">8 IPs − 5 reserved = 3 usable</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">GatewaySubnet</td><td style="padding:6px 9px;color:var(--text2)">Exact name. /27 minimum. VPN Gateway only.</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">NSG dual-level</td><td style="padding:6px 9px;color:var(--text2)">AND logic — both Subnet + NIC NSG must allow</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">Standard LB</td><td style="padding:6px 9px;color:var(--text2)">Closed by default — NSG rule required for inbound</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">Private DNS</td><td style="padding:6px 9px;color:var(--text2)">Auto-registration on 1 VNet max. Link to 1000 VNets.</td></tr>
+      <tr><td style="padding:6px 9px;color:var(--text);font-family:var(--mono);font-weight:600">ASG</td><td style="padding:6px 9px;color:var(--text2)">Group VMs by role. Reference in NSG rules instead of IPs.</td></tr>
+    </table>
+  </div>
+</section>
+<div class="nav">
+  <a href="az104-c09-containers.html" class="nb"><span class="nl">← Previous</span><span class="nt">Ch09. Containers</span></a>
+  <a href="az104-c11-load-balancing.html" class="nb next"><span class="nl">Next →</span><span class="nt">Ch11. Load Balancing</span></a>
+</div>
+</main></div>
+<script>
+const correct={q1:1,q2:2,q3:1,q4:2};
+function ans(id,c){document.querySelectorAll('#'+id+' li').forEach((el,i)=>{el.classList.remove('ok','no');if(i===correct[id])el.classList.add('ok');else if(i===c&&c!==correct[id])el.classList.add('no');});document.getElementById(id+'-a').classList.add('show');}
+function toggle(id){document.getElementById(id).classList.toggle('show')}
+const secs=document.querySelectorAll('section[id]');const links=document.querySelectorAll('a.ta');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));});
+</script>
+</body></html>
